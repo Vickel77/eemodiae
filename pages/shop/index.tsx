@@ -22,7 +22,9 @@ const Shop = styled(({ className }) => {
             <h4>RECENTLY ADDED</h4>
             <div className="store-items">
               {books.map((book) => (
-                <ShopItme item={book} />
+                <div key={book.id}>
+                  <ShopItme item={book} />
+                </div>
               ))}
             </div>
           </section>
@@ -30,7 +32,9 @@ const Shop = styled(({ className }) => {
             <h4>MOST POPULAR</h4>
             <div className="store-items">
               {books.reverse().map((book) => (
-                <ShopItme item={book} />
+                <div key={book.id}>
+                  <ShopItme item={book} />
+                </div>
               ))}
             </div>
           </section>
