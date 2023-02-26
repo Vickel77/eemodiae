@@ -115,6 +115,8 @@ const Home: NextPage = styled(({ className }) => {
             withoutControls
             wrapAround={true}
             speed={200}
+            slidesToScroll={2}
+            swiping
             // animation="fade"
           >
             <div className="poem">
@@ -242,7 +244,7 @@ const Home: NextPage = styled(({ className }) => {
 
     .marq-img {
       margin-left: 4rem;
-      transform: scale(0.7);
+      transform: scale(0.5);
     }
   }
 `;

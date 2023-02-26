@@ -10,7 +10,6 @@ const AboutMe = styled(
         <section className="about-me">
           {/* <div className="circle" /> */}
           <div className="circle left" />
-          <div className="bg" />
           <div className="about-section-wrap">
             <article data-aos="fade-right" className="left-side">
               <Image
@@ -52,8 +51,7 @@ const AboutMe = styled(
     color: ${({ theme }) => theme.colors.white};
     position: relative;
     overflow: hidden;
-    .circle,
-    .bg {
+    .circle {
       width: 1000px;
       height: 1000px;
       border-radius: 50%;
@@ -62,16 +60,6 @@ const AboutMe = styled(
       position: absolute;
       right: -50%;
       top: -70%;
-    }
-    .bg {
-      background: ${({ theme }) => theme.colors.primaryAccent};
-      background: black;
-      width: 27.5%;
-      left: 0;
-      top: 0;
-      border: 0;
-      border-radius: 0;
-      opacity: 0.3;
     }
   }
 
@@ -103,6 +91,7 @@ const AboutMe = styled(
         padding-bottom: 3rem;
         display: grid;
         place-items: center;
+        width: 100%;
       }
     }
     @media (max-width: 747px) {

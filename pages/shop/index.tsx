@@ -21,8 +21,12 @@ const Shop = styled(({ className }) => {
           <section>
             <h4>RECENTLY ADDED</h4>
             <div className="store-items">
-              {books.map((book) => (
-                <div key={book.id}>
+              {books.map((book, index) => (
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay={100 * index}
+                  key={book.id}
+                >
                   <ShopItme item={book} />
                 </div>
               ))}
@@ -31,8 +35,12 @@ const Shop = styled(({ className }) => {
           <section>
             <h4>MOST POPULAR</h4>
             <div className="store-items">
-              {books.reverse().map((book) => (
-                <div key={book.id}>
+              {books.reverse().map((book, index) => (
+                <div
+                  data-aos="fade-up"
+                  data-aos-delay={100 * index}
+                  key={book.id}
+                >
                   <ShopItme item={book} />
                 </div>
               ))}
@@ -86,8 +94,10 @@ const Shop = styled(({ className }) => {
 
     .store-items {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 0.9fr));
       gap: 1rem;
+      place-items: center;
+      place-content: center;
     }
   }
 `;
