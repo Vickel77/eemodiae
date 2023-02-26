@@ -16,6 +16,7 @@ const ShopItme = styled(
             <a
               href={`https://wa.me/23481352653048?text=I'm%20inquiring%20about%20the%20Book:%20${title}`}
               target="_blank"
+              rel="noreferrer"
             >
               <Image
                 className="cta"
