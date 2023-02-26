@@ -42,7 +42,7 @@ const WhatIDo = styled(({ className }) => {
         <h3>What I Do</h3>
         <div className="info-items">
           {wid.map((item, index) => (
-            <div data-aos="fade-up" data-aos-delay={100 * index}>
+            <div key={index} data-aos="fade-up" data-aos-delay={100 * index}>
               <InfoCard item={item} />
             </div>
           ))}
