@@ -1,21 +1,30 @@
+import Link from "next/link";
 import styled from "styled-components";
+import useAuth from "../../hooks/useAuth";
 
 export type Poem = {
   id?: string;
   title: string;
-  imageUrl: string;
+  image: string;
   content: string;
   createdAt: string;
+  scripture: string;
 };
 
 const PeomCard = styled(
   ({ className, poem }: { className?: any; poem: Poem }) => {
-    const { title, imageUrl, content, createdAt } = poem;
+    const { isLoggedIn } = useAuth();
+    const { title, image, content, createdAt, id } = poem;
     return (
       <div className={className}>
         <div>
           <h3>{title}</h3>
-          <button className="btn">READ</button>
+          <div className="flex gap-3">
+            <Link href={`/poems/${+id! - 1}`}>
+              <button className="btn">READ</button>
+            </Link>
+            {isLoggedIn && <button className="btn btn-danger">Delete</button>}
+          </div>
         </div>
       </div>
     );
@@ -25,7 +34,7 @@ const PeomCard = styled(
   min-height: 250px;
   padding: 1.2rem;
   background: -webkit-linear-gradient(#00000055, #000000aa),
-    url(${(props) => props.poem.imageUrl});
+    url(${(props) => props.poem.image});
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -38,6 +47,9 @@ const PeomCard = styled(
   .btn {
     background: ${({ theme }) => theme.colors.primary};
     color: #fff;
+  }
+  .btn-danger {
+    background: ${({ theme }) => theme.colors.danger};
   }
 `;
 

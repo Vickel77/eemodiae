@@ -7,3 +7,14 @@ type ShopProps = {
   createdAt?: string;
   availableQty?: string;
 };
+
+type Article = {
+  id?:string,
+  title:string,
+  content:string,
+  image:string,
+  createdAt:string
+
+}
+
+declare module "*.mp3"

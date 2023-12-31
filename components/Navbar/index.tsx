@@ -3,13 +3,30 @@ import React, { useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Close from "../Icons/Close";
 import Hamburger from "../Icons/Hamburger";
+import { MdLogout } from "react-icons/md";
+import useAuth from "../../hooks/useAuth";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const Navbar = styled(({ className }: { className?: any }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+
+  const logout = () => {
+    setIsLoggedIn(false);
+    router.push("/");
+    toast("Log Out Successful");
+  };
   return (
     <div className={className}>
       <div className="hamburger">
         <Hamburger size="30" onClick={() => setIsOpen(!isOpen)} />
+        {isLoggedIn && (
+          <button onClick={logout}>
+            <MdLogout size={30} />
+          </button>
+        )}
         {isOpen && <View onClose={() => setIsOpen(false)} />}
       </div>
     </div>
@@ -28,6 +45,8 @@ const Navbar = styled(({ className }: { className?: any }) => {
     width: 100%;
     padding: 1.2rem;
     cursor: pointer;
+    display: flex;
+    justify-content: space-between;
     // mix-blend-mode: difference;
 
     * {
@@ -46,6 +65,8 @@ const View = styled(
         <section>
           <Link href="/">HOME</Link>
           <Link href="/about">ABOUT</Link>
+          <Link href="/articles">ARTICLES</Link>
+          <Link href="/messages">MESSAGES</Link>
           <Link href="/poems">PEOMS</Link>
           <Link href="/shop">STORE</Link>
         </section>

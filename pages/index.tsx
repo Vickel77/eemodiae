@@ -51,6 +51,10 @@ const Home: NextPage = styled(({ className }) => {
         <meta name="twitter:site" content="@godump" />
         <meta property="twitter:image" content="https://godump.co" />
         <link rel="canonical" href="https://godump.co" />
+        {/* <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        /> */}
       </Head>
 
       <main className="main">

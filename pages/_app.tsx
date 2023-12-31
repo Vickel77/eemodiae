@@ -11,6 +11,10 @@ import "../styles/globals.css";
 import Router from "next/router";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Script from "next/script";
+import { AuthContextProvider } from "../context/AuthContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isLightMode, setIsLightMode] = useState<boolean>(true);
@@ -38,7 +42,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeProvider theme={isLightMode ? light : dark}>
-      <Component {...pageProps} />
+      <AuthContextProvider>
+        <Component {...pageProps} />
+        <ToastContainer />
+      </AuthContextProvider>
+      <Script
+        src="https://upload-widget.cloudinary.com/global/all.js"
+        type="text/javascript"
+      />
     </ThemeProvider>
   );
 }
