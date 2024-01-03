@@ -49,6 +49,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Script
         src="https://upload-widget.cloudinary.com/global/all.js"
         type="text/javascript"
+        defer
       />
     </ThemeProvider>
   );

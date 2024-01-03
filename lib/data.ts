@@ -82,6 +82,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p1.src,
     title: "Christ Jesus The Protagonist",
+    createdAt: new Date().toString(),
   },
   {
     id: "2",
@@ -96,6 +97,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p2.src,
     title: "Success Secrets",
+    createdAt: new Date().toString(),
   },
   {
     id: "3",
@@ -110,6 +112,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p3.src,
     title: "Next Level",
+    createdAt: new Date().toString(),
   },
   {
     id: "4",
@@ -124,6 +127,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p1.src,
     title: "Faith over fear",
+    createdAt: new Date().toString(),
   },
   {
     id: "5",
@@ -138,6 +142,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p2.src,
     title: "Success Secrets",
+    createdAt: new Date().toString(),
   },
   {
     id: "6",
@@ -152,6 +157,7 @@ Similarly, in the Bible, Christ Jesus is the central and most significant theme.
 This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`,
     image: p3.src,
     title: "Next Level",
+    createdAt: new Date().toString(),
   },
 ];
 

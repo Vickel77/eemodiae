@@ -26,8 +26,11 @@ export default function Messages() {
         {/* <audio controls autoPlay>
         <source src={audio} />
       </audio> */}
-        {[1, 2, 3, 2, 1, 2, 3].map((x) => (
-          <div className="bg-white flex w-full justify-between items-center rounded-xl border-1 border-primary p-3 shadow-lg mb-5">
+        {[1, 2, 3, 2, 1, 2, 3].map((x, idx) => (
+          <div
+            key={idx}
+            className="bg-white flex w-full justify-between items-center rounded-xl border-1 border-primary p-3 shadow-lg mb-5"
+          >
             <div>
               Walking in Faith
               <br />
