@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import useScript from "../../hooks/useScript";
 
 export default function UploadWidget({
   onSuccess,
@@ -10,10 +13,13 @@ export default function UploadWidget({
 }) {
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
+  // const { loadScript } = useScript();
+
   const [image, setImage] = useState();
 
   useEffect(() => {
     //@ignore window
+    // loadScript("https://upload-widget.cloudinary.com/global/all.js");
     cloudinaryRef.current = (window as any).cloudinary;
     widgetRef.current = cloudinaryRef?.current?.createUploadWidget(
       {

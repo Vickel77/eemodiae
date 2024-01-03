@@ -2,23 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import PeomCard from "../../components/PeomCard";
 import poems, { articles } from "../../lib/data";
 import CreatePoem from "../../components/Modals/CreatePoem";
 import ArticleCard from "../../components/ArticleCard";
 import {} from "react-icons";
 import useAuth from "../../hooks/useAuth";
 
-const getPoems = async () => {
-  const res = await fetch(`http://localhost:4000/poem`);
-  return await res.json();
-};
-
 const Articles = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
-
-  console.log("Fetch poem response ", getPoems());
-
   const [showModal, setShowModal] = useState(false);
 
   return (

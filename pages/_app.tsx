@@ -46,10 +46,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Component {...pageProps} />
         <ToastContainer />
       </AuthContextProvider>
-      <Script
-        src="https://upload-widget.cloudinary.com/global/all.js"
-        type="text/javascript"
-      />
     </ThemeProvider>
   );
 }
