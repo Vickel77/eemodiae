@@ -8,21 +8,25 @@ import styled from "styled-components";
 import { MdArrowLeft } from "react-icons/md";
 import Footer from "../../components/Footer";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import useContentful from "../../hooks/useContentful";
 
 const Blog = styled(({ className }) => {
   const router = useRouter();
   // const query =
-  const id = router.query.id;
 
+  const id = router.query.id;
   // const query =
-  console.log("poem before >>> ", router.query.poem);
-  console.log({ query: router.query });
-  const poem: Poem = JSON.parse(JSON.parse(JSON.stringify(router.query.poem!)));
-  // next-line @ts-ignore
-  console.log({ poem });
+  const { getPoems, poems } = useContentful();
+
+  console.log({ id: router.query.id });
+  const poem: Poem = poems?.[+id!]!;
 
   const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
   // const [reRender, setReRender] = useState<boolean>(false);
+
+  useEffect(() => {
+    getPoems();
+  }, []);
 
   useEffect(() => {
     setDomContentLoaded(true);
