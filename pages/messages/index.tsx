@@ -80,13 +80,14 @@ export default function Messages() {
         <source src={audio} />
       </audio> */}
         <div className=" grid grid-cols-4">
-          {categories.map((category) => {
+          {categories.map((category, idx) => {
             const categoryMessages = messages?.filter(
               (m) => m.category === category
             );
             console.log({ categoryMessages });
             return (
               <CategoryCard
+                key={idx}
                 category={{
                   title: category,
                   image: categoryMessages?.[0].imageUrl.fields.file.url!,
