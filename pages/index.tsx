@@ -17,8 +17,19 @@ import wa1 from "../assets/worked_at1.png";
 import wa2 from "../assets/worked_at2.png";
 import wa3 from "../assets/worked_at3.png";
 import { TypeAnimation } from "react-type-animation";
+import useContentful from "../hooks/useContentful";
+import { useEffect } from "react";
 
 const Home: NextPage = styled(({ className }) => {
+  const API_URL = process.env.API_URL_LOCAL;
+  console.log("BASE_URL ", process.env.BASE_URL, API_URL);
+
+  const { getArticles, getMessages, getPoems } = useContentful();
+
+  useEffect(() => {
+    Promise.all([getArticles(), getMessages(), getPoems()]);
+  }, []);
+
   return (
     <div className={className}>
       <Head>
@@ -51,11 +62,17 @@ const Home: NextPage = styled(({ className }) => {
         <meta name="twitter:site" content="@godump" />
         <meta property="twitter:image" content="https://godump.co" />
         <link rel="canonical" href="https://godump.co" />
+        <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          defer
+        />
       </Head>
 
       <main className="main">
         <Navbar />
         <header className="header-section">
+          <div className="ambience" />
+          <div className="ambience-secondary" />
           <section className="header-left">
             <h1 data-aos="fade-up" className="title">
               EMMANUEL I. EMODIAE
@@ -172,8 +189,29 @@ const Home: NextPage = styled(({ className }) => {
     display: flex;
     width: 100%;
     margin: 0 auto;
-    min-height: 70vh;
+    min-height: 90vh;
     justify-content: space-around;
+    .ambience {
+      background: ${({ theme }) => theme.colors.primary};
+      opacity: 0.1;
+      border-radius: 100%;
+      filter: blur(200px);
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+    }
+    .ambience-secondary {
+      background: ${({ theme }) => theme.colors.danger};
+      opacity: 0.05;
+      border-radius: 100%;
+      filter: blur(200px);
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+    }
     .header-left {
       align-self: center;
     }
@@ -197,7 +235,10 @@ const Home: NextPage = styled(({ className }) => {
   // WELCOME
 
   .welcome-section {
-    background: ${({ theme }) => theme.colors.primaryAccent};
+    background: -webkit-linear-gradient(
+      #ffffff22,
+      ${({ theme }) => theme.colors.primaryAccent}
+    );
     width: 100%;
     padding: 5rem 0;
     text-align: center;

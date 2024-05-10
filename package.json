@@ -11,6 +11,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.14.0",
+    "@contentful/rich-text-html-renderer": "^16.3.5",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -23,7 +24,8 @@
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",
     "autoprefixer": "^10.4.16",
-    "axios": "^1.6.3",
+    "axios": "^1.6.5",
+    "contentful": "^10.6.22",
     "google-map-react": "^2.2.0",
     "next": "^13.1.6",
     "nprogress": "^0.2.0",

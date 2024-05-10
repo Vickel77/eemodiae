@@ -7,13 +7,15 @@ import useScript from "../../hooks/useScript";
 export default function UploadWidget({
   onSuccess,
   onError,
+  dataImage,
 }: {
   onSuccess: (url: string) => void;
   onError?: (error: ErrorEvent) => void;
+  dataImage?: string;
 }) {
   const cloudinaryRef = useRef<any>();
   const widgetRef = useRef<any>();
-  // const { loadScript } = useScript();
+  const { loadScript } = useScript();
 
   const [image, setImage] = useState();
 
@@ -27,12 +29,15 @@ export default function UploadWidget({
         uploadPreset: "eemodiae",
       },
       function (error: any, result: any) {
-        if (error) {
+        if (error || !result) {
           return onError?.(error);
         }
-        onSuccess(result?.info?.files[0].uploadInfo.url);
-        setImage(result?.info?.files[0].uploadInfo.url);
-        console.log("upload result ", result?.info?.files[0].uploadInfo.url);
+        onSuccess(result?.info?.files[0]?.uploadInfo.url ?? "");
+        setImage(result?.info?.files[0]?.uploadInfo.url ?? "");
+        console.log(
+          "upload result ",
+          result?.info?.files[0]?.uploadInfo.url ?? ""
+        );
       }
     );
   }, []);
@@ -50,7 +55,7 @@ export default function UploadWidget({
         className="cta"
         // height={100}
         height={100}
-        src={image!}
+        src={image! ?? dataImage}
         alt=" image"
       />
     </div>

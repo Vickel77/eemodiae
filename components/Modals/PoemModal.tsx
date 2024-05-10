@@ -1,39 +1,28 @@
 import React, { useState } from "react";
-// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import UploadWidget from "../UploadWidget,tsx";
 import dynamic from "next/dynamic";
+import { toast } from "react-toastify";
+
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
 });
 
-interface PoemForm {
-  title: string;
-  content: string;
-  image: string;
-  scripture: string;
-}
+const API_URL = process.env.API_URL_LOCAL;
 
-export default function CreatePoem({
+export default function PoemModal({
   showModal,
   onCancel,
-}: {
-  showModal: boolean;
-  onCancel: () => void;
-}) {
+  handleSubmit,
+  poemInfo,
+  isSubmitting,
+}: PoemModal) {
   const [values, setValues] = useState<PoemForm>({
-    content: "",
-    image: "",
-    title: "",
-    scripture: "",
+    content: poemInfo?.content ?? "",
+    image: poemInfo?.image ?? "",
+    title: poemInfo?.title ?? "",
+    scripture: poemInfo?.scripture ?? "",
   });
-
-  const handleSubmit = async () => {
-    try {
-    } catch (error) {
-    } finally {
-    }
-  };
 
   if (!showModal) {
     return <></>;
@@ -64,6 +53,7 @@ export default function CreatePoem({
                     id="title"
                     name="title"
                     type="title"
+                    value={values.title}
                     onChange={(e) =>
                       setValues((prev) => ({ ...prev, title: e.target.value }))
                     }
@@ -82,6 +72,7 @@ export default function CreatePoem({
                 <div className="mt-2">
                   <ReactQuill
                     style={{ color: "#333" }}
+                    value={values.content}
                     onChange={(e) =>
                       setValues((prev) => ({ ...prev, content: e }))
                     }
@@ -98,6 +89,7 @@ export default function CreatePoem({
                 <div className="mt-2">
                   <ReactQuill
                     style={{ color: "#333" }}
+                    value={values.scripture}
                     onChange={(e) =>
                       setValues((prev) => ({ ...prev, scripture: e }))
                     }
@@ -107,6 +99,7 @@ export default function CreatePoem({
 
               <div className="w-full text-center mt-5">
                 <UploadWidget
+                  dataImage={values.image}
                   onSuccess={(url) =>
                     setValues((prev) => ({ ...prev, image: url }))
                   }
@@ -156,10 +149,12 @@ export default function CreatePoem({
             </div>
             <div className="bg-gray-50 px-4 py-3 sm:flex justify-center gap-5 sm:px-6">
               <button
+                onClick={() => handleSubmit?.(values)}
+                disabled={isSubmitting}
                 type="button"
                 className="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               >
-                Submit
+                {!isSubmitting ? "Submit" : "Submitting..."}
               </button>
               <button
                 onClick={onCancel}

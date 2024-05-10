@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import poems, { articles } from "../../lib/data";
-import CreatePoem from "../../components/Modals/CreatePoem";
+// import poems, { articles } from "../../lib/data";
+import CreatePoem from "../../components/Modals/PoemModal";
 import ArticleCard from "../../components/ArticleCard";
 import {} from "react-icons";
 import useAuth from "../../hooks/useAuth";
+import useContentful from "../../hooks/useContentful";
+import { useIsFetching } from "@tanstack/react-query";
 
 const Articles = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
   const [showModal, setShowModal] = useState(false);
+
+  const { getArticles, articles } = useContentful();
+
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   return (
     <div className={className}>
@@ -37,11 +45,13 @@ const Articles = styled(({ className }) => {
           onCancel={() => setShowModal(false)}
         />
         <section className="main-section">
-          {articles.map((poem, idx) => (
+          {!articles && <>Loading...</>}
+          {articles?.map((article: Article, idx) => (
             <ArticleCard
+              id={idx}
               className={idx === 0 ? "first-item" : ""}
-              key={poem.id}
-              article={poem}
+              key={idx}
+              article={article}
             />
           ))}
         </section>
