@@ -32,6 +32,7 @@ const Shop = styled(({ className }) => {
             <div className="store-items">
               {store?.map((item, idx) => (
                 <Link
+                  key={idx}
                   href={{
                     pathname: `/shop/${+idx!}`,
                   }}

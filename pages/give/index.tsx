@@ -14,7 +14,7 @@ import { PaystackButton } from "react-paystack";
 
 const publicKey = "pk_live_70d339bdc510a179071e3b37d842c89d8327db9a";
 
-export default function index() {
+export default function Index() {
   const copyUrl = (url: any) => {
     navigator.clipboard.writeText(url + "");
     toast("Account details copied");
