@@ -98,7 +98,7 @@ export default function Messages() {
           })}
         </div>
         <div className="bg-primary h-[1px] w-full opacity-50 my-5" />
-        <div className=" grid grid-cols-4">
+        <div className=" flex gap-5 flex-wrap justify-center md:justify-start">
           {messages
             ?.filter((m) => m?.category === undefined)
             .map((message, idx) => (
