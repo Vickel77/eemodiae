@@ -7,7 +7,14 @@ type ShopProps = {
   createdAt?: string;
   availableQty?: string;
 };
-
+type StoreItem = {
+  category: string;
+  image: string;
+  price: number;
+  rating: number;
+  title: string;
+  artist: string;
+};
 type Article = {
   id?: string;
   title: string;
@@ -57,4 +64,5 @@ interface PoemModal {
   poemInfo?: PoemForm;
   isSubmitting?: boolean;
 }
+
 declare module "*.mp3";

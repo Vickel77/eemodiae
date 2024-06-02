@@ -1,38 +1,44 @@
 import styled from "styled-components";
-import { Rating } from "react-simple-star-rating";
 import Image from "next/image";
 import chatOnWhatsApp from "../../assets/chat-on-whatsapp.png";
 
 const ShopItme = styled(
-  ({ className, item }: { className?: any; item: ShopProps }) => {
-    const { title, image, price } = item;
+  ({ className, item }: { className?: any; item: StoreItem }) => {
+    const { title, image, price, category, artist } = item;
     return (
       <div className={className}>
         <div className="image">
           <img className="img" src={image} alt={title} width="100%" />
-          <div className="overlay">
-            {/* <button className="btn">BUY NOW</button> */}
-            <b>Order Now</b>
-            <a
-              href={`https://wa.me/23481352653048?text=I'm%20inquiring%20about%20the%20Book:%20${title}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Image
-                className="cta"
-                width={200}
-                src={chatOnWhatsApp}
-                alt="Chat on whatsapp"
-              />
-            </a>
-          </div>
+          {category !== "song" && (
+            <div className="overlay">
+              {/* <button className="btn">BUY NOW</button> */}
+              <b>Order Now</b>
+              <a
+                href={`https://wa.me/23481352653048?text=I'm%20inquiring%20about%20the%20Book:%20${title}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Image
+                  className="cta"
+                  width={200}
+                  src={chatOnWhatsApp}
+                  alt="Chat on whatsapp"
+                />
+              </a>
+            </div>
+          )}
         </div>
         <aside>
-          <b className="title">{title}</b>
-          <p>₦{price.toLocaleLowerCase()}</p>
-          <small className="">
-            Rating <Rating size={20} initialValue={3} />
-          </small>
+          <b className="title block">{title}</b>
+          {category !== "song" ? (
+            <p>₦{price}</p>
+          ) : (
+            <p className="text-sm">{artist}</p>
+          )}
+          {/* <div>
+            Rating
+            <Rating size={20} style={{ display: "flex" }} initialValue={3} />
+          </div> */}
         </aside>
       </div>
     );
@@ -43,7 +49,7 @@ const ShopItme = styled(
   border-radius: 7.5px;
   overflow: hidden;
   box-shadow: 0 4px 10px #00000022;
-
+  max-width: 300px;
   .image {
     height: 200px;
     width: 100%;

@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import ShopItme from "../../components/ShopItem";
 import { books } from "../../lib/data";
+import useContentful from "../../hooks/useContentful";
+import Link from "next/link";
 
 const Shop = styled(({ className }) => {
+  const { getStore, store } = useContentful();
+
+  useEffect(() => {
+    getStore();
+  }, []);
+
+  console.log("store data ", store);
   return (
     <div className={className}>
       <Navbar />
@@ -21,7 +30,18 @@ const Shop = styled(({ className }) => {
           <section>
             <h4>RECENTLY ADDED</h4>
             <div className="store-items">
-              {books.map((book, index) => (
+              {store?.map((item, idx) => (
+                <Link
+                  href={{
+                    pathname: `/shop/${+idx!}`,
+                  }}
+                >
+                  <div data-aos="fade-up" data-aos-delay={100 * idx} key={idx}>
+                    <ShopItme item={item} />
+                  </div>
+                </Link>
+              ))}
+              {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"
                   data-aos-delay={100 * index}
@@ -29,10 +49,10 @@ const Shop = styled(({ className }) => {
                 >
                   <ShopItme item={book} />
                 </div>
-              ))}
+              ))} */}
             </div>
           </section>
-          <section>
+          {/* <section>
             <h4>MOST POPULAR</h4>
             <div className="store-items">
               {books.reverse().map((book, index) => (
@@ -45,7 +65,7 @@ const Shop = styled(({ className }) => {
                 </div>
               ))}
             </div>
-          </section>
+          </section> */}
         </article>
       </main>
       <Footer />
