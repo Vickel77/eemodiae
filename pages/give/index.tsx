@@ -64,17 +64,17 @@ export default function Index() {
               <h4 className="font-bold">Personal Account</h4>
             </div>
             <div className="mb-5 text-sm">
-              <p>Naira Account</p>
+              <p>Emmanuel Ikponmwosa Emodiae</p>
               <span className="flex justify-between">
-                <p className="text-2xl font-bold">0221223124</p>
+                <p className="text-2xl font-bold">2407117008</p>
                 <MdCopyAll
                   className="hover:cursor-pointer"
-                  onClick={() => copyUrl(`0221223124`)}
+                  onClick={() => copyUrl(`2407117008`)}
                   size={20}
                   color="3624A7"
                 />
               </span>
-              <p>Guaranteed Trust Bank</p>
+              <p>Zenith Bank</p>
             </div>
           </section>
         </div>
@@ -87,13 +87,13 @@ export default function Index() {
 const ViewOne = ({ setView }: { setView: any }) => {
   return (
     <div>
-      <button
+      {/* <button
         onClick={() => setView(1)}
         className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb- text-sm5 mb-5"
       >
         <MdArrowLeft />
         Back
-      </button>
+      </button> */}
       <div className=" flex ">
         <button
           onClick={() => setView(2)}

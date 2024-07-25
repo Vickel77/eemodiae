@@ -23,7 +23,7 @@ const ShopItme = styled(
                   width={200}
                   src={chatOnWhatsApp}
                   alt="Chat on whatsapp"
-                />
+                />  
               </a>
             </div>
           )}

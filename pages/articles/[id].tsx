@@ -142,9 +142,9 @@ const Blog = () => {
             alt="Chat on whatsapp"
           />
         </section>
-        <section className="w-[70%] m-auto py-5 mb-10">
+        <section className="w-[70%] m-auto py-10 mb-10">
           <div
-            className="text-md text-black"
+            className="text-md text-gray-600"
             dangerouslySetInnerHTML={{
               __html: documentToHtmlString(article.content),
             }}

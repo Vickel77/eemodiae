@@ -22,14 +22,21 @@ const AboutMe = styled(
             <article className="right-side">
               <h3>About Me</h3>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
-                love to learn and read nice article
+                I'm a passionate and prophetic preacher of Jesus Christ, called
+                to share His transformative message. Through my ministry, I aim
+                to inspire believers to deepen their faith, discover their
+                purpose, and walk in God's destiny for their lives.
               </p>
               {showMore && (
                 <>
-                  read nice article Thist is the place for people like you, who
-                  love to learn and read nice article
+                  I pray that my ministry will spark spiritual awakening,
+                  revival, and reformation, manifesting God's glory in people's
+                  lives. I currently serve as the Lead Pastor of House of Joy
+                  Church Worldwide
+                  <br />
+                  House of Joy Church Worldwide has a mandate to Preach CHRIST
+                  THE BLESSING and deliver God's people from Medocrity, Poverty
+                  and Shame
                   <br />
                   <h4 className="name">EMMANUEL I. EMODIAE</h4>
                 </>

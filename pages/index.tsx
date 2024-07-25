@@ -5,6 +5,7 @@ import Carousel from "nuka-carousel";
 import styled from "styled-components";
 import headerRightImg from "../assets/header-right.png";
 import pstEmma from "../assets/pst-emaa.png";
+import pstEmmaCut from "../assets/pst-emma-mask.png";
 import Wid from "../components/Icons/Wid";
 import InfoCard, { InfoCardProps } from "../components/InfoCard";
 import Socials from "../components/Socials";
@@ -112,8 +113,9 @@ const Home: NextPage = styled(({ className }) => {
         <section className="welcome-section">
           <h3 data-aos="fade-in">Welcome!</h3>
           <p>
-            This is the place for people like you, who posses a dogged passion
-            to fulfill destiny and read nice article
+            ⁠Hello and welcome! We're thrilled to have you visit us. Our goal is
+            to provide you with valuable life transforming information and
+            inspiration Enjoy your stay!
           </p>
         </section>
 
@@ -139,32 +141,46 @@ const Home: NextPage = styled(({ className }) => {
             <div className="poem">
               <h4>Stranded Dreams</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
             <div className="poem">
               <h4>Victory</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
             <div className="poem">
               <h4>Love</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
           </Carousel>
           <span className="quote"></span>
         </section>
-        <section className="worked-at">
-          <Marquee
+        <section className="worked-at flex justify-center items-center min-h-[30vh] w-[70%] m-auto rounded-3xl mb-20 gap-10 p-10">
+          <div className="flex-1 justify-center items-center">
+            <button className="btn cta rounded-full bg-black text-white shadow-lg">
+              Request for mentorship
+            </button>
+          </div>
+          <div className="rounded-full bg-primary max-h-56 overflow-hidden border-primary border-dashed border-[3px] ">
+            <Image
+              placeholder="blur"
+              src={pstEmmaCut}
+              alt=""
+              className="left-img"
+              height={300}
+            />
+          </div>
+          {/* <Marquee
             // pauseOnHover={true}
             pauseOnClick={true}
             gradient={false}
@@ -174,7 +190,7 @@ const Home: NextPage = styled(({ className }) => {
             <Image placeholder="blur" src={wa1} alt="" className="marq-img" />
             <Image placeholder="blur" src={wa2} alt="" className="marq-img" />
             <Image placeholder="blur" src={wa3} alt="" className="marq-img" />
-          </Marquee>
+          </Marquee> */}
         </section>
         <Footer />
       </main>
@@ -279,7 +295,6 @@ const Home: NextPage = styled(({ className }) => {
   // WORKED AT
 
   .worked-at {
-    width: 100%;
     padding: 1.5rem 2rem;
     background: ${({ theme }) => theme.colors.primaryAccent};
 
