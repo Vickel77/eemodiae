@@ -77,6 +77,7 @@ const View = styled(
           <Link href="/messages">MESSAGES</Link>
           <Link href="/poems">PEOMS</Link>
           <Link href="/shop">STORE</Link>
+          <Link href="/give">GIVE</Link>
         </section>
       </div>
     );
@@ -109,7 +110,7 @@ const View = styled(
   }
   section > * {
     font-size: 1.2rem;
-    padding: 1.5rem 2.5rem;
+    padding: 0.5rem 2.5rem;
     width: 100%;
     display: block;
   }

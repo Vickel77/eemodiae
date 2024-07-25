@@ -7,7 +7,6 @@ const Footer = styled(({ className }) => {
   return (
     <div className={className}>
       <div className="content">
-        <button className="btn cta">Request for mentorship</button>
         <aside>
           <section>
             <section className="quick-links">
@@ -41,7 +40,7 @@ const Footer = styled(({ className }) => {
                 name=""
                 id=""
                 cols={30}
-                rows={10}
+                rows={5}
               ></textarea>
               <button className="btn small">Send Mail</button>
             </form>
@@ -49,10 +48,10 @@ const Footer = styled(({ className }) => {
           <section className="keep-in-touch">
             <h4>Keep in Touch</h4>
             <Socials />
-            <a className="link" href="tel:080774432234">
+            {/* <a className="link" href="tel:080774432234">
               <i className="fa fa-phone" aria-hidden="true"></i>
               080774432234
-            </a>
+            </a> */}
           </section>
         </aside>
       </div>

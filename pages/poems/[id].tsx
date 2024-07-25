@@ -12,10 +12,8 @@ import useContentful from "../../hooks/useContentful";
 
 const Blog = styled(({ className }) => {
   const router = useRouter();
-  // const query =
-
   const id = router.query.id;
-  // const query =
+  
   const { getPoems, poems } = useContentful();
 
   console.log({ id: router.query.id });

@@ -9,19 +9,19 @@ const wid: InfoCardProps = [
     icon: <Wid idx={1} />,
     title: "Prophet",
     description:
-      "Thist is the place for people like you, who love to learn and read nice article Thist is the place for people like you, who love to learn and read nice article",
+      "Divine messenger illuminating the path to purpose and fulfillment, receiving revelations to inspire and empower individuals to unlock their potential.",
   },
   {
     icon: <Wid idx={2} />,
     title: "Preacher",
     description:
-      "Thist is the place for people like you, who love to learn and read nice article Thist is the place for people like you, who love to learn and read nice article",
+      "Inspiring and guiding others on their spiritual journey, nurturing growth and development, and encouraging love, compassion, and service to others.",
   },
   {
     icon: <Wid idx={3} />,
     title: "Poet",
     description:
-      "Thist is the place for people like you, who love to learn and read nice article Thist is the place for people like you, who love to learn and read nice article",
+      "Crafting verses that capture the human experience, exploring themes of love, loss, hope, and resilience, and inspiring others to find their voice and tell their story.",
   },
 ];
 

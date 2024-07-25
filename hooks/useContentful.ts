@@ -10,7 +10,7 @@ const useContentful = () => {
   const [articles, setArticles] = useState<Article[]>();
   const [poems, setPoems] = useState<Poem[]>();
   const [messages, setMessages] = useState<Message[]>();
-  const [store, setStore] = useState<Message[]>();
+  const [store, setStore] = useState<StoreItem[]>();
 
   const handleEntry = async (content_type: string, setEntity: any) => {
     try {
@@ -49,7 +49,7 @@ const useContentful = () => {
   };
 
   const getStore = async () => {
-    handleEntry("eemodiaeMessages", setStore);
+    handleEntry("store", setStore);
   };
 
   return {
