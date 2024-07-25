@@ -22,21 +22,21 @@ const AboutMe = styled(
             <article className="right-side">
               <h3>About Me</h3>
               <p>
-                I'm a passionate and prophetic preacher of Jesus Christ, called
-                to share His transformative message. Through my ministry, I aim
-                to inspire believers to deepen their faith, discover their
-                purpose, and walk in God's destiny for their lives.
+                I&lsquo;m a passionate and prophetic preacher of Jesus Christ,
+                called to share His transformative message. Through my ministry,
+                I aim to inspire believers to deepen their faith, discover their
+                purpose, and walk in God&lsquo;s destiny for their lives.
               </p>
               {showMore && (
                 <>
                   I pray that my ministry will spark spiritual awakening,
-                  revival, and reformation, manifesting God's glory in people's
-                  lives. I currently serve as the Lead Pastor of House of Joy
-                  Church Worldwide
+                  revival, and reformation, manifesting God&lsquo;s glory in
+                  people&lsquo;s lives. I currently serve as the Lead Pastor of
+                  House of Joy Church Worldwide
                   <br />
                   House of Joy Church Worldwide has a mandate to Preach CHRIST
-                  THE BLESSING and deliver God's people from Medocrity, Poverty
-                  and Shame
+                  THE BLESSING and deliver God&lsquo;s people from Mediocrity,
+                  Poverty and Shame
                   <br />
                   <h4 className="name">EMMANUEL I. EMODIAE</h4>
                 </>

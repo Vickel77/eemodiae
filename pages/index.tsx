@@ -113,9 +113,9 @@ const Home: NextPage = styled(({ className }) => {
         <section className="welcome-section">
           <h3 data-aos="fade-in">Welcome!</h3>
           <p>
-            ⁠Hello and welcome! We're thrilled to have you visit us. Our goal is
-            to provide you with valuable life transforming information and
-            inspiration Enjoy your stay!
+            ⁠Hello and welcome! We&lsquo;re thrilled to have you visit us. Our
+            goal is to provide you with valuable life transforming information
+            and inspiration Enjoy your stay!
           </p>
         </section>
 
