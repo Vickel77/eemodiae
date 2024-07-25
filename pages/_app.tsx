@@ -43,6 +43,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={isLightMode ? light : dark}>
       <AuthContextProvider>
+        <Script src="https://upload-widget.cloudinary.com/global/all.js" />
         <Component {...pageProps} />
         <ToastContainer />
       </AuthContextProvider>

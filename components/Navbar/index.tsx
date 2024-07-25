@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 import Close from "../Icons/Close";
 import Hamburger from "../Icons/Hamburger";
@@ -15,9 +15,17 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
   const logout = () => {
     setIsLoggedIn(false);
+    localStorage.clear();
     router.push("/");
     toast("Log Out Successful");
   };
+  ("");
+  useEffect(() => {
+    const _isLoggedIn = localStorage.getItem("isLoggedIn");
+    if (_isLoggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+  });
   return (
     <div className={className}>
       <div className="hamburger">
@@ -69,6 +77,7 @@ const View = styled(
           <Link href="/messages">MESSAGES</Link>
           <Link href="/poems">PEOMS</Link>
           <Link href="/shop">STORE</Link>
+          <Link href="/give">GIVE</Link>
         </section>
       </div>
     );
@@ -101,7 +110,7 @@ const View = styled(
   }
   section > * {
     font-size: 1.2rem;
-    padding: 1.5rem 2.5rem;
+    padding: 0.5rem 2.5rem;
     width: 100%;
     display: block;
   }

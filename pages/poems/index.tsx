@@ -2,21 +2,36 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import PeomCard, { Poem } from "../../components/PeomCard";
+import PeomCard from "../../components/PeomCard";
 import _poems from "../../lib/data";
-import CreatePoem from "../../components/Modals/CreatePoem";
-import axios from "axios";
+import CreatePoem from "../../components/Modals/PoemModal";
 import useAuth from "../../hooks/useAuth";
+import handleRequestUrl from "../../util/handleRequestUrl";
+import useContentful from "../../hooks/useContentful";
 
-const Poems = styled(({ className, poems }) => {
-  console.log("peoms data ", poems);
+const API_URL = process.env.API_URL_LOCAL;
 
+// const getPoems = async()=> {
+//   const res = fetch(`${API_URL}`);
+//   return res.json();
+// }
+
+// export const getStaticProps = async (context: any) => {
+//   const res = await fetch(handleRequestUrl());
+//   const {
+//     data: { poems },
+//   } = await res.json();
+
+//   return { props: { poems } };
+// };
+
+const Poems = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
-  // console.log("Fetch poem response ", getPoems());
+
+  const { getPoems, poems } = useContentful();
 
   useEffect(() => {
-    const res = axios.get(`http://localhost:4000/poem`);
-    console.log("fetch res ", res);
+    getPoems();
   }, []);
 
   const [showModal, setShowModal] = useState(false);
@@ -41,15 +56,18 @@ const Poems = styled(({ className, poems }) => {
           </div>
         </header>
         <CreatePoem
+          handleSubmit={() => null}
           showModal={showModal}
           onCancel={() => setShowModal(false)}
         />
         <section className="main-section">
-          {_poems.map((poem: Poem, idx: number) => (
+          {poems?.map((poem: Poem, idx: number) => (
             <PeomCard
               className={idx === 0 ? "first-item" : ""}
-              key={poem.id}
+              key={idx}
+              id={idx}
               poem={poem}
+              setShowModal={setShowModal}
             />
           ))}
         </section>

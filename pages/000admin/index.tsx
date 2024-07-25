@@ -23,6 +23,7 @@ export default function Admin() {
       values.password === "admin911"
     ) {
       setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
       router.push("/");
       toast("Login Successful ");
     } else toast("Wrong Credentials ");

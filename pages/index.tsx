@@ -5,6 +5,7 @@ import Carousel from "nuka-carousel";
 import styled from "styled-components";
 import headerRightImg from "../assets/header-right.png";
 import pstEmma from "../assets/pst-emaa.png";
+import pstEmmaCut from "../assets/pst-emma-mask.png";
 import Wid from "../components/Icons/Wid";
 import InfoCard, { InfoCardProps } from "../components/InfoCard";
 import Socials from "../components/Socials";
@@ -17,8 +18,19 @@ import wa1 from "../assets/worked_at1.png";
 import wa2 from "../assets/worked_at2.png";
 import wa3 from "../assets/worked_at3.png";
 import { TypeAnimation } from "react-type-animation";
+import useContentful from "../hooks/useContentful";
+import { useEffect } from "react";
 
 const Home: NextPage = styled(({ className }) => {
+  const API_URL = process.env.API_URL_LOCAL;
+  console.log("BASE_URL ", process.env.BASE_URL, API_URL);
+
+  const { getArticles, getMessages, getPoems } = useContentful();
+
+  useEffect(() => {
+    Promise.all([getArticles(), getMessages(), getPoems()]);
+  }, []);
+
   return (
     <div className={className}>
       <Head>
@@ -51,11 +63,17 @@ const Home: NextPage = styled(({ className }) => {
         <meta name="twitter:site" content="@godump" />
         <meta property="twitter:image" content="https://godump.co" />
         <link rel="canonical" href="https://godump.co" />
+        <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          defer
+        />
       </Head>
 
       <main className="main">
         <Navbar />
         <header className="header-section">
+          <div className="ambience" />
+          <div className="ambience-secondary" />
           <section className="header-left">
             <h1 data-aos="fade-up" className="title">
               EMMANUEL I. EMODIAE
@@ -95,8 +113,9 @@ const Home: NextPage = styled(({ className }) => {
         <section className="welcome-section">
           <h3 data-aos="fade-in">Welcome!</h3>
           <p>
-            This is the place for people like you, who posses a dogged passion
-            to fulfill destiny and read nice article
+            ⁠Hello and welcome! We&lsquo;re thrilled to have you visit us. Our
+            goal is to provide you with valuable life transforming information
+            and inspiration Enjoy your stay!
           </p>
         </section>
 
@@ -122,32 +141,46 @@ const Home: NextPage = styled(({ className }) => {
             <div className="poem">
               <h4>Stranded Dreams</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
             <div className="poem">
               <h4>Victory</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
             <div className="poem">
               <h4>Love</h4>
               <p>
-                Thist is the place for people like you, who love to learn and
-                read nice article Thist is the place for people like you, who
+                This is the place for people like you, who love to learn and
+                read nice article This is the place for people like you, who
                 love to learn and read nice article
               </p>
             </div>
           </Carousel>
           <span className="quote"></span>
         </section>
-        <section className="worked-at">
-          <Marquee
+        <section className="worked-at flex justify-center items-center min-h-[30vh] w-[70%] m-auto rounded-3xl mb-20 gap-10 p-10">
+          <div className="flex-1 justify-center items-center">
+            <button className="btn cta rounded-full bg-black text-white shadow-lg">
+              Request for mentorship
+            </button>
+          </div>
+          <div className="rounded-full bg-primary max-h-56 overflow-hidden border-primary border-dashed border-[3px] ">
+            <Image
+              placeholder="blur"
+              src={pstEmmaCut}
+              alt=""
+              className="left-img"
+              height={300}
+            />
+          </div>
+          {/* <Marquee
             // pauseOnHover={true}
             pauseOnClick={true}
             gradient={false}
@@ -157,7 +190,7 @@ const Home: NextPage = styled(({ className }) => {
             <Image placeholder="blur" src={wa1} alt="" className="marq-img" />
             <Image placeholder="blur" src={wa2} alt="" className="marq-img" />
             <Image placeholder="blur" src={wa3} alt="" className="marq-img" />
-          </Marquee>
+          </Marquee> */}
         </section>
         <Footer />
       </main>
@@ -172,8 +205,29 @@ const Home: NextPage = styled(({ className }) => {
     display: flex;
     width: 100%;
     margin: 0 auto;
-    min-height: 70vh;
+    min-height: 90vh;
     justify-content: space-around;
+    .ambience {
+      background: ${({ theme }) => theme.colors.primary};
+      opacity: 0.1;
+      border-radius: 100%;
+      filter: blur(200px);
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+    }
+    .ambience-secondary {
+      background: ${({ theme }) => theme.colors.danger};
+      opacity: 0.05;
+      border-radius: 100%;
+      filter: blur(200px);
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+      right: 50%;
+    }
     .header-left {
       align-self: center;
     }
@@ -197,7 +251,10 @@ const Home: NextPage = styled(({ className }) => {
   // WELCOME
 
   .welcome-section {
-    background: ${({ theme }) => theme.colors.primaryAccent};
+    background: -webkit-linear-gradient(
+      #ffffff22,
+      ${({ theme }) => theme.colors.primaryAccent}
+    );
     width: 100%;
     padding: 5rem 0;
     text-align: center;
@@ -238,7 +295,6 @@ const Home: NextPage = styled(({ className }) => {
   // WORKED AT
 
   .worked-at {
-    width: 100%;
     padding: 1.5rem 2rem;
     background: ${({ theme }) => theme.colors.primaryAccent};
 
