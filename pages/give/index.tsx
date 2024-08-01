@@ -203,7 +203,7 @@ const ViewThree = ({
       <div className="mb-5 text-sm">
         <p>Dollar Account</p>
         <span className="flex justify-between">
-          <p className="text-2xl font-bold">0022060685 Naira Account</p>
+          <p className="text-2xl font-bold">0022060685</p>
           <MdCopyAll
             className="hover:cursor-pointer"
             onClick={() => copyUrl(`0221223124`)}
