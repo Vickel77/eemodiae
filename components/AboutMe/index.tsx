@@ -87,6 +87,7 @@ const AboutMe = styled(
     }
     .right-side {
       width: 80%;
+      font-size: 20px;
       h3 {
         margin-bottom: 1rem;
       }
@@ -100,6 +101,10 @@ const AboutMe = styled(
         place-items: center;
         width: 100%;
       }
+    }
+
+    .about-socials {
+      padding-bottom: 1rem;
     }
     @media (max-width: 747px) {
       flex-wrap: wrap;

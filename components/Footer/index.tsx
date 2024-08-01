@@ -108,7 +108,7 @@ const Footer = styled(({ className }) => {
         }
       }
       .keep-in-touch {
-        text-align: left;
+        // text-align: left;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
