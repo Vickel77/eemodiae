@@ -75,7 +75,7 @@ const View = styled(
           <Link href="/about">ABOUT</Link>
           <Link href="/articles">ARTICLES</Link>
           <Link href="/messages">MESSAGES</Link>
-          <Link href="/poems">PEOMS</Link>
+          <Link href="/poems">POEMS</Link>
           <Link href="/shop">STORE</Link>
           <Link href="/give">GIVE</Link>
         </section>

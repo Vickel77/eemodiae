@@ -90,7 +90,7 @@ export default function Messages() {
                 key={idx}
                 category={{
                   title: category,
-                  image: categoryMessages?.[0].imageUrl.fields.file.url!,
+                  image: categoryMessages?.[0]?.imageUrl?.fields?.file.url!,
                 }}
                 categoryMessage={{ ...categoryMessages?.[0]! }}
               />

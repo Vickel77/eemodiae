@@ -16,6 +16,7 @@ import Image from "next/image";
 import { MdArrowLeft } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
+import renderImage from "../../helpers/renderImage";
 // import image from "..//../assets/p1.png";
 
 const Blog = () => {
@@ -134,13 +135,15 @@ const Blog = () => {
             }}
             className="h-[inherit] w-full"
           /> */}
-          <img
-            className="cta rounded-xl"
-            // width={"100%"}
-            height={400}
-            src={article.image}
-            alt="Chat on whatsapp"
-          />
+          <div className="w-full max-h-[600px] overflow-hidden flex justify-center items-center rounded-xl">
+            <img
+              className="cta rounded-xl"
+              // width={"100%"}
+              height={400}
+              src={renderImage(article.image_url)}
+              alt={article.title}
+            />
+          </div>
         </section>
         <section className="w-[70%] m-auto py-10 mb-10">
           <div

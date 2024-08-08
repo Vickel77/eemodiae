@@ -21,6 +21,8 @@ type Article = {
   title: string;
   content: any;
   image: string;
+
+  image_url: any;
   createdAt?: string;
 };
 
