@@ -61,7 +61,7 @@ export default function Index() {
 
           <section className=" text-left min-w-[350px] md:min-w-[500px]  bg-[#ffffffdd] shadow-xl p-5 rounded-xl border-[1px] border-primary relative pt-10">
             <div className=" text-center w-[90%] md:w-[70%] bg-primary rounded-full px-6 py-1 text-white  shadow-xl absolute -top-5 left-[50%] translate-x-[-50%]">
-              <h4 className="font-bold">Personal Account</h4>
+              <h4 className="font-bold">Prophet Offering</h4>
             </div>
             <div className="mb-5 text-sm">
               <p>Emmanuel Ikponmwosa Emodiae</p>

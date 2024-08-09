@@ -74,8 +74,8 @@ const View = styled(
           <Link href="/">HOME</Link>
           <Link href="/about">ABOUT</Link>
           <Link href="/articles">ARTICLES</Link>
+          <Link href="/poems">POEMS</Link>
           <Link href="/messages">MESSAGES</Link>
-          <Link href="/poems">PEOMS</Link>
           <Link href="/shop">STORE</Link>
           <Link href="/give">GIVE</Link>
         </section>
@@ -90,7 +90,7 @@ const View = styled(
   position: fixed;
   top: 0;
   left: 0;
-
+  z-index: 9999;
   @keyframes in-animation {
     from {
       opacity: 0;

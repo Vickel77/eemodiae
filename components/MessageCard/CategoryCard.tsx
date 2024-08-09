@@ -41,6 +41,9 @@ const CategoryCard = styled(
             </div>
           </div> */}
         </div>
+        <div className="py-1 px-3 text-sm rounded-full bg-primary text-white absolute top-2 right-2  z-auto">
+          Series
+        </div>
         <CategoryModal
           message={categoryMessage}
           showModal={showModal}
@@ -50,6 +53,7 @@ const CategoryCard = styled(
     );
   }
 )`
+  position: relative;
   min-width: 250px;
   min-height: 250px;
   overflow: hidden;
