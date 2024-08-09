@@ -150,9 +150,9 @@ const Home: NextPage = styled(({ className }) => {
             <div className="poem">
               <h4>GHOST MODE</h4>
               <p>
-                Many have gone incognito I don't mean WhatsApp where some do it
-                to secretly keep tabs on your info I mean some have gone ghost
-                mode...
+                Many have gone incognito I don&apos;t mean WhatsApp where some
+                do it to secretly keep tabs on your info I mean some have gone
+                ghost mode...
               </p>
             </div>
             <div className="poem">
