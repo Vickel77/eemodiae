@@ -5,6 +5,7 @@ import withPoem from "../../hoc/withPoem";
 import PoemModal from "../Modals/PoemModal";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import renderImage from "../../helpers/renderImage";
 
 const UpdatePoem = withPoem(PoemModal);
 
@@ -58,7 +59,7 @@ const PeomCard = styled(
     return (
       <div className={className}>
         <div>
-          <h3>{title}</h3>
+          <h3 className="capitalize">{title}</h3>
           <div className="flex gap-3">
             <Link
               href={{
@@ -98,7 +99,7 @@ const PeomCard = styled(
   min-height: 250px;
   padding: 1.2rem;
   background: -webkit-linear-gradient(#00000055, #000000aa),
-    url(${(props) => props.poem.image});
+    url(${(props) => renderImage(props.poem?.image_url)});
   background-size: cover;
   display: flex;
   align-items: flex-end;
@@ -107,6 +108,7 @@ const PeomCard = styled(
   h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+    text-transform: capitalize;
   }
   .btn {
     background: ${({ theme }) => theme.colors.primary};

@@ -9,11 +9,12 @@ import { MdArrowLeft } from "react-icons/md";
 import Footer from "../../components/Footer";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
+import renderImage from "../../helpers/renderImage";
 
 const Blog = styled(({ className }) => {
   const router = useRouter();
   const id = router.query.id;
-  
+
   const { getPoems, poems } = useContentful();
 
   console.log({ id: router.query.id });
@@ -44,39 +45,25 @@ const Blog = styled(({ className }) => {
     <Suspense fallback="">
       <Head>
         <title>{poem && poem.title}</title>
-        <meta
-          name="description"
-          content={`MaterialsPro Blog - ${poem?.title}`}
-        />
+        <meta name="description" content={`Eemodiae - ${poem?.title}`} />
         <meta property="og:site_name" content="MaterialsPro" />
         <meta property="og:image" content={poem?.image} />
 
         <meta property="og:title" content={poem?.title} key="title" />
-        <meta
-          property="og:description"
-          content="MaterialsPro Blog"
-          key="description"
-        />
+        <meta property="og:description" content="Poem" key="description" />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://materialspro.ng/blog/0${
-            poem?.id
-          }/${poem?.title?.replaceAll(" ", "_")}`}
+          content={`https://eemodiae.org/poem/0${poem?.id}/${poem?.title}`}
         />
         <meta name="twitter:title" content={poem?.title} />
-        <meta
-          name="twitter:description"
-          content="Access Bulk Building Materials on Time, as Scheduled, and at Great Value."
-        />
+        <meta name="twitter:description" content={poem?.title} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@MaterialsProHQ" />
         {/* <meta property="twitter:image" content={poem?.image} /> */}
         <link
           rel="canonical"
-          href={`https://materialspro.ng/blog/${
-            poem?.id
-          }/${poem?.title?.replaceAll(" ", "_")}`}
+          href={`https://eemodiae.org/poem/0${poem?.id}/${poem?.title}`}
         />
       </Head>
       <Navbar />
@@ -89,14 +76,16 @@ const Blog = styled(({ className }) => {
             <MdArrowLeft />
             Back
           </button>
-          <h1 className="font-black">{poem.title}</h1>
+          <h1 className="font-black text-2xl md:text-3xl">{poem.title}</h1>
 
           <div
             style={{
-              background: ` -webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${poem.image})`,
+              background: ` -webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
+                poem.image_url
+              )})`,
               backgroundSize: "cover",
             }}
-            className={`poem-content text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 mb-5`}
+            className={`poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 mb-5`}
           >
             <div
               className="text-primary text-lg"
@@ -106,7 +95,7 @@ const Blog = styled(({ className }) => {
             />
           </div>
 
-          <section className="flex gap-5 w-full justify-between  mb-20">
+          <section className="flex flex-wrap gap-5 w-full justify-center md:justify-between items-center  mb-20 ">
             <aside className="flex gap-5 items-center">
               <div className="rounded-full">
                 {/* <img src="../../assets/DP.png" alt="" width={200} /> */}

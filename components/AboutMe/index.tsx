@@ -67,6 +67,10 @@ const AboutMe = styled(
       position: absolute;
       right: -50%;
       top: -70%;
+      @media (max-width: 486px) {
+        opacity: 0.1;
+        display: none;
+      }
     }
   }
 

@@ -21,7 +21,6 @@ type Article = {
   title: string;
   content: any;
   image: string;
-
   image_url: any;
   createdAt?: string;
 };
@@ -36,6 +35,7 @@ type Poem = {
   updatedAt?: string;
   author?: string;
   categoryId?: string;
+  image_url: any;
 };
 type AudioFile = {
   fields: {
