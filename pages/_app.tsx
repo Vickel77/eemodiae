@@ -1,9 +1,5 @@
 import type { AppProps } from "next/app";
-import {
-  ThemeProvider,
-  GlobalStyleComponent,
-  createGlobalStyle,
-} from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { light, dark } from "../lib/theme";
 import { useEffect, useState } from "react";
 import NProgress from "nprogress";
@@ -13,7 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Script from "next/script";
 import { AuthContextProvider } from "../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -44,6 +40,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={isLightMode ? light : dark}>
       <AuthContextProvider>
         <Script src="https://upload-widget.cloudinary.com/global/all.js" />
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-18EV56QJ14"
+        ></Script>
+        <Script id="g-tag">
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-18EV56QJ14');`}
+        </Script>
         <Component {...pageProps} />
         <ToastContainer />
       </AuthContextProvider>
