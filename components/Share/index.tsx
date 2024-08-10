@@ -93,33 +93,38 @@ const Share = ({
             <EmailShareButton
               url={url}
               title={sharableTitle}
-              children={<EmailIcon size={50} />}
               className="hover:scale-110 text-sm transition-[0.3s]"
-            />
+            >
+              <EmailIcon size={50} />
+            </EmailShareButton>
             <FacebookShareButton
               url={url}
               title={sharableTitle}
-              children={<FacebookIcon size={50} />}
               className="hover:scale-110 text-sm transition-[0.3s]"
-            />
+            >
+              <FacebookIcon size={50} />
+            </FacebookShareButton>
             <TwitterShareButton
               url={url}
               title={sharableTitle}
-              children={<TwitterIcon size={50} />}
               className="hover:scale-110 text-sm transition-[0.3s]"
-            />
+            >
+              <TwitterIcon size={50} />
+            </TwitterShareButton>
             <LinkedinShareButton
               url={url}
               title={sharableTitle}
-              children={<LinkedinIcon size={50} />}
               className="hover:scale-110 text-sm transition-[0.3s]"
-            />
+            >
+              <LinkedinIcon size={50} />
+            </LinkedinShareButton>
             <WhatsappShareButton
               url={url}
               title={sharableTitle}
-              children={<WhatsappIcon size={50} />}
               className="hover:scale-110 text-sm transition-[0.3s]"
-            />
+            >
+              <WhatsappIcon size={50} />
+            </WhatsappShareButton>
             {/* {copied ? (
               <div onClick={handleCopy}>
                 <MdCopyAll />
