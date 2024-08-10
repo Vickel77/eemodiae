@@ -1,9 +1,5 @@
 import type { AppProps } from "next/app";
-import {
-  ThemeProvider,
-  GlobalStyleComponent,
-  createGlobalStyle,
-} from "styled-components";
+import { ThemeProvider } from "styled-components";
 import { light, dark } from "../lib/theme";
 import { useEffect, useState } from "react";
 import NProgress from "nprogress";
@@ -13,7 +9,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Script from "next/script";
 import { AuthContextProvider } from "../context/AuthContext";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -44,6 +40,14 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={isLightMode ? light : dark}>
       <AuthContextProvider>
         <Script src="https://upload-widget.cloudinary.com/global/all.js" />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+        >{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5KRL4VDM');`}</Script>
         <Component {...pageProps} />
         <ToastContainer />
       </AuthContextProvider>
