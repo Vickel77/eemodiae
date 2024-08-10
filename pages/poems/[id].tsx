@@ -10,6 +10,7 @@ import Footer from "../../components/Footer";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
+import Share from "../../components/Share";
 
 const Blog = styled(({ className }) => {
   const router = useRouter();
@@ -45,26 +46,27 @@ const Blog = styled(({ className }) => {
     <Suspense fallback="">
       <Head>
         <title>{poem && poem.title}</title>
-        <meta name="description" content={`Eemodiae - ${poem?.title}`} />
-        <meta property="og:site_name" content="MaterialsPro" />
+        <meta name="description" content={` ${poem?.title}`} />
+        <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={poem?.image} />
 
         <meta property="og:title" content={poem?.title} key="title" />
-        <meta property="og:description" content="Poem" key="description" />
+        <meta
+          property="og:description"
+          content={` ${poem?.title}`}
+          key="description"
+        />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://eemodiae.org/poem/0${poem?.id}/${poem?.title}`}
+          content={`https://eemodiae.org/articles/${id}?${poem?.title}`}
         />
         <meta name="twitter:title" content={poem?.title} />
         <meta name="twitter:description" content={poem?.title} />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@MaterialsProHQ" />
-        {/* <meta property="twitter:image" content={poem?.image} /> */}
-        <link
-          rel="canonical"
-          href={`https://eemodiae.org/poem/0${poem?.id}/${poem?.title}`}
-        />
+        <meta name="twitter:site" content="@eemodiae" />
+        <meta property="twitter:image" content={poem?.image} />
+        <link rel="canonical" href={`https://eemodiae.org/articles/${id}`} />
       </Head>
       <Navbar />
       <main className={className}>
@@ -77,24 +79,27 @@ const Blog = styled(({ className }) => {
             Back
           </button>
           <h1 className="font-black text-2xl md:text-3xl">{poem.title}</h1>
-
-          <div
-            style={{
-              background: ` -webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
-                poem.image_url
-              )})`,
-              backgroundSize: "cover",
-            }}
-            className={`poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 mb-5`}
-          >
+          <section>
             <div
-              className="text-primary text-lg"
-              dangerouslySetInnerHTML={{
-                __html: documentToHtmlString(poem?.content!),
+              style={{
+                background: ` -webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
+                  poem.image_url
+                )})`,
+                backgroundSize: "cover",
               }}
-            />
-          </div>
-
+              className={`poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 mb-5`}
+            >
+              <div
+                className="text-primary text-lg opacity-80 font-serif"
+                dangerouslySetInnerHTML={{
+                  __html: documentToHtmlString(poem?.content!),
+                }}
+              />
+            </div>
+            <div>
+              <Share text={poem.content} title={poem?.title} />
+            </div>
+          </section>
           <section className="flex flex-wrap gap-5 w-full justify-center md:justify-between items-center  mb-20 ">
             <aside className="flex gap-5 items-center">
               <div className="rounded-full">
@@ -136,19 +141,5 @@ const Blog = styled(({ className }) => {
     background-size: cover;
   }
 `;
-
-// export const getServerSideProps = async ({ params }) => {
-//   const blogNumber = params.view;
-
-//   const {
-//     data: { blogpoem },
-//   } = await AxiosBlogConfig.get(
-//     `blogpoem/getbyNumber?blogNumber=${blogNumber}`
-//   );
-
-//   return {
-//     props: { blogpoem },
-//   };
-// };
 
 export default Blog;

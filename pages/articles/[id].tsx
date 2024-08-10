@@ -17,6 +17,7 @@ import { MdArrowLeft } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
+import Share from "../../components/Share";
 // import image from "..//../assets/p1.png";
 
 const Blog = () => {
@@ -59,40 +60,27 @@ const Blog = () => {
     <Suspense fallback="">
       <Head>
         <title>{article && article.title}</title>
-        <meta
-          name="description"
-          content={`MaterialsPro Blog - ${article?.title}`}
-        />
-        <meta property="og:site_name" content="MaterialsPro" />
+        <meta name="description" content={` ${article?.title}`} />
+        <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={article?.image} />
 
         <meta property="og:title" content={article?.title} key="title" />
         <meta
           property="og:description"
-          content="MaterialsPro Blog"
+          content={` ${article?.title}`}
           key="description"
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://materialspro.ng/blog/0${
-            article?.id
-          }/${article?.title?.replaceAll(" ", "_")}`}
+          content={`https://eemodiae.org/articles/${id}`}
         />
         <meta name="twitter:title" content={article?.title} />
-        <meta
-          name="twitter:description"
-          content="Access Bulk Building Materials on Time, as Scheduled, and at Great Value."
-        />
+        <meta name="twitter:description" content="" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@MaterialsProHQ" />
+        <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content={article?.image} />
-        <link
-          rel="canonical"
-          href={`https://materialspro.ng/blog/${
-            article?.id
-          }/${article?.title?.replaceAll(" ", "_")}`}
-        />
+        <link rel="canonical" href={`https://eemodiae.org/articles/${id}`} />
       </Head>
       <div className="w-[100%] m-auto text-primary mt-[5rem]">
         <Navbar />
@@ -147,11 +135,12 @@ const Blog = () => {
         </section>
         <section className="w-[70%] m-auto py-10 mb-10">
           <div
-            className="text-md text-gray-600"
+            className="text-md text-gray-600 font-serif opacity-80"
             dangerouslySetInnerHTML={{
               __html: documentToHtmlString(article.content),
             }}
           />
+          <Share absolute text={article.content} title={article.title} />
         </section>
         {/* <section className="w-[70%] m-auto py-5 mb-10 rounded-md border-1 border-primary">
           <h3>Add Comment</h3>
