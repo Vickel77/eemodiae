@@ -112,8 +112,8 @@ const Home: NextPage = styled(({ className }) => {
         </header>
         <section className="welcome-section">
           <div className="circle left" />
-          <h3 data-aos="fade-in">Welcome!</h3>
-          <p>
+          <h3>Welcome!</h3>
+          <p data-aos="fade-in">
             ⁠Hello and welcome! We&lsquo;re thrilled to have you visit us. Our
             goal is to provide you with valuable life transforming information
             and inspiration Enjoy your stay!
