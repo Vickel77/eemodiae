@@ -111,6 +111,7 @@ const Home: NextPage = styled(({ className }) => {
           </section>
         </header>
         <section className="welcome-section">
+          <div className="circle left" />
           <h3 data-aos="fade-in">Welcome!</h3>
           <p>
             ⁠Hello and welcome! We&lsquo;re thrilled to have you visit us. Our
@@ -139,27 +140,27 @@ const Home: NextPage = styled(({ className }) => {
             // animation="fade"
           >
             <div className="poem">
-              <h4>Stranded Dreams</h4>
+              <h4>WHAT IS TIME</h4>
               <p>
-                This is the place for people like you, who love to learn and
-                read nice article This is the place for people like you, who
-                love to learn and read nice article
+                TIME is ETERNITY TAKING A BREAK <br />
+                The summation of human existence is captured within this brief
+                ephemeral break TIME...
               </p>
             </div>
             <div className="poem">
-              <h4>Victory</h4>
+              <h4>GHOST MODE</h4>
               <p>
-                This is the place for people like you, who love to learn and
-                read nice article This is the place for people like you, who
-                love to learn and read nice article
+                Many have gone incognito I don&apos;t mean WhatsApp where some
+                do it to secretly keep tabs on your info I mean some have gone
+                ghost mode...
               </p>
             </div>
             <div className="poem">
-              <h4>Love</h4>
+              <h4>EVERYTHING IS WORKING</h4>
               <p>
-                This is the place for people like you, who love to learn and
-                read nice article This is the place for people like you, who
-                love to learn and read nice article
+                They heard my dreams <br />
+                They said it cannot start <br />I started it, They said it will
+                not last...
               </p>
             </div>
           </Carousel>
@@ -206,8 +207,9 @@ const Home: NextPage = styled(({ className }) => {
   .header-section {
     display: flex;
     width: 100%;
+    overflow: hidden;
     margin: 0 auto;
-    min-height: 90vh;
+    min-height: 70vh;
     justify-content: space-around;
     .ambience {
       background: ${({ theme }) => theme.colors.primary};
@@ -260,6 +262,21 @@ const Home: NextPage = styled(({ className }) => {
     width: 100%;
     padding: 5rem 0;
     text-align: center;
+    position: relative;
+    .circle {
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      border: 200px solid ${({ theme }) => theme.colors.primary};
+      opacity: 0.3;
+      position: absolute;
+      left: -30%;
+      bottom: -90%;
+      @media (max-width: 486px) {
+        opacity: 0.1;
+        display: none;
+      }
+    }
 
     p {
       width: 50%;

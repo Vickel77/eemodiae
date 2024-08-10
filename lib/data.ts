@@ -6,8 +6,7 @@ import book2 from "../assets/book2.png";
 import book3 from "../assets/book3.png";
 import book4 from "../assets/book4.png";
 
-
-const poems: Poem[] = [
+const poems: any[] = [
   {
     id: "1",
     content: `<p> The protagonist is the most important character in a story, around whom the plot revolves.
@@ -68,7 +67,7 @@ const poems: Poem[] = [
   },
 ];
 
-export const articles: Article[] = [
+export const articles: any[] = [
   {
     id: "1",
     content: `<p> The protagonist is the most important character in a story, around whom the plot revolves.

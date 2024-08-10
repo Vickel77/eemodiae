@@ -64,13 +64,7 @@ export default function Messages() {
     <div>
       <div className="mt-[5rem] w-[70%] m-auto text-primary  mb-10">
         <Navbar />
-        <button
-          onClick={() => router.back()}
-          className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
-        >
-          <MdArrowLeft />
-          Back
-        </button>
+
         <h2 className="font-bold mb-5">MESSAGES</h2>
         {/* <div className="top-bar">
         <input placeholder="Search" className="search-input" type="text" />
@@ -79,7 +73,7 @@ export default function Messages() {
         {/* <audio controls autoPlay>
         <source src={audio} />
       </audio> */}
-        <div className=" grid grid-cols-4">
+        <div className=" flex overflow-x-auto w-full overflow-hidden gap-3">
           {categories.map((category, idx) => {
             const categoryMessages = messages?.filter(
               (m) => m.category === category
@@ -90,7 +84,7 @@ export default function Messages() {
                 key={idx}
                 category={{
                   title: category,
-                  image: categoryMessages?.[0].imageUrl.fields.file.url!,
+                  image: categoryMessages?.[0]?.imageUrl?.fields?.file.url!,
                 }}
                 categoryMessage={{ ...categoryMessages?.[0]! }}
               />
