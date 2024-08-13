@@ -18,6 +18,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
+import PageLoader from "../../components/PageLoader";
 // import image from "..//../assets/p1.png";
 
 const Blog = () => {
@@ -48,26 +49,34 @@ const Blog = () => {
     articles?.[+id!];
   }, []);
 
-  const getarticle = () => router.replace("/");
   // const article = articles[Number(id)];
   if (!domContentLoaded || !article) {
-    return <></>;
+    return <PageLoader />;
   }
   // const router = useRouter()
   console.log({ article });
+
+  const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
+    / /g,
+    "_"
+  )}`;
+
+  const contentRendererOptions = {
+    preserveWhitespace: true,
+  };
 
   return (
     <Suspense fallback="">
       <Head>
         <title>{article && article.title}</title>
-        <meta name="description" content={` ${article?.title}`} />
+        <meta name="description" content={`${article?.title}`} />
         <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={article?.image} />
 
         <meta property="og:title" content={article?.title} key="title" />
         <meta
           property="og:description"
-          content={` ${article?.title}`}
+          content={`${article?.title}`}
           key="description"
         />
         <meta property="og:type" content="website" />
@@ -80,7 +89,7 @@ const Blog = () => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content={article?.image} />
-        <link rel="canonical" href={`https://eemodiae.org/articles/${id}`} />
+        <link rel="canonical" href={shareUrl} />
       </Head>
       <div className="w-[100%] m-auto text-primary mt-[5rem]">
         <Navbar />
@@ -92,7 +101,7 @@ const Blog = () => {
             <MdArrowLeft />
             Back
           </button>
-          <h1 className="font-black">{article.title}</h1>
+          <h1 className=" text-2xl md:text-3xl font-black">{article.title}</h1>
         </section>
         <aside className=" w-[70%] m-auto flex gap-5 items-center mt-5">
           <div className="rounded-full">
@@ -135,12 +144,17 @@ const Blog = () => {
         </section>
         <section className="w-[70%] m-auto py-10 mb-10">
           <div
-            className="text-md text-gray-600 font-serif opacity-80"
+            className="text-sm md:text-lg text-gray-600 font-serif "
             dangerouslySetInnerHTML={{
-              __html: documentToHtmlString(article.content),
+              __html: documentToHtmlString(
+                article.content,
+                contentRendererOptions
+              ),
             }}
           />
-          <Share absolute text={article.content} title={article.title} />
+          <div className="mt-7">
+            <Share absolute text={article.content} title={article.title} />
+          </div>
         </section>
         {/* <section className="w-[70%] m-auto py-5 mb-10 rounded-md border-1 border-primary">
           <h3>Add Comment</h3>

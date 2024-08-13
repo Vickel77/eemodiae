@@ -10,18 +10,27 @@ const Footer = styled(({ className }) => {
         <aside>
           <section>
             <section className="quick-links">
-              <h4>Quick Links</h4>
-              <Link className="link" href="/">
-                HOME
+              <h4 className="text-lg font-bold">Quick Links</h4>
+              <Link className="link " href="/">
+                Home
               </Link>
-              <Link className="link" href="/about">
-                ABOUT
+              <Link className="link " href="/about">
+                About
               </Link>
-              <Link className="link" href="/poems">
-                PEOMS
+              <Link className="link " href="/articles">
+                Articles
               </Link>
-              <Link className="link" href="/shop">
-                STORE
+              <Link className="link " href="/poems">
+                Poems
+              </Link>
+              <Link className="link " href="/messages">
+                Messages
+              </Link>
+              <Link className="link " href="/shop">
+                Store
+              </Link>
+              <Link className="link " href="/give">
+                Give
               </Link>
             </section>
           </section>
@@ -87,7 +96,7 @@ const Footer = styled(({ className }) => {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        gap: 1rem;
+        gap: 0.25rem;
         .link:hover {
           opacity: 0.8;
         }

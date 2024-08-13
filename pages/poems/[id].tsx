@@ -11,6 +11,7 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
+import PageLoader from "../../components/PageLoader";
 
 const Blog = styled(({ className }) => {
   const router = useRouter();
@@ -34,9 +35,17 @@ const Blog = styled(({ className }) => {
 
   // const poem = poems[Number(id)];
   if (!domContentLoaded || !poem) {
-    return <>Loading...</>;
+    return <PageLoader />;
   }
 
+  const shareUrl = `https://eemodiae.org/poems/${id}?${poem?.title?.replace(
+    / /g,
+    "_"
+  )}`;
+
+  const contentRendererOptions = {
+    preserveWhitespace: true,
+  };
   // const content = `<p> The protagonist is the most important character in a story, around whom the plot revolves.
   //     They are usually the hero or champion of a particular cause or idea, and their actions and decisions drive the story forward.
   //     Similarly, in the Bible, Christ Jesus is the central and most significant theme. Every other character, event, and concept finds its meaning in connection to Him.
@@ -46,7 +55,7 @@ const Blog = styled(({ className }) => {
     <Suspense fallback="">
       <Head>
         <title>{poem && poem.title}</title>
-        <meta name="description" content={` ${poem?.title}`} />
+        <meta name="description" content={`${poem?.title}`} />
         <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={poem?.image} />
 
@@ -59,18 +68,18 @@ const Blog = styled(({ className }) => {
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content={`https://eemodiae.org/articles/${id}?${poem?.title}`}
+          content={`https://eemodiae.org/poems/${id}?${poem?.title}`}
         />
         <meta name="twitter:title" content={poem?.title} />
         <meta name="twitter:description" content={poem?.title} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content={poem?.image} />
-        <link rel="canonical" href={`https://eemodiae.org/articles/${id}`} />
+        <link rel="canonical" href={shareUrl} />
       </Head>
       <Navbar />
       <main className={className}>
-        <div className="w-[70%] m-auto text-primary pt-[5rem] ">
+        <div className="w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
           <button
             onClick={() => router.back()}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
@@ -87,20 +96,20 @@ const Blog = styled(({ className }) => {
                 )})`,
                 backgroundSize: "cover",
               }}
-              className={`poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 mb-5`}
+              className={` poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 `}
             >
               <div
-                className="text-primary text-lg opacity-80 font-serif"
+                className="text-primary text-sm md:text-lg opacity-80 font-serif "
                 dangerouslySetInnerHTML={{
-                  __html: documentToHtmlString(poem?.content!),
+                  __html: documentToHtmlString(
+                    poem?.content!,
+                    contentRendererOptions
+                  ),
                 }}
               />
             </div>
-            <div>
-              <Share text={poem.content} title={poem?.title} />
-            </div>
           </section>
-          <section className="flex flex-wrap gap-5 w-full justify-center md:justify-between items-center  mb-20 ">
+          <section className="flex flex-wrap-reverse gap-5 w-full justify-center md:justify-between items-center   ">
             <aside className="flex gap-5 items-center">
               <div className="rounded-full">
                 {/* <img src="../../assets/DP.png" alt="" width={200} /> */}
@@ -130,6 +139,9 @@ const Blog = styled(({ className }) => {
               </div>
             </aside>
           </section>
+          <div className="mb-10 mt-7">
+            <Share text={poem.content} title={poem?.title} />
+          </div>
         </div>
         <Footer />
       </main>
