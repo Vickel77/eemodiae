@@ -9,16 +9,27 @@ import {} from "react-icons";
 import useAuth from "../../hooks/useAuth";
 import useContentful from "../../hooks/useContentful";
 import { useIsFetching } from "@tanstack/react-query";
+import PageLoader from "../../components/PageLoader";
 
 const Articles = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
   const { getArticles, articles } = useContentful();
+  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
 
   useEffect(() => {
     getArticles();
   }, []);
+
+  useEffect(() => {
+    setDomContentLoaded(true);
+  }, []);
+
+  // const poem = poems[Number(id)];
+  if (!domContentLoaded || !articles) {
+    return <PageLoader />;
+  }
 
   return (
     <div className={className}>

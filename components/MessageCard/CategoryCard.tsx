@@ -32,8 +32,8 @@ const CategoryCard = styled(
     const [showModal, setShowModal] = useState<boolean>(false);
 
     return (
-      <div className={className}>
-        <div onClick={() => setShowModal(true)} className="overlay">
+      <div onClick={() => setShowModal(true)} className={className}>
+        <div className="overlay">
           <h3>{title}</h3>
           {/* <div className="flex gap-3">
             <div>
