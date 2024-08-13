@@ -11,15 +11,16 @@ import {
 } from "react-icons/md";
 import { toast } from "react-toastify";
 import { PaystackButton } from "react-paystack";
+import { ministryAccounts, personalAccounts } from "../../util/mockData";
 
 const publicKey = "pk_live_70d339bdc510a179071e3b37d842c89d8327db9a";
 
-export default function Index() {
-  const copyUrl = (url: any) => {
-    navigator.clipboard.writeText(url + "");
-    toast("Account details copied");
-  };
+const copyText = (url: any) => {
+  navigator.clipboard.writeText(url + "");
+  toast("Account details copied");
+};
 
+export default function Index() {
   const [view, setView] = useState<number>(1);
 
   return (
@@ -55,7 +56,7 @@ export default function Index() {
             ) : view === 2 ? (
               <ViewTwo setView={setView} />
             ) : (
-              view === 3 && <ViewThree setView={setView} copyUrl={copyUrl} />
+              view === 3 && <ViewThree setView={setView} copyText={copyText} />
             )}
           </section>
 
@@ -63,19 +64,11 @@ export default function Index() {
             <div className=" text-center w-[90%] md:w-[70%] bg-primary rounded-full px-6 py-1 text-white  shadow-xl absolute -top-5 left-[50%] translate-x-[-50%]">
               <h4 className="font-bold">Prophet Offering</h4>
             </div>
-            <div className="mb-5 text-sm">
-              <p>Emmanuel Ikponmwosa Emodiae</p>
-              <span className="flex justify-between">
-                <p className="text-2xl font-bold">2407117008</p>
-                <MdCopyAll
-                  className="hover:cursor-pointer"
-                  onClick={() => copyUrl(`2407117008`)}
-                  size={20}
-                  color="3624A7"
-                />
-              </span>
-              <p>Zenith Bank</p>
-            </div>
+            {personalAccounts.map(
+              (account: AccountDetailType, index: number) => (
+                <AccountDetail key={index} details={account} />
+              )
+            )}
           </section>
         </div>
       </div>
@@ -124,7 +117,7 @@ const ViewTwo = ({ setView }: { setView: any }) => {
     publicKey,
     text: "Pay Now",
     onSuccess: () => {
-      alert("Thanks for doing business with us! Come back soon!!");
+      alert("God Bless you!!");
     },
     onClose: () => {},
   };
@@ -133,12 +126,16 @@ const ViewTwo = ({ setView }: { setView: any }) => {
     <div>
       <button
         onClick={() => setView(1)}
-        className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb- text-sm5 mb-5"
+        className="flex gap-2 items-center rounded-lg border-1 border-primary text-sm mb-5"
       >
         <MdArrowLeft />
         Back
       </button>
-      <form action="">
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        action=""
+        className="flex flex-col justify-center items-center"
+      >
         <input
           className="bg-white block w-full mb-5 "
           type="email"
@@ -156,76 +153,73 @@ const ViewTwo = ({ setView }: { setView: any }) => {
           onChange={(e) => setAmount(+e.target.value!)}
         />
       </form>
-      <button
+      <span
         onClick={() => {
           if (amount === 0 || email === "") {
             return;
           }
         }}
-        type="submit"
-        className="btn"
+        // type="submit"
+        className="btn bg-primary text-white mt-5"
       >
         <PaystackButton {...componentProps} />
-      </button>
+      </span>
     </div>
   );
 };
 
 const ViewThree = ({
-  copyUrl,
+  copyText,
   setView,
 }: {
-  copyUrl: (e: string) => void;
+  copyText: (e: string) => void;
   setView: any;
 }) => {
   return (
     <div>
       <button
         onClick={() => setView(1)}
-        className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb- text-sm5 mb-5"
+        className="flex gap-2 items-center rounded-lg border-1 border-primary   text-sm mb-5"
       >
         <MdArrowLeft />
         Back
       </button>
-      <div className="mb-5 text-sm">
-        <p>Naira Account</p>
-        <span className="flex justify-between">
-          <p className="text-2xl font-bold">0221223124</p>
-          <MdCopyAll
-            className="hover:cursor-pointer"
-            onClick={() => copyUrl(`0221223124`)}
-            size={20}
-            color="3624A7"
-          />
-        </span>
-        <p>Guaranteed Trust Bank</p>
+      {ministryAccounts.map((account: AccountDetailType, index: number) => (
+        <AccountDetail key={index} details={account} />
+      ))}
+
+      <div className="text-sm">
+        <p>
+          Swift code: <b>GTBINGLA</b>{" "}
+        </p>
+        <p>
+          Sort code: <b> 058083273</b>
+        </p>
       </div>
-      <div className="mb-5 text-sm">
-        <p>Dollar Account</p>
-        <span className="flex justify-between">
-          <p className="text-2xl font-bold">0022060685</p>
-          <MdCopyAll
-            className="hover:cursor-pointer"
-            onClick={() => copyUrl(`0221223124`)}
-            size={20}
-            color="3624A7"
-          />
-        </span>
-        <p>Guaranteed Trust Bank</p>
+    </div>
+  );
+};
+
+const AccountDetail = ({ details }: { details: AccountDetailType }) => {
+  return (
+    <div className="mb-5 text-sm ">
+      <div className="flex justify-between">
+        <div className="inline-flex border-[1px] border-primary bg-primaryAccent text-primary  px-2  text-xs  rounded-full">
+          {details?.currency}
+        </div>
       </div>
-      <div className="mb-5 text-sm">
-        <p>Pound Account</p>
-        <span className="flex justify-between">
-          <p className="text-2xl font-bold">0221223124</p>
-          <MdCopyAll
-            className="hover:cursor-pointer"
-            onClick={() => copyUrl(`0221223124`)}
-            size={20}
-            color="3624A7"
-          />
-        </span>
-        <p>Guaranteed Trust Bank</p>
-      </div>
+
+      <span className="flex justify-between items-center">
+        <p className="text-2xl font-bold">{details?.accountNo}</p>
+        <MdCopyAll
+          className="hover:cursor-pointer"
+          onClick={() => copyText(details.accountNo)}
+          size={20}
+          color="3624A7"
+        />
+      </span>
+      <p className="text-xs opacity-50">{details?.bank}</p>
+      <p className="">{details.accountName}</p>
     </div>
   );
 };

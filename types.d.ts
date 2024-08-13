@@ -68,4 +68,11 @@ interface PoemModal {
   isSubmitting?: boolean;
 }
 
+type AccountDetailType = {
+  bank: string;
+  accountNo: string;
+  accountName: string;
+  currency: string;
+};
+
 declare module "*.mp3";
