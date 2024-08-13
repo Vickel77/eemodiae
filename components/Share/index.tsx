@@ -4,7 +4,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { MdCopyAll, MdFmdGood } from "react-icons/md";
+import { MdCopyAll, MdFmdGood, MdShare } from "react-icons/md";
 import { toast } from "react-toastify";
 import {
   EmailIcon,
@@ -67,23 +67,27 @@ const Share = ({
 
   const handleShare = async () => {
     try {
-      await navigator.share(shareDetails).then(() => {
+      await navigator?.share(shareDetails).then(() => {
         toast("Post shared successfully!");
       });
     } catch (error) {
-      toast("Post not shared" + error);
+      console.error("Post not shared" + error);
     }
   };
   return (
-    <div>
+    <div className="flex justify-center items-center">
       <div>
-        {!absolute && (
-          <h3 className="inline text-lg bg-primaryAccent rounded-full text-primary px-2 py-1 mb-5">
-            Share with friends
-          </h3>
-        )}
+        <h3
+          onClick={() => handleShare()}
+          className={`${
+            absolute && "inline-flex md:none"
+          } inline-flex hover:cursor-pointer  transition-[0.2s] items-center gap-2 text-lg bg-primaryAccent rounded-full text-primary px-3 py-1 `}
+        >
+          Share with friends <MdShare />
+        </h3>
+
         {isShareSupported ? (
-          <img onClick={() => handleShare()} src="/share.png" width="45" />
+          <></>
         ) : (
           <div
             className={`static mt-3 ${

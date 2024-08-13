@@ -8,6 +8,7 @@ import CreatePoem from "../../components/Modals/PoemModal";
 import useAuth from "../../hooks/useAuth";
 import handleRequestUrl from "../../util/handleRequestUrl";
 import useContentful from "../../hooks/useContentful";
+import PageLoader from "../../components/PageLoader";
 
 const API_URL = process.env.API_URL_LOCAL;
 
@@ -30,11 +31,22 @@ const Poems = styled(({ className }) => {
 
   const { getPoems, poems } = useContentful();
 
+  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
     getPoems();
   }, []);
 
-  const [showModal, setShowModal] = useState(false);
+  useEffect(() => {
+    setDomContentLoaded(true);
+  }, []);
+
+  // const poem = poems[Number(id)];
+  if (!domContentLoaded || !poems) {
+    return <PageLoader />;
+  }
+
   return (
     <div className={className}>
       <Navbar />

@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import useContentful from "../../hooks/useContentful";
 import MessageCard from "../../components/MessageCard";
 import CategoryCard from "../../components/MessageCard/CategoryCard";
+import PageLoader from "../../components/PageLoader";
 
 // understanding biblical Spirituality
 // Understanding the anioninting
@@ -27,6 +28,7 @@ export default function Messages() {
   const _categories: { [key: string]: Message[] } = {};
 
   const [categories, setCategories] = useState<string[]>([]);
+  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
 
   const initMessages = useCallback(() => {
     messages?.map((message) => {
@@ -58,7 +60,14 @@ export default function Messages() {
     initMessages();
   }, [messages]);
 
-  console.log("hm >>  ", categories);
+  useEffect(() => {
+    setDomContentLoaded(true);
+  }, []);
+
+  // const poem = poems[Number(id)];
+  if (!domContentLoaded || !messages) {
+    return <PageLoader />;
+  }
 
   return (
     <div>
