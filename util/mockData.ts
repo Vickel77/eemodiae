@@ -2,20 +2,20 @@ export const personalAccounts: AccountDetailType[] = [
   {
     bank: "Zenith",
     accountName: "Emmanuel Ikponmwosa Emodiae",
-    accountNo: "0022060685",
+    accountNo: "2407117008",
     currency: "Naira",
   },
   {
     bank: "Zenith",
     accountName: "Emmanuel Ikponmwosa Emodiae",
-    accountNo: "0022060692",
+    accountNo: "5073513947",
     currency: "Dollar",
   },
   {
     bank: "Zenith",
     accountName: "Emmanuel Ikponmwosa Emodiae",
-    accountNo: "0022060719",
-    currency: "Euro",
+    accountNo: "5061142766",
+    currency: "Pound",
   },
 ];
 

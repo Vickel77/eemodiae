@@ -4,19 +4,11 @@ import Image from "next/image";
 import Carousel from "nuka-carousel";
 import styled from "styled-components";
 import headerRightImg from "../assets/header-right.png";
-import pstEmma from "../assets/pst-emaa.png";
 import pstEmmaCut from "../assets/pst-emma-mask.png";
-import Wid from "../components/Icons/Wid";
-import InfoCard, { InfoCardProps } from "../components/InfoCard";
-import Socials from "../components/Socials";
 import Navbar from "../components/Navbar";
 import AboutMe from "../components/AboutMe";
 import WhatIDo from "../components/WhatIDo";
 import Footer from "../components/Footer";
-import Marquee from "react-fast-marquee";
-import wa1 from "../assets/worked_at1.png";
-import wa2 from "../assets/worked_at2.png";
-import wa3 from "../assets/worked_at3.png";
 import { TypeAnimation } from "react-type-animation";
 import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
@@ -35,16 +27,13 @@ const Home: NextPage = styled(({ className }) => {
     <div className={className}>
       <Head>
         <title>Emmanuel Emodiae</title>
-        <meta name="description" content="" />
         <meta
-          name="keyword"
-          content="Rental, Trucks, Dump Truck, Building, Materials, Construction"
+          name="description"
+          content=" Find valuable life transforming information
+            and inspirational Materials!"
         />
+        <meta name="keyword" content="Preacher, Prophet, Poet" />
         <meta property="og:site_name" content="Emmanuel Emodiae" />
-        {/* <meta
-          property="og:image"
-          content="https://www.materialspro.ng/logo.png"
-        /> */}
         <meta
           property="og:title"
           content="Preacher, Prophet, Poet"
@@ -52,7 +41,8 @@ const Home: NextPage = styled(({ className }) => {
         />
         <meta
           property="og:description"
-          content="Preacher, Prophet, Poet"
+          content="Find valuable life transforming information
+            and inspirational Materials!"
           key="description"
         />
         <meta property="og:type" content="website" />
@@ -60,9 +50,9 @@ const Home: NextPage = styled(({ className }) => {
         <meta name="twitter:title" content="Emmanuel I. Emodiae" />
         <meta name="twitter:description" content="Preacher, Prophet, Poet" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@godump" />
+        <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content="https://godump.co" />
-        <link rel="canonical" href="https://godump.co" />
+        <link rel="canonical" href="https://eemodiae.org" />
         <script
           src="https://upload-widget.cloudinary.com/global/all.js"
           defer
