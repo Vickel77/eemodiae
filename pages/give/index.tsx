@@ -79,7 +79,7 @@ export default function Index() {
 
 const ViewOne = ({ setView }: { setView: any }) => {
   return (
-    <div>
+    <div className="flex  h-full items-center justify-center">
       {/* <button
         onClick={() => setView(1)}
         className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb- text-sm5 mb-5"
@@ -87,17 +87,17 @@ const ViewOne = ({ setView }: { setView: any }) => {
         <MdArrowLeft />
         Back
       </button> */}
-      <div className=" flex ">
+      <div className=" flex flex-wrap gap-3 ">
         <button
           onClick={() => setView(2)}
-          className="btn mr-5 flex gap-2 items-center"
+          className="btn flex gap-2 items-center"
         >
           <MdPayment />
           Paystack
         </button>
         <button
           onClick={() => setView(3)}
-          className="btn mr-5 flex gap-2 items-center"
+          className="btn flex gap-2 items-center"
         >
           <MdSend />
           Pay with Transfer
@@ -110,6 +110,7 @@ const ViewOne = ({ setView }: { setView: any }) => {
 const ViewTwo = ({ setView }: { setView: any }) => {
   const [email, setEmail] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const componentProps = {
     email,
@@ -122,6 +123,8 @@ const ViewTwo = ({ setView }: { setView: any }) => {
     onClose: () => {},
   };
 
+  const notFilled = amount === 0 || email === "";
+
   return (
     <div>
       <button
@@ -131,6 +134,7 @@ const ViewTwo = ({ setView }: { setView: any }) => {
         <MdArrowLeft />
         Back
       </button>
+
       <form
         onSubmit={(e) => e.preventDefault()}
         action=""
@@ -153,17 +157,27 @@ const ViewTwo = ({ setView }: { setView: any }) => {
           onChange={(e) => setAmount(+e.target.value!)}
         />
       </form>
-      <span
-        onClick={() => {
-          if (amount === 0 || email === "") {
-            return;
-          }
-        }}
-        // type="submit"
-        className="btn bg-primary text-white mt-5"
-      >
-        <PaystackButton {...componentProps} />
-      </span>
+      <div className="mt-5 flex flex-col items-center">
+        {notFilled && (
+          <p className="text-red-600 font-semibold text-xs mb-2">
+            Kindly fill out all fields to proceed
+          </p>
+        )}
+        <button
+          onClick={(e) => {
+            if (amount === 0 || email === "") {
+              setHasError(true);
+              e.stopPropagation();
+              return;
+            }
+          }}
+          disabled={amount === 0 || email === ""}
+          // type="submit"
+          className="btn bg-primary text-white flex justify-center "
+        >
+          <PaystackButton {...componentProps} />
+        </button>
+      </div>
     </div>
   );
 };
