@@ -19,7 +19,13 @@ import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import PageLoader from "../../components/PageLoader";
+import { createClient } from "contentful";
 // import image from "..//../assets/p1.png";
+
+const client = createClient({
+  space: "7rf3l1j0b9zd",
+  accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
+});
 
 const Blog = () => {
   const router = useRouter();
@@ -166,18 +172,31 @@ const Blog = () => {
   );
 };
 
-// export const getServerSideProps = async ({ params }) => {
-//   const blogNumber = params.view;
+export const getServerSideProps = async ({ params }: any) => {
+  const blogNumber = params.view;
 
-//   const {
-//     data: { blogarticle },
-//   } = await AxiosBlogConfig.get(
-//     `blogarticle/getbyNumber?blogNumber=${blogNumber}`
-//   );
+  // const {
+  //   data: { blogarticle },
+  // } = await AxiosBlogConfig.get(
+  //   `blogarticle/getbyNumber?blogNumber=${blogNumber}`
+  // );
 
-//   return {
-//     props: { blogarticle },
-//   };
-// };
+  const entries = await client.getEntries({
+    content_type: "eemodiaeArticle",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  return {
+    props: { data: sanitizedEntries },
+  };
+};
 
 export default Blog;
