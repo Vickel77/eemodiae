@@ -1,25 +1,18 @@
-// import Comment from "../../components/Comment";
-// import AddComment from "../../components/Comment/AddComment";
 import Footer from "../../components/Footer";
-// import Like from "../../components/Like";
 import Navbar from "../../components/Navbar";
 import { useRouter } from "next/router";
-import React, { Suspense, useEffect, useMemo, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import dp from "../../assets/DP.png";
-
-// import { parse } from "rss-to-json";
-// import colors from "utils/colorlib";
-
 import Head from "next/head";
-import poems, { articles } from "../../lib/data";
 import Image from "next/image";
 import { MdArrowLeft } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
+import type { GetStaticPaths } from "next";
+
 // import image from "..//../assets/p1.png";
 
 const client = createClient({
@@ -27,40 +20,64 @@ const client = createClient({
   accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
 });
 
-const Blog = () => {
+export const getStaticPaths = async () => {
+  const entries = await client.getEntries({
+    content_type: "eemodiaeArticle",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  return {
+    paths: sanitizedEntries.map((entry: any, idx: number) => ({
+      params: { id: String(idx) },
+    })),
+    fallback: true, // false or "blocking"
+  };
+};
+
+export const getStaticProps = async ({ params }: any) => {
+  const { id } = params;
+  const entries = await client.getEntries({
+    content_type: "eemodiaeArticle",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  return {
+    props: { article: sanitizedEntries[id] },
+  };
+};
+
+const Article = ({ article }: { article: Article }) => {
   const router = useRouter();
   const id = router.query.id;
-  // const query =
-  const { getArticles, articles } = useContentful();
-
-  console.log({ id: router.query.id });
-  const article: Article = articles?.[+id!]!;
-  // const article: Article = JSON.parse(
-  //   JSON.parse(JSON.stringify(router.query.article!))
-  // );
-  // // next-line @ts-ignore
-  // console.log({ article });
 
   const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
-  const [loadingarticle, setLoadingarticle] = useState<boolean>(false);
-  // const [reRender, setReRender] = useState<boolean>(false);
 
   useEffect(() => {
     setDomContentLoaded(true);
   }, []);
 
-  useEffect(() => {
-    getArticles();
-    articles?.[+id!];
-  }, []);
+  console.log({ article });
 
   // const article = articles[Number(id)];
   if (!domContentLoaded || !article) {
     return <PageLoader />;
   }
-  // const router = useRouter()
-  console.log({ article });
 
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
@@ -77,7 +94,7 @@ const Blog = () => {
         <title>{article && article.title}</title>
         <meta name="description" content={`${article?.title}`} />
         <meta property="og:site_name" content="Eemodiae" />
-        <meta property="og:image" content={article?.image} />
+        <meta property="og:image" content={renderImage(article.image_url)} />
 
         <meta property="og:title" content={article?.title} key="title" />
         <meta
@@ -91,10 +108,13 @@ const Blog = () => {
           content={`https://eemodiae.org/articles/${id}`}
         />
         <meta name="twitter:title" content={article?.title} />
-        <meta name="twitter:description" content="" />
+        <meta name="twitter:description" content={article?.title} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
-        <meta property="twitter:image" content={article?.image} />
+        <meta
+          property="twitter:image"
+          content={renderImage(article.image_url)}
+        />
         <link rel="canonical" href={shareUrl} />
       </Head>
       <div className="w-[100%] m-auto text-primary mt-[5rem]">
@@ -172,31 +192,4 @@ const Blog = () => {
   );
 };
 
-export const getServerSideProps = async ({ params }: any) => {
-  const blogNumber = params.view;
-
-  // const {
-  //   data: { blogarticle },
-  // } = await AxiosBlogConfig.get(
-  //   `blogarticle/getbyNumber?blogNumber=${blogNumber}`
-  // );
-
-  const entries = await client.getEntries({
-    content_type: "eemodiaeArticle",
-  });
-
-  const sanitizedEntries: any =
-    entries &&
-    entries.items.map((item: any) => {
-      return {
-        ...item.fields,
-        image: entries?.includes?.Asset?.[0].fields?.file.url,
-      };
-    });
-
-  return {
-    props: { data: sanitizedEntries },
-  };
-};
-
-export default Blog;
+export default Article;
