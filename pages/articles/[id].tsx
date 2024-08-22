@@ -9,7 +9,6 @@ import { MdArrowLeft } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
-import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
 import type { GetStaticPaths } from "next";
 
@@ -75,9 +74,9 @@ const Article = ({ article }: { article: Article }) => {
   console.log({ article });
 
   // const article = articles[Number(id)];
-  if (!domContentLoaded || !article) {
-    return <PageLoader />;
-  }
+  // if (!domContentLoaded || !article) {
+  //   return <PageLoader />;
+  // }
 
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
@@ -91,15 +90,19 @@ const Article = ({ article }: { article: Article }) => {
   return (
     <Suspense fallback="">
       <Head>
-        <title>{article && article.title}</title>
-        <meta name="description" content={`${article?.title}`} />
+        <title>{article && `${article.title} :title`}</title>
+        <meta name="description" content={`${article?.title} :descr`} />
         <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={renderImage(article.image_url)} />
 
-        <meta property="og:title" content={article?.title} key="title" />
+        <meta
+          property="og:title"
+          content={`${article?.title} og:title`}
+          key="title"
+        />
         <meta
           property="og:description"
-          content={`${article?.title}`}
+          content={`${article?.title}  og:desc`}
           key="description"
         />
         <meta property="og:type" content="website" />
