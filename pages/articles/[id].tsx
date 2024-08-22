@@ -11,6 +11,7 @@ import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import { createClient } from "contentful";
 import type { GetStaticPaths } from "next";
+import PageLoader from "../../components/PageLoader";
 
 // import image from "..//../assets/p1.png";
 
@@ -71,13 +72,6 @@ const Article = ({ article }: { article: Article }) => {
     setDomContentLoaded(true);
   }, []);
 
-  console.log({ article });
-
-  // const article = articles[Number(id)];
-  // if (!domContentLoaded || !article) {
-  //   return <PageLoader />;
-  // }
-
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
     "_"
@@ -86,6 +80,10 @@ const Article = ({ article }: { article: Article }) => {
   const contentRendererOptions = {
     preserveWhitespace: true,
   };
+  // const article = articles[Number(id)];
+  if (!domContentLoaded || !article) {
+    return <PageLoader />;
+  }
 
   return (
     <Suspense fallback="">
