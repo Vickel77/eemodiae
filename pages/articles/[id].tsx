@@ -20,47 +20,7 @@ const client = createClient({
   accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
 });
 
-export const getStaticPaths = async () => {
-  const entries = await client.getEntries({
-    content_type: "eemodiaeArticle",
-  });
 
-  const sanitizedEntries: any =
-    entries &&
-    entries.items.map((item: any) => {
-      return {
-        ...item.fields,
-        image: entries?.includes?.Asset?.[0].fields?.file.url,
-      };
-    });
-
-  return {
-    paths: sanitizedEntries.map((entry: any, idx: number) => ({
-      params: { id: String(idx) },
-    })),
-    fallback: true, // false or "blocking"
-  };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const { id } = params;
-  const entries = await client.getEntries({
-    content_type: "eemodiaeArticle",
-  });
-
-  const sanitizedEntries: any =
-    entries &&
-    entries.items.map((item: any) => {
-      return {
-        ...item.fields,
-        image: entries?.includes?.Asset?.[0].fields?.file.url,
-      };
-    });
-
-  return {
-    props: { article: sanitizedEntries[id] },
-  };
-};
 
 const Article = ({ article }: { article: Article }) => {
   const router = useRouter();
@@ -191,6 +151,48 @@ const Article = ({ article }: { article: Article }) => {
       </div>
     </Suspense>
   );
+};
+
+export const getStaticPaths = async () => {
+  const entries = await client.getEntries({
+    content_type: "eemodiaeArticle",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  return {
+    paths: sanitizedEntries.map((entry: any, idx: number) => ({
+      params: { id: String(idx) },
+    })),
+    fallback: true, // false or "blocking"
+  };
+};
+
+export const getStaticProps = async ({ params }: any) => {
+  const { id } = params;
+  const entries = await client.getEntries({
+    content_type: "eemodiaeArticle",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  return {
+    props: { article: sanitizedEntries[id] },
+  };
 };
 
 export default Article;

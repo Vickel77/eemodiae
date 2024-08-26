@@ -71,7 +71,7 @@ export default function Messages() {
 
   return (
     <div>
-      <div className="mt-[5rem] w-[70%] m-auto text-primary  mb-10">
+      <div className="mt-[5rem] w-[80%] m-auto text-primary  mb-10">
         <Navbar />
 
         <h2 className="font-bold mb-5">MESSAGES</h2>

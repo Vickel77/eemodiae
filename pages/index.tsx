@@ -14,8 +14,7 @@ import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
 
 const Home: NextPage = styled(({ className }) => {
-  const API_URL = process.env.API_URL_LOCAL;
-  console.log("BASE_URL ", process.env.BASE_URL, API_URL);
+
 
   const { getArticles, getMessages, getPoems } = useContentful();
 
@@ -29,7 +28,7 @@ const Home: NextPage = styled(({ className }) => {
         <title>Emmanuel Emodiae</title>
         <meta
           name="description"
-          content=" Find valuable life transforming information
+          content="Find valuable life transforming information
             and inspirational Materials!"
         />
         <meta name="keyword" content="Preacher, Prophet, Poet" />

@@ -22,6 +22,7 @@ const copyText = (url: any) => {
 
 export default function Index() {
   const [view, setView] = useState<number>(1);
+  const [personalView, setPersonalView] = useState<number>(1);
 
   return (
     <div>
@@ -64,10 +65,31 @@ export default function Index() {
             <div className=" text-center w-[90%] md:w-[70%] bg-primary rounded-full px-6 py-1 text-white  shadow-xl absolute -top-5 left-[50%] translate-x-[-50%]">
               <h4 className="font-bold">Prophet Offering</h4>
             </div>
-            {personalAccounts.map(
-              (account: AccountDetailType, index: number) => (
-                <AccountDetail key={index} details={account} />
-              )
+            {personalView === 1 ? (
+              <>
+                <button
+                  onClick={() => setPersonalView(2)}
+                  className="btn flex gap-2 items-center"
+                >
+                  <MdSend />
+                  Pay with Transfer
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setPersonalView(1)}
+                  className="flex gap-2 items-center rounded-lg border-1 border-primary text-sm mb-5"
+                >
+                  <MdArrowLeft />
+                  Back
+                </button>
+                {personalAccounts.map(
+                  (account: AccountDetailType, index: number) => (
+                    <AccountDetail key={index} details={account} />
+                  )
+                )}
+              </>
             )}
           </section>
         </div>
@@ -233,7 +255,7 @@ const AccountDetail = ({ details }: { details: AccountDetailType }) => {
         />
       </span>
       <p className="text-xs opacity-50">{details?.bank}</p>
-      <p className="">{details.accountName}</p>
+      {/* <p className="">{details.accountName}</p> */}
     </div>
   );
 };
