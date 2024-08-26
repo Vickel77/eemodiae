@@ -32,24 +32,26 @@ const CategoryCard = styled(
     const [showModal, setShowModal] = useState<boolean>(false);
 
     return (
-      <div onClick={() => setShowModal(true)} className={className}>
-        <div className="overlay">
-          <h3>{title}</h3>
-          {/* <div className="flex gap-3">
+      <>
+        <div onClick={() => setShowModal(true)} className={className}>
+          <div className="overlay">
+            <h3>{title}</h3>
+            {/* <div className="flex gap-3">
             <div>
               <button className="btn">READ</button>
             </div>
           </div> */}
-        </div>
-        <div className="py-1 px-3 text-sm rounded-full bg-primary text-white absolute top-2 right-2  z-auto">
-          Series
+          </div>
+          <div className="py-1 px-3 text-sm rounded-full bg-primary text-white absolute top-2 right-2  z-auto">
+            Series
+          </div>
         </div>
         <CategoryModal
           message={categoryMessage}
           showModal={showModal}
           setShowModal={setShowModal}
         />
-      </div>
+      </>
     );
   }
 )`
