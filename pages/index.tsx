@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import Carousel from "nuka-carousel";
 import styled from "styled-components";
-import headerRightImg from "../assets/header-right.png";
+import headerRightImg from "../assets/header-right-2.png";
 import pstEmmaCut from "../assets/pst-emma-mask.png";
 import Navbar from "../components/Navbar";
 import AboutMe from "../components/AboutMe";
@@ -12,10 +12,9 @@ import Footer from "../components/Footer";
 import { TypeAnimation } from "react-type-animation";
 import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
+import dp from "../assets/pst.png";
 
 const Home: NextPage = styled(({ className }) => {
-
-
   const { getArticles, getMessages, getPoems } = useContentful();
 
   useEffect(() => {
@@ -63,7 +62,18 @@ const Home: NextPage = styled(({ className }) => {
         <header className="header-section">
           <div className="ambience" />
           <div className="ambience-secondary" />
-          <section className="header-left">
+          <section className="header-left flex flex-col justify-center items-center text-center">
+            <div className="sm:hidden mt-20 mb-5 ">
+              <Image
+                data-aos="fade-down"
+                // placeholder="blur"
+                src={dp}
+                width={200}
+                height={200}
+                alt=""
+                className="header-right-img"
+              />
+            </div>
             <h1 data-aos="fade-up" className="title">
               EMMANUEL I. EMODIAE
             </h1>
@@ -93,19 +103,21 @@ const Home: NextPage = styled(({ className }) => {
             <Image
               data-aos="fade-down"
               placeholder="blur"
+              width={600}
+              height={400}
               src={headerRightImg}
               alt=""
-              className="header-right-img"
+              className="header-right-1-img"
             />
           </section>
         </header>
-        <section className="welcome-section">
+        <section className="welcome-section ">
           <div className="circle left" />
-          <h3>Welcome!</h3>
+          <h3>Hello and Welcome!</h3>
           <p data-aos="fade-in">
-            ⁠Hello and welcome! We&lsquo;re thrilled to have you visit us. Our
-            goal is to provide you with valuable life transforming information
-            and inspiration Enjoy your stay!
+            We&lsquo;re thrilled to have you visit us. Our goal is to provide
+            you with valuable life transforming information and inspiration
+            Enjoy your stay!
           </p>
         </section>
 
@@ -235,9 +247,11 @@ const Home: NextPage = styled(({ className }) => {
     font-family: ${({ theme }) => theme.colors.headerFont} !important;
     // border: 1px solid red;
   }
-  .subtitle,
-  .welcome-section h3 {
+  .subtitle {
     font-family: ${({ theme }) => theme.decorFont};
+  }
+  .welcome-section h3 {
+    font-family: ${({ theme }) => theme.colors.headerFont} !important;
     font-weight: normal;
   }
 
