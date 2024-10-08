@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
@@ -48,7 +49,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
   width: 100%;
   // background: #ffffff77;
   // backdrop-filter: blur(10px);
-  color: ${({ theme }) => theme.colors.primary};
+  // color: ${({ theme }) => theme.colors.primary};
   .hamburger {
     width: 100%;
     padding: 1.2rem;
@@ -58,7 +59,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
     // mix-blend-mode: difference;
 
     * {
-      filter: drop-shadow(1px 1px 0px ${({ theme }) => theme.colors.white});
+      // filter: drop-shadow(1px 1px 0px ${({ theme }) => theme.colors.white});
     }
   }
 `;

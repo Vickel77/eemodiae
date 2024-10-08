@@ -25,9 +25,9 @@ const ArticleCard = ({
     <Link
       href={{
         pathname: `/articles/${+id!}`,
-        // query: {
-        //   article: JSON.stringify(article),
-        // },
+        query: {
+          article: JSON.stringify(article),
+        },
       }}
     >
       <div className="min-w-[200px] min-h-[300px] mb-5 border-2 border-[transparent] hover:opacity-70 transition-all rounded-lg ">
