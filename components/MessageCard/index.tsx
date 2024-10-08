@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { MdDownload } from "react-icons/md";
 import image from "../../assets/book1.png";
@@ -35,6 +36,9 @@ export default function MessageCard({
               href={`${audio ?? message?.audio?.fields?.file?.url}`}
               download={message.title}
               className="hover:opacity-80"
+              onClick={() =>
+                window && window.open(message?.audio?.fields?.file?.url)
+              }
             >
               {/* Download audio file */}
               <MdDownload size={30} />

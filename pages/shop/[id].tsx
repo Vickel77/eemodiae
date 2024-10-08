@@ -16,7 +16,7 @@ export default function ItemDetails() {
 
   const storeItem: StoreItem = store?.[+id!]!;
 
-  const { image, price, rating, title, media } = storeItem || {};
+  const { image, title, media } = storeItem || {};
 
   useEffect(() => {
     getStore();
