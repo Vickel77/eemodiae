@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import styled from "styled-components";
 import AboutMe from "../components/AboutMe";
@@ -8,6 +9,23 @@ import WhatIDo from "../components/WhatIDo";
 const About = styled(({ className }) => {
   return (
     <div className={className}>
+      <Head>
+        <title>About Emmanuel Emodiae</title>
+        <meta
+          name="description"
+          content="I‘m a passionate and prophetic preacher of Jesus Christ, called to share His transformative message."
+        />
+        <meta property="og:site_name" content="Emmanuel Emodiae" />
+        <meta property="og:title" content="About Emodiae" key="title" />
+        <meta
+          property="og:description"
+          content="valuable life transforming information
+            and inspirational Materials!"
+          key="description"
+        />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://eemodiae.org" />
+      </Head>
       <Navbar />
       <main>
         <AboutMe showMore />

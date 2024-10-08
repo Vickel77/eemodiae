@@ -1,3 +1,4 @@
+"use client";
 import React, { Children, ReactNode, createContext, useState } from "react";
 
 const AuthContext = createContext<{

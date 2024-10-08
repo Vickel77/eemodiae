@@ -16,7 +16,7 @@ module.exports = {
         disabled: "#C4C4C4",
         defaultAccent: "#EEEEEE",
         // primaryAccent: "#FF331F",
-        primaryAccent: "#E2E7FA",
+        primaryAccent: "#/Users/Vickel/Downloads/header-right.png",
         dangerAccent: "#FBD2E0",
         white: "#FFFFFF",
       },

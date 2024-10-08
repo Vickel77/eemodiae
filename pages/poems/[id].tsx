@@ -91,12 +91,12 @@ const Blog = styled(({ className }) => {
           <section>
             <div
               style={{
-                background: ` -webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
+                background:`-webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
                   poem.image_url
                 )})`,
                 backgroundSize: "cover",
               }}
-              className={` poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 `}
+              className={`poem-content w-full text-primary bg-cover  bg-gradient-to-b from-[#00000099] to-[#00000033] min-h-[300px px-5] py-10 `}
             >
               <div
                 className="text-primary text-sm md:text-lg opacity-80 font-serif "

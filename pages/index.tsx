@@ -100,15 +100,15 @@ const Home: NextPage = styled(({ className }) => {
             </h3>
           </section>
           <section className="header-right">
-            <Image
+            {/* <Image
               data-aos="fade-down"
-              placeholder="blur"
+              // placeholder="blur"
               width={600}
               height={400}
-              src={headerRightImg}
+              src="https://drive.google.com/file/d/1gof38pZDhplOp1XfE4ZowoxkWkg7kP2G/view?usp=sharing"
               alt=""
               className="header-right-1-img"
-            />
+            /> */}
           </section>
         </header>
         <section className="welcome-section ">
