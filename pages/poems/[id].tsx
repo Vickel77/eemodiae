@@ -12,29 +12,23 @@ import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import PageLoader from "../../components/PageLoader";
+import { createClient } from "contentful";
 
-const Blog = styled(({ className }) => {
+const client = createClient({
+  space: "7rf3l1j0b9zd",
+  accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
+});
+
+const Blog = styled(({ className, poem }) => {
   const router = useRouter();
   const id = router.query.id;
 
-  const { getPoems, poems } = useContentful();
+  // const { getPoems, poems } = useContentful();
 
-  console.log({ id: router.query.id });
-  const poem: Poem = poems?.[+id!]!;
+  // console.log({ id: router.query.id });
+  // const poem: Poem = poems?.[+id!]!;
 
-  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
-  // const [reRender, setReRender] = useState<boolean>(false);
-
-  useEffect(() => {
-    getPoems();
-  }, []);
-
-  useEffect(() => {
-    setDomContentLoaded(true);
-  }, []);
-
-  // const poem = poems[Number(id)];
-  if (!domContentLoaded || !poem) {
+  if (router.isFallback) {
     return <PageLoader />;
   }
 
@@ -65,7 +59,7 @@ const Blog = styled(({ className }) => {
           content={` ${poem?.title}`}
           key="description"
         />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <meta
           property="og:url"
           content={`https://eemodiae.org/poems/${id}?${poem?.title}`}
@@ -91,7 +85,7 @@ const Blog = styled(({ className }) => {
           <section>
             <div
               style={{
-                background:`-webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
+                background: `-webkit-radial-gradient(#f5f5f5aa, #f5f5f5 70%) , url(${renderImage(
                   poem.image_url
                 )})`,
                 backgroundSize: "cover",
@@ -153,5 +147,44 @@ const Blog = styled(({ className }) => {
     background-size: cover;
   }
 `;
+
+export async function getServerSideProps(context: any) {
+  const { id } = context.params;
+
+  // const { getPoems, poems } = useContentful();
+
+  // useEffect(() => {
+  //   getPoems();
+  // }, []);
+
+  const entries = await client.getEntries({
+    content_type: "eemodiae",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  console.log({ id: context.params.id });
+  // const poem: Poem = poems?.[+id!]!;
+
+  // If the post does not exist, return a 404 page
+  if (!sanitizedEntries) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      poem: sanitizedEntries[id], // Pass the post data to the component as props
+    },
+  };
+}
 
 export default Blog;
