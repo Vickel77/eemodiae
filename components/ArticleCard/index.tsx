@@ -26,7 +26,7 @@ const ArticleCard = ({
       href={{
         pathname: `/articles/${+id!}`,
         query: {
-          article: JSON.stringify(article),
+          article: JSON.stringify(article.title),
         },
       }}
     >
