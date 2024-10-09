@@ -65,7 +65,7 @@ const PeomCard = styled(
               href={{
                 pathname: `/poems/${+id!}`,
                 query: {
-                  poem: JSON.stringify(poem),
+                  poem: JSON.stringify(poem.title),
                 },
               }}
             >

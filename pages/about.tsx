@@ -10,18 +10,38 @@ const About = styled(({ className }) => {
   return (
     <div className={className}>
       <Head>
-        <title>About Emmanuel Emodiae</title>
+        <title>About Emmanuel I. Emodiae</title>
         <meta
           name="description"
           content="I‘m a passionate and prophetic preacher of Jesus Christ, called to share His transformative message."
         />
         <meta property="og:site_name" content="Emmanuel Emodiae" />
-        <meta property="og:title" content="About Emodiae" key="title" />
+        <meta
+          property="og:title"
+          content="About Emmanuel I. Emodiae"
+          key="title"
+        />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dwgywtak8/image/upload/v1728429195/vp7swuvjmzrofkb0zlv2.png"
+          key="title"
+        />
         <meta
           property="og:description"
-          content="valuable life transforming information
-            and inspirational Materials!"
+          content="I‘m a passionate and prophetic preacher of Jesus Christ, called to share His transformative message."
           key="description"
+        />
+
+        <meta name="twitter:title" content="About Emmanuel I. Emodiae" />
+        <meta
+          name="twitter:description"
+          content="I‘m a passionate and prophetic preacher of Jesus Christ, called to share His transformative message."
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@eemodiae" />
+        <meta
+          property="twitter:image"
+          content="https://res.cloudinary.com/dwgywtak8/image/upload/v1728429195/vp7swuvjmzrofkb0zlv2.png"
         />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://eemodiae.org" />
