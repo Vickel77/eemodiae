@@ -44,12 +44,19 @@ const Home: NextPage = styled(({ className }) => {
           key="description"
         />
         <meta property="og:type" content="website" />
+        <meta
+          property="og:image"
+          content="https://res.cloudinary.com/dwgywtak8/image/upload/v1728428668/mmppbzvmceyiw4rc6j32.png"
+        />
         {/* <meta property="og:url" content="https://godump.co" /> */}
         <meta name="twitter:title" content="Emmanuel I. Emodiae" />
         <meta name="twitter:description" content="Preacher, Prophet, Poet" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
-        <meta property="twitter:image" content="https://godump.co" />
+        <meta
+          property="twitter:image"
+          content="https://res.cloudinary.com/dwgywtak8/image/upload/v1728428668/mmppbzvmceyiw4rc6j32.png"
+        />
         <link rel="canonical" href="https://eemodiae.org" />
         <script
           src="https://upload-widget.cloudinary.com/global/all.js"
@@ -100,15 +107,15 @@ const Home: NextPage = styled(({ className }) => {
             </h3>
           </section>
           <section className="header-right">
-            {/* <Image
+            <Image
               data-aos="fade-down"
               // placeholder="blur"
               width={600}
               height={400}
-              src="https://drive.google.com/file/d/1gof38pZDhplOp1XfE4ZowoxkWkg7kP2G/view?usp=sharing"
+              src={headerRightImg}
               alt=""
               className="header-right-1-img"
-            /> */}
+            />
           </section>
         </header>
         <section className="welcome-section ">

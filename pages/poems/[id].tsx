@@ -19,7 +19,7 @@ const client = createClient({
   accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
 });
 
-const Blog = styled(({ className, poem }) => {
+const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
   const router = useRouter();
   const id = router.query.id;
 
@@ -68,7 +68,7 @@ const Blog = styled(({ className, poem }) => {
         <meta name="twitter:description" content={poem?.title} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
-        <meta property="twitter:image" content={poem?.image} />
+        <meta property="twitter:image" content={renderImage(poem?.image)} />
         <link rel="canonical" href={shareUrl} />
       </Head>
       <Navbar />
