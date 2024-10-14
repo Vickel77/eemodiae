@@ -29,11 +29,8 @@ const useContentful = () => {
 
       setEntity(sanitizedEntries);
 
-      console.log("getEntity ", sanitizedEntries);
       return entries;
-    } catch (error) {
-      console.log(`Error fetching Entity ${error}`);
-    }
+    } catch (error) {}
   };
 
   const getArticles = async () => {

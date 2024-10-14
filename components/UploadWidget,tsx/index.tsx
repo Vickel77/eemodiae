@@ -34,10 +34,6 @@ export default function UploadWidget({
         }
         onSuccess(result?.info?.files[0]?.uploadInfo.url ?? "");
         setImage(result?.info?.files[0]?.uploadInfo.url ?? "");
-        console.log(
-          "upload result ",
-          result?.info?.files[0]?.uploadInfo.url ?? ""
-        );
       }
     );
   }, []);

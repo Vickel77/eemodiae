@@ -14,7 +14,6 @@ const Shop = styled(({ className }) => {
     getStore();
   }, []);
 
-  console.log("store data ", store);
   return (
     <div className={className}>
       <Navbar />
