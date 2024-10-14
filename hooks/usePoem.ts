@@ -5,7 +5,7 @@ import useApi from "./useApi";
 export default function usePoem() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>();
 
-  const  {apiRequest} = useApi("poem");
+  const { apiRequest } = useApi("poem");
 
   const createPoem = async (values: PoemForm) => {
     setIsSubmitting(true);
@@ -14,7 +14,6 @@ export default function usePoem() {
         body: JSON.stringify(values),
         method: "POST",
       });
-      console.log("create Poem response ", response);
 
       toast("Post Created Successful");
     } catch (error) {
@@ -32,7 +31,6 @@ export default function usePoem() {
         method: "PUT",
         params: id,
       });
-      console.log("update Poem response ", response);
 
       toast("Post updated Successful");
     } catch (error) {
@@ -46,7 +44,6 @@ export default function usePoem() {
     setIsSubmitting(true);
     try {
       const response = await apiRequest({ method: "DELETE", params: id });
-      console.log("delete Poem response ", response);
 
       toast("Poem Deleted Successful");
     } catch (error) {

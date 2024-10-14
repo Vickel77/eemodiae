@@ -10,17 +10,13 @@ import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import { createClient } from "contentful";
-import type { GetStaticPaths } from "next";
 import PageLoader from "../../components/PageLoader";
-
-// import image from "..//../assets/p1.png";
+import { smallDescription } from "../../util/removeHtmlTags";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
   accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
 });
-
-
 
 const Article = ({ article }: { article: Article }) => {
   const router = useRouter();
@@ -48,28 +44,27 @@ const Article = ({ article }: { article: Article }) => {
   return (
     <Suspense fallback="">
       <Head>
-        <title>{article && `${article.title} :title`}</title>
-        <meta name="description" content={`${article?.title} :descr`} />
+        <title>{article && `${article.title}`}</title>
+        <meta name="description" content={smallDescription(article?.content)} />
         <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={renderImage(article.image_url)} />
 
-        <meta
-          property="og:title"
-          content={`${article?.title} og:title`}
-          key="title"
-        />
+        <meta property="og:title" content={article?.title} key="title" />
         <meta
           property="og:description"
-          content={`${article?.title}  og:desc`}
+          content={smallDescription(article?.content)}
           key="description"
         />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
         <meta
           property="og:url"
           content={`https://eemodiae.org/articles/${id}`}
         />
         <meta name="twitter:title" content={article?.title} />
-        <meta name="twitter:description" content={article?.title} />
+        <meta
+          name="twitter:description"
+          content={smallDescription(article?.content)}
+        />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta
@@ -92,15 +87,7 @@ const Article = ({ article }: { article: Article }) => {
         </section>
         <aside className=" w-[70%] m-auto flex gap-5 items-center mt-5">
           <div className="rounded-full">
-            {/* <img src="../../assets/DP.png" alt="" width={200} /> */}
-            <Image
-              className="cta"
-              // width={100}
-              // width={
-
-              src={dp}
-              alt="Chat on whatsapp"
-            />
+            <Image className="cta" src={dp} alt="Chat on whatsapp" />
           </div>
           <div className="text-sm">
             <em>Published by:</em>
@@ -111,18 +98,10 @@ const Article = ({ article }: { article: Article }) => {
           </div>
         </aside>
         <section className=" flex justify-center w-[100%] mt-5 m-auto text-center rounded-lg">
-          {/* <div
-            style={{
-              backgroundImage: `url(${article.image})`,
-              backgroundSize: "cove",
-              filter: "blur(100px",
-            }}
-            className="h-[inherit] w-full"
-          /> */}
           <div className="w-full max-h-[600px] overflow-hidden flex justify-center items-center rounded-xl">
             <img
               className="cta rounded-xl"
-              // width={"100%"}
+              width={"100%"}
               height={400}
               src={renderImage(article.image_url)}
               alt={article.title}
@@ -143,17 +122,15 @@ const Article = ({ article }: { article: Article }) => {
             <Share absolute text={article.content} title={article.title} />
           </div>
         </section>
-        {/* <section className="w-[70%] m-auto py-5 mb-10 rounded-md border-1 border-primary">
-          <h3>Add Comment</h3>
-        </section> */}
-
         <Footer />
       </div>
     </Suspense>
   );
 };
 
-export const getStaticPaths = async () => {
+export async function getServerSideProps(context: any) {
+  const { id } = context.params;
+
   const entries = await client.getEntries({
     content_type: "eemodiaeArticle",
   });
@@ -167,32 +144,16 @@ export const getStaticPaths = async () => {
       };
     });
 
-  return {
-    paths: sanitizedEntries.map((entry: any, idx: number) => ({
-      params: { id: String(idx) },
-    })),
-    fallback: true, // false or "blocking"
-  };
-};
-
-export const getStaticProps = async ({ params }: any) => {
-  const { id } = params;
-  const entries = await client.getEntries({
-    content_type: "eemodiaeArticle",
-  });
-
-  const sanitizedEntries: any =
-    entries &&
-    entries.items.map((item: any) => {
-      return {
-        ...item.fields,
-        image: entries?.includes?.Asset?.[0].fields?.file.url,
-      };
-    });
+  // If the post does not exist, return a 404 page
+  if (!sanitizedEntries) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
-    props: { article: sanitizedEntries[id] },
+    props: { article: sanitizedEntries[id] }, // Pass the post data to the component as props,
   };
-};
+}
 
 export default Article;

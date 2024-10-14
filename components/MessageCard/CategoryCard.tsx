@@ -26,9 +26,6 @@ const CategoryCard = styled(
     const { isLoggedIn } = useAuth();
     const { title, image } = category;
 
-    console.log("image ", image);
-    console.log("categoryMessage ", categoryMessage);
-
     const [showModal, setShowModal] = useState<boolean>(false);
 
     return (

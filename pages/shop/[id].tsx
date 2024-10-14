@@ -10,8 +10,6 @@ export default function ItemDetails() {
   const _id: any = router.query.id;
   const id = _id?.split("_")[_id?.split("_").length - 1];
 
-  console.log({ id, _id });
-
   const { getStore, store } = useContentful();
 
   const storeItem: StoreItem = store?.[+id!]!;
