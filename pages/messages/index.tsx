@@ -23,8 +23,6 @@ export default function Messages() {
     getMessages();
   }, []);
 
-  console.log({ messages });
-
   const _categories: { [key: string]: Message[] } = {};
 
   const [categories, setCategories] = useState<string[]>([]);
@@ -87,7 +85,6 @@ export default function Messages() {
             const categoryMessages = messages?.filter(
               (m) => m.category === category
             );
-            console.log({ categoryMessages });
             return (
               <CategoryCard
                 key={idx}

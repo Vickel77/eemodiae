@@ -20,7 +20,7 @@ const ArticleCard = ({
   id?: number;
 }) => {
   const { title, image, image_url, content, createdAt } = article;
-  console.log("Article ", article);
+
   return (
     <Link
       href={{

@@ -94,9 +94,6 @@ const Home: NextPage = styled(({ className }) => {
                     2000, // Waits 2s
                     "Poet", // Types 'Three' without deleting 'Two'
                     2000,
-                    () => {
-                      console.log("Done typing!"); // Place optional callbacks anywhere in the array
-                    },
                   ]}
                   wrapper="div"
                   cursor={true}

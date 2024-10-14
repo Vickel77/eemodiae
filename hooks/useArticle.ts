@@ -5,7 +5,7 @@ import useApi from "./useApi";
 export default function useArticle() {
   const [isSubmitting, setIsSubmitting] = useState<boolean>();
 
-  const  {apiRequest} = useApi("article");
+  const { apiRequest } = useApi("article");
 
   const createArticle = async (values: PoemForm) => {
     setIsSubmitting(true);
@@ -14,7 +14,6 @@ export default function useArticle() {
         body: JSON.stringify(values),
         method: "POST",
       });
-      console.log("create Article response ", response);
 
       toast("Article Created Successful");
     } catch (error) {
@@ -32,7 +31,6 @@ export default function useArticle() {
         method: "PUT",
         params: id,
       });
-      console.log("update Article response ", response);
 
       toast("Article updated Successful");
     } catch (error) {
@@ -46,7 +44,6 @@ export default function useArticle() {
     setIsSubmitting(true);
     try {
       const response = await apiRequest({ method: "DELETE", params: id });
-      console.log(" delete Article response ", response);
 
       toast("Article Deleted Successful");
     } catch (error) {

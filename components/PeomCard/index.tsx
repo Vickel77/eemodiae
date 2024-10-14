@@ -46,8 +46,6 @@ const PeomCard = styled(
           body: JSON.stringify(values), // body data type must match "Content-Type" header
         });
 
-        console.log("response ", response);
-
         toast("Post updated Successful");
       } catch (error) {
         toast("Post not updated Successful");

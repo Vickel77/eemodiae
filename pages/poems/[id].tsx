@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import dp from "../../assets/DP.png";
 import Head from "next/head";
 import Image from "next/image";
@@ -8,11 +8,11 @@ import styled from "styled-components";
 import { MdArrowLeft } from "react-icons/md";
 import Footer from "../../components/Footer";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import useContentful from "../../hooks/useContentful";
 import renderImage from "../../helpers/renderImage";
 import Share from "../../components/Share";
 import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
+import { smallDescription } from "../../util/removeHtmlTags";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -22,11 +22,6 @@ const client = createClient({
 const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
   const router = useRouter();
   const id = router.query.id;
-
-  // const { getPoems, poems } = useContentful();
-
-  // console.log({ id: router.query.id });
-  // const poem: Poem = poems?.[+id!]!;
 
   if (router.isFallback) {
     return <PageLoader />;
@@ -40,23 +35,22 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
   const contentRendererOptions = {
     preserveWhitespace: true,
   };
-  // const content = `<p> The protagonist is the most important character in a story, around whom the plot revolves.
-  //     They are usually the hero or champion of a particular cause or idea, and their actions and decisions drive the story forward.
-  //     Similarly, in the Bible, Christ Jesus is the central and most significant theme. Every other character, event, and concept finds its meaning in connection to Him.
-  //     ... Jesus Christ himself being the chief corner stone; In whom all the building fitly framed together groweth unto an holy temple in the Lord (Eph 2:20-21).
-  //     This means that without Jesus, the Bible would be incomplete and lacking its essential message of redemption and hope.</p>`;
+
   return (
     <Suspense fallback="">
       <Head>
         <title>{poem && poem.title}</title>
-        <meta name="description" content={`${poem?.title}`} />
+        <meta
+          name="description"
+          content={`${smallDescription(poem.content)}`}
+        />
         <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:image" content={poem?.image} />
 
         <meta property="og:title" content={poem?.title} key="title" />
         <meta
           property="og:description"
-          content={` ${poem?.title}`}
+          content={smallDescription(poem.content)}
           key="description"
         />
         <meta property="og:type" content="article" />
@@ -65,7 +59,10 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
           content={`https://eemodiae.org/poems/${id}?${poem?.title}`}
         />
         <meta name="twitter:title" content={poem?.title} />
-        <meta name="twitter:description" content={poem?.title} />
+        <meta
+          name="twitter:description"
+          content={smallDescription(poem.content)}
+        />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content={renderImage(poem?.image)} />
@@ -151,12 +148,6 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
 export async function getServerSideProps(context: any) {
   const { id } = context.params;
 
-  // const { getPoems, poems } = useContentful();
-
-  // useEffect(() => {
-  //   getPoems();
-  // }, []);
-
   const entries = await client.getEntries({
     content_type: "eemodiae",
   });
@@ -169,9 +160,6 @@ export async function getServerSideProps(context: any) {
         image: entries?.includes?.Asset?.[0].fields?.file.url,
       };
     });
-
-  console.log({ id: context.params.id });
-  // const poem: Poem = poems?.[+id!]!;
 
   // If the post does not exist, return a 404 page
   if (!sanitizedEntries) {
