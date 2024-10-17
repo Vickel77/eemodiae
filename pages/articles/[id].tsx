@@ -46,32 +46,42 @@ const Article = ({ article }: { article: Article }) => {
       <Head>
         <title>{article && `${article.title}`}</title>
         <meta name="description" content={smallDescription(article?.content)} />
-        <meta property="og:site_name" content="Eemodiae" />
-        <meta property="og:image" content={renderImage(article.image_url)} />
+        <link rel="canonical" href={shareUrl} />
 
-        <meta property="og:title" content={article?.title} key="title" />
+        {/* Open Graph / Facebook */}
+
+        <meta property="og:site_name" content="Eemodiae" />
+        <meta property="og:title" content={article?.title} />
         <meta
           property="og:description"
           content={smallDescription(article?.content)}
           key="description"
         />
+        <meta property="og:image" content={renderImage(article.image_url)} />
+        <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
-          property="og:url"
-          content={`https://eemodiae.org/articles/${id}`}
+          property="og:image:alt"
+          content={article?.title || "Eemodiae Article"}
         />
+
+        {/* Twitter */}
+
         <meta name="twitter:title" content={article?.title} />
         <meta
           name="twitter:description"
           content={smallDescription(article?.content)}
         />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta
           property="twitter:image"
           content={renderImage(article.image_url)}
         />
-        <link rel="canonical" href={shareUrl} />
+        <meta
+          property="og:image:alt"
+          content={article?.title || "Eemodiae Article"}
+        />
       </Head>
       <div className="w-[100%] m-auto text-primary mt-[5rem]">
         <Navbar />
