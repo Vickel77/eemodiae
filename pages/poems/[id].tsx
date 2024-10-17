@@ -40,33 +40,43 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
     <Suspense fallback="">
       <Head>
         <title>{poem && poem.title}</title>
+
         <meta
           name="description"
           content={`${smallDescription(poem.content)}`}
         />
-        <meta property="og:site_name" content="Eemodiae" />
-        <meta property="og:image" content={poem?.image} />
+        <link rel="canonical" href={shareUrl} />
 
+        {/* Open Graph Tags */}
+        <meta property="og:site_name" content="Eemodiae" />
         <meta property="og:title" content={poem?.title} key="title" />
         <meta
           property="og:description"
           content={smallDescription(poem.content)}
           key="description"
         />
+        <meta property="og:image" content={renderImage(poem?.image)} />
+        <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
-          property="og:url"
-          content={`https://eemodiae.org/poems/${id}?${poem?.title}`}
+          property="og:image:alt"
+          content={poem?.title || "Eemodiae Poem"}
         />
+
+        {/* Twitter */}
+
         <meta name="twitter:title" content={poem?.title} />
         <meta
           name="twitter:description"
           content={smallDescription(poem.content)}
         />
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@eemodiae" />
         <meta property="twitter:image" content={renderImage(poem?.image)} />
-        <link rel="canonical" href={shareUrl} />
+        <meta
+          name="twitter:image:alt"
+          content={poem?.title || "Eemodiae Poem"}
+        />
       </Head>
       <Navbar />
       <main className={className}>
