@@ -19,15 +19,24 @@ import {
   LinkedinShareButton,
   WhatsappShareButton,
 } from "react-share";
+import { IconType } from "react-icons";
 
 const Share = ({
   title,
   text,
   absolute,
+  icon,
+  iconProps,
+  shareUrl,
+  iconColor,
 }: {
   title?: string;
   text?: string | any;
   absolute?: boolean;
+  icon?: boolean;
+  iconProps?: IconType | any;
+  shareUrl?: string;
+  iconColor?: string;
 }) => {
   const [isShareSupported, setIsShareSupported] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
@@ -47,7 +56,11 @@ const Share = ({
   const canonical:
     | DetailedHTMLProps<LinkHTMLAttributes<HTMLLinkElement>, HTMLLinkElement>
     | any = document.querySelector("link[rel=canonical]");
-  let url = canonical ? canonical.href : document.location.href;
+  let url = shareUrl
+    ? shareUrl
+    : canonical
+    ? canonical?.href
+    : document.location.href;
 
   const shareDetails = { url, sharableTitle, sharableText };
   function handleCopy() {
@@ -77,15 +90,20 @@ const Share = ({
   return (
     <div className="flex justify-center items-center">
       <div>
-        <h3
-          onClick={() => handleShare()}
-          className={`${
-            absolute && "inline-flex md:none"
-          } inline-flex hover:cursor-pointer  transition-[0.2s] items-center gap-2 text-lg bg-primaryAccent rounded-full text-primary px-3 py-1 `}
-        >
-          Share with friends <MdShare />
-        </h3>
-
+        {icon ? (
+          <button className="m-0 p-0" onClick={() => handleShare()}>
+            <MdShare size={20} color={iconColor} {...iconProps} />
+          </button>
+        ) : (
+          <h3
+            onClick={() => handleShare()}
+            className={`${
+              absolute && "inline-flex md:none"
+            } inline-flex hover:cursor-pointer  transition-[0.2s] items-center gap-2 text-lg bg-primaryAccent rounded-full text-primary px-3 py-1 `}
+          >
+            Share with friends <MdShare />
+          </h3>
+        )}
         {isShareSupported ? (
           <></>
         ) : (
