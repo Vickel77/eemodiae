@@ -17,8 +17,7 @@ body {
   letter-spacing: 1px;
   /* width: 100vw;
   height:100vh; */
-  overflow-x: hidden; 
-  
+  overflow-x: hidden;
 }
 
 a {
@@ -61,7 +60,10 @@ h3,
 .header-3 {
   font-size: 2.5rem;
 }
-.btn, input, textarea, .input{
+.btn,
+input,
+textarea,
+.input {
   padding: 0.65rem 1rem;
   border: none;
   outline: transparent;
@@ -107,6 +109,10 @@ h3,
 
 .ant-modal-title {
   text-transform: capitalize !important;
+}
+
+.gradient-overlay {
+  background: linear-gradient(#00000000, #000000);
 }
 
 /* Make clicks pass-through */
@@ -188,4 +194,3 @@ h3,
     transform: rotate(360deg);
   }
 }
-
