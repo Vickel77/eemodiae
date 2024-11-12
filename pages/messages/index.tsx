@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-
-import { MdArrowLeft } from "react-icons/md";
 import Navbar from "../../components/Navbar";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
@@ -22,6 +20,8 @@ export default function Messages() {
   useEffect(() => {
     getMessages();
   }, []);
+
+  console.log("All messages ", messages);
 
   const _categories: { [key: string]: Message[] } = {};
 
@@ -73,16 +73,9 @@ export default function Messages() {
         <Navbar />
 
         <h2 className="font-bold mb-5">MESSAGES</h2>
-        {/* <div className="top-bar">
-        <input placeholder="Search" className="search-input" type="text" />
-        <button className="btn">SEARCH</button>
-      </div> */}
-        {/* <audio controls autoPlay>
-        <source src={audio} />
-      </audio> */}
         <div className=" flex overflow-x-auto w-full overflow-hidden gap-3">
           {categories.map((category, idx) => {
-            const categoryMessages = messages?.filter(
+            const categoryMessages = messages?.find(
               (m) => m.category === category
             );
             return (
@@ -90,9 +83,9 @@ export default function Messages() {
                 key={idx}
                 category={{
                   title: category,
-                  image: categoryMessages?.[0]?.imageUrl?.fields?.file.url!,
+                  image: categoryMessages?.imageUrl?.fields?.file.url!,
                 }}
-                categoryMessage={{ ...categoryMessages?.[0]! }}
+                categoryMessage={{ ...categoryMessages! }}
               />
             );
           })}

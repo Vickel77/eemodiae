@@ -50,10 +50,12 @@ export default function MessageCard({
             </div>
           </div>
         )}
-        <div className="text-sm">
-          {message.title}
-          <br />
-        </div>
+        <Link href={`/messages/${message.title}`}>
+          <div className="text-sm">
+            {message.title}
+            <br />
+          </div>
+        </Link>
         <div className="flex justify-between items-center">
           <small className="opacity-50 text-[12px]">
             Pst {message.preacher || "Emmanuel I. Emodiae"}
