@@ -19,29 +19,22 @@ const AudioPage = () => {
   }, []);
 
   // Find the selected audio based on the ID from the URL
-  let selectedAudio = useMemo(
-    () =>
-      messages?.find(
-        (audio) => audio.title.toLowerCase() === String(id)?.toLowerCase()
-      ),
-    [id, messages]
-  );
-
-  if (!selectedAudio) {
-    selectedAudio = useMemo(
-      () =>
-        messages?.find((message) =>
-          message.audio_file.find(
-            (audio_file) =>
-              audio_file.fields.title.toLowerCase() ===
-              String(id)?.toLowerCase()
-          )
-        ),
-      [id, messages]
+  let selectedAudio = useMemo(() => {
+    let _selectedAudio = messages?.find(
+      (audio) => audio.title.toLowerCase() === String(id)?.toLowerCase()
     );
-  }
 
-  console.log({ selectedAudio });
+    if (!_selectedAudio) {
+      _selectedAudio = messages?.find((message) =>
+        message.audio_file.find(
+          (audio_file) =>
+            audio_file.fields.title.toLowerCase() === String(id)?.toLowerCase()
+        )
+      );
+    }
+
+    return _selectedAudio;
+  }, [id, messages]);
 
   let audio = selectedAudio?.category
     ? selectedAudio.audio_file.find(
@@ -134,6 +127,7 @@ const AudioPage = () => {
                 {!selectedAudio.category
                   ? suggestions?.map((audio, index) => (
                       <SuggestCard
+                        key={index}
                         title={audio.title}
                         image={audio.imageUrl.fields.file.url}
                         router={router}
@@ -141,6 +135,7 @@ const AudioPage = () => {
                     ))
                   : categorySuggestions?.map((audio, index) => (
                       <SuggestCard
+                        key={index}
                         title={audio.fields.title}
                         image={_image}
                         router={router}
