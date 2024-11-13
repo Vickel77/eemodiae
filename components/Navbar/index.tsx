@@ -7,7 +7,7 @@ import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/logo-5.png";
 
 const Navbar = styled(({ className }: { className?: any }) => {
   const router = useRouter();
@@ -90,7 +90,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
         {/* Mobile Hamburger */}
         <div className="hamburger-menu">
-          <Hamburger size="30" onClick={() => setIsOpen(!isOpen)} />
+          <Hamburger size="20" onClick={() => setIsOpen(!isOpen)} />
           {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
         </div>
       </div>
@@ -149,6 +149,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
   }
 
   @media (max-width: 768px) {
+    padding: 1rem;
     .desktop-links {
       display: none;
     }

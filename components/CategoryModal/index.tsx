@@ -1,7 +1,6 @@
 import React from "react";
 import { MdClose } from "react-icons/md";
 import MessageCard from "../MessageCard";
-// import { ServiceData } from "./Services";
 
 export default function CategoryModal({
   showModal,
@@ -13,8 +12,6 @@ export default function CategoryModal({
   message: Message;
 }) {
   if (!showModal) return <></>;
-
-  // const { icon, title, text } = selectedService;
 
   return (
     <div
