@@ -7,6 +7,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { MdArrowLeft } from "react-icons/md";
 import PageLoader from "../../components/PageLoader";
+// import ReactPlayer from "react-player";
+import "react-h5-audio-player/lib/styles.css";
+import AudioPlayer from "react-h5-audio-player";
 
 const AudioPage = () => {
   const router = useRouter();
@@ -109,9 +112,22 @@ const AudioPage = () => {
                     <source src={audio} type="audio/mp3" />
                     Your browser does not support the audio element.
                   </audio>
+                  {/* <AudioPlayer
+                    src={audio}
+                    autoPlayAfterSrcChange={false}
+                    showJumpControls={true}
+                    // customAdditionalControls={[]}
+                    // customVolumeControls={[]}
+                    layout="horizontal-reverse"
+                    style={{
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  /> */}
                   <div>
                     <Share
-                      shareUrl={`https://eemodie.org/messages/${selectedAudio.title}`}
+                      shareUrl={`https://eemodie.org/messages/${id}`}
                       icon
                       title={selectedAudio.title}
                     />

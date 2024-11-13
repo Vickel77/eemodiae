@@ -23,12 +23,12 @@ const InfoCard = styled(
 )`
   --borderRadius: 20px;
 
-  background: ${({ theme }) => theme.colors.white};
+  background: ${({ theme }) => theme.colors.white}55;
   backdrop-filter: blur(20px);
   min-width: 250px;
   border-radius: var(--borderRadius);
-  box-shadow: 0 5px 55px ${({ theme }) => theme.colors.primary}22;
-  border: 1px solid ${({ theme }) => theme.colors.secondary};
+  box-shadow: 0 5px 55px ${({ theme }) => theme.colors.secondary}22;
+  // border: 1px solid ${({ theme }) => theme.colors.secondary};
   color: ${({ theme }) => theme.colors.secondary};
   transform: ${(props) =>
     props.item?.title.toLocaleLowerCase() === "preacher"
@@ -62,10 +62,15 @@ const InfoCard = styled(
 
   div.body {
     padding: 2rem 1rem;
+    h3 {
+      font-size: 1.35rem;
+      font-weight: semi-bold;
+    }
     p {
       text-align: left;
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
+      font-size: 0.75rem;
+      // margin-top: 0.rem;
+      text-align: center;
       padding: 0.5rem 1.2rem 0;
     }
   }

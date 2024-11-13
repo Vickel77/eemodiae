@@ -5,140 +5,141 @@ import Socials from "../Socials";
 
 const Footer = styled(({ className }) => {
   return (
-    <div className={className}>
-      <div className="content">
-        <aside>
-          <section>
-            <section className="quick-links">
-              <h4 className="text-lg font-bold">Quick Links</h4>
-              <Link className="link " href="/">
-                Home
-              </Link>
-              <Link className="link " href="/about">
-                About
-              </Link>
-              <Link className="link " href="/articles">
-                Articles
-              </Link>
-              <Link className="link " href="/poems">
-                Poems
-              </Link>
-              <Link className="link " href="/messages">
-                Messages
-              </Link>
-              <Link className="link " href="/shop">
-                Store
-              </Link>
-              <Link className="link " href="/give">
-                Give
-              </Link>
-            </section>
-          </section>
-          <section className="contact-form">
-            <form>
-              <input
-                placeholder="Name"
-                className="input"
-                type="text"
-                name=""
-                id=""
-              />
-              <textarea
-                className="input"
-                placeholder="Message"
-                name=""
-                id=""
-                cols={30}
-                rows={5}
-              ></textarea>
-              <button className="btn small">Send Mail</button>
-            </form>
-          </section>
-          <section className="keep-in-touch">
-            <h4>Keep in Touch</h4>
-            <Socials />
-            {/* <a className="link" href="tel:080774432234">
-              <i className="fa fa-phone" aria-hidden="true"></i>
-              080774432234
-            </a> */}
-          </section>
-        </aside>
+    <footer className={className}>
+      <div className="footer-content">
+        <section className="quick-links">
+          <h4>Quick Links</h4>
+          <Link href="/">Home</Link>
+          <Link href="/about">About</Link>
+          <Link href="/articles">Articles</Link>
+          <Link href="/poems">Poems</Link>
+          <Link href="/messages">Messages</Link>
+          <Link href="/shop">Store</Link>
+          <Link href="/give">Give</Link>
+        </section>
+
+        <section className="contact-form">
+          <h4>Contact Us</h4>
+          <form>
+            <input
+              placeholder="Your Name"
+              className="input bg-transparent"
+              type="text"
+              name="name"
+              required
+            />
+            <textarea
+              className="input bg-transparent"
+              placeholder="Your Message"
+              name="message"
+              rows={4}
+              required
+            ></textarea>
+            <button className="btn bg-danger small">Send Message</button>
+          </form>
+        </section>
+
+        <section className="keep-in-touch">
+          <h4>Stay Connected</h4>
+          <Socials />
+        </section>
       </div>
-    </div>
+    </footer>
   );
 })`
   background: ${({ theme }) => theme.colors.primary};
   padding: 2rem 0;
-  * {
-    color: ${({ theme }) => theme.colors.white} !important;
-  }
-  .content {
-    width: 80%;
-    margin: 0rem auto;
-    text-align: center;
-    .cta {
-      padding-bottom: 2ren;
-      border-radius: 50px;
-      box-shadow: 0 4px 10px #00000099;
-      font-size: 1.5rem;
-      padding-inline: 3rem;
-      background: ${({ theme }) => theme.colors.danger};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 1rem;
+  position: relative;
+
+  .footer-content {
+    width: 85%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+
+    section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
 
-    aside {
-      display: grid;
-      grid-template-columns: 1fr 1.75fr 1fr;
-      justify-content: center;
-      margin-top: 4rem;
-      gap: 4rem;
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: ${({ theme }) => theme.colors.accent};
+    }
 
-      .quick-links {
+    a {
+      color: ${({ theme }) => theme.colors.white};
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    a:hover {
+      opacity: 0.8;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact-form {
+      form {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.25rem;
-        .link:hover {
-          opacity: 0.8;
-        }
-      }
-      .contact-form {
-        width: min(100%, 399px);
-        form {
-          width: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-        .input,
-        .btn {
-          background: transparent;
-          border-radius: 10px;
+        gap: 0.75rem;
+
+        .input {
+          padding: 0.75rem;
+          border-radius: 5px;
           border: 1px solid ${({ theme }) => theme.colors.white};
+          color: ${({ theme }) => theme.colors.text};
         }
-      }
-      .keep-in-touch {
-        // text-align: left;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
 
-        h3 {
-          margin: 0;
-          padding: 0;
+        .input:focus {
+          outline: none;
+          border-color: ${({ theme }) => theme.colors.accent};
+        }
+
+        .btn {
+          padding: 0.75rem;
+          background: ${({ theme }) => theme.colors.accent};
+          color: ${({ theme }) => theme.colors.white};
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background 0.3s;
+        }
+
+        .btn:hover {
+          background: ${({ theme }) => theme.colors.accentHover};
         }
       }
-      @media (max-width: 767px) {
-        grid-template-columns: 1fr;
-        place-items: center;
-        text-align: center;
-        .quick-links {
-          align-items: center;
-        }
-        .keep-in-touch {
-          align-items: center;
-        }
-      }
+    }
+
+    .keep-in-touch {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .contact-form,
+    .keep-in-touch {
+      align-items: center;
     }
   }
 `;
+
 export default Footer;
