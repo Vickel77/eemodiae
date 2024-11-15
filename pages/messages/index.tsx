@@ -9,12 +9,12 @@ import CategoryCard, {
 } from "../../components/MessageCard/CategoryCard";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
+import Pill from "../../components/Pill";
 
 export default function Messages() {
   const router = useRouter();
 
   const { getMessages, messages } = useContentful();
-  const searchInputRef = useRef<any>(null);
 
   useEffect(() => {
     getMessages();
@@ -24,6 +24,7 @@ export default function Messages() {
   const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
   const [numOfCategories, setNumOfCategories] = useState<number>(3);
   // Search and Pagination state
+  const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const messagesPerPage = 15;
@@ -104,9 +105,7 @@ export default function Messages() {
         </header>
         {/* Categories */}
         <div className="mb-5">
-          <div className=" py-1 px-2 rounded-full bg-[#657ed422] inline-flex text-primary text-sm ">
-            Message Series
-          </div>{" "}
+          <Pill label="Message Series" />
         </div>
         <div className=" relative z-10 flex flex-wrap w-full  gap-3">
           {filteredCategories.slice(0, numOfCategories).map((category, idx) => {
@@ -143,9 +142,7 @@ export default function Messages() {
         <div className="bg-primary h-[1px] w-full opacity-50 my-5" />
         {/* Display Filtered Messages */}
         <div className="mb-5">
-          <div className=" py-1 px-2 rounded-full bg-[#657ed422] inline-flex text-primary text-sm ">
-            Featured Messages
-          </div>{" "}
+          <Pill label="Featured Messages" />
         </div>
 
         <div className="flex gap-5 flex-wrap justify-center md:justify-start">

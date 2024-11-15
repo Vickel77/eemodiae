@@ -29,18 +29,24 @@ const Shop = styled(({ className }) => {
           <section>
             <h4>RECENTLY ADDED</h4>
             <div className="store-items">
-              {store?.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={{
-                    pathname: `/shop/${+idx!}`,
-                  }}
-                >
-                  <div data-aos="fade-up" data-aos-delay={100 * idx} key={idx}>
-                    <ShopItme item={item} />
-                  </div>
-                </Link>
-              ))}
+              {store
+                ?.filter((item) => item.category !== "song")
+                .map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={{
+                      pathname: `/shop/${+idx!}`,
+                    }}
+                  >
+                    <div
+                      data-aos="fade-up"
+                      data-aos-delay={100 * idx}
+                      key={idx}
+                    >
+                      <ShopItme item={item} />
+                    </div>
+                  </Link>
+                ))}
               {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"

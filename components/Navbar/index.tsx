@@ -73,6 +73,12 @@ const Navbar = styled(({ className }: { className?: any }) => {
             STORE
           </Link>
           <Link
+            href="/music"
+            className={router.pathname === "/music" ? "active" : ""}
+          >
+            MUSIC
+          </Link>
+          <Link
             href="/give"
             className={`${
               router.pathname === "/give" ? "active" : ""
@@ -180,6 +186,7 @@ const MobileMenu = styled(
           <Link href="/poems">POEMS</Link>
           <Link href="/messages">MESSAGES</Link>
           <Link href="/shop">STORE</Link>
+          <Link href="/music">MUSIC</Link>
           <Link href="/give">GIVE</Link>
         </section>
       </div>
