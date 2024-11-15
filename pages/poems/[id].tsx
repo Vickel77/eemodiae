@@ -83,7 +83,7 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
         <div className="w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
           <button
             onClick={() => router.back()}
-            className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
+            className="text-sm flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
             Back

@@ -104,4 +104,37 @@ const CategoryCard = styled(
   }
 `;
 
+export const CategoryCardV2 = ({
+  className,
+  category,
+  id,
+  categoryMessage,
+}: {
+  className?: any;
+  category: Category;
+  id?: number;
+  categoryMessage: Message;
+}) => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const { title, image } = category;
+  return (
+    <>
+      <div
+        onClick={() => setShowModal(true)}
+        className=" flex items-center border backdrop-blur-3xl  rounded-md min-w-[300px] w-[300px] bg-[#ffffff55]  overflow-hidden"
+        // style={{ background: `url(${image})` }}
+      >
+        <div className=" flex items-center justify-center max-w-12 h-12 overflow-hidden">
+          <img src={image} alt={title} height="100%" width="100%" />
+        </div>
+        <div className=" px-5 text-sm text-primary"> {title}</div>
+      </div>
+      <CategoryModal
+        message={categoryMessage}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
+    </>
+  );
+};
 export default CategoryCard;

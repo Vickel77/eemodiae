@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
@@ -7,7 +7,7 @@ import ArticleCard from "../../components/ArticleCard";
 import useAuth from "../../hooks/useAuth";
 import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
-import bgImage from "../../assets/book1.png";
+import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 
 const Articles = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
@@ -25,6 +25,9 @@ const Articles = styled(({ className }) => {
   const [filteredArticles, setFilteredArticles] = useState<
     Article[] | undefined
   >([]);
+
+  // Ref for the search input
+  const searchInputRef = useRef<any>(null);
 
   useEffect(() => {
     getArticles();
@@ -66,10 +69,19 @@ const Articles = styled(({ className }) => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
+  // Scroll to the search input field when it is focused
+  // const scrollToSearchInput = () => {
+  //   if (searchInputRef.current) {
+  //     searchInputRef.current?.scrollIntoView({
+  //       behavior: "smooth",
+  //       // block: "top",
+  //     });
+  //   }
+  // };
+
   if (!domContentLoaded || !articles) {
     return <PageLoader />;
   }
-
   return (
     <div className={className}>
       <Navbar />
@@ -78,7 +90,7 @@ const Articles = styled(({ className }) => {
           <div className="flex items-center justify-between">
             <div className="w-[200px] h-[300px] bg-primary blur-3xl absolute left-[50%] top-[5%]  opacity-10 rounded-full z-0" />
             <div className="w-[200px] h-[300px] bg-danger blur-3xl absolute right-[50%] top-[15%] opacity-10 rounded-full z-0" />
-            <header className="text-center w-full h-[30vh] text-secondary mb-5 flex flex-col justify-center items-center bg-cover bg-[url('/assets/book1.png')] relative">
+            <header className="text-center w-full mt-20 sm:mb-10 mb-0 text-secondary  flex flex-col justify-center items-center bg-cover bg-[url('/assets/book1.png')] relative">
               <h2 className="font-bold text-center">ARTICLES</h2>
               {/* Search Bar */}
               <div className="search-bar-container">
@@ -86,6 +98,9 @@ const Articles = styled(({ className }) => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
+                  ref={searchInputRef} // Attach ref to the search input
+                  onClick={() => scrollToSearchInput(searchInputRef)}
                   placeholder="🔍 Search articles..."
                   className="search-bar bg-transparent focus:bg-[#ffffff55] w-full shadow-none focus:shadow-md "
                 />
@@ -125,10 +140,10 @@ const Articles = styled(({ className }) => {
             disabled={currentPage === 1}
             className="pagination-btn"
           >
-            Previous
+            Prev
           </button>
-          <span className="page-info">
-            Page {currentPage} of {totalPages}
+          <span className="page-info text-sm">
+            {currentPage} / {totalPages}
           </span>
           <button
             onClick={handleNextPage}
@@ -163,7 +178,6 @@ const Articles = styled(({ className }) => {
     width: 100%;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid ${({ theme }) => theme.colors.primary};
-    // border-radius: 8px;
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.secondary};
   }
@@ -202,7 +216,7 @@ const Articles = styled(({ className }) => {
   }
 
   .page-info {
-    font-size: 1rem;
+    // font-size: 1rem;
     color: ${({ theme }) => theme.colors.primary};
   }
 

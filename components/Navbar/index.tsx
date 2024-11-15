@@ -99,7 +99,8 @@ const Navbar = styled(({ className }: { className?: any }) => {
 })`
   position: fixed;
   top: 0;
-  z-index: 10;
+  left: 0;
+  z-index: 99999;
   width: 100%;
   background: #ffffff55;
   backdrop-filter: blur(10px);
@@ -164,6 +165,12 @@ const MobileMenu = styled(
     return (
       <div className={className}>
         <div className="top-bar">
+          <div className="logo">
+            <Link href="/">
+              <img src={logo.src} alt="" width={120} />
+            </Link>
+          </div>
+
           <Close onClick={onClose} size="30" />
         </div>
         <section>
@@ -190,9 +197,9 @@ const MobileMenu = styled(
 
   .top-bar {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
   }
 
   section {
