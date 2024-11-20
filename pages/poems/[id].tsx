@@ -65,7 +65,7 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
           }
           key="description"
         />
-        <meta property="og:image" content={renderImage(poem?.image)} />
+        <meta property="og:image" content={renderImage(poem?.image_url)} />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
@@ -82,7 +82,7 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@eemodiae" />
-        <meta property="twitter:image" content={renderImage(poem?.image)} />
+        <meta property="twitter:image" content={renderImage(poem?.image_url)} />
         <meta
           name="twitter:image:alt"
           content={poem?.title || "Eemodiae Poem"}
