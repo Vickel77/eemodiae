@@ -3,12 +3,12 @@ import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import ShopItme from "../../components/ShopItem";
-import { books } from "../../lib/data";
 import useContentful from "../../hooks/useContentful";
 import Link from "next/link";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import Pill from "../../components/Pill";
 import musicBg from "../../assets/music-bg.png";
+import PageLoader, { Loader } from "../../components/PageLoader";
 
 const Shop = styled(({ className }) => {
   const { getStore, store } = useContentful();
@@ -58,18 +58,26 @@ const Shop = styled(({ className }) => {
               </div>
             </div>
             <div className="store-items mt-10">
-              {store?.map((item, idx) => (
-                <Link
-                  key={idx}
-                  href={{
-                    pathname: `/shop/${+idx!}`,
-                  }}
-                >
-                  <div data-aos="fade-up" data-aos-delay={100 * idx} key={idx}>
-                    <ShopItme item={item} />
-                  </div>
-                </Link>
-              ))}
+              {store ? (
+                store?.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={{
+                      pathname: `/music/${+idx!}`,
+                    }}
+                  >
+                    <div
+                      data-aos="fade-up"
+                      data-aos-delay={100 * idx}
+                      key={idx}
+                    >
+                      <ShopItme item={item} />
+                    </div>
+                  </Link>
+                ))
+              ) : (
+                <Loader />
+              )}
               {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"

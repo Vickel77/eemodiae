@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar";
 import useContentful from "../../hooks/useContentful";
 import { useRouter } from "next/router";
 import { MdDownload, MdShare } from "react-icons/md";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import AudioPlayer from "react-h5-audio-player";
 
 export default function ItemDetails() {
   const router = useRouter();
@@ -14,11 +16,17 @@ export default function ItemDetails() {
 
   const storeItem: StoreItem = store?.[+id!]!;
 
-  const { image, title, media } = storeItem || {};
+  const { image, title, media, lyrics } = storeItem || {};
+
+  console.log({ storeItem });
 
   useEffect(() => {
     getStore();
   }, []);
+
+  const contentRendererOptions = {
+    preserveWhitespace: true,
+  };
 
   return (
     <div>
@@ -30,17 +38,18 @@ export default function ItemDetails() {
           backgroundPosition: "center center",
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          height: "100vh",
-          overflow: "hidden",
+          // height: "100vh",
+          // overflow: "hidden",
           paddingTop: "50px",
         }}
         className="text-black w-full text-center pb-20"
       >
         <div className="text-sm text-left inline-flex justify-center flex-wrap w-[100%] gap-20 px-10 mt-50">
-          <header className="my-30 text-white max-w-[300px]   ">
+          <header className="my-30 text-white max-w-[300px] mt-20  ">
             <div className="rounded-lg overflow-hidden">
               <img src={image} alt="" />
             </div>
+
             <div className="text-center">
               <p className="text-lg">{title}</p>
               <small>Samuel Emodiae</small>
@@ -56,78 +65,27 @@ export default function ItemDetails() {
               </button>
             </div>
           </header>
-          <div className="text-white overflow-scroll h-[90vh]">
-            Chorus
-            <br />
-            Secret tears we shed
-            <br />
-            Secret burden we bare
-            <br />
-            Baba take dem all away
-            <br />
-            Make dem disappear <br />
-            (×2)
-            <br />
-            <br />
-            Verse 1<br />
-            So many faces smiling
-            <br />
-            Beautiful people sparkling
-            <br />
-            Underneath, so many insects eating the leaving
-            <br />
-            Underneath, even the rich also cry
-            <br />
-            <br />
-            You know my name o<br />
-            You see my face o baba
-            <br />
-            You feel the pain
-            <br />
-            Am feeling deep inside <br />
-            <br />
-            Chorus <br />
-            Secret tears we shed
-            <br />
-            Secret burden we bear
-            <br />
-            Take dem all away
-            <br />
-            Make dem disappear <br />
-            <br />
-            Verse 2<br />
-            If money nor dey I worry
-            <br />
-            I borrow from person to person.
-            <br />
-            Nothing is ever enough
-            <br />
-            Nothing can make me happy enough <br />
-            <br />
-            I laugh and I play in the light
-            <br />
-            To keep it together, I smile
-            <br />
-            I just dey pretend, only to save face, I just dey display everything
-            fake
-            <br />
-            <br />
-            You know my name o<br />
-            You see my face o baba! <br />
-            You feel the pain
-            <br />
-            Am feeling deep inside. <br />
-            <br />
-            Chorus <br />
-            Secret tears we shed
-            <br />
-            Secret burden we bear
-            <br />
-            <br />
-            Baba take dem all away
-            <br />
-            Make dem disappear.
-            <br />
+          <div className="bg-white text-md">
+            <AudioPlayer
+              src={media?.fields?.file?.url}
+              autoPlay={false}
+              // showJumpControls={false}
+              customAdditionalControls={[]}
+              layout="stacked-reverse"
+              customVolumeControls={[]}
+              style={{
+                width: "100%",
+                // backgroundColor: "transparent",
+              }}
+              showDownloadProgress
+            />
+          </div>
+          <div className="text-white ">
+            <div
+              dangerouslySetInnerHTML={{
+                __html: documentToHtmlString(lyrics, contentRendererOptions),
+              }}
+            />
           </div>
         </div>
       </div>

@@ -7,3 +7,11 @@ export default function PageLoader() {
     </div>
   );
 }
+
+export function Loader() {
+  return (
+    <div className=" w-full overflow-hidden flex justify-center items-center z-50">
+      <div className="animate-spin border-4 border-primaryAccent  rounded-full border-t-primary w-10 h-10" />
+    </div>
+  );
+}

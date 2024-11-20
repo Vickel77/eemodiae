@@ -15,6 +15,7 @@ type StoreItem = {
   rating: number;
   title: string;
   artist: string;
+  lyrics: any;
   media: any;
 };
 type Article = {
