@@ -1,31 +1,27 @@
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
-import useContentful from "../../hooks/useContentful";
 import image from "../../assets/book1.png";
 import Share from "../../components/Share";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { createClient } from "contentful";
+import Head from "next/head";
+import renderImage from "../../helpers/renderImage";
 
-const AudioPage = () => {
+const client = createClient({
+  space: "7rf3l1j0b9zd",
+  accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
+});
+
+const AudioPage = ({
+  selectedAudio,
+  messages,
+}: {
+  selectedAudio: Message;
+  messages: Message[];
+}) => {
   const router = useRouter();
   const { id } = router.query;
-
-  const { getMessages, messages } = useContentful();
-
-  useEffect(() => {
-    getMessages();
-  }, []);
-
-  // Find the selected audio based on the ID from the URL
-  const selectedAudio: Message | undefined = messages?.find(
-    (audio, index) => audio.title.toLowerCase() === String(id)?.toLowerCase()
-  );
-
-  if (!selectedAudio) {
-    return <div>Audio not found</div>;
-  }
 
   // Filter out the current audio from suggestions
   const suggestions = messages
@@ -36,8 +32,69 @@ const AudioPage = () => {
 
   const _image = selectedAudio?.imageUrl?.fields?.file?.url ?? image.src;
 
+  const shareUrl = `https://eemodiae.org/messages/${id}?${selectedAudio?.title.replace(
+    / /g,
+    "_"
+  )}`;
+
+  if (!selectedAudio) {
+    return <div>Audio not found</div>;
+  }
+
   return (
     <>
+      <Head>
+        <title>
+          {(selectedAudio && selectedAudio.title) || "Eemodiae Sermon"}
+        </title>
+
+        <meta
+          name="description"
+          content={"Explore inspiring messages on Eemodiae"}
+        />
+        <link rel="canonical" href={shareUrl} />
+
+        {/* Open Graph Tags */}
+        <meta property="og:site_name" content="Eemodiae" />
+        <meta
+          property="og:title"
+          content={selectedAudio?.title || "Eemodiae Sermon"}
+          key="title"
+        />
+        <meta
+          property="og:description"
+          content={"Explore inspiring Messages on Eemodiae."}
+          key="description"
+        />
+        <meta
+          property="og:image"
+          content={`https:${renderImage(selectedAudio?.imageUrl)}`}
+        />
+        <meta property="og:url" content={shareUrl} />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:image:alt"
+          content={selectedAudio?.title || "Eemodiae Sermon"}
+        />
+
+        {/* Twitter */}
+
+        <meta name="twitter:title" content={selectedAudio?.title} />
+        <meta
+          name="twitter:description"
+          content={"Explore inspiring Messages on Eemodiae."}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@eemodiae" />
+        <meta
+          property="twitter:image"
+          content={`https:${renderImage(selectedAudio?.imageUrl)}`}
+        />
+        <meta
+          name="twitter:image:alt"
+          content={selectedAudio?.title || "Eemodiae Sermon"}
+        />
+      </Head>
       <div className="min-h-screen bg-gray-100 p-5 text-primary">
         <Navbar />
         <div className="container mx-auto my-10">
@@ -113,5 +170,37 @@ const AudioPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context: any) {
+  const { id } = context.params;
+
+  const entries = await client.getEntries({
+    content_type: "eemodiaeMessages",
+  });
+
+  const sanitizedEntries: Message[] =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  const selectedAudio: Message | undefined = sanitizedEntries?.find(
+    (audio, index) => audio.title.toLowerCase() === String(id)?.toLowerCase()
+  );
+
+  // If the post does not exist, return a 404 page
+  if (!sanitizedEntries) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { selectedAudio, messages: sanitizedEntries }, // Pass the post data to the component as props,
+  };
+}
 
 export default AudioPage;
