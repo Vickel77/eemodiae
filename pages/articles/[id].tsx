@@ -22,12 +22,6 @@ const Article = ({ article }: { article: Article }) => {
   const router = useRouter();
   const id = router.query.id;
 
-  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    setDomContentLoaded(true);
-  }, []);
-
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
     "_"
@@ -37,7 +31,7 @@ const Article = ({ article }: { article: Article }) => {
     preserveWhitespace: true,
   };
   // const article = articles[Number(id)];
-  if (!domContentLoaded || !article) {
+  if (!article) {
     return <PageLoader />;
   }
 
