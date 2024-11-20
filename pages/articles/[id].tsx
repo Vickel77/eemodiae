@@ -51,7 +51,10 @@ const Article = ({ article }: { article: Article }) => {
           content={smallDescription(article?.content)}
           key="description"
         />
-        <meta property="og:image" content={renderImage(article.image_url)} />
+        <meta
+          property="og:image"
+          content={`https:${renderImage(article.image_url)}`}
+        />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
@@ -70,7 +73,7 @@ const Article = ({ article }: { article: Article }) => {
         <meta name="twitter:site" content="@eemodiae" />
         <meta
           property="twitter:image"
-          content={renderImage(article.image_url)}
+          content={`https:${renderImage(article.image_url)}`}
         />
         <meta
           property="og:image:alt"
