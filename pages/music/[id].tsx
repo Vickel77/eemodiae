@@ -136,6 +136,18 @@ export default function ItemDetails() {
             </div>
             <div className="flex mt-3  gap-3 justify-between">
               <button
+                onClick={handleShareClick}
+                className="btn bg-white w-full text-primary flex gap-2 items-center"
+              >
+                <Share
+                  ref={shareRef}
+                  text={title}
+                  title={title}
+                  icon
+                  iconText={"Share"}
+                />
+              </button>
+              <button
                 onClick={(e) => {
                   e.preventDefault();
                   fetch(media?.fields?.file?.url)
@@ -152,19 +164,6 @@ export default function ItemDetails() {
                 className="btn bg-white w-[100%s] text-primary flex gap-2 items-center"
               >
                 Download <MdDownload />
-              </button>
-
-              <button
-                onClick={handleShareClick}
-                className="btn bg-white w-full text-primary flex gap-2 items-center"
-              >
-                <Share
-                  ref={shareRef}
-                  text={title}
-                  title={title}
-                  icon
-                  iconText={"Share"}
-                />
               </button>
             </div>
           </header>
