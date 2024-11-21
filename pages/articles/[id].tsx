@@ -29,12 +29,6 @@ const Article = ({ article }: { article: Article }) => {
   //   synth.speak(utterance);
   // };
 
-  const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
-
-  useEffect(() => {
-    setDomContentLoaded(true);
-  }, []);
-
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
     "_"
@@ -44,7 +38,7 @@ const Article = ({ article }: { article: Article }) => {
     preserveWhitespace: true,
   };
   // const article = articles[Number(id)];
-  if (!domContentLoaded || !article) {
+  if (!article) {
     return <PageLoader />;
   }
 
@@ -64,7 +58,10 @@ const Article = ({ article }: { article: Article }) => {
           content={smallDescription(article?.content)}
           key="description"
         />
-        <meta property="og:image" content={renderImage(article.image_url)} />
+        <meta
+          property="og:image"
+          content={`https:${renderImage(article.image_url)}`}
+        />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
@@ -83,7 +80,7 @@ const Article = ({ article }: { article: Article }) => {
         <meta name="twitter:site" content="@eemodiae" />
         <meta
           property="twitter:image"
-          content={renderImage(article.image_url)}
+          content={`https:${renderImage(article.image_url)}`}
         />
         <meta
           property="og:image:alt"
@@ -94,7 +91,7 @@ const Article = ({ article }: { article: Article }) => {
         <Navbar />
         <section className="w-[70%] m-auto">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push("/articles")}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />

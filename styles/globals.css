@@ -196,3 +196,39 @@ textarea,
     transform: rotate(360deg);
   }
 }
+
+/* Change play/pause button color */
+.rhap_play-pause-button button {
+  color: #3624a7; /* Replace with your desired color */
+}
+
+/* Change forward/backward icon colors */
+.rhap_main-controls button {
+  color: #3624a7; /* Replace with your desired color */
+}
+
+/* Change the color of the seek bar */
+.rhap_progress-bar-show-download .rhap_progress-filled {
+  background-color: #3624a7; /* Replace with your desired color */
+}
+
+.rhap_progress-filled {
+  background-color: #3624a7; /* Custom color for progress indicator */
+  border-radius: 5px 0 0 5px; /* Rounded edge at the beginning */
+  height: 100%; /* Make it match the height of the seek bar */
+}
+
+.rhap_main-controls button,
+.rhap_additional-controls button,
+.rhap_volume-controls button {
+  color: #3624a7; /* Custom color for control icons */
+}
+/* Change the time control color */
+.rhap_time {
+  color: #3624a7; /* Replace with your desired color */
+}
+
+/* Change the background color of the audio player */
+.rhap_container {
+  background-color: #f0f0f0; /* Replace with your desired color */
+}

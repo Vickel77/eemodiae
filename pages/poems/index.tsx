@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
@@ -7,10 +7,12 @@ import CreatePoem from "../../components/Modals/PoemModal";
 import useAuth from "../../hooks/useAuth";
 import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
+import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 
 const Poems = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
   const { getPoems, poems } = useContentful();
+  const searchInputRef = useRef<any>(null);
 
   const [domContentLoaded, setDomContentLoaded] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -72,13 +74,19 @@ const Poems = styled(({ className }) => {
           <div className="flex items-center justify-between">
             <div className="w-[200px] h-[300px] bg-primary blur-3xl fixed left-[80%] top-[5%]  opacity-10 rounded-full z-0" />
             <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed right-[90%] top-[15%] opacity-10 rounded-full z-0" />
-            <header className="text-center h-[30vh] w-full text-secondary mb-5 flex flex-col justify-center items-center relative">
+
+            <header className="text-center mt-20 sm:mb-10 mb-0 w-full text-secondary flex flex-col justify-center items-center relative">
+
               <h2 className="font-bold">POEMS</h2>
               <div className="search-bar-container">
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
+                  ref={searchInputRef} // Attach ref to the search input
+                  onClick={() => scrollToSearchInput(searchInputRef)}
+
                   placeholder="🔍 Search poems..."
                   className="search-bar  bg-transparent focus:bg-[#ffffff55] w-full shadow-none focus:shadow-md border-none"
                 />
@@ -126,7 +134,8 @@ const Poems = styled(({ className }) => {
             Prev
           </button>
           <span className="page-info">
-            Page {currentPage} of {totalPages}
+            {currentPage} / {totalPages}
+
           </span>
           <button
             onClick={handleNextPage}

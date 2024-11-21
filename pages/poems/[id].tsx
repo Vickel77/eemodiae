@@ -39,23 +39,36 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
   return (
     <Suspense fallback="">
       <Head>
-        <title>{poem && poem.title}</title>
+        <title>{(poem && poem.title) || "Eemodiae Poems"}</title>
 
         <meta
           name="description"
-          content={`${smallDescription(poem.content)}`}
+          content={
+            smallDescription(poem.content) ||
+            "Explore inspiring poems on Eemodiae."
+          }
         />
         <link rel="canonical" href={shareUrl} />
 
         {/* Open Graph Tags */}
         <meta property="og:site_name" content="Eemodiae" />
-        <meta property="og:title" content={poem?.title} key="title" />
+        <meta
+          property="og:title"
+          content={poem?.title || "Eemodiae Poems"}
+          key="title"
+        />
         <meta
           property="og:description"
-          content={smallDescription(poem.content)}
+          content={
+            smallDescription(poem.content) ||
+            "Explore inspiring poems on Eemodiae."
+          }
           key="description"
         />
-        <meta property="og:image" content={renderImage(poem?.image)} />
+        <meta
+          property="og:image"
+          content={`https:${renderImage(poem?.image_url)}`}
+        />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta
@@ -72,7 +85,10 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@eemodiae" />
-        <meta property="twitter:image" content={renderImage(poem?.image)} />
+        <meta
+          property="twitter:image"
+          content={`https:${renderImage(poem?.image_url)}`}
+        />
         <meta
           name="twitter:image:alt"
           content={poem?.title || "Eemodiae Poem"}
@@ -82,8 +98,8 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
       <main className={className}>
         <div className="w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
           <button
-            onClick={() => router.back()}
-            className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
+            onClick={() => router.push("/poems")}
+            className="text-sm flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
             Back

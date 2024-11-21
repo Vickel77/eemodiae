@@ -7,7 +7,8 @@ import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
-import logo from "../../assets/logo.png";
+
+import logo from "../../assets/logo-5.png";
 
 const Navbar = styled(({ className }: { className?: any }) => {
   const router = useRouter();
@@ -73,6 +74,14 @@ const Navbar = styled(({ className }: { className?: any }) => {
             STORE
           </Link>
           <Link
+
+            href="/music"
+            className={router.pathname === "/music" ? "active" : ""}
+          >
+            MUSIC
+          </Link>
+          <Link
+
             href="/give"
             className={`${
               router.pathname === "/give" ? "active" : ""
@@ -90,7 +99,9 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
         {/* Mobile Hamburger */}
         <div className="hamburger-menu">
-          <Hamburger size="30" onClick={() => setIsOpen(!isOpen)} />
+
+          <Hamburger size="20" onClick={() => setIsOpen(!isOpen)} />
+
           {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
         </div>
       </div>
@@ -99,9 +110,12 @@ const Navbar = styled(({ className }: { className?: any }) => {
 })`
   position: fixed;
   top: 0;
-  z-index: 10;
+
+  left: 0;
+  z-index: 99999;
   width: 100%;
-  background: #ffffff55;
+  background: #ffffffaa;
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: ${({ theme }) => theme.colors.primary};
@@ -149,6 +163,8 @@ const Navbar = styled(({ className }: { className?: any }) => {
   }
 
   @media (max-width: 768px) {
+    padding: 1rem;
+
     .desktop-links {
       display: none;
     }
@@ -163,6 +179,12 @@ const MobileMenu = styled(
     return (
       <div className={className}>
         <div className="top-bar">
+          <div className="logo">
+            <Link href="/">
+              <img src={logo.src} alt="" width={120} />
+            </Link>
+          </div>
+
           <Close onClick={onClose} size="30" />
         </div>
         <section>
@@ -172,6 +194,7 @@ const MobileMenu = styled(
           <Link href="/poems">POEMS</Link>
           <Link href="/messages">MESSAGES</Link>
           <Link href="/shop">STORE</Link>
+          <Link href="/music">MUSIC</Link>
           <Link href="/give">GIVE</Link>
         </section>
       </div>
@@ -189,9 +212,10 @@ const MobileMenu = styled(
 
   .top-bar {
     width: 100%;
-    padding: 1.2rem;
+    padding: 1rem;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+
   }
 
   section {

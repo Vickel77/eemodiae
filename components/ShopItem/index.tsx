@@ -1,14 +1,21 @@
 import styled from "styled-components";
 import Image from "next/image";
 import chatOnWhatsApp from "../../assets/chat-on-whatsapp.png";
+import renderImage from "../../helpers/renderImage";
 
 const ShopItme = styled(
   ({ className, item }: { className?: any; item: StoreItem }) => {
-    const { title, image, price, category, artist } = item;
+    const { title, image_url, price, category, artist } = item;
     return (
       <div className={className}>
         <div className="image">
-          <img className="img" src={image} alt={title} width="100%" />
+          <img
+            key={title}
+            className="img"
+            src={renderImage(image_url)}
+            alt={title}
+            width="100%"
+          />
           {category !== "song" && (
             <div className="overlay">
               {/* <button className="btn">BUY NOW</button> */}
@@ -23,7 +30,7 @@ const ShopItme = styled(
                   width={200}
                   src={chatOnWhatsApp}
                   alt="Chat on whatsapp"
-                />  
+                />
               </a>
             </div>
           )}
@@ -49,7 +56,7 @@ const ShopItme = styled(
   border-radius: 7.5px;
   overflow: hidden;
   box-shadow: 0 4px 10px #00000022;
-  max-width: 300px;
+  // max-width: 300px;
   .image {
     height: 200px;
     width: 100%;
