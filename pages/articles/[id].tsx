@@ -21,6 +21,13 @@ const client = createClient({
 const Article = ({ article }: { article: Article }) => {
   const router = useRouter();
   const id = router.query.id;
+  // const handleSpeak = () => {
+  //   const synth = window.speechSynthesis;
+  //   const utterance = new SpeechSynthesisUtterance(
+  //     documentToHtmlString(article.content, contentRendererOptions)
+  //   );
+  //   synth.speak(utterance);
+  // };
 
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
@@ -91,6 +98,9 @@ const Article = ({ article }: { article: Article }) => {
             Back
           </button>
           <h1 className=" text-2xl md:text-3xl font-black">{article.title}</h1>
+          {/* <button onClick={handleSpeak} className="speech-btn">
+            🔊 Listen
+          </button> */}
         </section>
         <aside className=" w-[70%] m-auto flex gap-5 items-center mt-5">
           <div className="rounded-full">

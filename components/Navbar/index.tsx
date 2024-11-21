@@ -1,13 +1,14 @@
-"use client";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import Close from "../Icons/Close";
 import Hamburger from "../Icons/Hamburger";
 import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+
+import logo from "../../assets/logo-5.png";
 
 const Navbar = styled(({ className }: { className?: any }) => {
   const router = useRouter();
@@ -20,56 +21,171 @@ const Navbar = styled(({ className }: { className?: any }) => {
     router.push("/");
     toast("Log Out Successful");
   };
-  ("");
+
   useEffect(() => {
     const _isLoggedIn = localStorage.getItem("isLoggedIn");
     if (_isLoggedIn === "true") {
       setIsLoggedIn(true);
     }
-  });
+  }, []);
+
   return (
-    <div className={className}>
-      <div className="hamburger">
-        <Hamburger size="30" onClick={() => setIsOpen(!isOpen)} />
-        {isLoggedIn && (
-          <button onClick={logout}>
-            <MdLogout size={30} />
-          </button>
-        )}
-        {isOpen && <View onClose={() => setIsOpen(false)} />}
+    <nav className={className}>
+      <div className="navbar-content">
+        <div className="logo">
+          <Link href="/">
+            <img src={logo.src} alt="" width={120} />
+          </Link>
+        </div>
+
+        {/* Desktop Links */}
+        <div className="desktop-links">
+          {/* <Link href="/" className={router.pathname === "/" ? "active" : ""}>
+            HOME
+          </Link> */}
+          <Link
+            href="/about"
+            className={router.pathname === "/about" ? "active" : ""}
+          >
+            ABOUT
+          </Link>
+          <Link
+            href="/articles"
+            className={router.pathname === "/articles" ? "active" : ""}
+          >
+            ARTICLES
+          </Link>
+          <Link
+            href="/poems"
+            className={router.pathname === "/poems" ? "active" : ""}
+          >
+            POEMS
+          </Link>
+          <Link
+            href="/messages"
+            className={router.pathname === "/messages" ? "active" : ""}
+          >
+            MESSAGES
+          </Link>
+          <Link
+            href="/shop"
+            className={router.pathname === "/shop" ? "active" : ""}
+          >
+            STORE
+          </Link>
+          <Link
+
+            href="/music"
+            className={router.pathname === "/music" ? "active" : ""}
+          >
+            MUSIC
+          </Link>
+          <Link
+
+            href="/give"
+            className={`${
+              router.pathname === "/give" ? "active" : ""
+            } bg-primary px-2 py-1 rounded-sm text-white`}
+          >
+            GIVE
+          </Link>
+          {isLoggedIn && (
+            <button onClick={logout} className="logout-btn">
+              <MdLogout size={20} />
+              LOG OUT
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Hamburger */}
+        <div className="hamburger-menu">
+
+          <Hamburger size="20" onClick={() => setIsOpen(!isOpen)} />
+
+          {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
+        </div>
       </div>
-    </div>
+    </nav>
   );
 })`
   position: fixed;
   top: 0;
+
   left: 0;
-  // border: 1px solid red;
-  z-index: 5;
+  z-index: 99999;
   width: 100%;
-  // background: #ffffff77;
-  // backdrop-filter: blur(10px);
-  // color: ${({ theme }) => theme.colors.primary};
-  .hamburger {
-    width: 100%;
-    padding: 1.2rem;
-    cursor: pointer;
+  background: #ffffffaa;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: ${({ theme }) => theme.colors.primary};
+  padding: 1rem 2rem;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+
+  .navbar-content {
     display: flex;
     justify-content: space-between;
-    // mix-blend-mode: difference;
+    align-items: center;
+  }
 
-    * {
-      // filter: drop-shadow(1px 1px 0px ${({ theme }) => theme.colors.white});
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .desktop-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+
+  /* Active link styling */
+  .desktop-links > .active {
+    border-top: 2px dashed ${({ theme }) => theme.colors.primary}; /* Optional underline */
+  }
+
+  .logout-btn {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: ${({ theme }) => theme.colors.primary};
+    cursor: pointer;
+  }
+
+  .hamburger-menu {
+    display: none;
+  }
+
+  .main-content {
+    padding-top: 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .desktop-links {
+      display: none;
+    }
+    .hamburger-menu {
+      display: block;
     }
   }
 `;
 
-const View = styled(
+const MobileMenu = styled(
   ({ className, onClose }: { className?: any; onClose?: () => void }) => {
     return (
       <div className={className}>
         <div className="top-bar">
-          <Close onClick={onClose} size="60" />
+          <div className="logo">
+            <Link href="/">
+              <img src={logo.src} alt="" width={120} />
+            </Link>
+          </div>
+
+          <Close onClick={onClose} size="30" />
         </div>
         <section>
           <Link href="/">HOME</Link>
@@ -78,6 +194,7 @@ const View = styled(
           <Link href="/poems">POEMS</Link>
           <Link href="/messages">MESSAGES</Link>
           <Link href="/shop">STORE</Link>
+          <Link href="/music">MUSIC</Link>
           <Link href="/give">GIVE</Link>
         </section>
       </div>
@@ -87,12 +204,40 @@ const View = styled(
   height: 100vh;
   width: 100vw;
   background: #fff;
-  animation: in-animation 0.3s;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 9999;
-  @keyframes in-animation {
+  animation: fadeIn 0.3s;
+
+  .top-bar {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  section a {
+    font-size: 1.5rem;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.primary};
+  }
+
+  section a:hover {
+    background: ${({ theme }) => theme.colors.primaryAccent};
+  }
+
+  @keyframes fadeIn {
     from {
       opacity: 0;
     }
@@ -100,26 +245,5 @@ const View = styled(
       opacity: 1;
     }
   }
-
-  .top-bar {
-    width: 100%;
-    padding: 1.2rem;
-  }
-
-  section {
-    margin-top: 3rem;
-  }
-  section > * {
-    font-size: 1.2rem;
-    padding: 0.5rem 2.5rem;
-    width: 100%;
-    display: block;
-  }
-  section > *:hover {
-    transition: 0.3s;
-    background: ${({ theme }) => theme.colors.primaryAccent};
-    border-left: 5px solid ${({ theme }) => theme.colors.primary};
-  }
 `;
-
 export default Navbar;

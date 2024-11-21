@@ -41,7 +41,7 @@ const ArticleCard = ({
           {/* <img src={renderImage(image_url)} alt={title} width={200} /> */}
         </div>
         <div className="px-3 ">
-          <h3 className="font-black text-[1.2rem] ">{title}</h3>
+          <h3 className="font-semibold text-[1.2rem] ">{title}</h3>
           <button className="text-left text-sm text-black">
             {" "}
             <div

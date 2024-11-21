@@ -64,7 +64,9 @@ const Home: NextPage = styled(({ className }) => {
         />
       </Head>
 
-      <main className="main">
+      <div className="w-[200px] h-[300px] bg-primary blur-3xl fixed left-[40%] top-[50%]  opacity-20 rounded-full z-0" />
+      <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed left-[50%] top-[50%] opacity-20 rounded-full z-0" />
+      <main className="main relative">
         <Navbar />
         <header className="header-section">
           <div className="ambience" />
@@ -134,7 +136,7 @@ const Home: NextPage = styled(({ className }) => {
         <WhatIDo />
 
         <section className="poems">
-          <h3 className="poems-title">POEMS</h3>
+          <h3 className="poems-title ">Poems</h3>
           <Carousel
             autoplay={true}
             withoutControls
@@ -174,7 +176,7 @@ const Home: NextPage = styled(({ className }) => {
         <section className="worked-at flex flex-wrap justify-center items-center min-h-[30vh] w-[70%] m-auto rounded-3xl mb-20 gap-10 p-10">
           <div className="flex-1 justify-center items-center">
             <a href="mailto:eemodiae@gmail.com">
-              <button className="btn cta sm:p-4 rounded-full bg-black text-white shadow-lg">
+              <button className="btn cta sm:p-4 text-sm rounded-full bg-black text-white shadow-lg">
                 Request for mentorship
               </button>
             </a>
@@ -255,7 +257,7 @@ const Home: NextPage = styled(({ className }) => {
     font-family: ${({ theme }) => theme.decorFont};
   }
   .welcome-section h3 {
-    font-family: ${({ theme }) => theme.colors.headerFont} !important;
+    font-family: ${({ theme }) => theme.decorFont} !important;
     font-weight: normal;
   }
 
@@ -306,6 +308,11 @@ const Home: NextPage = styled(({ className }) => {
     // font-size: 1rem;
     .poem h4 {
       margin: 1rem auto;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .poem p {
+      font-size: 1rem;
     }
     * {
       text-align: center;
@@ -322,7 +329,8 @@ const Home: NextPage = styled(({ className }) => {
 
   .worked-at {
     padding: 1.5rem 2rem;
-    background: ${({ theme }) => theme.colors.primaryAccent};
+    background: ${({ theme }) => theme.colors.primaryAccent}55;
+    backdrop-filter: blur(20px);
 
     .marq-img {
       margin-left: 4rem;

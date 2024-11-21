@@ -17,11 +17,11 @@ export default function MessageCard({
   const _image = message?.imageUrl?.fields?.file?.url ?? image.src;
   return (
     <div className="overflow-hidden w-[200px] rounded-xl">
-      <div className=" text-primary  bg-white  w-[200px]  rounded-xl border-1 border-primary p-3 shadow-lg mb-5">
+      <div className=" text-primary  bg-white  w-[200px]  rounded-xl border-1 border-primary shadow-lg mb-5">
         {!hideImage && (
           <div
             // style={{ aspectRatio: "auto" }}
-            className="relative shadow-2xl rounded-lg mb-5 w-full h-[150px] flex justify-center items-center overflow-hidden"
+            className="relative shadow-md   w-full h-[150px] flex justify-center items-center overflow-hidden"
           >
             <Link href={`/messages/${message.title}`}>
               <img src={_image} alt={message.title} width={200} />
@@ -50,35 +50,40 @@ export default function MessageCard({
             </div>
           </div>
         )}
-        <div className="text-sm">
-          {message.title}
-          <br />
-        </div>
-        <div className="flex justify-between items-center">
-          <small className="opacity-50 text-[12px]">
-            Pst {message.preacher || "Emmanuel I. Emodiae"}
-          </small>
-          {hideImage && (
-            <button className="flex gap-3 items-center">
-              <Share
-                // iconColor="white"
-                icon
-                title={message.title}
-                shareUrl={`https://eemodie.org/messages/${message.title}`}
-              />
-              <a
-                href={`${audio ?? message?.audio?.fields?.file?.url}`}
-                download={message.title}
-                className="hover:opacity-80"
-                onClick={() =>
-                  window && window.open(message?.audio?.fields?.file?.url)
-                }
-              >
-                {/* Download audio file */}
-                <MdDownload size={30} />
-              </a>
-            </button>
-          )}
+        <div className="p-3">
+          <Link href={`/messages/${message.title}`}>
+            <div className="text-sm line-clamp-2">
+              {message.title}
+              <br />
+            </div>
+          </Link>
+          <div className="flex justify-between items-center">
+            <small className="opacity-50 text-[12px]">
+              Pst {message.preacher || "Emmanuel I. Emodiae"}
+            </small>
+            {hideImage && (
+              <button className="flex gap-3 items-center">
+                <Share
+                  // iconColor="white"
+                  icon
+                  title={message.title}
+                  shareUrl={`https://eemodie.org/messages/${message.title}`}
+                />
+                <a
+                  href={`${audio ?? message?.audio?.fields?.file?.url}`}
+                  download={message.title}
+                  className="hover:opacity-80"
+                  onClick={() =>
+                    window && window.open(message?.audio?.fields?.file?.url)
+                  }
+                >
+                  {/* Download audio file */}
+                  <MdDownload size={30} />
+                </a>
+              </button>
+            )}
+          </div>
+
         </div>
       </div>
     </div>

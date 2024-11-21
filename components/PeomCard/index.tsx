@@ -57,7 +57,7 @@ const PeomCard = styled(
     return (
       <div className={className}>
         <div>
-          <h3 className="capitalize">{title}</h3>
+          <h3 className="capitalize line-clamp-2 leading-6">{title}</h3>
           <div className="flex gap-3">
             <Link
               href={{

@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import ShopItme from "../../components/ShopItem";
-import { books } from "../../lib/data";
 import useContentful from "../../hooks/useContentful";
 import Link from "next/link";
+import scrollToSearchInput from "../../helpers/scrollToElementPosition";
+import Pill from "../../components/Pill";
+import musicBg from "../../assets/music-bg.png";
+import PageLoader, { Loader } from "../../components/PageLoader";
 
 const Shop = styled(({ className }) => {
   const { getStore, store } = useContentful();
 
+  const searchInputRef = useRef<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  console.log("music store ", store);
   useEffect(() => {
     getStore();
   }, []);
@@ -18,24 +25,45 @@ const Shop = styled(({ className }) => {
     <div className={className}>
       <Navbar />
       <main>
-        <h4>Shop from our best collection of books worldwide.</h4>
+        <div className="w-[200px] h-[300px] bg-primary blur-3xl fixed left-[5%] top-[5%]  opacity-20 rounded-full z-0" />
+        <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed right-[5%] top-[15%] opacity-20 rounded-full z-0" />
+        <img
+          className="mix-blend-multiply absolute left-[50%] top-20 sm:top-0  translate-x-[-50%] opacity-10"
+          src={musicBg.src}
+          alt=""
+          width="100%"
+        />
+        <header
+          className={`relative text-center mt-20 mb-10 bg-cover text-secondary flex flex-col justify-center items-center`}
+        >
+          <h2 className="font-bold text-4xl">MUSIC</h2>
+          <p>Explore soul lifting music</p>
+        </header>
 
-        <div className="top-bar">
-          <input placeholder="Search" className="search-input" type="text" />
-          <button className="btn">SEARCH</button>
-        </div>
-
-        <article>
+        <article className="relative">
           <section>
-            <h4>RECENTLY ADDED</h4>
-            <div className="store-items">
-              {store
-                ?.filter((item) => item.category !== "song")
-                .map((item, idx) => (
+            <div className="flex flex-wrap sm:flex-nowrap   justify-center items-center sm:justify-between w-full m-auto my-4">
+              <Pill label="RECENTLY ADDED" />
+              <div className="search-bar-container w-full sm:w-1/3  mt-2">
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
+                  ref={searchInputRef} // Attach ref to the search input
+                  onClick={() => scrollToSearchInput(searchInputRef)}
+                  placeholder="🔍 Search music..."
+                  className="search-bar   bg-[#ffffff] w-full sm:w-full rounded-md shadow-none focus:shadow-md px-4  border border-primary"
+                />
+              </div>
+            </div>
+            <div className="store-items mt-10">
+              {store ? (
+                store?.map((item, idx) => (
                   <Link
                     key={idx}
                     href={{
-                      pathname: `/shop/${+idx!}`,
+                      pathname: `/music/${+idx!}`,
                     }}
                   >
                     <div
@@ -46,7 +74,10 @@ const Shop = styled(({ className }) => {
                       <ShopItme item={item} />
                     </div>
                   </Link>
-                ))}
+                ))
+              ) : (
+                <Loader />
+              )}
               {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"
@@ -103,8 +134,8 @@ const Shop = styled(({ className }) => {
     }
     input,
     .btn {
-      padding: 1rem;
-      font-size: 1.1rem;
+      // padding: rem;
+      font-size: 1rem;
     }
     button.btn {
       background: ${({ theme }) => theme.colors.primary};
@@ -120,10 +151,10 @@ const Shop = styled(({ className }) => {
 
     .store-items {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 0.9fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 0.9fr));
       gap: 1rem;
-      place-items: center;
-      place-content: center;
+      // place-items: center;
+      // place-content: center;
     }
   }
 `;
