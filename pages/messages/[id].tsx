@@ -181,7 +181,7 @@ const AudioPage = ({
 
                   <div className="">
                     <Share
-                      shareUrl={`https://eemodie.org/messages/${id}`}
+                      shareUrl={`https://eemodiae.org/messages/${id}`}
                       icon
                       title={selectedAudio.title}
                     />
