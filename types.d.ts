@@ -10,7 +10,7 @@ type ShopProps = {
 type StoreItem = {
   category: string;
   image: string;
-  image_url: string;
+  image_url: { fields: { file: { url: string } } };
   price: number;
   rating: number;
   title: string;

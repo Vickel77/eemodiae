@@ -108,7 +108,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
   left: 0;
   z-index: 99999;
   width: 100%;
-  background: #ffffff55;
+  background: #ffffffaa;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: ${({ theme }) => theme.colors.primary};

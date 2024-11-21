@@ -28,7 +28,9 @@ const Share = ({
   icon,
   iconProps,
   shareUrl,
+  iconText,
   iconColor,
+  ref,
 }: {
   title?: string;
   text?: string | any;
@@ -36,7 +38,9 @@ const Share = ({
   icon?: boolean;
   iconProps?: IconType | any;
   shareUrl?: string;
+  iconText?: any;
   iconColor?: string;
+  ref?: any;
 }) => {
   const [isShareSupported, setIsShareSupported] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
@@ -92,11 +96,12 @@ const Share = ({
       <div>
         {icon ? (
           <button
+            ref={ref}
             className="m-0 p-0  flex justify-center items-center gap-2"
             onClick={() => handleShare()}
           >
             <MdShare size={20} color={iconColor} {...iconProps} />
-            <small>Share</small>
+            {iconText ?? <small>Share</small>}
           </button>
         ) : (
           <h3
