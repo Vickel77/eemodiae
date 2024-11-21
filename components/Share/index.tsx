@@ -91,8 +91,12 @@ const Share = ({
     <div className="flex justify-center items-center">
       <div>
         {icon ? (
-          <button className="m-0 p-0" onClick={() => handleShare()}>
+          <button
+            className="m-0 p-0  flex justify-center items-center gap-2"
+            onClick={() => handleShare()}
+          >
             <MdShare size={20} color={iconColor} {...iconProps} />
+            <small>Share</small>
           </button>
         ) : (
           <h3

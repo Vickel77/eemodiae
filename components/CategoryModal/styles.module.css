@@ -11,4 +11,5 @@
 
 .modal {
   animation: slide 0.25s;
+  width: 100%;
 }

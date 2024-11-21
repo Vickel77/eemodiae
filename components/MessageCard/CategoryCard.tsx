@@ -121,7 +121,7 @@ export const CategoryCardV2 = ({
     <>
       <div
         onClick={() => setShowModal(true)}
-        className=" flex items-center border backdrop-blur-3xl  rounded-md min-w-[300px] w-[300px] bg-[#ffffff55]  overflow-hidden"
+        className=" cursor-pointer flex items-center border backdrop-blur-3xl  rounded-md min-w-[300px] w-[300px] bg-[#ffffff55] hover:bg-[#ffffffaa]  overflow-hidden"
         // style={{ background: `url(${image})` }}
       >
         <div className=" flex items-center justify-center max-w-12 h-12 overflow-hidden">
