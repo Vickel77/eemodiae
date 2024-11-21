@@ -1,12 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar";
 import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import useContentful from "../../hooks/useContentful";
 import MessageCard from "../../components/MessageCard";
-import CategoryCard, {
-  CategoryCardV2,
-} from "../../components/MessageCard/CategoryCard";
+import { CategoryCardV2 } from "../../components/MessageCard/CategoryCard";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import Pill from "../../components/Pill";
