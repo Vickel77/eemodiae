@@ -31,7 +31,7 @@ export default function MessageCard({
                 iconColor="white"
                 icon
                 title={message.title}
-                shareUrl={`https://eemodie.org/messages/${message.title}`}
+                shareUrl={`https://eemodiae.org/messages/${message.title}`}
               />
 
               <button className="flex gap-3 ">
@@ -67,7 +67,7 @@ export default function MessageCard({
                   // iconColor="white"
                   icon
                   title={message.title}
-                  shareUrl={`https://eemodie.org/messages/${message.title}`}
+                  shareUrl={`https://eemodiae.org/messages/${message.title}`}
                 />
                 <a
                   href={`${audio ?? message?.audio?.fields?.file?.url}`}
@@ -83,7 +83,6 @@ export default function MessageCard({
               </button>
             )}
           </div>
-
         </div>
       </div>
     </div>
