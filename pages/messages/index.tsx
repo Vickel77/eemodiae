@@ -6,6 +6,7 @@ import useContentful from "../../hooks/useContentful";
 import MessageCard from "../../components/MessageCard";
 import { CategoryCardV2 } from "../../components/MessageCard/CategoryCard";
 import PageLoader from "../../components/PageLoader";
+
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import Pill from "../../components/Pill";
 
@@ -137,7 +138,9 @@ export default function Messages() {
             </button>
           )}
         </div>
+
         <div className="bg-primary h-[1px] w-full opacity-50 my-5" />
+
         {/* Display Filtered Messages */}
         <div className="mb-5">
           <Pill label="Featured Messages" />
@@ -150,6 +153,7 @@ export default function Messages() {
               <MessageCard message={message} key={idx} />
             ))}
         </div>
+
         {/* Pagination Controls */}
         <div className="flex justify-center gap-3 mt-5">
           <button

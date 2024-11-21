@@ -7,6 +7,7 @@ import { MdLogout } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+
 import logo from "../../assets/logo-5.png";
 
 const Navbar = styled(({ className }: { className?: any }) => {
@@ -73,12 +74,14 @@ const Navbar = styled(({ className }: { className?: any }) => {
             STORE
           </Link>
           <Link
+
             href="/music"
             className={router.pathname === "/music" ? "active" : ""}
           >
             MUSIC
           </Link>
           <Link
+
             href="/give"
             className={`${
               router.pathname === "/give" ? "active" : ""
@@ -96,7 +99,9 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
         {/* Mobile Hamburger */}
         <div className="hamburger-menu">
+
           <Hamburger size="20" onClick={() => setIsOpen(!isOpen)} />
+
           {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
         </div>
       </div>
@@ -105,10 +110,12 @@ const Navbar = styled(({ className }: { className?: any }) => {
 })`
   position: fixed;
   top: 0;
+
   left: 0;
   z-index: 99999;
   width: 100%;
   background: #ffffffaa;
+
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: ${({ theme }) => theme.colors.primary};
@@ -157,6 +164,7 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
   @media (max-width: 768px) {
     padding: 1rem;
+
     .desktop-links {
       display: none;
     }
@@ -207,6 +215,7 @@ const MobileMenu = styled(
     padding: 1rem;
     display: flex;
     justify-content: space-between;
+
   }
 
   section {
