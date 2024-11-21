@@ -98,7 +98,7 @@ const Blog = styled(({ className, poem }: { className: any; poem: Poem }) => {
       <main className={className}>
         <div className="w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push("/poems")}
             className="text-sm flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />

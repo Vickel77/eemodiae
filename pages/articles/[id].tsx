@@ -84,7 +84,7 @@ const Article = ({ article }: { article: Article }) => {
         <Navbar />
         <section className="w-[70%] m-auto">
           <button
-            onClick={() => router.back()}
+            onClick={() => router.push("/articles")}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
