@@ -1,9 +1,11 @@
 import { useRouter } from "next/router";
+
 import image from "../../assets/book1.png";
 import Share from "../../components/Share";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { MdArrowLeft } from "react-icons/md";
+
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { MdDownload } from "react-icons/md";
@@ -11,6 +13,7 @@ import { createClient } from "contentful";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
 import { useMemo } from "react";
+
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -40,6 +43,7 @@ const AudioPage = ({
       );
     }
 
+
     return _selectedAudio;
   }, [id, messages]);
 
@@ -55,6 +59,7 @@ const AudioPage = ({
   const categorySuggestions = messages?.find(
     (m) => m?.category === selectedAudio?.category
   )?.audio_file;
+
 
   const shareUrl = `https://eemodiae.org/messages/${id}?${selectedAudio?.title.replace(
     / /g,
@@ -132,6 +137,7 @@ const AudioPage = ({
         <div className="container mx-auto my-10">
           <button
             onClick={() => router.push("/messages")}
+
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
@@ -140,6 +146,7 @@ const AudioPage = ({
           <div className="flex flex-col md:flex-row gap-5">
             {/* Main Audio Player Section */}
             <div className="relative flex-1">
+
               <div
                 style={{
                   backgroundImage: `url(${_image})`,
@@ -150,6 +157,7 @@ const AudioPage = ({
                 className="absolute inset-0 rounded-lg opacity-20"
               ></div>
 
+
               <div className="relative bg-white bg-opacity-0 shadow-md rounded-lg p-6">
                 <h1 className="text-2xl font-semibold mb-5">{id}</h1>
 
@@ -159,6 +167,7 @@ const AudioPage = ({
                     width="100%"
                     className="rounded-lg"
                     alt={selectedAudio.title}
+
                   />
                 </div>
 
@@ -175,6 +184,7 @@ const AudioPage = ({
                       backgroundColor: "transparent",
                     }}
                     showDownloadProgress
+
                   />
 
                   <div className="">
@@ -210,6 +220,33 @@ const AudioPage = ({
                     </a>
                   </button>
                 </div>
+
+                <div className="mt-5 flex gap-5 items-center justify-center">
+                  <audio key={String(id)} controls>
+                    <source src={audio} type="audio/mp3" />
+                    Your browser does not support the audio element.
+                  </audio>
+                  {/* <AudioPlayer
+                    src={audio}
+                    autoPlayAfterSrcChange={false}
+                    showJumpControls={true}
+                    // customAdditionalControls={[]}
+                    // customVolumeControls={[]}
+                    layout="horizontal-reverse"
+                    style={{
+                      borderRadius: "10px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  /> */}
+                  <div>
+                    <Share
+                      shareUrl={`https://eemodie.org/messages/${id}`}
+                      icon
+                      title={selectedAudio.title}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -233,6 +270,7 @@ const AudioPage = ({
                         image={_image}
                         router={router}
                       />
+
                     ))}
               </div>
             </div>
@@ -295,5 +333,6 @@ export async function getServerSideProps(context: any) {
     props: { messages: sanitizedEntries }, // Pass the post data to the component as props,
   };
 }
+
 
 export default AudioPage;

@@ -1,3 +1,4 @@
+
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Navbar from "../../components/Navbar";
 import { useRouter } from "next/router";
@@ -8,8 +9,10 @@ import CategoryCard, {
   CategoryCardV2,
 } from "../../components/MessageCard/CategoryCard";
 import PageLoader from "../../components/PageLoader";
+
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import Pill from "../../components/Pill";
+
 
 export default function Messages() {
   const router = useRouter();
@@ -25,6 +28,11 @@ export default function Messages() {
   const [numOfCategories, setNumOfCategories] = useState<number>(3);
   // Search and Pagination state
   const searchInputRef = useRef<any>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const messagesPerPage = 15;
+
+  // Search and Pagination state
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const messagesPerPage = 15;
@@ -86,6 +94,7 @@ export default function Messages() {
         <header
           className={`relative text-center mt-20 mb-10 text-secondary flex flex-col justify-center items-center`}
         >
+
           <h2 className="font-bold text-4xl">MESSAGES</h2>
           <p>Download and listen to life-transforming messages</p>
 
@@ -109,6 +118,7 @@ export default function Messages() {
         </div>
         <div className=" relative z-10 flex flex-wrap w-full  gap-3">
           {filteredCategories.slice(0, numOfCategories).map((category, idx) => {
+
             const categoryMessages = messages?.find(
               (m) => m.category === category
             );
@@ -139,11 +149,14 @@ export default function Messages() {
             </button>
           )}
         </div>
+
         <div className="bg-primary h-[1px] w-full opacity-50 my-5" />
+
         {/* Display Filtered Messages */}
         <div className="mb-5">
           <Pill label="Featured Messages" />
         </div>
+
 
         <div className="flex gap-5 flex-wrap justify-center md:justify-start">
           {currentMessages
@@ -152,6 +165,7 @@ export default function Messages() {
               <MessageCard message={message} key={idx} />
             ))}
         </div>
+
         {/* Pagination Controls */}
         <div className="flex justify-center gap-3 mt-5">
           <button
