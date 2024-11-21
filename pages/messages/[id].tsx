@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import { createClient } from "contentful";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
+import { MdArrowLeft } from "react-icons/md";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -98,6 +99,13 @@ const AudioPage = ({
       <div className="min-h-screen bg-gray-100 p-5 text-primary">
         <Navbar />
         <div className="container mx-auto my-10">
+          <button
+            onClick={() => router.push("/messages")}
+            className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
+          >
+            <MdArrowLeft />
+            Back
+          </button>
           <div className="flex flex-col md:flex-row gap-5">
             {/* Main Audio Player Section */}
             <div
