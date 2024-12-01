@@ -61,10 +61,10 @@ const PeomCard = styled(
           <div className="flex gap-3">
             <Link
               href={{
-                pathname: `/poems/${+id!}`,
-                query: {
-                  poem: JSON.stringify(poem.title),
-                },
+                pathname: `/poems/${poem.title!}`,
+                // query: {
+                //   poem: JSON.stringify(poem.title),
+                // },
               }}
             >
               <button className="btn">READ</button>

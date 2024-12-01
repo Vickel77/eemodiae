@@ -1,7 +1,7 @@
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import { useRouter } from "next/router";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import dp from "../../assets/DP.png";
 import Head from "next/head";
 import Image from "next/image";
@@ -12,13 +12,14 @@ import Share from "../../components/Share";
 import { createClient } from "contentful";
 import PageLoader from "../../components/PageLoader";
 import { smallDescription } from "../../util/removeHtmlTags";
+import { articles } from "../../lib/data";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
   accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
 });
 
-const Article = ({ article }: { article: Article }) => {
+const Article = ({ articles }: { articles: Article[] }) => {
   const router = useRouter();
   const id = router.query.id;
   // const handleSpeak = () => {
@@ -28,6 +29,14 @@ const Article = ({ article }: { article: Article }) => {
   //   );
   //   synth.speak(utterance);
   // };
+
+  const article = useMemo(() => {
+    let _selectedAudio = articles?.find(
+      (article) => article?.title?.toLowerCase() === String(id)?.toLowerCase()
+    );
+
+    return _selectedAudio;
+  }, [id, articles]);
 
   const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
     / /g,
@@ -169,7 +178,7 @@ export async function getServerSideProps(context: any) {
   }
 
   return {
-    props: { article: sanitizedEntries[id] }, // Pass the post data to the component as props,
+    props: { articles: sanitizedEntries }, // Pass the post data to the component as props,
   };
 }
 
