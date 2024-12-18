@@ -1,27 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
-import useContentful from "../../hooks/useContentful";
+import Footer from "../../../components/Footer";
+import Navbar from "../../../components/Navbar";
+import ShopItme from "../../../components/ShopItem";
+import useContentful from "../../../hooks/useContentful";
 import Link from "next/link";
-import scrollToSearchInput from "../../helpers/scrollToElementPosition";
-import Pill from "../../components/Pill";
+import scrollToSearchInput from "../../../helpers/scrollToElementPosition";
+import Pill from "../../../components/Pill";
 import musicBg from "../../assets/music-bg.png";
-import { Loader } from "../../components/PageLoader";
-import MusicCard from "../../components/MusicCard";
-import ArtisteCard from "../../components/ArtisteCard";
+import { Loader } from "../../../components/PageLoader";
 
 const Shop = styled(({ className }) => {
-  const { getMusic, music, getArtiste, artiste } = useContentful();
+  const { getStore, store, getMusic, music } = useContentful();
 
   const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
+  console.log("music store ", store);
   console.log({ music });
-  console.log({ artiste });
   useEffect(() => {
     getMusic();
-    getArtiste();
+    getStore();
   }, []);
 
   return (
@@ -45,8 +44,9 @@ const Shop = styled(({ className }) => {
 
         <article className="relative">
           <section>
-            <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4 mb-10">
-              <div className="search-bar-container w-full   mt-2">
+            <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4">
+              <Pill label="RECENTLY ADDED" />
+              <div className="search-bar-container w-full sm:w-1/3  mt-2">
                 <input
                   type="text"
                   value={searchQuery}
@@ -59,42 +59,29 @@ const Shop = styled(({ className }) => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-[1fr_2fr] max-h-lvh">
-              <div className=" border-r border-primary mr-10">
-                <div className="mb-5">
-                  <Pill label="Artistes" />
-                </div>
-                {artiste?.map((artiste) => (
-                  <ArtisteCard item={artiste} />
-                ))}
-              </div>
-              <div className="  ">
-                <div className="mb-5">
-                  <Pill label="Recently Added" />
-                </div>
-                <div className="store-items">
-                  {music ? (
-                    music?.map((item, idx) => (
-                      <Link
+            <div className="grid grid-cols-2">
+              <div></div>
+              <div className="store-items mt-10  ">
+                {store ? (
+                  store?.map((item, idx) => (
+                    <Link
+                      key={idx}
+                      href={{
+                        pathname: `/music/${+idx!}`,
+                      }}
+                    >
+                      <div
+                        data-aos="fade-up"
+                        data-aos-delay={100 * idx}
                         key={idx}
-                        href={{
-                          pathname: `/music/${+idx!}`,
-                        }}
                       >
-                        <div
-                          data-aos="fade-up"
-                          data-aos-delay={100 * idx}
-                          key={idx}
-                          // className="max-w-[200px]"
-                        >
-                          <MusicCard item={item} />
-                        </div>
-                      </Link>
-                    ))
-                  ) : (
-                    <Loader />
-                  )}
-                </div>
+                        <ShopItme item={item} />
+                      </div>
+                    </Link>
+                  ))
+                ) : (
+                  <Loader />
+                )}
                 {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"

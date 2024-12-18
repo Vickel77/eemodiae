@@ -13,6 +13,7 @@ import { TypeAnimation } from "react-type-animation";
 import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
 import dp from "../assets/pst.png";
+import Link from "next/link";
 
 const Home: NextPage = styled(({ className }) => {
   const { getArticles, getMessages, getPoems } = useContentful();
@@ -175,11 +176,16 @@ const Home: NextPage = styled(({ className }) => {
         </section>
         <section className="worked-at flex flex-wrap justify-center items-center min-h-[30vh] w-[70%] m-auto rounded-3xl mb-20 gap-10 p-10">
           <div className="flex-1 justify-center items-center">
-            <a href="mailto:eemodiae@gmail.com">
+            {/* <a href="mailto:eemodiae@gmail.com">
               <button className="btn cta sm:p-4 text-sm rounded-full bg-black text-white shadow-lg">
                 Request for mentorship
               </button>
-            </a>
+            </a> */}
+            <Link href="bookings">
+              <button className="btn cta sm:p-4 text-sm rounded-full bg-black text-white shadow-lg">
+                Booking an appointment
+              </button>
+            </Link>
           </div>
           <div className="rounded-full bg-primary max-h-56 overflow-hidden border-primary border-dashed border-[3px] ">
             <Image
