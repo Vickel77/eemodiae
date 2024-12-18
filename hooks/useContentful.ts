@@ -11,6 +11,8 @@ const useContentful = () => {
   const [poems, setPoems] = useState<Poem[]>();
   const [messages, setMessages] = useState<Message[]>();
   const [store, setStore] = useState<StoreItem[]>();
+  const [music, setMusic] = useState<Music[]>();
+  const [artiste, setArtiste] = useState<Artiste[]>();
 
   const handleEntry = async (content_type: string, setEntity: any) => {
     try {
@@ -45,6 +47,14 @@ const useContentful = () => {
     handleEntry("eemodiaeMessages", setMessages);
   };
 
+  const getMusic = async () => {
+    handleEntry("eemodiaeMusic", setMusic);
+  };
+
+  const getArtiste = async () => {
+    handleEntry("eemodiaeArtiste", setArtiste);
+  };
+
   const getStore = async () => {
     handleEntry("store", setStore);
   };
@@ -54,10 +64,14 @@ const useContentful = () => {
     getPoems,
     getMessages,
     getStore,
+    getMusic,
+    getArtiste,
     articles,
     messages,
     poems,
     store,
+    music,
+    artiste,
   };
 };
 

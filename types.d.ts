@@ -77,4 +77,20 @@ type AccountDetailType = {
   currency: string;
 };
 
+type Music = {
+  artiste: string;
+  audio: { fields: AudioFile };
+  image: string;
+  imageUrl: { fields: AudioFile };
+  lyrics: unknown;
+  title: string;
+};
+
+type Artiste = {
+  bio: unknown;
+  image: string;
+  imageUrl: { fields: AudioFile };
+  name: string;
+};
+
 declare module "*.mp3";

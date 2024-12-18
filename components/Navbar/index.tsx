@@ -74,14 +74,12 @@ const Navbar = styled(({ className }: { className?: any }) => {
             STORE
           </Link>
           <Link
-
             href="/music"
             className={router.pathname === "/music" ? "active" : ""}
           >
             MUSIC
           </Link>
           <Link
-
             href="/give"
             className={`${
               router.pathname === "/give" ? "active" : ""
@@ -99,7 +97,6 @@ const Navbar = styled(({ className }: { className?: any }) => {
 
         {/* Mobile Hamburger */}
         <div className="hamburger-menu">
-
           <Hamburger size="20" onClick={() => setIsOpen(!isOpen)} />
 
           {isOpen && <MobileMenu onClose={() => setIsOpen(false)} />}
@@ -215,7 +212,6 @@ const MobileMenu = styled(
     padding: 1rem;
     display: flex;
     justify-content: space-between;
-
   }
 
   section {
@@ -226,7 +222,7 @@ const MobileMenu = styled(
   }
 
   section a {
-    font-size: 1.5rem;
+    font-size: 0.75rem;
     padding: 1rem;
     width: 100%;
     text-align: center;
