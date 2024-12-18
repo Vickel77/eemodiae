@@ -59,17 +59,17 @@ const Shop = styled(({ className }) => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-[1fr_2fr] max-h-lvh">
-              <div className=" border-r border-primary mr-10">
-                <div className="mb-5">
+            <div className="grid md:grid-cols-[1fr_3fr] grid-cols-[1fr] gap-10 md:place-items-center ">
+              <div className=" md:border-r border-primary grid place-items-center md:place-items-start px-10 ">
+                <div className="mb-5 ">
                   <Pill label="Artistes" />
                 </div>
                 {artiste?.map((artiste) => (
                   <ArtisteCard item={artiste} />
                 ))}
               </div>
-              <div className="  ">
-                <div className="mb-5">
+              <div className=" grid place-items-center md:place-items-start ">
+                <div className="mb-5 ">
                   <Pill label="Recently Added" />
                 </div>
                 <div className="store-items">
@@ -169,9 +169,9 @@ const Shop = styled(({ className }) => {
 
     .store-items {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 0.9fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      // place-items: center;
+      place-items: center;
       // place-content: center;
     }
   }
