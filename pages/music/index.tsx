@@ -65,7 +65,7 @@ const Shop = styled(({ className }) => {
                   <Pill label="Artistes" />
                 </div>
                 {artiste?.map((artiste) => (
-                  <ArtisteCard item={artiste} />
+                  <ArtisteCard key={artiste.name} item={artiste} />
                 ))}
               </div>
               <div className=" grid place-items-center md:place-items-start ">
