@@ -2,23 +2,26 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import ShopItme from "../../components/ShopItem";
 import useContentful from "../../hooks/useContentful";
 import Link from "next/link";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import Pill from "../../components/Pill";
 import musicBg from "../../assets/music-bg.png";
-import PageLoader, { Loader } from "../../components/PageLoader";
+import { Loader } from "../../components/PageLoader";
+import MusicCard from "../../components/MusicCard";
+import ArtisteCard from "../../components/ArtisteCard";
 
 const Shop = styled(({ className }) => {
-  const { getStore, store } = useContentful();
+  const { getMusic, music, getArtiste, artiste } = useContentful();
 
   const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log("music store ", store);
+  console.log({ music });
+  console.log({ artiste });
   useEffect(() => {
-    getStore();
+    getMusic();
+    getArtiste();
   }, []);
 
   return (
@@ -42,9 +45,8 @@ const Shop = styled(({ className }) => {
 
         <article className="relative">
           <section>
-            <div className="flex flex-wrap sm:flex-nowrap   justify-center items-center sm:justify-between w-full m-auto my-4">
-              <Pill label="RECENTLY ADDED" />
-              <div className="search-bar-container w-full sm:w-1/3  mt-2">
+            <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4 mb-10">
+              <div className="search-bar-container w-full   mt-2">
                 <input
                   type="text"
                   value={searchQuery}
@@ -57,28 +59,43 @@ const Shop = styled(({ className }) => {
                 />
               </div>
             </div>
-            <div className="store-items mt-10">
-              {store ? (
-                store?.map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href={{
-                      pathname: `/music/${+idx!}`,
-                    }}
-                  >
-                    <div
-                      data-aos="fade-up"
-                      data-aos-delay={100 * idx}
-                      key={idx}
-                    >
-                      <ShopItme item={item} />
-                    </div>
-                  </Link>
-                ))
-              ) : (
-                <Loader />
-              )}
-              {/* {books.map((book, index) => (
+            <div className="grid md:grid-cols-[1fr_3fr] grid-cols-[1fr] gap-10 md:place-items-center ">
+              <div className=" md:border-r border-primary grid place-items-center md:place-items-start px-10 ">
+                <div className="mb-5 ">
+                  <Pill label="Artistes" />
+                </div>
+                {artiste?.map((artiste) => (
+                  <ArtisteCard key={artiste.name} item={artiste} />
+                ))}
+              </div>
+              <div className=" grid place-items-center md:place-items-start ">
+                <div className="mb-5 ">
+                  <Pill label="Recently Added" />
+                </div>
+                <div className="store-items">
+                  {music ? (
+                    music?.map((item, idx) => (
+                      <Link
+                        key={idx}
+                        href={{
+                          pathname: `/music/${+idx!}`,
+                        }}
+                      >
+                        <div
+                          data-aos="fade-up"
+                          data-aos-delay={100 * idx}
+                          key={idx}
+                          // className="max-w-[200px]"
+                        >
+                          <MusicCard item={item} />
+                        </div>
+                      </Link>
+                    ))
+                  ) : (
+                    <Loader />
+                  )}
+                </div>
+                {/* {books.map((book, index) => (
                 <div
                   data-aos="fade-up"
                   data-aos-delay={100 * index}
@@ -87,6 +104,7 @@ const Shop = styled(({ className }) => {
                   <ShopItme item={book} />
                 </div>
               ))} */}
+              </div>
             </div>
           </section>
           {/* <section>
@@ -151,9 +169,9 @@ const Shop = styled(({ className }) => {
 
     .store-items {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 0.9fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      // place-items: center;
+      place-items: center;
       // place-content: center;
     }
   }

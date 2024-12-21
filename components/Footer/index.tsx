@@ -14,6 +14,7 @@ const Footer = styled(({ className }) => {
           <Link href="/articles">Articles</Link>
           <Link href="/poems">Poems</Link>
           <Link href="/messages">Messages</Link>
+          <Link href="/music">Music</Link>
           <Link href="/shop">Store</Link>
           <Link href="/give">Give</Link>
         </section>

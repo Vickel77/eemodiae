@@ -36,10 +36,7 @@ const Blog = styled(
       return <PageLoader />;
     }
 
-    const shareUrl = `https://eemodiae.org/poems/${id}?${poem?.title?.replace(
-      / /g,
-      "_"
-    )}`;
+    const shareUrl = `https://eemodiae.org/poems/${id}`;
 
     const contentRendererOptions = {
       preserveWhitespace: true,
