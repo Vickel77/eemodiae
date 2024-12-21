@@ -13,6 +13,7 @@ import { TypeAnimation } from "react-type-animation";
 import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
 import dp from "../assets/pst.png";
+import Link from "next/link";
 
 const Home: NextPage = styled(({ className }) => {
   const { getArticles, getMessages, getPoems } = useContentful();
@@ -180,6 +181,11 @@ const Home: NextPage = styled(({ className }) => {
                 Request for mentorship
               </button>
             </a>
+            {/* <Link href="bookings">
+              <button className="btn cta sm:p-4 text-sm rounded-full bg-black text-white shadow-lg">
+                Booking an appointment
+              </button>
+            </Link> */}
           </div>
           <div className="rounded-full bg-primary max-h-56 overflow-hidden border-primary border-dashed border-[3px] ">
             <Image

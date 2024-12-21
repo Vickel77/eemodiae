@@ -29,19 +29,16 @@ const Article = ({ articles }: { articles: Article[] }) => {
   //   );
   //   synth.speak(utterance);
   // };
-
   const article = useMemo(() => {
     let _selectedAudio = articles?.find(
-      (article) => article?.title?.toLowerCase() === String(id)?.toLowerCase()
+      (article) =>
+        article?.title?.toLowerCase().trim() === String(id)?.toLowerCase()
     );
 
     return _selectedAudio;
   }, [id, articles]);
 
-  const shareUrl = `https://eemodiae.org/articles/${id}?${article?.title.replace(
-    / /g,
-    "_"
-  )}`;
+  const shareUrl = `https://eemodiae.org/articles/${id}`;
 
   const contentRendererOptions = {
     preserveWhitespace: true,
