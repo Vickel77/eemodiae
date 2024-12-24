@@ -11,7 +11,7 @@ function EventFormModal({
 }) {
   return (
     <Modal showModal={showModal} onCancel={onCancel}>
-      <EventForm onCancel={onCancel} />
+      {/* <EventForm onCancel={onCancel} /> */}
     </Modal>
   );
 }
