@@ -132,6 +132,9 @@ textarea {
   background-size: cover;
   backdrop-filter: grayscale(0.5);
 }
+.booking-wrapper input {
+  background-color: #00000022;
+}
 
 /* Make clicks pass-through */
 #nprogress {

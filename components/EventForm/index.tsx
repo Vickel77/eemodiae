@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 // import { toast, Toaster } from "react-hot-toast";
-import { MdArrowLeft, MdClose } from "react-icons/md";
+import { MdArrowLeft } from "react-icons/md";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 import checked from "../../assets/checked.png";
+import { Loader } from "../PageLoader";
 const PRIVATE_KEY = process.env.NEXT_PUBLIC_EJS_PRIVATE_KEY;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EJS_TEMPLATE_ID;
 const SERVICE_ID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
@@ -24,7 +25,7 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
     otherEvent: "",
     country: "",
     state: "",
-    city: "",
+    address: "",
     time: "",
     additionalInfo: "",
   });
@@ -49,7 +50,7 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
     Other Event Name ${formData.otherEvent}\n
     Country ${formData.country}\n
     State ${formData.state}\n
-    City ${formData.city}\n
+    City ${formData.address}\n
     Time ${formData.time}\n
     Additional Info ${formData.additionalInfo}\n
     `,
@@ -77,8 +78,6 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
     //   alert("Please fill in all required fields");
     //   return;
     // }
-
-    console.log({ SERVICE_ID });
 
     emailjs
       .send(SERVICE_ID!, TEMPLATE_ID!, templateParams, PRIVATE_KEY!)
@@ -229,37 +228,51 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
                 className="w-full border rounded p-2"
               />
             </div>
-
-            <div>
-              <label className="block mb-1">Nature of Event*</label>
-              <select
-                name="natureOfEvent"
-                required
-                value={formData.natureOfEvent}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              >
-                <option value="">Select</option>
-                <option value="Crusade">Crusade</option>
-                <option value="Church Program">Church Program</option>
-                <option value="Conference">Conference</option>
-                <option value="Music Concert">Music Concert</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            {formData.natureOfEvent === "other" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block mb-1">Specify Event</label>
+                <div>
+                  <label className="block mb-1">Nature of Event*</label>
+                  <select
+                    name="natureOfEvent"
+                    required
+                    value={formData.natureOfEvent}
+                    onChange={handleChange}
+                    className="w-full border rounded p-2"
+                  >
+                    <option value="">Select</option>
+                    <option value="Crusade">Crusade</option>
+                    <option value="Church Program">Church Program</option>
+                    <option value="Conference">Conference</option>
+                    <option value="Music Concert">Music Concert</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                {formData.natureOfEvent === "other" && (
+                  <div>
+                    <label className="block mb-1">Specify Event</label>
+                    <input
+                      type="text"
+                      name="otherEvent"
+                      value={formData.otherEvent}
+                      onChange={handleChange}
+                      className="w-full border rounded p-2"
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block mb-1">Event Time*</label>
                 <input
-                  type="text"
-                  name="otherEvent"
-                  value={formData.otherEvent}
+                  type="datetime-local"
+                  name="time"
+                  required
+                  value={formData.time}
                   onChange={handleChange}
                   className="w-full border rounded p-2"
                 />
               </div>
-            )}
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -285,27 +298,15 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
                 />
               </div>
               <div>
-                <label className="block mb-1">Event City</label>
+                <label className="block mb-1">Event Address</label>
                 <input
                   type="text"
-                  name="city"
-                  value={formData.city}
+                  name="address"
+                  value={formData.address}
                   onChange={handleChange}
                   className="w-full border rounded p-2"
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block mb-1">Event Time*</label>
-              <input
-                type="datetime-local"
-                name="time"
-                required
-                value={formData.time}
-                onChange={handleChange}
-                className="w-full border rounded p-2"
-              />
             </div>
 
             <div>
@@ -326,7 +327,7 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
               disabled={isSubmitting}
               className="bg-primary text-white py-2 px-4 rounded hover:bg-black"
             >
-              {isSubmitting ? "..." : "Submit"}
+              {isSubmitting ? <Loader size="small" /> : "Submit"}
             </button>
           </form>
         </>
