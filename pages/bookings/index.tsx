@@ -99,12 +99,12 @@ export default function Bookings() {
               <div className="relative group">
                 <button
                   onClick={handleAppointmentsClick}
-                  className="w-[250px] flex text-md flex-col items-center gap-1 justify-center hover:scale-110 transition-[0.2s] bg-white hover:bg-primaryAccent   min-h-52  p-3  text-black rounded-lg"
+                  className="w-[250px] flex text-md flex-col items-center gap-1 justify-center hover:scale-105 transition-[0.2s] bg-[#ffffffdd] hover:bg-white hover:bg-primaryAccent   min-h-52  p-3  text-black rounded-lg"
                 >
                   <img src={calender.src} alt="" width={50} />
                   Appointments
-                  <span className=" top-full z-3 left-1/2   p-2 text-sm text-gray-500 bg-white  rounded-lg group-hover:opacity-100 transition-opacity">
-                    Choose between online or offline appointments.
+                  <span className=" top-full z-3 left-1/2   p-2 text-sm text-gray-500   rounded-lg group-hover:opacity-100 transition-opacity">
+                    Book an appointment for counselling or prayer
                   </span>
                 </button>
               </div>
@@ -114,12 +114,12 @@ export default function Bookings() {
               <div className="relative group">
                 <button
                   onClick={handleSpeakingEngagementClick}
-                  className="w-[250px] text-md flex flex-col items-center  gap-1 justify-center bg-white hover:bg-primaryAccent transition-[0.2s]  hover:scale-110  min-h-52 p-2  text-black rounded-lg "
+                  className="w-[250px] text-md flex flex-col items-center  gap-1 justify-center bg-[#ffffffdd] hover:bg-white hover:bg-primaryAccent transition-[0.2s]  hover:scale-105  min-h-52 p-2  text-black rounded-lg "
                 >
                   <img src={mic.src} alt="" width={50} />
                   Speaking Engagement
-                  <span className="  top-full left-1/2   p-2 text-xs text-gray-500 bg-white rounded-lg  group-hover:opacity-100 transition-opacity">
-                    Send an email to inquire about speaking engagements.
+                  <span className="  top-full left-1/2   p-2 text-xs text-gray-500  rounded-lg  group-hover:opacity-100 transition-opacity">
+                    For Seminars, Conferences and Church programs, send an email
                   </span>
                 </button>
               </div>
@@ -141,7 +141,7 @@ export default function Bookings() {
                 <div className="flex gap-3">
                   {/* <button onClick={handleOnlineClick}>Online</button> */}
                   <PopupButton
-                    url="https://calendly.com/kelechialigwo77"
+                    url="https://calendly.com/eemodiaeweb/30min"
                     className="w-full p-2 px-4 bg-primary text-white rounded-lg"
                     /*
                      * react-calendly uses React's Portal feature (https://reactjs.org/docs/portals.html) to render the popup modal. As a result, you'll need to
