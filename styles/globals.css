@@ -65,11 +65,20 @@ h3,
 .btn,
 input,
 textarea,
+select,
 .input {
   padding: 0.65rem 1rem;
   border: none;
   outline: transparent;
   box-shadow: 0 4px 10px #00000022;
+
+  border: 1px solid #000000;
+}
+.input,
+input,
+select,
+textarea {
+  background-color: transparent;
 }
 
 .btn:hover {
@@ -115,6 +124,16 @@ textarea,
 
 .gradient-overlay {
   background: linear-gradient(#00000000, #000000);
+}
+
+.booking-wrapper {
+  background: linear-gradient(#00000000, #000000aa),
+    url("../assets/booking-bg.jpg");
+  background-size: cover;
+  backdrop-filter: grayscale(0.5);
+}
+.booking-wrapper input {
+  background-color: #00000022;
 }
 
 /* Make clicks pass-through */
