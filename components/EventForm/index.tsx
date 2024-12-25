@@ -298,8 +298,9 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
                 />
               </div>
               <div>
-                <label className="block mb-1">Event Address</label>
+                <label className="block mb-1">Event Address*</label>
                 <input
+                  required
                   type="text"
                   name="address"
                   value={formData.address}
