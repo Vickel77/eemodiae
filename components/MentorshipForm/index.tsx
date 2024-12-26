@@ -9,7 +9,7 @@ const PRIVATE_KEY = process.env.NEXT_PUBLIC_EJS_PRIVATE_KEY;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EJS_TEMPLATE_ID;
 const SERVICE_ID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
 
-const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
+const MentorshipForm = ({ onPressBack }: { onPressBack?: () => void }) => {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isSuccessful, setIsSuccessful] = useState<boolean>(false);
   const [formData, setFormData] = useState({
@@ -38,21 +38,21 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
     to_name: "Eemodiae",
     to_email: "eemodiaeweb@gmail.com",
     message: `
-    FirstName: ${formData.firstName}\n
-    LastName: ${formData.lastName}\n
-    Name of Organisation: ${formData.organisation}\n
-    Email: ${formData.email}\n
-    Phone: ${formData.phone}\n
-    Website: ${formData.website}\n
-    Social Media: ${formData.socialMedia}\n
-    Event Name: ${formData.eventName}\n
-    Nature Of Event: ${formData.natureOfEvent}\n
-    Other Event Name: ${formData.otherEvent}\n
-    Country: ${formData.country}\n
-    State: ${formData.state}\n
-    City: ${formData.address}\n
-    Time: ${formData.time}\n
-    Additional Info: ${formData.additionalInfo}\n
+    FirstName ${formData.firstName}\n
+    LastName ${formData.lastName}\n
+    Name of Organisation ${formData.organisation}\n
+    Email ${formData.email}\n
+    Phone ${formData.phone}\n
+    Website ${formData.website}\n
+    Social Media ${formData.socialMedia}\n
+    Event Name ${formData.eventName}\n
+    Nature Of Event ${formData.natureOfEvent}\n
+    Other Event Name ${formData.otherEvent}\n
+    Country ${formData.country}\n
+    State ${formData.state}\n
+    City ${formData.address}\n
+    Time ${formData.time}\n
+    Additional Info ${formData.additionalInfo}\n
     `,
   };
 
@@ -337,4 +337,4 @@ const EventForm = ({ onPressBack }: { onPressBack?: () => void }) => {
   );
 };
 
-export default EventForm;
+export default MentorshipForm;

@@ -2,7 +2,15 @@ import styled from "styled-components";
 import renderImage from "../../helpers/renderImage";
 
 const ArtisteCard = styled(
-  ({ className, item }: { className?: any; item: Artiste }) => {
+  ({
+    className,
+    item,
+    hideName,
+  }: {
+    className?: any;
+    item: Artiste;
+    hideName?: boolean;
+  }) => {
     const { name, bio, imageUrl } = item;
     return (
       <div className={className}>
@@ -15,7 +23,7 @@ const ArtisteCard = styled(
             width="100%"
           />
           <div className="absolute w-full h-full bg-[#00000022] z-20 flex items-end">
-            <p className="text-white text-sm p-5">{name}</p>
+            {!hideName && <p className="text-white text-sm p-5">{name}</p>}
           </div>
         </div>
       </div>

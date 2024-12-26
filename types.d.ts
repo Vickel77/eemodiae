@@ -87,7 +87,7 @@ type Music = {
 };
 
 type Artiste = {
-  bio: unknown;
+  bio: any;
   image: string;
   imageUrl: { fields: AudioFile };
   name: string;

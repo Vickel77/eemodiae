@@ -1,51 +1,96 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
-import useContentful from "../../hooks/useContentful";
+import Footer from "../../../components/Footer";
+import Navbar from "../../../components/Navbar";
+import useContentful from "../../../hooks/useContentful";
 import Link from "next/link";
-import scrollToSearchInput from "../../helpers/scrollToElementPosition";
-import Pill from "../../components/Pill";
-import musicBg from "../../assets/music-bg.png";
-import { Loader } from "../../components/PageLoader";
-import MusicCard from "../../components/MusicCard";
-import ArtisteCard from "../../components/ArtisteCard";
+import scrollToSearchInput from "../../../helpers/scrollToElementPosition";
+import Pill from "../../../components/Pill";
+import { Loader } from "../../../components/PageLoader";
+import MusicCard from "../../../components/MusicCard";
+import { useRouter } from "next/router";
+import renderImage from "../../../helpers/renderImage";
+import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import ArtisteCard from "../../../components/ArtisteCard";
 
-const Shop = styled(({ className }) => {
-  const { getMusic, music, getArtiste, artiste } = useContentful();
+const Artiste = styled(({ className }) => {
+  const router = useRouter();
+  const artisteName: any = router.query.artiste;
+
+  const {
+    getMusic,
+    music: _music,
+    getArtiste,
+    artiste: _artiste,
+  } = useContentful();
 
   const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log({ music });
-  console.log({ artiste });
+  const artiste = _artiste?.find(
+    (v) => v.name.toLowerCase() === artisteName.toLowerCase()
+  );
+  const music = _music?.filter(
+    (v) => v.artiste?.toLowerCase().trim() === artisteName?.toLowerCase().trim()
+  );
   useEffect(() => {
     getMusic();
     getArtiste();
   }, []);
 
+  const contentRendererOptions = {
+    preserveWhitespace: true,
+  };
+
   return (
     <div className={className}>
       <Navbar />
-      <main>
+      <main
+      // style={{
+      //   background: `-webkit-radial-gradient(#3624A700, #3624A700 70%), url(${renderImage(
+      //     artiste?.imageUrl
+      //   )})`,
+      // }}
+      >
         <div className="w-[200px] h-[300px] bg-primary blur-3xl fixed left-[5%] top-[5%]  opacity-20 rounded-full z-0" />
         <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed right-[5%] top-[15%] opacity-20 rounded-full z-0" />
-        <img
+        {/* <img
           className="mix-blend-multiply absolute left-[50%] top-20 sm:top-0  translate-x-[-50%] opacity-10"
           src={musicBg.src}
           alt=""
           width="100%"
-        />
+        /> */}
         <header
           className={`relative text-center mt-20 mb-10 bg-cover text-secondary flex flex-col justify-center items-center`}
         >
-          <h2 className="font-bold text-4xl">MUSIC</h2>
-          <p>Explore soul lifting music</p>
+          {/* <h2 className="font-bold text-4xl">MUSIC</h2>
+          <p>Explore soul lifting music</p> */}
+
+          <div className="grid place-items-center  px-10 w-full ">
+            {/* <div className="mb-5 ">
+              <Pill label="Artistes" />
+            </div> */}
+
+            <p className="text-xl font-bold mb-0 text-primary">{artisteName}</p>
+
+            <div
+              className="text-primary text-sm opacity-80 font-serif w-[100%] md:w-1/2 mb-3"
+              dangerouslySetInnerHTML={{
+                __html: documentToHtmlString(
+                  artiste?.bio!,
+                  contentRendererOptions
+                ),
+              }}
+            />
+          </div>
+          {artiste && (
+            <ArtisteCard hideName key={artiste?.name} item={artiste!} />
+          )}
         </header>
 
         <article className="relative">
           <section>
-            <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4 mb-10">
+            {/* <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4 mb-10">
               <div className="search-bar-container w-full   mt-2">
                 <input
                   type="text"
@@ -58,21 +103,12 @@ const Shop = styled(({ className }) => {
                   className="search-bar   bg-[#ffffff] w-full sm:w-full rounded-md shadow-none focus:shadow-md px-4  border border-primary"
                 />
               </div>
-            </div>
-            <div className="grid md:grid-cols-[1fr_3fr] grid-cols-[1fr] gap-10 md:place-items-center ">
-              <div className=" md:border-r border-primary grid place-items-center md:place-items-start px-10 ">
-                <div className="mb-5 ">
-                  <Pill label="Artistes" />
-                </div>
-                {artiste?.map((artiste) => (
-                  <Link href={`music/artiste/${artiste.name}`}>
-                    <ArtisteCard key={artiste.name} item={artiste} />
-                  </Link>
-                ))}
-              </div>
+            </div> */}
+
+            <div className=" ">
               <div className=" grid place-items-center md:place-items-start ">
                 <div className="mb-5 ">
-                  <Pill label="Recently Added" />
+                  <Pill label={`Songs by ${artisteName}`} />
                 </div>
                 <div className="store-items">
                   {music ? (
@@ -97,32 +133,9 @@ const Shop = styled(({ className }) => {
                     <Loader />
                   )}
                 </div>
-                {/* {books.map((book, index) => (
-                <div
-                  data-aos="fade-up"
-                  data-aos-delay={100 * index}
-                  key={book.id}
-                >
-                  <ShopItme item={book} />
-                </div>
-              ))} */}
               </div>
             </div>
           </section>
-          {/* <section>
-            <h4>MOST POPULAR</h4>
-            <div className="store-items">
-              {books.reverse().map((book, index) => (
-                <div
-                  data-aos="fade-up"
-                  data-aos-delay={100 * index}
-                  key={book.id}
-                >
-                  <ShopItme item={book} />
-                </div>
-              ))}
-            </div>
-          </section> */}
         </article>
       </main>
       <Footer />
@@ -132,7 +145,7 @@ const Shop = styled(({ className }) => {
   main {
     width: 80%;
     margin: 0rem auto 4rem;
-    padding-top: 5rem;
+    // padding-top: 5rem;
     color: ${({ theme }) => theme.colors.primary};
 
     .top-bar {
@@ -179,4 +192,4 @@ const Shop = styled(({ className }) => {
   }
 `;
 
-export default Shop;
+export default Artiste;
