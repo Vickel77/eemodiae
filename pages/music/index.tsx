@@ -64,7 +64,11 @@ const Shop = styled(({ className }) => {
                 </div>
                 <div className="w-full md:w-auto overflow-scroll flex md:flex-col gap-5">
                   {artiste?.map((artiste) => (
-                    <Link className="" href={`music/artiste/${artiste.name}`}>
+                    <Link
+                      key={artiste.bio}
+                      className=""
+                      href={`music/artiste/${artiste.name}`}
+                    >
                       <ArtisteCard key={artiste.name} item={artiste} />
                     </Link>
                   ))}
