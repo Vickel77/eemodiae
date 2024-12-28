@@ -3,13 +3,14 @@ import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import useContentful from "../../hooks/useContentful";
 import { useRouter } from "next/router";
-import { MdArrowLeft, MdDownload, MdShare } from "react-icons/md";
+import { MdArrowLeft, MdDownload } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import Share from "../../components/Share";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
+import PageLoader from "../../components/PageLoader";
 
 export default function ItemDetails() {
   const router = useRouter();
@@ -24,16 +25,16 @@ export default function ItemDetails() {
     }
   };
 
-  const { getStore, store } = useContentful();
+  const { getMusic, store, music } = useContentful();
 
-  const storeItem: StoreItem = store?.[+id!]!;
+  const storeItem: Music = music?.[+id!]!;
 
-  const { image, title, media, lyrics, image_url } = storeItem || {};
+  const { image, title, audio, lyrics, artiste, imageUrl } = storeItem || {};
 
-  console.log({ storeItem });
+  // console.log({ storeItem });
 
   useEffect(() => {
-    getStore();
+    getMusic();
   }, []);
 
   const contentRendererOptions = {
@@ -44,7 +45,9 @@ export default function ItemDetails() {
     "_"
   )}`;
 
-  console.log(image_url);
+  if (!storeItem) {
+    return <PageLoader />;
+  }
   return (
     <div>
       <Head>
@@ -65,7 +68,7 @@ export default function ItemDetails() {
           content={"Explore great music on Eemodiae."}
           key="description"
         />
-        <meta property="og:image" content={`https:${renderImage(image_url)}`} />
+        <meta property="og:image" content={`https:${renderImage(imageUrl)}`} />
         <meta property="og:url" content={shareUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image:alt" content={title || "Eemodiae Music"} />
@@ -81,7 +84,7 @@ export default function ItemDetails() {
         <meta name="twitter:site" content="@eemodiae" />
         <meta
           property="twitter:image"
-          content={`https:${renderImage(image_url)}`}
+          content={`https:${renderImage(imageUrl)}`}
         />
         <meta name="twitter:image:alt" content={title || "Eemodiae Music"} />
       </Head>
@@ -112,16 +115,16 @@ export default function ItemDetails() {
             className="my-30 text-white max-w-[300px] sticky top-20  "
           >
             <div className="rounded-lg overflow-hidden">
-              <img src={image_url?.fields?.file.url} alt="" />
+              <img src={imageUrl?.fields?.file.url} alt="" />
             </div>
             <div className="bg-[#ffffffaa] text-primary">
               <div className="text-center">
                 <p className="text-lg">{title}</p>
-                <small>Samuel Emodiae</small>
+                <small>{artiste}</small>
               </div>
 
               <AudioPlayer
-                src={media?.fields?.file?.url}
+                src={audio?.fields?.file?.url}
                 autoPlay={false}
                 // showJumpControls={false}
                 customAdditionalControls={[]}
@@ -150,7 +153,7 @@ export default function ItemDetails() {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  fetch(media?.fields?.file?.url)
+                  fetch(audio?.fields?.file?.url)
                     .then((response) => response.blob())
                     .then((blob) => {
                       const blobURL = window.URL.createObjectURL(blob);

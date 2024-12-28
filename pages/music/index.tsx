@@ -17,8 +17,6 @@ const Shop = styled(({ className }) => {
   const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  console.log({ music });
-  console.log({ artiste });
   useEffect(() => {
     getMusic();
     getArtiste();
@@ -59,16 +57,25 @@ const Shop = styled(({ className }) => {
                 />
               </div>
             </div>
-            <div className="grid md:grid-cols-[1fr_3fr] grid-cols-[1fr] gap-10 md:place-items-center ">
-              <div className=" md:border-r border-primary grid place-items-center md:place-items-start px-10 ">
+            <div className="grid md:grid-cols-[1fr_3fr] grid-cols-[1fr] gap-5 place-items-start ">
+              <div className="w-full overflow-hidden grid- place-items-center ">
                 <div className="mb-5 ">
                   <Pill label="Artistes" />
                 </div>
-                {artiste?.map((artiste) => (
-                  <ArtisteCard key={artiste.name} item={artiste} />
-                ))}
+                <div className="w-full md:w-auto overflow-scroll flex md:flex-col gap-5">
+                  {artiste?.map((artiste) => (
+                    <Link
+                      key={artiste.bio}
+                      className=""
+                      href={`music/artiste/${artiste.name}`}
+                    >
+                      <ArtisteCard key={artiste.name} item={artiste} />
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <div className=" grid place-items-center md:place-items-start ">
+
+              <div className="grid  place-items-center md:place-items-start ">
                 <div className="mb-5 ">
                   <Pill label="Recently Added" />
                 </div>
@@ -82,7 +89,7 @@ const Shop = styled(({ className }) => {
                         }}
                       >
                         <div
-                          data-aos="fade-up"
+                          // data-aos="fade-up"
                           data-aos-delay={100 * idx}
                           key={idx}
                           // className="max-w-[200px]"
@@ -170,7 +177,7 @@ const Shop = styled(({ className }) => {
     .store-items {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
+      gap: 1.25rem;
       place-items: center;
       // place-content: center;
     }

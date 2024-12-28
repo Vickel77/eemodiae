@@ -80,12 +80,6 @@ const Navbar = styled(({ className }: { className?: any }) => {
             MUSIC
           </Link>
           <Link
-            href="/bookings"
-            className={router.pathname === "/bookings" ? "active" : ""}
-          >
-            BOOKINGS
-          </Link>
-          <Link
             href="/give"
             className={`${
               router.pathname === "/give" ? "active" : ""
@@ -93,6 +87,13 @@ const Navbar = styled(({ className }: { className?: any }) => {
           >
             GIVE
           </Link>
+          <Link
+            href="/bookings"
+            className={router.pathname === "/bookings" ? "active" : ""}
+          >
+            BOOKINGS
+          </Link>
+
           {isLoggedIn && (
             <button onClick={logout} className="logout-btn">
               <MdLogout size={20} />
@@ -198,8 +199,8 @@ const MobileMenu = styled(
           <Link href="/messages">MESSAGES</Link>
           <Link href="/shop">STORE</Link>
           <Link href="/music">MUSIC</Link>
-          <Link href="/bookings">BOOKINGS</Link>
           <Link href="/give">GIVE</Link>
+          <Link href="/bookings">BOOKINGS</Link>
         </section>
       </div>
     );

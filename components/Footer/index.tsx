@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import styled from "styled-components";
 import Socials from "../Socials";
+import hojLogo from "../../assets/hoj-logo.png";
 
 const Footer = styled(
   ({
@@ -61,6 +62,7 @@ const Footer = styled(
             <section className="keep-in-touch">
               <h4>Stay Connected</h4>
               <Socials />
+              <img className="  mt-5" src={hojLogo.src} alt="" width="200" />
             </section>
           </div>
         </footer>

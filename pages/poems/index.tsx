@@ -55,11 +55,21 @@ const Poems = styled(({ className }) => {
   const totalPages = Math.ceil(filteredPoems?.length / itemsPerPage);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      scrollToTop();
+    }
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      scrollToTop();
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo(0, 0);
   };
 
   if (!domContentLoaded || !poems) {
@@ -76,7 +86,6 @@ const Poems = styled(({ className }) => {
             <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed right-[90%] top-[15%] opacity-10 rounded-full z-0" />
 
             <header className="text-center mt-20 sm:mb-10 mb-0 w-full text-secondary flex flex-col justify-center items-center relative">
-
               <h2 className="font-bold">POEMS</h2>
               <div className="search-bar-container">
                 <input
@@ -86,7 +95,6 @@ const Poems = styled(({ className }) => {
                   onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
                   ref={searchInputRef} // Attach ref to the search input
                   onClick={() => scrollToSearchInput(searchInputRef)}
-
                   placeholder="🔍 Search poems..."
                   className="search-bar  bg-transparent focus:bg-[#ffffff55] w-full shadow-none focus:shadow-md border-none"
                 />
@@ -135,7 +143,6 @@ const Poems = styled(({ className }) => {
           </button>
           <span className="page-info">
             {currentPage} / {totalPages}
-
           </span>
           <button
             onClick={handleNextPage}
