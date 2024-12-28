@@ -29,7 +29,8 @@ const MusicCard = styled(
   border-radius: 7.5px;
   overflow: hidden;
   box-shadow: 0 4px 10px #00000022;
-  // max-width: 300px;
+  // max-width: 200px;
+  // height: 200px;
   .image {
     height: 200px;
     width: 100%;

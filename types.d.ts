@@ -79,10 +79,10 @@ type AccountDetailType = {
 
 type Music = {
   artiste: string;
-  audio: { fields: AudioFile };
+  audio: AudioFile;
   image: string;
-  imageUrl: { fields: AudioFile };
-  lyrics: unknown;
+  imageUrl: AudioFile;
+  lyrics: any;
   title: string;
 };
 

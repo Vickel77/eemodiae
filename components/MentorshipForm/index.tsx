@@ -92,8 +92,6 @@ const MentorshipForm = ({ onPressBack }: { onPressBack?: () => void }) => {
       .finally(() => {
         setIsSubmitting(false);
       });
-
-    console.log("Form Data:", formData);
   };
 
   return (

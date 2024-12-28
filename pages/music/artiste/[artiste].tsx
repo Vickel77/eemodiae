@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import renderImage from "../../../helpers/renderImage";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import ArtisteCard from "../../../components/ArtisteCard";
+import { MdArrowLeft } from "react-icons/md";
 
 const Artiste = styled(({ className }) => {
   const router = useRouter();
@@ -45,32 +46,32 @@ const Artiste = styled(({ className }) => {
   return (
     <div className={className}>
       <Navbar />
-      <main
-      // style={{
-      //   background: `-webkit-radial-gradient(#3624A700, #3624A700 70%), url(${renderImage(
-      //     artiste?.imageUrl
-      //   )})`,
-      // }}
-      >
+
+      <main>
         <div className="w-[200px] h-[300px] bg-primary blur-3xl fixed left-[5%] top-[5%]  opacity-20 rounded-full z-0" />
         <div className="w-[200px] h-[300px] bg-danger blur-3xl fixed right-[5%] top-[15%] opacity-20 rounded-full z-0" />
-        {/* <img
-          className="mix-blend-multiply absolute left-[50%] top-20 sm:top-0  translate-x-[-50%] opacity-10"
-          src={musicBg.src}
-          alt=""
-          width="100%"
-        /> */}
+        <div className="relative"></div>
+
         <header
-          className={`relative text-center mt-20 mb-10 bg-cover text-secondary flex flex-col justify-center items-center`}
+          className={`backdrop-blur-lg relative text-center p-10 mt-0 mb-10 bg-cover text-secondary flex flex-col justify-center items-center`}
         >
-          {/* <h2 className="font-bold text-4xl">MUSIC</h2>
-          <p>Explore soul lifting music</p> */}
-
+          <button
+            onClick={() => router.push("/music")}
+            className="z-20 self-start text-sm flex gap-2 items-center rounded-lg text-primary  pt-20 "
+          >
+            <MdArrowLeft />
+            Back
+          </button>
+          <div
+            style={{
+              backgroundImage: `url(${renderImage(artiste?.imageUrl)})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              filter: "blur(10px)",
+            }}
+            className="absolute inset-0 rounded-lg opacity-20"
+          ></div>
           <div className="grid place-items-center  px-10 w-full ">
-            {/* <div className="mb-5 ">
-              <Pill label="Artistes" />
-            </div> */}
-
             <p className="text-xl font-bold mb-0 text-primary">{artisteName}</p>
 
             <div
@@ -83,34 +84,21 @@ const Artiste = styled(({ className }) => {
               }}
             />
           </div>
-          {artiste && (
-            <ArtisteCard hideName key={artiste?.name} item={artiste!} />
-          )}
+          <div>
+            {artiste && (
+              <ArtisteCard hideName key={artiste?.name} item={artiste!} />
+            )}
+          </div>
         </header>
 
-        <article className="relative">
+        <article className="relative px-10">
           <section>
-            {/* <div className="flex flex-wrap sm:flex-nowrap justify-center items-center sm:justify-between w-full m-auto my-4 mb-10">
-              <div className="search-bar-container w-full   mt-2">
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
-                  ref={searchInputRef} // Attach ref to the search input
-                  onClick={() => scrollToSearchInput(searchInputRef)}
-                  placeholder="🔍 Search music..."
-                  className="search-bar   bg-[#ffffff] w-full sm:w-full rounded-md shadow-none focus:shadow-md px-4  border border-primary"
-                />
-              </div>
-            </div> */}
-
             <div className=" ">
               <div className=" grid place-items-center md:place-items-start ">
                 <div className="mb-5 ">
                   <Pill label={`Songs by ${artisteName}`} />
                 </div>
-                <div className="store-items">
+                <div className="store-items w-full">
                   {music ? (
                     music?.map((item, idx) => (
                       <Link
@@ -118,6 +106,7 @@ const Artiste = styled(({ className }) => {
                         href={{
                           pathname: `/music/${+idx!}`,
                         }}
+                        className="max-w-[200px]"
                       >
                         <div
                           data-aos="fade-up"
@@ -143,7 +132,7 @@ const Artiste = styled(({ className }) => {
   );
 })`
   main {
-    width: 80%;
+    // width: 80%;
     margin: 0rem auto 4rem;
     // padding-top: 5rem;
     color: ${({ theme }) => theme.colors.primary};
@@ -153,7 +142,7 @@ const Artiste = styled(({ className }) => {
       flex-wrap: wrap;
       width: 100%;
       margin-top: 1rem;
-      border: 1px oslid red;
+      border: 1px solid red;
 
       @media (max-width: 767px) {
         width: 80%;

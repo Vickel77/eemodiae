@@ -20,10 +20,12 @@ const ArtisteCard = styled(
             className="img"
             src={renderImage(imageUrl)}
             alt={name}
-            width="100%"
+            height="100%"
           />
-          <div className="absolute w-full h-full bg-[#00000022] z-20 flex items-end">
-            {!hideName && <p className="text-white text-sm p-5">{name}</p>}
+          <div className="absolute w-full h-1/2 bottom-0  justify-center px-5 gradient-overlay z-20 flex items-end">
+            {!hideName && (
+              <p className="text-white text-sm p-5 drop-shadow-md">{name}</p>
+            )}
           </div>
         </div>
       </div>
@@ -36,6 +38,8 @@ const ArtisteCard = styled(
   overflow: hidden;
   box-shadow: 0 4px 10px #00000022;
   max-width: 200px;
+  min-width: 200px;
+  border-radius: 100%;
   // max-width: 300px;
   .image {
     height: 200px;
