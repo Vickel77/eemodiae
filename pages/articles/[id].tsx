@@ -115,8 +115,8 @@ const Article = ({ articles }: { articles: Article[] }) => {
           <div className="text-sm">
             <em>Published by:</em>
             <br />
-            <b> Pst Emmanuel I. Emodiae</b>
-            <p>Prophet Preacher Poet</p>
+            <b>Emmanuel I. Emodiae</b>
+            <p>Prophet | Preacher | Poet</p>
             <p>@eemodiae</p>
           </div>
         </aside>

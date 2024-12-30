@@ -31,6 +31,7 @@ const Share = ({
   iconText,
   iconColor,
   ref,
+  hideIconText,
 }: {
   title?: string;
   text?: string | any;
@@ -41,6 +42,7 @@ const Share = ({
   iconText?: any;
   iconColor?: string;
   ref?: any;
+  hideIconText?: boolean;
 }) => {
   const [isShareSupported, setIsShareSupported] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
@@ -101,7 +103,7 @@ const Share = ({
             onClick={() => handleShare()}
           >
             <MdShare size={20} color={iconColor} {...iconProps} />
-            {iconText ?? <small>Share</small>}
+            {!hideIconText && (iconText ?? <small>Share</small>)}
           </button>
         ) : (
           <h3
@@ -156,17 +158,6 @@ const Share = ({
             >
               <WhatsappIcon size={50} />
             </WhatsappShareButton>
-            {/* {copied ? (
-              <div onClick={handleCopy}>
-                <MdCopyAll />
-                <p> copied</p>
-              </div>
-            ) : (
-              <div onClick={handleCopy}>
-                {" "}
-                <MdFmdGood />
-              </div>
-            )} */}
           </div>
         )}
       </div>

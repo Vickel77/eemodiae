@@ -30,6 +30,7 @@ export default function MessageCard({
               <Share
                 iconColor="white"
                 icon
+                hideIconText
                 title={message.title}
                 shareUrl={`https://eemodiae.org/messages/${message.title}`}
               />

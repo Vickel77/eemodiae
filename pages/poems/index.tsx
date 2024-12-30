@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
+import scrollToTop from "../../util/scrollToTop";
 
 const Poems = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
@@ -66,10 +67,6 @@ const Poems = styled(({ className }) => {
       setCurrentPage(currentPage - 1);
       scrollToTop();
     }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
   };
 
   if (!domContentLoaded || !poems) {
