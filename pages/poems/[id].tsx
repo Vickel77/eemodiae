@@ -146,8 +146,8 @@ const Blog = styled(
                 <div className="text-sm">
                   <em>Written by:</em>
                   <br />
-                  <b> Pst Emmanuel I. Emodiae</b>
-                  <p>Prophet Preacher Poet</p>
+                  <b>Emmanuel I. Emodiae</b>
+                  <p>Prophet | Preacher | Poet</p>
                   <p>@eemodiae</p>
                 </div>
               </aside>

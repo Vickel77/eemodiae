@@ -79,6 +79,13 @@ const Navbar = styled(({ className }: { className?: any }) => {
           >
             MUSIC
           </Link>
+
+          <Link
+            href="/bookings"
+            className={router.pathname === "/bookings" ? "active" : ""}
+          >
+            BOOKINGS
+          </Link>
           <Link
             href="/give"
             className={`${
@@ -86,12 +93,6 @@ const Navbar = styled(({ className }: { className?: any }) => {
             } bg-primary px-2 py-1 rounded-sm text-white`}
           >
             GIVE
-          </Link>
-          <Link
-            href="/bookings"
-            className={router.pathname === "/bookings" ? "active" : ""}
-          >
-            BOOKINGS
           </Link>
 
           {isLoggedIn && (

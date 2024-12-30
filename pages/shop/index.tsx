@@ -27,7 +27,7 @@ const Shop = styled(({ className }) => {
 
         <article>
           <section>
-            <h4>RECENTLY ADDED</h4>
+            {/* <h4>RECENTLY ADDED</h4> */}
             <div className="store-items">
               {store
                 ?.filter((item) => item.category !== "song")

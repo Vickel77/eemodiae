@@ -13,6 +13,7 @@ import { createClient } from "contentful";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
 import { useMemo } from "react";
+import Link from "next/link";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -75,6 +76,7 @@ const AudioPage = ({
     return <div>Audio not found</div>;
   }
 
+  console.log({ selectedAudio });
   return (
     <>
       <Head>
@@ -188,7 +190,7 @@ const AudioPage = ({
                   </div>
                   <button className="flex gap-3 ">
                     {/* <MdOutlineMonitorHeart /> */}
-                    <a
+                    <Link
                       href={`${audio}`}
                       // download={selectedAudio.title}
                       className="hover:opacity-80 flex justify-center items-center gap-2"
@@ -209,7 +211,7 @@ const AudioPage = ({
                     >
                       <MdDownload color="3624a7" size={25} />
                       <small>Download</small>
-                    </a>
+                    </Link>
                   </button>
                 </div>
               </div>
