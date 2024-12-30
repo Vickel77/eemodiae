@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import useContentful from "../../hooks/useContentful";
 import { useRouter } from "next/router";
 import { MdArrowLeft, MdDownload } from "react-icons/md";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
@@ -11,8 +10,10 @@ import Share from "../../components/Share";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
 import PageLoader from "../../components/PageLoader";
+import getEntries from "../../util/getEntries";
+import { createClient } from "contentful";
 
-export default function ItemDetails() {
+export default function ItemDetails({ music }: { music: Music[] }) {
   const router = useRouter();
   const _id: any = router.query.id;
   const id = _id?.split("_")[_id?.split("_").length - 1];
@@ -25,17 +26,11 @@ export default function ItemDetails() {
     }
   };
 
-  const { getMusic, store, music } = useContentful();
-
   const storeItem: Music = music?.[+id!]!;
 
   const { image, title, audio, lyrics, artiste, imageUrl } = storeItem || {};
 
   // console.log({ storeItem });
-
-  useEffect(() => {
-    getMusic();
-  }, []);
 
   const contentRendererOptions = {
     preserveWhitespace: true,
@@ -49,23 +44,23 @@ export default function ItemDetails() {
     return <PageLoader />;
   }
   return (
-    <div>
+    <>
       <Head>
-        <title>{title || "Eemodiae Music"}</title>
+        <title>{`${title}` || "Eemodiae Music"}</title>
 
-        <meta name="description" content={"Explore great music on Eemodiae."} />
+        <meta name="description" content={`by ${artiste}`} />
         <link rel="canonical" href={shareUrl} />
 
         {/* Open Graph Tags */}
         <meta property="og:site_name" content="Eemodiae" />
         <meta
           property="og:title"
-          content={title || "Eemodiae Music"}
+          content={`${title}` || "Eemodiae Music"}
           key="title"
         />
         <meta
           property="og:description"
-          content={"Explore great music on Eemodiae."}
+          content={`by ${artiste}`}
           key="description"
         />
         <meta property="og:image" content={`https:${renderImage(imageUrl)}`} />
@@ -181,6 +176,39 @@ export default function ItemDetails() {
         </div>
       </div>
       <Footer />
-    </div>
+    </>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const client = createClient({
+    space: "7rf3l1j0b9zd",
+    accessToken: "lD4oHO4B6sURlPIVrmkoZthACYqHbsFQVc4uw6QhVHI",
+  });
+
+  const entries = await client.getEntries({
+    content_type: "eemodiaeMusic",
+  });
+
+  const sanitizedEntries: any =
+    entries &&
+    entries.items.map((item: any) => {
+      return {
+        ...item.fields,
+        image: entries?.includes?.Asset?.[0].fields?.file.url,
+      };
+    });
+
+  // If the data does not exist, return a 404 page
+  if (!sanitizedEntries) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      music: sanitizedEntries, // Pass the Music data to the component as props
+    },
+  };
 }

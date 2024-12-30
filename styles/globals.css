@@ -71,8 +71,6 @@ select,
   border: none;
   outline: transparent;
   box-shadow: 0 4px 10px #00000022;
-
-  border: 1px solid #000000;
 }
 .input,
 input,
@@ -132,7 +130,9 @@ textarea {
   background-size: cover;
   backdrop-filter: grayscale(0.5);
 }
-.booking-wrapper input {
+.booking-wrapper input,
+.booking-wrapper select,
+.booking-wrapper textarea {
   background-color: #00000022;
 }
 

@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
+import scrollToTop from "../../util/scrollToTop";
 
 const Articles = styled(({ className }) => {
   const { isLoggedIn } = useAuth();
@@ -28,7 +29,6 @@ const Articles = styled(({ className }) => {
 
   // Ref for the search input
   const searchInputRef = useRef<any>(null);
-
 
   useEffect(() => {
     getArticles();
@@ -64,10 +64,12 @@ const Articles = styled(({ className }) => {
 
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+    scrollToTop();
   };
 
   const handlePreviousPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
+    scrollToTop();
   };
 
   if (!domContentLoaded || !articles) {
@@ -83,7 +85,6 @@ const Articles = styled(({ className }) => {
             <div className="w-[200px] h-[300px] bg-danger blur-3xl absolute right-[50%] top-[15%] opacity-10 rounded-full z-0" />
 
             <header className="text-center w-full mt-20 sm:mb-10 mb-0 text-secondary  flex flex-col justify-center items-center bg-cover bg-[url('/assets/book1.png')] relative">
-
               <h2 className="font-bold text-center">ARTICLES</h2>
               {/* Search Bar */}
               <div className="search-bar-container">
@@ -91,11 +92,9 @@ const Articles = styled(({ className }) => {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-
                   onFocus={() => scrollToSearchInput(searchInputRef)} // Scroll to top when search is focused
                   ref={searchInputRef} // Attach ref to the search input
                   onClick={() => scrollToSearchInput(searchInputRef)}
-
                   placeholder="🔍 Search articles..."
                   className="search-bar bg-transparent focus:bg-[#ffffff55] w-full shadow-none focus:shadow-md "
                 />
@@ -135,12 +134,10 @@ const Articles = styled(({ className }) => {
             disabled={currentPage === 1}
             className="pagination-btn"
           >
-
             Prev
           </button>
           <span className="page-info text-sm">
             {currentPage} / {totalPages}
-
           </span>
           <button
             onClick={handleNextPage}
@@ -214,7 +211,6 @@ const Articles = styled(({ className }) => {
   }
 
   .page-info {
-
     color: ${({ theme }) => theme.colors.primary};
   }
 
