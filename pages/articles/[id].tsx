@@ -13,6 +13,7 @@ import { createClient } from "contentful";
 import PageLoader from "../../components/PageLoader";
 import { smallDescription } from "../../util/removeHtmlTags";
 import { articles } from "../../lib/data";
+import useDisableRightClick from "../../hooks/useDisableRightClick";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -43,6 +44,8 @@ const Article = ({ articles }: { articles: Article[] }) => {
   const contentRendererOptions = {
     preserveWhitespace: true,
   };
+
+  useDisableRightClick();
   // const article = articles[Number(id)];
   if (!article) {
     return <PageLoader />;
@@ -93,7 +96,8 @@ const Article = ({ articles }: { articles: Article[] }) => {
           content={article?.title || "Eemodiae Article"}
         />
       </Head>
-      <div className="w-[100%] m-auto text-primary mt-[5rem]">
+      <div className=" no-copy  w-[100%] m-auto text-primary mt-[5rem]">
+        <div className="no-screenshot" />
         <Navbar />
         <section className="w-[70%] m-auto">
           <button
