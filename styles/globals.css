@@ -261,9 +261,9 @@ textarea {
 }
 
 /* Prevent right-click context menu */
-.no-copy {
+/* .no-copy {
   pointer-events: none;
-}
+} */
 
 /* Overlay to block screenshotting */
 .no-screenshot {
