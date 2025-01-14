@@ -123,7 +123,7 @@ const Home: NextPage = styled(({ className }) => {
           <h3>Hello and Welcome!</h3>
           <p data-aos="fade-in">
             We&lsquo;re thrilled to have you visit us. Our goal is to provide
-            you with valuable life transforming information and inspiration
+            you with valuable life transforming information and inspiration.
             Enjoy your stay!
           </p>
         </section>

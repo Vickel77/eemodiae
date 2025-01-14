@@ -1,5 +1,6 @@
+"use client";
 import { useRouter } from "next/router";
-import React, { Suspense, useMemo } from "react";
+import React, { Suspense, useEffect, useMemo } from "react";
 import dp from "../../assets/DP.png";
 import Head from "next/head";
 import Image from "next/image";
@@ -13,6 +14,7 @@ import Share from "../../components/Share";
 import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
 import { smallDescription } from "../../util/removeHtmlTags";
+import useDisableRightClick from "../../hooks/useDisableRightClick";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -41,6 +43,8 @@ const Blog = styled(
     const contentRendererOptions = {
       preserveWhitespace: true,
     };
+
+    useDisableRightClick();
 
     return (
       <Suspense fallback="">
@@ -102,7 +106,8 @@ const Blog = styled(
         </Head>
         <Navbar />
         <main className={className}>
-          <div className="w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
+          <div className="no-screenshot" />
+          <div className="no-copy w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
             <button
               onClick={() => router.push("/poems")}
               className="text-sm flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
