@@ -12,7 +12,7 @@ import { MdDownload } from "react-icons/md";
 import { createClient } from "contentful";
 import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 
 const client = createClient({
@@ -29,6 +29,8 @@ const AudioPage = ({
   const router = useRouter();
   const { id } = router.query;
 
+  const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
+
   const selectedAudio = useMemo(() => {
     let _selectedAudio = messages?.find(
       (audio) => audio.title.toLowerCase() === String(id)?.toLowerCase()
@@ -42,6 +44,15 @@ const AudioPage = ({
         )
       );
     }
+
+    // Update the currentAudioIndex based on the selected audio
+
+    const index = messages?.findIndex(
+      (audio) =>
+        audio.title.toLowerCase() === _selectedAudio?.title.toLowerCase()
+    );
+
+    setCurrentAudioIndex(index ?? -1);
 
     return _selectedAudio;
   }, [id, messages]);
@@ -72,24 +83,42 @@ const AudioPage = ({
     : selectedAudio?.audio?.fields?.file?.url;
 
   const _image = selectedAudio?.imageUrl?.fields?.file?.url ?? image.src;
+
+  console.log({ messages });
+
+  const handleAudioEnd = () => {
+    // Check if there is a next suggestion
+    let currentIndex = categorySuggestions?.findIndex(
+      (suggestion) =>
+        suggestion.fields.title.toLowerCase() === String(id).toLowerCase()
+    );
+    if (selectedAudio?.category) {
+      if (currentIndex! + 1 >= categorySuggestions?.length!) return;
+      const nextAudio = categorySuggestions?.[currentIndex! + 1];
+      router.push(`/messages/${nextAudio?.fields.title}`);
+      return;
+    }
+    if (currentAudioIndex + 1 < messages?.length) {
+      const nextAudio = messages[currentAudioIndex + 1];
+      router.push(`/messages/${nextAudio.title}`);
+    }
+  };
+
   if (!selectedAudio) {
     return <div>Audio not found</div>;
   }
 
-  console.log({ selectedAudio });
   return (
     <>
       <Head>
         <title>
           {(selectedAudio && selectedAudio.title) || "Eemodiae Sermon"}
         </title>
-
         <meta
           name="description"
           content={"Explore inspiring messages on Eemodiae"}
         />
         <link rel="canonical" href={shareUrl} />
-
         {/* Open Graph Tags */}
         <meta property="og:site_name" content="Eemodiae" />
         <meta
@@ -110,24 +139,6 @@ const AudioPage = ({
         <meta property="og:type" content="article" />
         <meta
           property="og:image:alt"
-          content={selectedAudio?.title || "Eemodiae Sermon"}
-        />
-
-        {/* Twitter */}
-
-        <meta name="twitter:title" content={selectedAudio?.title} />
-        <meta
-          name="twitter:description"
-          content={"Explore inspiring Messages on Eemodiae."}
-        />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@eemodiae" />
-        <meta
-          property="twitter:image"
-          content={`https:${renderImage(selectedAudio?.imageUrl)}`}
-        />
-        <meta
-          name="twitter:image:alt"
           content={selectedAudio?.title || "Eemodiae Sermon"}
         />
       </Head>
@@ -169,8 +180,8 @@ const AudioPage = ({
                 <div className="mt-5 flex flex-wrap gap-5 items-center justify-center">
                   <AudioPlayer
                     src={audio}
-                    autoPlay={false}
-                    // showJumpControls={false}
+                    autoPlay={true}
+                    onEnded={handleAudioEnd} // Autoplay next audio
                     customAdditionalControls={[]}
                     layout="stacked-reverse"
                     customVolumeControls={[]}
@@ -180,7 +191,6 @@ const AudioPage = ({
                     }}
                     showDownloadProgress
                   />
-
                   <div className="">
                     <Share
                       shareUrl={`https://eemodiae.org/messages/${id}`}
@@ -189,12 +199,9 @@ const AudioPage = ({
                     />
                   </div>
                   <button className="flex gap-3 ">
-                    {/* <MdOutlineMonitorHeart /> */}
                     <Link
                       href={`${audio}`}
-                      // download={selectedAudio.title}
                       className="hover:opacity-80 flex justify-center items-center gap-2"
-                      // onClick={() => window && window.open(audio)}
                       onClick={(e) => {
                         e.preventDefault();
                         fetch(audio)

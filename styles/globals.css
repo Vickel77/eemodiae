@@ -251,3 +251,28 @@ textarea {
 .rhap_container {
   background-color: #f0f0f0; /* Replace with your desired color */
 }
+
+/* NO COPY & SCREENSHOT */
+/* Prevent text copying */
+.no-copy {
+  user-select: none; /* Disable text selection */
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Prevent right-click context menu */
+/* .no-copy {
+  pointer-events: none;
+} */
+
+/* Overlay to block screenshotting */
+.no-screenshot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.01); /* Invisible overlay */
+  z-index: 9999;
+  pointer-events: none;
+}

@@ -110,7 +110,7 @@ export default function ItemDetails({ music }: { music: Music[] }) {
             className="my-30 text-white max-w-[300px] sticky top-20  "
           >
             <div className="rounded-lg overflow-hidden">
-              <img src={imageUrl?.fields?.file.url} alt="" />
+              <img src={renderImage(imageUrl)} alt="" />
             </div>
             <div className="bg-[#ffffffaa] text-primary">
               <div className="text-center">
