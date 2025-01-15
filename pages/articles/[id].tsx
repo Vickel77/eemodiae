@@ -33,7 +33,8 @@ const Article = ({ articles }: { articles: Article[] }) => {
   const article = useMemo(() => {
     let _selectedAudio = articles?.find(
       (article) =>
-        article?.title?.toLowerCase().trim() === String(id)?.toLowerCase()
+        article?.title?.toLowerCase().trim() ===
+        String(id)?.trim().toLowerCase()
     );
 
     return _selectedAudio;
