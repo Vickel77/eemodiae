@@ -28,7 +28,8 @@ const Blog = styled(
 
     const poem = useMemo(() => {
       let _selectedAudio = poems?.find(
-        (poem) => poem?.title?.toLowerCase() === String(id)?.toLowerCase()
+        (poem) =>
+          poem?.title?.trim().toLowerCase() === String(id)?.trim().toLowerCase()
       );
 
       return _selectedAudio;
