@@ -15,6 +15,7 @@ import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
 import { smallDescription } from "../../util/removeHtmlTags";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
+import normalizeAndCompare from "../../util/normalizeAndCompare";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -28,12 +29,13 @@ const Blog = styled(
 
     const poem = useMemo(() => {
       let _selectedAudio = poems?.find(
-        (poem) =>
-          poem?.title?.trim().toLowerCase() === String(id)?.trim().toLowerCase()
+        (poem) =>{
+        return  normalizeAndCompare(poem?.title!, String(id))
+        }
       );
-
       return _selectedAudio;
     }, [id, poems]);
+    
 
     if (router.isFallback || !poem) {
       return <PageLoader />;
