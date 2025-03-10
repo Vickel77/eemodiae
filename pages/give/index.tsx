@@ -89,6 +89,14 @@ export default function Index() {
                     <AccountDetail key={index} details={account} />
                   )
                 )}
+                <div className="text-sm">
+                  <p>
+                    Swift code: <b>ZEIBNGLA</b>{" "}
+                  </p>
+                  <p>
+                    Sort code: <b>057080219</b>
+                  </p>
+                </div>
               </>
             )}
           </section>
@@ -142,7 +150,7 @@ const ViewTwo = ({ setView }: { setView: any }) => {
     onSuccess: () => {
       alert("God Bless you!!");
     },
-    onClose: () => {},
+    onClose: () => { },
   };
 
   const notFilled = amount === 0 || email === "";
