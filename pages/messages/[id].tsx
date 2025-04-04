@@ -265,7 +265,7 @@ const AudioPage = ({
                 <h2 className="text-xl  font-bold mb-4">Up Next</h2>
                 <div className="space-y-4 h-full border text-sm flex flex-col justify-center items-center ">
                   <h3 className="text-[1rem]">
-                    You're all caught up
+                    You&lsquo;re all caught up
                     </h3>
                     <img className="h-20"  src={empty.src}/>
                   <Link href="/messages">
@@ -273,7 +273,7 @@ const AudioPage = ({
                     Explore more messages
                   </button>
                   </Link>
-                  <Link href="/articles">
+                  <Link href="/articlesgi">
                   <button className="underline p-0 m-0">
                     Explore other content
                   </button>
