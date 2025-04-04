@@ -34,13 +34,13 @@ const Article = ({ articles }: { articles: Article[] }) => {
   const article = useMemo(() => {
     let _selectedAudio = articles?.find(
       (article) =>
-         normalizeAndCompare(article?.title!, String(id))
+         normalizeAndCompare(article?.title.replace(" ", "_")!, String(id))
     );
 
     return _selectedAudio;
   }, [id, articles]);
 
-  const shareUrl = `https://eemodiae.org/articles/${id}`;
+  const shareUrl = `https://eemodiae.org/articles/${id?.toString().replace(" ", "_")}`;
 
   const contentRendererOptions = {
     preserveWhitespace: true,
