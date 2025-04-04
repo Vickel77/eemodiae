@@ -34,14 +34,14 @@ const AudioPage = ({
 
   const selectedAudio = useMemo(() => {
     let _selectedAudio = messages?.find(
-      (audio) => audio.title.toLowerCase() === String(id)?.toLowerCase()
+      (audio) => audio.title.trim().toLowerCase() === String(id).trim()?.toLowerCase()
     );
 
     if (!_selectedAudio) {
       _selectedAudio = messages?.find((message) =>
-        message.audio_file.find(
+        message.audio_file?.find(
           (audio_file) =>
-            audio_file.fields.title.toLowerCase() === String(id)?.toLowerCase()
+            audio_file.fields.title.trim().toLowerCase() === String(id)?.trim().toLowerCase()
         )
       );
     }
@@ -67,7 +67,7 @@ const AudioPage = ({
           !audio.category &&
           audio.title.trim().toLowerCase() === String(id)?.toLowerCase() 
     )
-    const suggestions:Message[]= messages.slice(selectedIdx, selectedIdx + 5)
+    const suggestions:Message[]= messages.slice(selectedIdx+1, selectedIdx + 6)
     console.log({suggestions})
 
 
