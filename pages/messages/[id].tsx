@@ -28,6 +28,7 @@ const AudioPage = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
+  const [selectedId, setSelectedId] = useState<number>();
 
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
 
@@ -57,14 +58,18 @@ const AudioPage = ({
     return _selectedAudio;
   }, [id, messages]);
 
-  // Filter out the current audio from suggestions
-  const suggestions = messages
-    ?.filter(
-      (audio) =>
-        !audio.category &&
-        audio.title.toLowerCase() !== String(id)?.toLowerCase()
+  console.log({ selectedId })
+  // Filter out the  current audio from suggestions
+  
+  const selectedIdx = messages
+    ?.findIndex(
+      (audio, idx, arr) => 
+          !audio.category &&
+          audio.title.trim().toLowerCase() === String(id)?.toLowerCase() 
     )
-    .slice(0, 5);
+    const suggestions:Message[]= messages.slice(selectedIdx, selectedIdx + 5)
+    console.log({suggestions})
+
 
   const categorySuggestions = messages?.find(
     (m) => m?.category === selectedAudio?.category
@@ -77,9 +82,9 @@ const AudioPage = ({
 
   const audio = selectedAudio?.category
     ? selectedAudio.audio_file.find(
-        (audio) =>
-          audio.fields.title.toLowerCase() === String(id)?.toLowerCase()
-      )?.fields.file.url
+      (audio) =>
+        audio.fields.title.toLowerCase() === String(id)?.toLowerCase()
+    )?.fields.file.url
     : selectedAudio?.audio?.fields?.file?.url;
 
   const _image = selectedAudio?.imageUrl?.fields?.file?.url ?? image.src;
@@ -229,22 +234,22 @@ const AudioPage = ({
               <h2 className="text-xl font-bold mb-4">Up Next</h2>
               <div className="space-y-4 overflow-scroll">
                 {!selectedAudio.category
-                  ? suggestions?.map((audio, index) => (
-                      <SuggestCard
-                        key={index}
-                        title={audio.title}
-                        image={audio.imageUrl.fields.file.url}
-                        router={router}
-                      />
-                    ))
+                  ? suggestions.map((audio, index) => (
+                    <SuggestCard
+                      key={index}
+                      title={audio?.title}
+                      image={audio?.imageUrl.fields.file.url}
+                      router={router}
+                    />
+                  ))
                   : categorySuggestions?.map((audio, index) => (
-                      <SuggestCard
-                        key={index}
-                        title={audio.fields.title}
-                        image={_image}
-                        router={router}
-                      />
-                    ))}
+                    <SuggestCard
+                      key={index}
+                      title={audio.fields.title}
+                      image={_image}
+                      router={router}
+                    />
+                  ))}
               </div>
             </div>
           </div>

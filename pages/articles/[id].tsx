@@ -14,6 +14,7 @@ import PageLoader from "../../components/PageLoader";
 import { smallDescription } from "../../util/removeHtmlTags";
 import { articles } from "../../lib/data";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
+import normalizeAndCompare from "../../util/normalizeAndCompare";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -33,8 +34,7 @@ const Article = ({ articles }: { articles: Article[] }) => {
   const article = useMemo(() => {
     let _selectedAudio = articles?.find(
       (article) =>
-        article?.title?.toLowerCase().trim() ===
-        String(id)?.trim().toLowerCase()
+         normalizeAndCompare(article?.title!, String(id))
     );
 
     return _selectedAudio;
