@@ -14,7 +14,7 @@ import PageLoader from "../../components/PageLoader";
 import { smallDescription } from "../../util/removeHtmlTags";
 import { articles } from "../../lib/data";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
-import normalizeAndCompare from "../../util/normalizeAndCompare";
+import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -31,16 +31,17 @@ const Article = ({ articles }: { articles: Article[] }) => {
   //   );
   //   synth.speak(utterance);
   // };
+
   const article = useMemo(() => {
     let _selectedAudio = articles?.find(
       (article) =>
-         normalizeAndCompare(article?.title.replace(" ", "_")!, String(id))
+         normalizeAndCompare(article?.title!, String(id))
     );
 
     return _selectedAudio;
   }, [id, articles]);
 
-  const shareUrl = `https://eemodiae.org/articles/${id?.toString().replace(" ", "_")}`;
+  const shareUrl = `https://eemodiae.org/articles/${cleanString(id!)}`;
 
   const contentRendererOptions = {
     preserveWhitespace: true,
