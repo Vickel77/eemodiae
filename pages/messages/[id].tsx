@@ -14,6 +14,7 @@ import Head from "next/head";
 import renderImage from "../../helpers/renderImage";
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import empty from "../../assets/empty-state.png"
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -63,17 +64,20 @@ const AudioPage = ({
   
   const selectedIdx = messages
     ?.findIndex(
-      (audio, idx, arr) => 
+      (audio) => 
           !audio.category &&
           audio.title.trim().toLowerCase() === String(id)?.toLowerCase() 
     )
-    const suggestions:Message[]= messages.slice(selectedIdx+1, selectedIdx + 6)
+  const suggestions:Message[]= messages.filter(message => !message.category).slice(selectedIdx+1, selectedIdx + 6)
     console.log({suggestions})
-
-
-  const categorySuggestions = messages?.find(
+   
+   const categoryData = messages?.find(
     (m) => m?.category === selectedAudio?.category
   )?.audio_file;
+
+  const catIdx = categoryData?.findIndex(aud => aud.fields.title.trim().toLowerCase() === String(id)?.trim().toLowerCase())
+
+  const categorySuggestions  = categoryData?.slice(catIdx! + 1)
 
   const shareUrl = `https://eemodiae.org/messages/${id}?${selectedAudio?.title.replace(
     / /g,
@@ -89,12 +93,10 @@ const AudioPage = ({
 
   const _image = selectedAudio?.imageUrl?.fields?.file?.url ?? image.src;
 
-  console.log({ messages });
-
   const handleAudioEnd = () => {
     // Check if there is a next suggestion
     let currentIndex = categorySuggestions?.findIndex(
-      (suggestion) =>
+      (suggestion:any) =>
         suggestion.fields.title.toLowerCase() === String(id).toLowerCase()
     );
     if (selectedAudio?.category) {
@@ -108,6 +110,10 @@ const AudioPage = ({
       router.push(`/messages/${nextAudio.title}`);
     }
   };
+
+  console.log( suggestions.length , categorySuggestions?.length!  ) ;
+
+  const showSuggestion = !selectedAudio?.category ? suggestions.length > 1 : categorySuggestions?.length! > 1 ! 
 
   if (!selectedAudio) {
     return <div>Audio not found</div>;
@@ -231,6 +237,8 @@ const AudioPage = ({
 
             {/* Suggestions Section */}
             <div className="w-full md:w-[30%]">
+            {showSuggestion ?
+            <>
               <h2 className="text-xl font-bold mb-4">Up Next</h2>
               <div className="space-y-4 overflow-scroll">
                 {!selectedAudio.category
@@ -251,6 +259,28 @@ const AudioPage = ({
                     />
                   ))}
               </div>
+              </>
+              : 
+              <div className="border flex flex-col">
+                <h2 className="text-xl  font-bold mb-4">Up Next</h2>
+                <div className="space-y-4 h-full border text-sm flex flex-col justify-center items-center ">
+                  <h3 className="text-[1rem]">
+                    You're all caught up
+                    </h3>
+                    <img className="h-20"  src={empty.src}/>
+                  <Link href="/messages">
+                  <button className="mt-0 btn bg-primary text-white">
+                    Explore more messages
+                  </button>
+                  </Link>
+                  <Link href="/articles">
+                  <button className="underline p-0 m-0">
+                    Explore other content
+                  </button>
+                  </Link>
+                  </div>
+                </div>
+                }
             </div>
           </div>
         </div>
@@ -275,11 +305,11 @@ const SuggestCard = ({
       onClick={() => router.push(`/messages/${title}`)}
       key={title}
     >
-      <div className="relative overflow-hidden rounded-full">
-        <img src={image} width="50" className="rounded-full" alt={title} />
+      <div className=" flex w-10 h-10  overflow-hidden rounded-full">
+        <img src={image} width="100%"   className="rounded-full" alt={title} />
       </div>
-      <div className="ml-4">
-        <h3 className="text-sm font-semibold">{title}</h3>
+      <div className="ml-2">
+        <h3 className="text-xs ">{title}</h3>
       </div>
     </div>
   );
