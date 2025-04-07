@@ -15,7 +15,7 @@ import PageLoader from "../../components/PageLoader";
 import { createClient } from "contentful";
 import { smallDescription } from "../../util/removeHtmlTags";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
-import normalizeAndCompare from "../../util/normalizeAndCompare";
+import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -41,7 +41,7 @@ const Blog = styled(
       return <PageLoader />;
     }
 
-    const shareUrl = `https://eemodiae.org/poems/${id}`;
+    const shareUrl = `https://eemodiae.org/poems/${cleanString(id)}`;
 
     const contentRendererOptions = {
       preserveWhitespace: true,

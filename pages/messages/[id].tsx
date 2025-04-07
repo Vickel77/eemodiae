@@ -15,6 +15,8 @@ import renderImage from "../../helpers/renderImage";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import empty from "../../assets/empty-state.png"
+import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
+import getCircularSlice from "../../util/getCircularIdx";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -29,26 +31,24 @@ const AudioPage = ({
 }) => {
   const router = useRouter();
   const { id } = router.query;
-  const [selectedId, setSelectedId] = useState<number>();
 
   const [currentAudioIndex, setCurrentAudioIndex] = useState<number>(-1);
 
   const selectedAudio = useMemo(() => {
     let _selectedAudio = messages?.find(
-      (audio) => audio.title.trim().toLowerCase() === String(id).trim()?.toLowerCase()
+      (audio) => normalizeAndCompare(audio.title, String(id)) 
     );
 
     if (!_selectedAudio) {
       _selectedAudio = messages?.find((message) =>
         message.audio_file?.find(
           (audio_file) =>
-            audio_file.fields.title.trim().toLowerCase() === String(id)?.trim().toLowerCase()
+            normalizeAndCompare(audio_file.fields.title, String(id))
         )
       );
     }
 
     // Update the currentAudioIndex based on the selected audio
-
     const index = messages?.findIndex(
       (audio) =>
         audio.title.toLowerCase() === _selectedAudio?.title.toLowerCase()
@@ -59,25 +59,35 @@ const AudioPage = ({
     return _selectedAudio;
   }, [id, messages]);
 
-  console.log({ selectedId })
   // Filter out the  current audio from suggestions
-  
-  const selectedIdx = messages
-    ?.findIndex(
-      (audio) => 
-          !audio.category &&
-          audio.title.trim().toLowerCase() === String(id)?.toLowerCase() 
-    )
-  const suggestions:Message[]= messages.filter(message => !message.category).slice(selectedIdx+1, selectedIdx + 6)
-    console.log({suggestions})
-   
-   const categoryData = messages?.find(
-    (m) => m?.category === selectedAudio?.category
-  )?.audio_file;
+  // 🔁 Helper: Circular next-N slice from an array
 
-  const catIdx = categoryData?.findIndex(aud => aud.fields.title.trim().toLowerCase() === String(id)?.trim().toLowerCase())
 
-  const categorySuggestions  = categoryData?.slice(catIdx! + 1)
+
+const idLower = String(id).trim().toLowerCase();
+
+const filtered = messages.filter(msg => !msg.category);
+const selectedIdx = filtered.findIndex(
+  msg => msg.title.trim().toLowerCase() === idLower
+);
+
+const count = filtered.length < 5 ? filtered.length : 5;
+const suggestions: Message[] =
+  selectedIdx !== -1 ? getCircularSlice(filtered, selectedIdx, count) : [];
+
+const categoryData = messages.find(
+  m => m.category === selectedAudio?.category
+)?.audio_file;
+
+const catIdx = categoryData?.findIndex(
+  aud => aud.fields.title.trim().toLowerCase() === idLower
+);
+
+const countCat = categoryData?.length! < 5 ? categoryData?.length : 5;
+const categorySuggestions: any[] =
+  categoryData && catIdx !== undefined && catIdx !== -1
+    ? getCircularSlice(categoryData, catIdx, countCat!)
+    : [];
 
   const shareUrl = `https://eemodiae.org/messages/${id}?${selectedAudio?.title.replace(
     / /g,
@@ -111,9 +121,9 @@ const AudioPage = ({
     }
   };
 
-  console.log( suggestions.length , categorySuggestions?.length!  ) ;
+  console.log( {selectedAudio, len: categorySuggestions?.length!}  ) ;
 
-  const showSuggestion = !selectedAudio?.category ? suggestions.length > 1 : categorySuggestions?.length! > 1 ! 
+  const showSuggestion = !selectedAudio?.category ? suggestions.length > 0 : categorySuggestions?.length! > 0 ! 
 
   if (!selectedAudio) {
     return <div>Audio not found</div>;
@@ -204,7 +214,7 @@ const AudioPage = ({
                   />
                   <div className="">
                     <Share
-                      shareUrl={`https://eemodiae.org/messages/${id}`}
+                      shareUrl={`https://eemodiae.org/messages/${cleanString(id)}`}
                       icon
                       title={selectedAudio.title}
                     />
@@ -305,8 +315,8 @@ const SuggestCard = ({
       onClick={() => router.push(`/messages/${title}`)}
       key={title}
     >
-      <div className=" flex w-10 h-10  overflow-hidden rounded-full">
-        <img src={image} width="100%"   className="rounded-full" alt={title} />
+      <div className=" flex   overflow-hidden rounded-full">
+        <img src={image} width={100}  className="rounded-full" alt={title} />
       </div>
       <div className="ml-2">
         <h3 className="text-xs ">{title}</h3>
