@@ -1,8 +1,15 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 import Socials from "../Socials";
 import hojLogo from "../../assets/hoj-logo.png";
+
+const PRIVATE_KEY = process.env.NEXT_PUBLIC_EJS_PUBLIC_KEY;
+const TEMPLATE_ID = process.env.NEXT_PUBLIC_EJS_TEMPLATE_ID;
+const SERVICE_ID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
+const AUTO_REPLY = process.env.NEXT_PUBLIC_EJS_AUTO_REPLY_ID;
 
 const Footer = styled(
   ({
@@ -14,6 +21,59 @@ const Footer = styled(
     hideBooking?: boolean;
     theme?: any;
   }) => {
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      message: "",
+    });
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsSubmitting(true);
+
+      if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+        toast.error("Please fill in all required fields.");
+        setIsSubmitting(false);
+        return;
+      }
+
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        to_name: "Eemodiae",
+        to_email: "eemodiae@gmail.com",
+        message: `
+          Name: ${formData.name}
+          Email: ${formData.email}
+          Message: ${formData.message}
+        `,
+      };
+
+      emailjs
+        .send(SERVICE_ID!, TEMPLATE_ID!, templateParams, PRIVATE_KEY!)
+        .then((response) => {
+
+          console.log("Email sent!", response);
+          toast.success("Message sent successfully!");
+          setFormData({ name: "", email: "", message: "" });
+
+
+        })
+        .catch((err) => {
+          console.error("Email failed to send:", err);
+          toast.error("Failed to send message. Please try again.");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
+    };
+
     return (
       <>
         {!hideBooking && <BookingBar />}
@@ -40,12 +100,23 @@ const Footer = styled(
 
             <section className="contact-form">
               <h4>Contact Us</h4>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <input
                   placeholder="Your Name"
                   className="input bg-transparent"
                   type="text"
                   name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+                <input
+                  placeholder="Your Email"
+                  className="input bg-transparent"
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
                 <textarea
@@ -53,9 +124,17 @@ const Footer = styled(
                   placeholder="Your Message"
                   name="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
                   required
                 ></textarea>
-                <button className="btn bg-danger small">Send Message</button>
+                <button
+                  className="btn bg-danger small"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
               </form>
             </section>
 
@@ -165,7 +244,7 @@ const Footer = styled(
   }
 `;
 
-const BookingBar = ({}) => {
+const BookingBar = ({ }) => {
   return (
     <div
       style={{ backgroundPositionY: "50%", backgroundAttachment: "fixed" }}

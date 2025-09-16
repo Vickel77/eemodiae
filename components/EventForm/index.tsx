@@ -5,7 +5,7 @@ import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
 import checked from "../../assets/checked.png";
 import { Loader } from "../PageLoader";
-const PRIVATE_KEY = process.env.NEXT_PUBLIC_EJS_PRIVATE_KEY;
+const PRIVATE_KEY = process.env.NEXT_PUBLIC_EJS_PUBLIC_KEY;
 const TEMPLATE_ID = process.env.NEXT_PUBLIC_EJS_TEMPLATE_ID;
 const SERVICE_ID = process.env.NEXT_PUBLIC_EJS_SERVICE_ID;
 

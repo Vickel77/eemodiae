@@ -1,15 +1,60 @@
-@keyframes slide {
+@keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(100%);
   }
   to {
     opacity: 1;
-    transform: translateY(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
 .modal {
-  animation: slide 0.25s;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
+  max-width: 100vw;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 -10px 25px -5px rgba(0, 0, 0, 0.1), 0 -10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Custom scrollbar for the content area */
+.modal ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.modal ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.modal ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .modal {
+    max-width: 90vw;
+    border-radius: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .modal {
+    max-width: 80vw;
+  }
 }
