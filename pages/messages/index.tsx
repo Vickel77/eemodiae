@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import useContentful from "../../hooks/useContentful";
 import MessageCard from "../../components/MessageCard";
-import { CategoryCardV2 } from "../../components/MessageCard/CategoryCard";
+import SeriesCard from "../../components/MessageCard/SeriesCard";
 import PageLoader from "../../components/PageLoader";
 
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
@@ -21,12 +21,9 @@ export default function Messages() {
 
   const [categories, setCategories] = useState<string[]>([]);
   const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
-  const [numOfCategories, setNumOfCategories] = useState<number>(3);
-  // Search and Pagination state
+  // Search state
   const searchInputRef = useRef<any>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const messagesPerPage = 15;
 
   const initMessages = useCallback(() => {
     messages?.map((message) => {
@@ -56,25 +53,13 @@ export default function Messages() {
     message.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Calculate the messages to display for the current page
-  const indexOfLastMessage = currentPage * messagesPerPage;
-  const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
-  const currentMessages = filteredMessages?.slice(
-    indexOfFirstMessage,
-    indexOfLastMessage
-  );
-
-  // Handle page change
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+  // Show only first 3 messages and 3 series
+  const displayedMessages = filteredMessages?.filter((m) => m?.category === undefined).slice(0, 3);
+  const displayedCategories = filteredCategories?.slice(0, 3);
 
   if (!domContentLoaded || !messages) {
     return <PageLoader />;
   }
-
-  // Calculate total pages
-  const totalPages = Math.ceil(
-    (filteredMessages?.length || 0) / messagesPerPage
-  );
 
   return (
     <div>
@@ -102,41 +87,39 @@ export default function Messages() {
             />
           </div>
         </header>
+
         {/* Categories */}
         <div className="mb-5">
           <Pill label="Message Series" />
         </div>
-        <div className=" relative z-10 flex flex-wrap w-full  gap-3">
-          {filteredCategories.slice(0, numOfCategories).map((category, idx) => {
-            const categoryMessages = messages?.find(
+        <div className=" relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedCategories?.map((category, idx) => {
+            const categoryMessages = messages?.filter(
               (m) => m.category === category
             );
+            const firstMessage = categoryMessages?.[0];
             return (
-              <CategoryCardV2
+              <SeriesCard
                 key={idx}
-                category={{
+                series={{
                   title: category,
-                  image: categoryMessages?.imageUrl?.fields?.file.url!,
+                  image: firstMessage?.imageUrl?.fields?.file.url!,
+                  messageCount: categoryMessages?.length,
                 }}
-                categoryMessage={{ ...categoryMessages! }}
+                categoryMessage={{ ...firstMessage! }}
               />
             );
           })}
-          {numOfCategories !== 3 ? (
-            <button
-              onClick={() => setNumOfCategories(3)}
-              className="text-sm text-primary underline"
-            >
-              See less
-            </button>
-          ) : (
-            <button
-              onClick={() => setNumOfCategories(categories.length)}
-              className="text-sm text-primary underline"
-            >
-              See more
-            </button>
-          )}
+          
+            {filteredCategories.length > 3 && (
+              <button
+                onClick={() => router.push('/messages/series')}
+                className="text-sm text-primary underline hover:text-primary/80 transition-colors"
+              >
+                See more series →
+              </button>
+            )}
+          
         </div>
 
         <div className="bg-primary h-[1px] w-full opacity-50 my-5" />
@@ -146,42 +129,23 @@ export default function Messages() {
           <Pill label="Featured Messages" />
         </div>
 
-        <div className="flex gap-5 flex-wrap justify-center md:justify-start">
-          {currentMessages
-            ?.filter((m) => m?.category === undefined)
-            ?.map((message, idx) => (
-              <MessageCard message={message} key={idx} />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedMessages?.map((message, idx) => (
+            <MessageCard message={message} key={idx} />
+          ))}
         </div>
 
-        {/* Pagination Controls */}
-        <div className="flex justify-center gap-3 mt-5">
-          <button
-            onClick={() => paginate(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="px-4 py-2 text-primary underline rounded disabled:opacity-50"
-          >
-            Prev
-          </button>
-          {[...Array(totalPages)].map((_, page) => (
+        {/* See more messages button */}
+        {(filteredMessages?.filter((m) => m?.category === undefined)?.length || 0) > 3 && (
+          <div className="flex justify-center mt-8">
             <button
-              key={page}
-              onClick={() => paginate(page + 1)}
-              className={`px-4 py-2 rounded ${
-                currentPage === page + 1 ? "text-primary" : "bg-light"
-              }`}
+              onClick={() => router.push('/messages/all')}
+              className="text-sm text-primary underline hover:text-primary/80 transition-colors"
             >
-              {page + 1}
+              See more messages →
             </button>
-          ))}
-          <button
-            onClick={() => paginate(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="px-4 py-2  text-primary underline rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
+          </div>
+        )}
       </div>
       <Footer />
     </div>
