@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "engines": {
-    "node": "22.0.0"
+    "node": "22.14.0"
   },
   "dependencies": {
     "@cloudinary/react": "^1.11.2",
