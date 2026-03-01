@@ -61,6 +61,14 @@ type Message = {
   title: string;
 };
 
+type Podcast = {
+  title: string;
+  imageUrl?: string | any;
+  image?: string | any;
+  episodeCount?: number;
+  episodes?: unknown[];
+};
+
 type PoemForm = Pick<Poem, "title" | "content" | "image" | "scripture">;
 interface PoemModal {
   showModal: any;

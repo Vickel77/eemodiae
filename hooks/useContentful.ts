@@ -10,6 +10,7 @@ const useContentful = () => {
   const [articles, setArticles] = useState<Article[]>();
   const [poems, setPoems] = useState<Poem[]>();
   const [messages, setMessages] = useState<Message[]>();
+  const [podcasts, setPodcasts] = useState<Podcast[]>();
   const [store, setStore] = useState<StoreItem[]>();
   const [music, setMusic] = useState<Music[]>();
   const [artiste, setArtiste] = useState<Artiste[]>();
@@ -32,7 +33,7 @@ const useContentful = () => {
       setEntity(sanitizedEntries);
 
       return entries;
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getArticles = async () => {
@@ -45,6 +46,10 @@ const useContentful = () => {
 
   const getMessages = async () => {
     handleEntry("eemodiaeMessages", setMessages);
+  };
+
+  const getPodcasts = async () => {
+    handleEntry("eemodiaePodcast", setPodcasts);
   };
 
   const getMusic = async () => {
@@ -66,8 +71,10 @@ const useContentful = () => {
     getStore,
     getMusic,
     getArtiste,
+    getPodcasts,
     articles,
     messages,
+    podcasts,
     poems,
     store,
     music,

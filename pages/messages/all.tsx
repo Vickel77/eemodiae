@@ -30,7 +30,7 @@ export default function AllMessages() {
 
   // Filter messages based on search query (only non-series messages)
   const filteredMessages = messages?.filter((message) =>
-    message.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
+    message.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
     message.category === undefined
   );
 
@@ -123,11 +123,10 @@ export default function AllMessages() {
               <button
                 key={page}
                 onClick={() => paginate(page + 1)}
-                className={`px-4 py-2 rounded transition-colors font-semibold ${
-                  currentPage === page + 1 
-                    ? "bg-primary text-white border border-primary" 
-                    : "bg-gray-200 hover:bg-gray-300"
-                }`}
+                className={`px-4 py-2 rounded transition-colors font-semibold ${currentPage === page + 1
+                  ? "bg-primary text-white border border-primary"
+                  : "bg-gray-200 hover:bg-gray-300"
+                  }`}
                 disabled={totalPages === 1}
               >
                 {page + 1}
@@ -142,11 +141,10 @@ export default function AllMessages() {
                     <button
                       key={page}
                       onClick={() => paginate(page)}
-                      className={`px-4 py-2 rounded transition-colors font-semibold ${
-                        currentPage === page 
-                          ? "bg-primary text-white border border-primary" 
-                          : "bg-gray-200 hover:bg-gray-300"
-                      }`}
+                      className={`px-4 py-2 rounded transition-colors font-semibold ${currentPage === page
+                        ? "bg-primary text-white border border-primary"
+                        : "bg-gray-200 hover:bg-gray-300"
+                        }`}
                     >
                       {page}
                     </button>
@@ -174,11 +172,10 @@ export default function AllMessages() {
                     <button
                       key={page}
                       onClick={() => paginate(page)}
-                      className={`px-4 py-2 rounded transition-colors font-semibold ${
-                        currentPage === page 
-                          ? "bg-primary text-white border border-primary" 
-                          : "bg-gray-200 hover:bg-gray-300"
-                      }`}
+                      className={`px-4 py-2 rounded transition-colors font-semibold ${currentPage === page
+                        ? "bg-primary text-white border border-primary"
+                        : "bg-gray-200 hover:bg-gray-300"
+                        }`}
                     >
                       {page}
                     </button>
@@ -206,11 +203,10 @@ export default function AllMessages() {
                     <button
                       key={page}
                       onClick={() => paginate(page)}
-                      className={`px-4 py-2 rounded transition-colors font-semibold ${
-                        currentPage === page 
-                          ? "bg-primary text-white border border-primary" 
-                          : "bg-gray-200 hover:bg-gray-300"
-                      }`}
+                      className={`px-4 py-2 rounded transition-colors font-semibold ${currentPage === page
+                        ? "bg-primary text-white border border-primary"
+                        : "bg-gray-200 hover:bg-gray-300"
+                        }`}
                     >
                       {page}
                     </button>
