@@ -63,10 +63,12 @@ type Message = {
 
 type Podcast = {
   title: string;
+  category?: string;
   imageUrl?: string | any;
   image?: string | any;
   episodeCount?: number;
   episodes?: unknown[];
+  audio?: { fields?: { file?: { url?: string } } } | string;
 };
 
 type PoemForm = Pick<Poem, "title" | "content" | "image" | "scripture">;

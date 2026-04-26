@@ -30,7 +30,7 @@ export default function AllMessages() {
 
   // Filter messages based on search query (only non-series messages)
   const filteredMessages = messages?.filter((message) =>
-    message.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    message.title.toLowerCase().includes(searchQuery.toLowerCase()) && 
     message.category === undefined
   );
 
