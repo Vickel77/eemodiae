@@ -7,13 +7,27 @@ import SeriesCard from "../../components/MessageCard/SeriesCard";
 import PodcastCard from "../../components/MessageCard/PodcastCard";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
+import ffsHeader from "../../assets/ffs.jpeg";
 
 const ITEMS_PER_PAGE = 6;
 type TabId = "series" | "messages" | "podcasts";
+type PodcastViewId = "series" | "episodes";
+
+type PodcastEpisode = {
+  title: string;
+  description?: string;
+  date?: string;
+  duration?: string;
+  imageUrl?: string | any;
+  image?: string | any;
+  href: string;
+  episodeNumber?: string | number;
+};
 
 export default function Messages() {
   const { getMessages, getPodcasts, messages, podcasts } = useContentful();
   const [activeTab, setActiveTab] = useState<TabId>("series");
+  const [podcastView, setPodcastView] = useState<PodcastViewId>("series");
   const [currentPage, setCurrentPage] = useState(1);
   const [categories, setCategories] = useState<string[]>([]);
   const [domContentLoaded, setDomContentLoaded] = useState<boolean>(false);
@@ -48,6 +62,11 @@ export default function Messages() {
     setCurrentPage(1);
   };
 
+  const setPodcastViewAndResetPage = (view: PodcastViewId) => {
+    setPodcastView(view);
+    setCurrentPage(1);
+  };
+
   const filteredMessages = messages?.filter((message) =>
     message.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -55,9 +74,72 @@ export default function Messages() {
   const filteredCategories = categories?.filter((cat) =>
     cat.toLowerCase().includes(searchQuery.toLowerCase())
   ) ?? [];
-  const filteredPodcasts = podcasts?.filter((p) =>
+  const hasCategory = (value: unknown) =>
+    typeof value === "string" ? value.trim().length > 0 : Boolean(value);
+
+  const seriesPodcasts = (podcasts ?? []).filter((podcast) => hasCategory(podcast.category));
+  const standalonePodcasts = (podcasts ?? []).filter((podcast) => !hasCategory(podcast.category));
+
+  const filteredPodcasts = seriesPodcasts.filter((p) =>
     p.title?.toLowerCase().includes(searchQuery.toLowerCase())
-  ) ?? [];
+  );
+
+  const podcastEpisodes: PodcastEpisode[] = standalonePodcasts.flatMap((podcast) => {
+    const item: any = podcast;
+    const baseSlug = encodeURIComponent(item?.title ?? "");
+    const nestedEpisodes = Array.isArray(item?.episodes) ? item.episodes : [];
+
+    const baseEpisode: PodcastEpisode[] = item?.audio
+      ? [
+          {
+            title: item?.title ?? "",
+            description: item?.description ?? item?.summary ?? "",
+            date: item?.date ?? item?.publishedAt ?? item?.createdAt ?? "",
+            duration: item?.duration ?? item?.length ?? "",
+            imageUrl: item?.imageUrl,
+            image: item?.image,
+            href: `/messages/podcasts/${baseSlug}`,
+            episodeNumber: item?.episodeNumber,
+          },
+        ]
+      : [];
+
+    const normalizedNested = nestedEpisodes.map((episode: any, index: number) => {
+      const nestedTitle =
+        episode?.title ??
+        episode?.name ??
+        episode?.fields?.title ??
+        `${item?.title ?? "Episode"} ${index + 1}`;
+      return {
+        title: nestedTitle,
+        description:
+          episode?.description ??
+          episode?.summary ??
+          episode?.fields?.description ??
+          "",
+        date:
+          episode?.date ??
+          episode?.publishedAt ??
+          episode?.fields?.date ??
+          "",
+        duration:
+          episode?.duration ??
+          episode?.length ??
+          episode?.fields?.duration ??
+          "",
+        imageUrl: episode?.imageUrl ?? episode?.fields?.imageUrl ?? item?.imageUrl,
+        image: episode?.image ?? item?.image,
+        href: `/messages/podcasts/${baseSlug}`,
+        episodeNumber: episode?.episodeNumber ?? episode?.number ?? index + 1,
+      };
+    });
+
+    return [...baseEpisode, ...normalizedNested];
+  });
+
+  const filteredPodcastEpisodes = podcastEpisodes.filter((episode) =>
+    (episode.title ?? "").toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const getPaginatedSlice = <T,>(list: T[]) => {
     const total = list.length;
@@ -70,13 +152,16 @@ export default function Messages() {
   const seriesPage = getPaginatedSlice(filteredCategories);
   const messagesPage = getPaginatedSlice(standaloneMessages);
   const podcastsPage = getPaginatedSlice(filteredPodcasts);
+  const podcastEpisodesPage = getPaginatedSlice(filteredPodcastEpisodes);
 
   const totalPages =
     activeTab === "series"
       ? seriesPage.totalPages
       : activeTab === "messages"
         ? messagesPage.totalPages
-        : podcastsPage.totalPages;
+        : podcastView === "series"
+          ? podcastsPage.totalPages
+          : podcastEpisodesPage.totalPages;
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -118,26 +203,34 @@ export default function Messages() {
           </div>
         </header>
 
-        {/* Tabs - segmented control style */}
-        <div className="relative z-10 flex rounded-full bg-gray-200/80 p-1 mb-8 max-w-md mx-auto">
-          {tabs.map(({ id, label }) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => setActiveTabAndResetPage(id)}
-              className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-colors ${
-                activeTab === id
-                  ? "bg-primary text-white shadow"
-                  : "text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              {label}
-            </button>
-          ))}
+        {/* Tabs - sticky, scroll with page then stick below navbar */}
+        <div className="sticky top-[5rem] z-20 py-3 mb-6 bg-white/95 backdrop-blur-sm rounded-lg shadow-sm">
+          <div className="flex rounded-full bg-gray-200/80 p-1 max-w-md mx-auto">
+            {tabs.map(({ id, label }) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setActiveTabAndResetPage(id)}
+                className={`flex-1 py-2.5 px-4 rounded-full text-sm font-medium transition-colors ${
+                  activeTab === id
+                    ? "bg-primary text-white shadow"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Tab content */}
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          className={`relative z-10 grid gap-6 ${
+            activeTab === "podcasts" && podcastView === "episodes"
+              ? "grid-cols-1"
+              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          }`}
+        >
           {activeTab === "series" &&
             seriesPage.items.map((category, idx) => {
               const categoryMessages = messages?.filter((m) => m.category === category);
@@ -160,17 +253,76 @@ export default function Messages() {
               <MessageCard message={message} key={idx} />
             ))}
 
-          {activeTab === "podcasts" &&
-            podcastsPage.items.map((podcast, idx) => (
-              <PodcastCard
-                key={idx}
-                podcast={{
-                  title: podcast.title ?? "",
-                  imageUrl: podcast.imageUrl ?? podcast.image,
-                  episodeCount: podcast.episodeCount ?? podcast.episodes?.length ?? 0,
-                }}
-              />
-            ))}
+          {activeTab === "podcasts" && (
+            <>
+              <div className="md:col-span-2 lg:col-span-3 rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                <div className="relative h-52 md:h-64">
+                  <img
+                    src={ffsHeader.src}
+                    alt="Podcast header"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 className="text-white text-2xl md:text-3xl font-bold">Podcasts</h3>
+                    <p className="text-white/85 text-sm md:text-base">
+                      Explore series and latest episodes
+                    </p>
+                  </div>
+                </div>
+                <div className="px-4 pt-2 pb-0 border-t border-gray-100 bg-white">
+                  <div className="flex gap-6 border-b border-gray-200">
+                    {(["series", "episodes"] as PodcastViewId[]).map((view) => (
+                      <button
+                        key={view}
+                        type="button"
+                        onClick={() => setPodcastViewAndResetPage(view)}
+                        className={`-mb-px border-b-2 px-1 py-3 text-sm font-semibold transition-colors ${
+                          podcastView === view
+                            ? "border-primary text-primary"
+                            : "border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-300"
+                        }`}
+                      >
+                        {view === "series" ? "Series" : "Episodes"}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {podcastView === "series" &&
+                podcastsPage.items.map((podcast, idx) => (
+                  <PodcastCard
+                    key={idx}
+                    variant="series"
+                    podcast={{
+                      title: podcast.title ?? "",
+                      imageUrl: podcast.imageUrl ?? podcast.image,
+                      episodeCount: podcast.episodeCount ?? podcast.episodes?.length ?? 0,
+                      href: `/messages/podcasts/${encodeURIComponent(podcast.title ?? "")}`,
+                    }}
+                  />
+                ))}
+
+              {podcastView === "episodes" &&
+                podcastEpisodesPage.items.map((episode, idx) => (
+                  <PodcastCard
+                    key={`${episode.title}-${idx}`}
+                    variant="episode"
+                    podcast={{
+                      title: episode.title,
+                      description: episode.description,
+                      date: episode.date,
+                      duration: episode.duration,
+                      imageUrl: episode.imageUrl,
+                      image: episode.image,
+                      href: episode.href,
+                      episodeNumber: episode.episodeNumber,
+                    }}
+                  />
+                ))}
+            </>
+          )}
         </div>
 
         {/* Pagination */}
