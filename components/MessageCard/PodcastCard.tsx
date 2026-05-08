@@ -40,7 +40,7 @@ export default function PodcastCard({
   const imageUrl = getImageUrl(podcast);
   const episodeCount = podcast.episodeCount ?? 0;
   const episodeLabel = episodeCount === 1 ? "1 episode" : `${episodeCount} episodes`;
-  const href = podcast.href ?? `/messages/podcasts/${encodeURIComponent(podcast.title)}`;
+  const href = podcast.href ?? "/messages/podcasts";
 
   if (variant === "episode") {
     return (

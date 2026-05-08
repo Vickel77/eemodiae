@@ -98,7 +98,7 @@ export default function Messages() {
             duration: item?.duration ?? item?.length ?? "",
             imageUrl: item?.imageUrl,
             image: item?.image,
-            href: `/messages/podcasts/${baseSlug}`,
+            href: "/messages/podcasts",
             episodeNumber: item?.episodeNumber,
           },
         ]
@@ -129,7 +129,7 @@ export default function Messages() {
           "",
         imageUrl: episode?.imageUrl ?? episode?.fields?.imageUrl ?? item?.imageUrl,
         image: episode?.image ?? item?.image,
-        href: `/messages/podcasts/${baseSlug}`,
+        href: "/messages/podcasts",
         episodeNumber: episode?.episodeNumber ?? episode?.number ?? index + 1,
       };
     });
@@ -299,7 +299,7 @@ export default function Messages() {
                       title: podcast.title ?? "",
                       imageUrl: podcast.imageUrl ?? podcast.image,
                       episodeCount: podcast.episodeCount ?? podcast.episodes?.length ?? 0,
-                      href: `/messages/podcasts/${encodeURIComponent(podcast.title ?? "")}`,
+                      href: "/messages/podcasts",
                     }}
                   />
                 ))}
