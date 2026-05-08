@@ -24,6 +24,9 @@ type PodcastEpisode = {
   episodeNumber?: string | number;
 };
 
+const toPodcastEpisodeHref = (title: string) =>
+  `/messages/podcasts/${encodeURIComponent(title ?? "")}`;
+
 export default function Messages() {
   const { getMessages, getPodcasts, messages, podcasts } = useContentful();
   const [activeTab, setActiveTab] = useState<TabId>("series");
@@ -86,7 +89,6 @@ export default function Messages() {
 
   const podcastEpisodes: PodcastEpisode[] = standalonePodcasts.flatMap((podcast) => {
     const item: any = podcast;
-    const baseSlug = encodeURIComponent(item?.title ?? "");
     const nestedEpisodes = Array.isArray(item?.episodes) ? item.episodes : [];
 
     const baseEpisode: PodcastEpisode[] = item?.audio
@@ -98,7 +100,7 @@ export default function Messages() {
             duration: item?.duration ?? item?.length ?? "",
             imageUrl: item?.imageUrl,
             image: item?.image,
-            href: "/messages/podcasts",
+            href: toPodcastEpisodeHref(item?.title ?? ""),
             episodeNumber: item?.episodeNumber,
           },
         ]
@@ -129,7 +131,7 @@ export default function Messages() {
           "",
         imageUrl: episode?.imageUrl ?? episode?.fields?.imageUrl ?? item?.imageUrl,
         image: episode?.image ?? item?.image,
-        href: "/messages/podcasts",
+        href: toPodcastEpisodeHref(nestedTitle),
         episodeNumber: episode?.episodeNumber ?? episode?.number ?? index + 1,
       };
     });
@@ -227,7 +229,7 @@ export default function Messages() {
         <div
           className={`relative z-10 grid gap-6 ${
             activeTab === "podcasts" && podcastView === "episodes"
-              ? "grid-cols-1"
+              ? "grid-cols-1 lg:grid-cols-2"
               : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           }`}
         >
@@ -255,7 +257,11 @@ export default function Messages() {
 
           {activeTab === "podcasts" && (
             <>
-              <div className="md:col-span-2 lg:col-span-3 rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+              <div
+                className={`rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-sm ${
+                  podcastView === "episodes" ? "lg:col-span-2" : "md:col-span-2 lg:col-span-3"
+                }`}
+              >
                 <div className="relative h-52 md:h-64">
                   <img
                     src={ffsHeader.src}
@@ -304,6 +310,12 @@ export default function Messages() {
                   />
                 ))}
 
+              {podcastView === "series" && podcastsPage.items.length === 0 && (
+                <div className="md:col-span-2 lg:col-span-3 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-600">
+                  No podcast series found.
+                </div>
+              )}
+
               {podcastView === "episodes" &&
                 podcastEpisodesPage.items.map((episode, idx) => (
                   <PodcastCard
@@ -321,6 +333,12 @@ export default function Messages() {
                     }}
                   />
                 ))}
+
+              {podcastView === "episodes" && podcastEpisodesPage.items.length === 0 && (
+                <div className="lg:col-span-2 rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-600">
+                  No podcast episodes found.
+                </div>
+              )}
             </>
           )}
         </div>

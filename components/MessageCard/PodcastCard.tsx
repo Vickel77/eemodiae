@@ -46,46 +46,35 @@ export default function PodcastCard({
     return (
       <Link
         href={href}
-        className="group block rounded-xl border border-gray-200 bg-white p-4 hover:shadow-md transition-all"
+        className="group block h-full w-full min-w-0 rounded-xl border border-gray-200 bg-white p-5 sm:p-6 hover:shadow-md transition-all"
       >
-        <div className="flex gap-4">
-          <div className="w-24 h-24 rounded-xl overflow-hidden bg-primary/20 flex-shrink-0">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-stretch sm:gap-8">
+          <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden rounded-xl bg-primary/20 sm:aspect-auto sm:w-48 sm:min-h-[12rem] md:w-52 sm:self-stretch">
             {imageUrl ? (
               <img
                 src={imageUrl}
                 alt={podcast.title}
-                className="w-full h-full object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
               />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-primary">
-                <MdHeadphones className="w-8 h-8" />
+              <div className="absolute inset-0 flex items-center justify-center text-primary">
+                <MdHeadphones className="h-12 w-12 sm:h-11 sm:w-11" />
               </div>
             )}
           </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-2 mb-1">
-              <p className="text-sm text-gray-500 line-clamp-1">{getEpisodeMeta(podcast)}</p>
-              <button
-                type="button"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-gray-500 hover:bg-gray-100"
-                aria-label="More"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <circle cx="12" cy="6" r="1.5" />
-                  <circle cx="12" cy="12" r="1.5" />
-                  <circle cx="12" cy="18" r="1.5" />
-                </svg>
-              </button>
-            </div>
-            <h3 className="text-2xl/none sm:text-xl font-bold text-gray-800 line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+          <div className="flex min-w-0 flex-1 flex-col justify-center gap-3">
+            <p className="text-sm font-medium text-gray-500">{getEpisodeMeta(podcast)}</p>
+            <h3 className="text-xl font-bold leading-snug text-gray-800 line-clamp-3 group-hover:text-primary sm:text-2xl sm:leading-tight">
               {podcast.title}
             </h3>
             {podcast.description && (
-              <p className="text-gray-600 line-clamp-2 mb-3">{podcast.description}</p>
+              <p className="text-base leading-relaxed text-gray-600 line-clamp-3 sm:line-clamp-4">
+                {podcast.description}
+              </p>
             )}
-            <div className="inline-flex items-center gap-2 rounded-full bg-gray-100 px-3 py-1 text-sm font-semibold text-gray-700">
-              <MdOutlinePlayCircleFilled className="w-4 h-4 text-gray-500" />
-              <span>{podcast.duration ?? "Play episode"}</span>
+            <div className="mt-1 inline-flex max-w-full items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-semibold text-gray-700">
+              <MdOutlinePlayCircleFilled className="h-5 w-5 shrink-0 text-gray-500" />
+              <span className="min-w-0 break-words">{podcast.duration ?? "Play episode"}</span>
             </div>
           </div>
         </div>
