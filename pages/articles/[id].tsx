@@ -15,6 +15,7 @@ import { smallDescription } from "../../util/removeHtmlTags";
 import { articles } from "../../lib/data";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
 import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
+import { listBackHref } from "../../helpers/listPagination";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -103,7 +104,7 @@ const Article = ({ articles }: { articles: Article[] }) => {
         <Navbar />
         <section className="w-[70%] m-auto">
           <button
-            onClick={() => router.push("/articles")}
+            onClick={() => router.push(listBackHref("/articles", router.query))}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />

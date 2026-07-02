@@ -10,9 +10,10 @@ export type Series = {
 interface SeriesCardProps {
   series: Series;
   categoryMessage: Message;
+  listPage?: number;
 }
 
-export default function SeriesCard({ series, categoryMessage }: SeriesCardProps) {
+export default function SeriesCard({ series, categoryMessage, listPage = 1 }: SeriesCardProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const { title, image, messageCount } = series;
 
@@ -64,6 +65,7 @@ export default function SeriesCard({ series, categoryMessage }: SeriesCardProps)
         message={categoryMessage}
         showModal={showModal}
         setShowModal={setShowModal}
+        listPage={listPage}
       />
     </>
   );

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import useContentful from "../../hooks/useContentful";
@@ -8,6 +9,16 @@ import PodcastCard from "../../components/MessageCard/PodcastCard";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import ffsHeader from "../../assets/ffs.jpeg";
+import {
+  MESSAGES_PODCAST_EPISODE_SEARCH,
+  MESSAGES_SERIES_TAB_SEARCH,
+  MESSAGES_STANDALONE_TAB_SEARCH,
+} from "../../helpers/messagesPodcastNavigation";
+import {
+  clampPage,
+  parsePageQuery,
+  withPageInSearch,
+} from "../../helpers/listPagination";
 
 const ITEMS_PER_PAGE = 6;
 type TabId = "series" | "messages" | "podcasts";
@@ -24,10 +35,35 @@ type PodcastEpisode = {
   episodeNumber?: string | number;
 };
 
-const toPodcastEpisodeHref = (title: string) =>
-  `/messages/podcasts/${encodeURIComponent(title ?? "")}`;
+const toPodcastEpisodeHref = (title: string, page: number) => {
+  const qs = withPageInSearch(MESSAGES_PODCAST_EPISODE_SEARCH, page);
+  return `/messages/podcasts/${encodeURIComponent(title ?? "")}?${qs}`;
+};
+
+function messagesTabSearch(
+  tab: TabId,
+  podcastView: PodcastViewId,
+  page: number
+): string {
+  const base =
+    tab === "podcasts"
+      ? `tab=podcasts&podcastView=${encodeURIComponent(podcastView)}`
+      : tab === "series"
+        ? MESSAGES_SERIES_TAB_SEARCH
+        : MESSAGES_STANDALONE_TAB_SEARCH;
+  return withPageInSearch(base, page);
+}
+
+function buildMessagesListQuery(
+  tab: TabId,
+  podcastView: PodcastViewId,
+  page: number
+): string {
+  return messagesTabSearch(tab, podcastView, page);
+}
 
 export default function Messages() {
+  const router = useRouter();
   const { getMessages, getPodcasts, messages, podcasts } = useContentful();
   const [activeTab, setActiveTab] = useState<TabId>("series");
   const [podcastView, setPodcastView] = useState<PodcastViewId>("series");
@@ -59,15 +95,46 @@ export default function Messages() {
     setDomContentLoaded(true);
   }, []);
 
-  // Reset to page 1 when switching tabs
+  useEffect(() => {
+    if (!router.isReady) return;
+    const rawTab = router.query.tab;
+    const rawPodcastView = router.query.podcastView;
+    if (typeof rawTab === "string") {
+      if (rawTab === "series" || rawTab === "messages" || rawTab === "podcasts") {
+        setActiveTab(rawTab);
+      }
+    }
+    if (typeof rawPodcastView === "string") {
+      if (rawPodcastView === "series" || rawPodcastView === "episodes") {
+        setPodcastView(rawPodcastView);
+      }
+    }
+    setCurrentPage(parsePageQuery(router.query.page));
+  }, [router.isReady, router.query.tab, router.query.podcastView, router.query.page]);
+
+  const syncMessagesListUrl = (
+    page: number,
+    tab: TabId = activeTab,
+    view: PodcastViewId = podcastView
+  ) => {
+    if (!router.isReady) return;
+    router.replace(`/messages?${buildMessagesListQuery(tab, view, page)}`, undefined, {
+      shallow: true,
+    });
+  };
+
+  // Reset to page 1 when switching tabs; keep URL in sync for Back navigation & bookmarks
   const setActiveTabAndResetPage = (tab: TabId) => {
     setActiveTab(tab);
     setCurrentPage(1);
+    syncMessagesListUrl(1, tab, podcastView);
   };
 
   const setPodcastViewAndResetPage = (view: PodcastViewId) => {
     setPodcastView(view);
     setCurrentPage(1);
+    if (activeTab !== "podcasts") return;
+    syncMessagesListUrl(1, "podcasts", view);
   };
 
   const filteredMessages = messages?.filter((message) =>
@@ -100,7 +167,7 @@ export default function Messages() {
             duration: item?.duration ?? item?.length ?? "",
             imageUrl: item?.imageUrl,
             image: item?.image,
-            href: toPodcastEpisodeHref(item?.title ?? ""),
+            href: toPodcastEpisodeHref(item?.title ?? "", currentPage),
             episodeNumber: item?.episodeNumber,
           },
         ]
@@ -131,7 +198,7 @@ export default function Messages() {
           "",
         imageUrl: episode?.imageUrl ?? episode?.fields?.imageUrl ?? item?.imageUrl,
         image: episode?.image ?? item?.image,
-        href: toPodcastEpisodeHref(nestedTitle),
+        href: toPodcastEpisodeHref(nestedTitle, currentPage),
         episodeNumber: episode?.episodeNumber ?? episode?.number ?? index + 1,
       };
     });
@@ -167,10 +234,19 @@ export default function Messages() {
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    syncMessagesListUrl(pageNumber);
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    const clamped = clampPage(currentPage, totalPages);
+    if (clamped !== currentPage) {
+      setCurrentPage(clamped);
+      syncMessagesListUrl(clamped);
+    }
+  }, [totalPages]);
 
   if (!domContentLoaded || !messages) {
     return <PageLoader />;
@@ -246,13 +322,18 @@ export default function Messages() {
                     messageCount: categoryMessages?.length,
                   }}
                   categoryMessage={{ ...firstMessage! }}
+                  listPage={currentPage}
                 />
               );
             })}
 
           {activeTab === "messages" &&
             messagesPage.items.map((message, idx) => (
-              <MessageCard message={message} key={idx} />
+              <MessageCard
+                message={message}
+                key={idx}
+                messagesUrlSearch={messagesTabSearch("messages", podcastView, currentPage)}
+              />
             ))}
 
           {activeTab === "podcasts" && (

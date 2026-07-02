@@ -2,15 +2,19 @@ import React, { useEffect } from "react";
 import { MdClose, MdPlaylistPlay } from "react-icons/md";
 import MessageCard from "../MessageCard";
 import styles from "./styles.module.css";
+import { MESSAGES_SERIES_TAB_SEARCH } from "../../helpers/messagesPodcastNavigation";
+import { withPageInSearch } from "../../helpers/listPagination";
 
 export default function CategoryModal({
   showModal,
   setShowModal,
   message,
+  listPage = 1,
 }: {
   showModal: boolean;
   setShowModal: any;
   message: Message;
+  listPage?: number;
 }) {
   // Handle escape key press
   useEffect(() => {
@@ -75,6 +79,7 @@ export default function CategoryModal({
                 {message.audio_file.map((_message, idx: number) => (
                   <MessageCard
                     audio={_message?.fields?.file?.url}
+                    messagesUrlSearch={withPageInSearch(MESSAGES_SERIES_TAB_SEARCH, listPage)}
                     message={{
                       ...message,
                       title: _message?.fields?.title!,

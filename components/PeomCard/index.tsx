@@ -17,11 +17,13 @@ const PeomCard = styled(
     poem,
     setShowModal,
     id,
+    listPage = 1,
   }: {
     className?: any;
     poem: Poem;
     setShowModal: any;
     id?: number;
+    listPage?: number;
   }) => {
     const { isLoggedIn } = useAuth();
     const { title } = poem;
@@ -62,9 +64,7 @@ const PeomCard = styled(
             <Link
               href={{
                 pathname: `/poems/${poem.title!}`,
-                // query: {
-                //   poem: JSON.stringify(poem.title),
-                // },
+                query: listPage > 1 ? { page: listPage } : undefined,
               }}
             >
               <button className="btn">READ</button>

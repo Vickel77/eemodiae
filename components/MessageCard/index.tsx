@@ -9,18 +9,25 @@ export default function MessageCard({
   message,
   hideImage,
   audio,
+  messagesUrlSearch,
 }: {
   message: Message;
   hideImage?: boolean;
   audio?: string;
+  /** e.g. `tab=series` so the message player Back returns to the right /messages tab */
+  messagesUrlSearch?: string;
 }) {
   const _image = message?.imageUrl?.fields?.file?.url ?? image.src;
+  const messagePath = `/messages/${encodeURIComponent(message.title)}`;
+  const messageHref = messagesUrlSearch
+    ? `${messagePath}?${messagesUrlSearch}`
+    : messagePath;
   return (
     <div className="overflow-hidden rounded-xl group cursor-pointer">
       <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
         {!hideImage && (
           <div className="relative h-64 w-full overflow-hidden">
-            <Link href={`/messages/${message.title}`}>
+            <Link href={messageHref}>
               <img
                 src={_image}
                 alt={message.title}
@@ -75,7 +82,7 @@ export default function MessageCard({
 
         {/* Lower content section */}
         <div className="p-6">
-          <Link href={`/messages/${message.title}`}>
+          <Link href={messageHref}>
             <h3 className="text-lg font-semibold mb-2 line-clamp-2 text-gray-800 group-hover:text-primary transition-colors">
               {message.title}
             </h3>
@@ -112,7 +119,7 @@ export default function MessageCard({
         {/* Fallback content for when image is hidden */}
         {hideImage && (
           <div className="p-6">
-            <Link href={`/messages/${message.title}`}>
+            <Link href={messageHref}>
               <h3 className="text-lg font-semibold mb-2 line-clamp-2 text-gray-800">
                 {message.title}
               </h3>

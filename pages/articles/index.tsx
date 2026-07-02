@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import CreatePoem from "../../components/Modals/PoemModal";
@@ -9,8 +10,10 @@ import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import scrollToTop from "../../util/scrollToTop";
+import { clampPage, listHref, parsePageQuery } from "../../helpers/listPagination";
 
 const Articles = styled(({ className }) => {
+  const router = useRouter();
   const { isLoggedIn } = useAuth();
   const [showModal, setShowModal] = useState(false);
 
@@ -39,6 +42,11 @@ const Articles = styled(({ className }) => {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+    setCurrentPage(parsePageQuery(router.query.page));
+  }, [router.isReady, router.query.page]);
+
+  useEffect(() => {
     // Filter articles based on the search query
     if (searchQuery) {
       setFilteredArticles(
@@ -60,16 +68,28 @@ const Articles = styled(({ className }) => {
   );
 
   // Calculate total number of pages
-  const totalPages = Math.ceil(filteredArticles?.length! / itemsPerPage);
+  const totalPages = Math.ceil(filteredArticles?.length! / itemsPerPage) || 1;
 
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  useEffect(() => {
+    const clamped = clampPage(currentPage, totalPages);
+    if (clamped !== currentPage) {
+      setCurrentPage(clamped);
+      router.replace(listHref("/articles", clamped), undefined, { shallow: true });
+    }
+  }, [totalPages]);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    router.replace(listHref("/articles", page), undefined, { shallow: true });
     scrollToTop();
   };
 
+  const handleNextPage = () => {
+    if (currentPage < totalPages) goToPage(currentPage + 1);
+  };
+
   const handlePreviousPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-    scrollToTop();
+    if (currentPage > 1) goToPage(currentPage - 1);
   };
 
   if (!domContentLoaded || !articles) {
@@ -123,6 +143,7 @@ const Articles = styled(({ className }) => {
               className={idx === 0 ? "first-item" : ""}
               key={idx}
               article={article}
+              listPage={currentPage}
             />
           ))}
         </section>

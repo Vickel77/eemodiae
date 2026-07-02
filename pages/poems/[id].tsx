@@ -16,6 +16,7 @@ import { createClient } from "contentful";
 import { smallDescription } from "../../util/removeHtmlTags";
 import useDisableRightClick from "../../hooks/useDisableRightClick";
 import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
+import { listBackHref } from "../../helpers/listPagination";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -112,7 +113,7 @@ const Blog = styled(
           <div className="no-screenshot" />
           <div className="no-copy w-[80%] md:w-[70%] m-auto text-primary pt-[5rem] ">
             <button
-              onClick={() => router.push("/poems")}
+              onClick={() => router.push(listBackHref("/poems", router.query))}
               className="text-sm flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
             >
               <MdArrowLeft />

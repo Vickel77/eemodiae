@@ -17,6 +17,10 @@ import Link from "next/link";
 import empty from "../../assets/empty-state.png"
 import normalizeAndCompare, { cleanString } from "../../util/normalizeAndCompare";
 import getCircularSlice from "../../util/getCircularIdx";
+import {
+  messagesListHrefFromQuery,
+  messageDetailQueryStringFromRouter,
+} from "../../helpers/messagesPodcastNavigation";
 
 const client = createClient({
   space: "7rf3l1j0b9zd",
@@ -112,12 +116,24 @@ const categorySuggestions: any[] =
     if (selectedAudio?.category) {
       if (currentIndex! + 1 >= categorySuggestions?.length!) return;
       const nextAudio = categorySuggestions?.[currentIndex! + 1];
-      router.push(`/messages/${nextAudio?.fields.title}`);
+      const qs = messageDetailQueryStringFromRouter(router.query, {
+        tab: "series",
+        podcastView: "episodes",
+      });
+      router.push(
+        `/messages/${encodeURIComponent(nextAudio?.fields.title ?? "")}?${qs}`
+      );
       return;
     }
     if (currentAudioIndex + 1 < messages?.length) {
       const nextAudio = messages[currentAudioIndex + 1];
-      router.push(`/messages/${nextAudio.title}`);
+      const qs = messageDetailQueryStringFromRouter(router.query, {
+        tab: "messages",
+        podcastView: "episodes",
+      });
+      router.push(
+        `/messages/${encodeURIComponent(nextAudio.title)}?${qs}`
+      );
     }
   };
 
@@ -128,6 +144,13 @@ const categorySuggestions: any[] =
   if (!selectedAudio) {
     return <div>Audio not found</div>;
   }
+
+  const messageNavDefaults = {
+    tab: selectedAudio.category ? ("series" as const) : ("messages" as const),
+    podcastView: "episodes" as const,
+  };
+  const messagesListBackHref = messagesListHrefFromQuery(router.query, messageNavDefaults);
+  const messageDetailQs = messageDetailQueryStringFromRouter(router.query, messageNavDefaults);
 
   return (
     <>
@@ -167,7 +190,8 @@ const categorySuggestions: any[] =
         <Navbar />
         <div className="container mx-auto my-10">
           <button
-            onClick={() => router.push("/messages")}
+            type="button"
+            onClick={() => router.push(messagesListBackHref)}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
@@ -258,6 +282,7 @@ const categorySuggestions: any[] =
                       title={audio?.title}
                       image={audio?.imageUrl.fields.file.url}
                       router={router}
+                      querySuffix={messageDetailQs}
                     />
                   ))
                   : categorySuggestions?.map((audio, index) => (
@@ -266,6 +291,7 @@ const categorySuggestions: any[] =
                       title={audio.fields.title}
                       image={_image}
                       router={router}
+                      querySuffix={messageDetailQs}
                     />
                   ))}
               </div>
@@ -278,8 +304,8 @@ const categorySuggestions: any[] =
                     You&lsquo;re all caught up
                     </h3>
                     <img className="h-20"  src={empty.src}/>
-                  <Link href="/messages">
-                  <button className="mt-0 btn bg-primary text-white">
+                  <Link href={messagesListBackHref}>
+                  <button type="button" className="mt-0 btn bg-primary text-white">
                     Explore more messages
                   </button>
                   </Link>
@@ -304,15 +330,29 @@ const SuggestCard = ({
   router,
   image,
   title,
+  querySuffix,
 }: {
   router: any;
   image: string;
   title: string;
+  querySuffix: string;
 }) => {
   return (
     <div
       className="flex items-center bg-white shadow-md rounded-lg p-3 cursor-pointer"
-      onClick={() => router.push(`/messages/${title}`)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          router.push(
+            `/messages/${encodeURIComponent(title)}?${querySuffix}`
+          );
+        }
+      }}
+      onClick={() =>
+        router.push(`/messages/${encodeURIComponent(title)}?${querySuffix}`)
+      }
       key={title}
     >
       <div className=" flex   overflow-hidden rounded-full">

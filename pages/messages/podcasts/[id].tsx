@@ -12,6 +12,10 @@ import Share from "../../../components/Share";
 import empty from "../../../assets/empty-state.png";
 import image from "../../../assets/book1.png";
 import normalizeAndCompare, { cleanString } from "../../../util/normalizeAndCompare";
+import {
+  messagesHrefFromPlayerQuery,
+  podcastEpisodeQueryStringFromRouter,
+} from "../../../helpers/messagesPodcastNavigation";
 
 type PodcastPlaybackItem = {
   title: string;
@@ -64,6 +68,9 @@ export default function PodcastPlayer({ episodes }: PodcastPlayerProps) {
   const { id } = router.query;
   const idValue = String(id ?? "");
 
+  const backToMessagesHref = messagesHrefFromPlayerQuery(router.query);
+  const episodeQuerySuffix = podcastEpisodeQueryStringFromRouter(router.query);
+
   const selectedEpisode = useMemo(
     () => episodes.find((episode) => normalizeAndCompare(episode.title ?? "", idValue)),
     [episodes, idValue]
@@ -85,7 +92,8 @@ export default function PodcastPlayer({ episodes }: PodcastPlayerProps) {
         <Navbar />
         <div className="container mx-auto my-10">
           <button
-            onClick={() => router.push("/messages")}
+            type="button"
+            onClick={() => router.push(backToMessagesHref)}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
@@ -118,7 +126,8 @@ export default function PodcastPlayer({ episodes }: PodcastPlayerProps) {
         <Navbar />
         <div className="container mx-auto my-10">
           <button
-            onClick={() => router.push("/messages")}
+            type="button"
+            onClick={() => router.push(backToMessagesHref)}
             className="flex gap-2 items-center rounded-lg border-1 border-primary px-3 mb-5"
           >
             <MdArrowLeft />
@@ -187,7 +196,9 @@ export default function PodcastPlayer({ episodes }: PodcastPlayerProps) {
                       key={episode.title}
                       className="flex items-center bg-white shadow-md rounded-lg p-3 cursor-pointer"
                       onClick={() =>
-                        router.push(`/messages/podcasts/${encodeURIComponent(episode.title ?? "")}`)
+                        router.push(
+                          `/messages/podcasts/${encodeURIComponent(episode.title ?? "")}?${episodeQuerySuffix}`
+                        )
                       }
                     >
                       <div className="overflow-hidden rounded-full">

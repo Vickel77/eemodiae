@@ -15,6 +15,18 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/dvc", destination: "/dvc/index.html" },
+      { source: "/dvc/", destination: "/dvc/index.html" },
+      { source: "/dvc/july", destination: "/dvc/july.html" },
+    ];
+  },
+  async redirects() {
+    return [
+      { source: "/july.html", destination: "/dvc/july", permanent: false },
+    ];
+  },
 };
 
 module.exports = nextConfig;

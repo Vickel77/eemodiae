@@ -14,10 +14,12 @@ const ArticleCard = ({
   className,
   article,
   id,
+  listPage = 1,
 }: {
   className?: any;
   article: Article;
   id?: number;
+  listPage?: number;
 }) => {
   const { title, image, image_url, content, createdAt } = article;
 
@@ -25,9 +27,7 @@ const ArticleCard = ({
     <Link
       href={{
         pathname: `/articles/${article.title!}`,
-        // query: {
-        //   article: JSON.stringify(article.title),
-        // },
+        query: listPage > 1 ? { page: listPage } : undefined,
       }}
     >
       <div className="min-w-[200px] min-h-[300px] mb-5 border-2 border-[transparent] hover:opacity-70 transition-all rounded-lg ">

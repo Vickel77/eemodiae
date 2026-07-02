@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
 import PeomCard from "../../components/PeomCard";
@@ -9,8 +10,10 @@ import useContentful from "../../hooks/useContentful";
 import PageLoader from "../../components/PageLoader";
 import scrollToSearchInput from "../../helpers/scrollToElementPosition";
 import scrollToTop from "../../util/scrollToTop";
+import { clampPage, listHref, parsePageQuery } from "../../helpers/listPagination";
 
 const Poems = styled(({ className }) => {
+  const router = useRouter();
   const { isLoggedIn } = useAuth();
   const { getPoems, poems } = useContentful();
   const searchInputRef = useRef<any>(null);
@@ -35,6 +38,11 @@ const Poems = styled(({ className }) => {
   }, []);
 
   useEffect(() => {
+    if (!router.isReady) return;
+    setCurrentPage(parsePageQuery(router.query.page));
+  }, [router.isReady, router.query.page]);
+
+  useEffect(() => {
     // Filter poems based on the search query
     if (searchQuery) {
       setFilteredPoems(
@@ -53,20 +61,28 @@ const Poems = styled(({ className }) => {
   const currentPoems = filteredPoems?.slice(indexOfFirstItem, indexOfLastItem);
 
   // Pagination controls
-  const totalPages = Math.ceil(filteredPoems?.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredPoems?.length / itemsPerPage) || 1;
+
+  useEffect(() => {
+    const clamped = clampPage(currentPage, totalPages);
+    if (clamped !== currentPage) {
+      setCurrentPage(clamped);
+      router.replace(listHref("/poems", clamped), undefined, { shallow: true });
+    }
+  }, [totalPages]);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    router.replace(listHref("/poems", page), undefined, { shallow: true });
+    scrollToTop();
+  };
 
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-      scrollToTop();
-    }
+    if (currentPage < totalPages) goToPage(currentPage + 1);
   };
 
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-      scrollToTop();
-    }
+    if (currentPage > 1) goToPage(currentPage - 1);
   };
 
   if (!domContentLoaded || !poems) {
@@ -125,6 +141,7 @@ const Poems = styled(({ className }) => {
               id={idx}
               poem={poem}
               setShowModal={setShowModal}
+              listPage={currentPage}
             />
           ))}
         </section>
