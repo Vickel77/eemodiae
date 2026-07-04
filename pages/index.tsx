@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import AboutMe from "../components/AboutMe";
 import WhatIDo from "../components/WhatIDo";
 import Footer from "../components/Footer";
+import DVCHero from "../components/DVCHero";
 import { TypeAnimation } from "react-type-animation";
 import useContentful from "../hooks/useContentful";
 import { useEffect } from "react";
@@ -127,6 +128,8 @@ const Home: NextPage = styled(({ className }) => {
             Enjoy your stay!
           </p>
         </section>
+
+        <DVCHero />
 
         {/* ABOUT SECTION */}
 

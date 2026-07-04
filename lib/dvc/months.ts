@@ -1,0 +1,101 @@
+export type DVCMonthConfig = {
+  slug: string;
+  name: string;
+  monthNum: number;
+  year: number;
+  days: number;
+  theme: string;
+  ready: boolean;
+  gradient: string;
+  navy: string;
+  bright: string;
+  gold: string;
+  /** July 2026 starts on Wednesday (0 = Sun) */
+  startWeekday?: number;
+};
+
+export const DVC_MONTHS: DVCMonthConfig[] = [
+  {
+    slug: "july",
+    name: "July",
+    monthNum: 7,
+    year: 2026,
+    days: 31,
+    theme: "Dominion to Overflow · 31 days",
+    ready: true,
+    gradient: "linear-gradient(160deg,#0c2748,#1b4d86)",
+    navy: "#0f2d52",
+    bright: "#2f7bd6",
+    gold: "#c69b3a",
+    startWeekday: 3,
+  },
+  {
+    slug: "august",
+    name: "August",
+    monthNum: 8,
+    year: 2026,
+    days: 31,
+    theme: "The Anointing to New Beginnings · 31 days",
+    ready: false,
+    gradient: "linear-gradient(160deg,#1a0840,#4c1d95)",
+    navy: "#2e1065",
+    bright: "#9333ea",
+    gold: "#c69b3a",
+  },
+  {
+    slug: "september",
+    name: "September",
+    monthNum: 9,
+    year: 2026,
+    days: 30,
+    theme: "Divine Direction to Finishing Well · 30 days",
+    ready: false,
+    gradient: "linear-gradient(160deg,#062825,#0f766e)",
+    navy: "#0c3b3a",
+    bright: "#14b8a6",
+    gold: "#c0772e",
+  },
+  {
+    slug: "october",
+    name: "October",
+    monthNum: 10,
+    year: 2026,
+    days: 31,
+    theme: "Holy Fire to The Finished Work · 31 days",
+    ready: false,
+    gradient: "linear-gradient(160deg,#3f060a,#9f1239)",
+    navy: "#5b0d12",
+    bright: "#dc2626",
+    gold: "#c69b3a",
+  },
+  {
+    slug: "november",
+    name: "November",
+    monthNum: 11,
+    year: 2026,
+    days: 30,
+    theme: "A Grateful Heart to Gratitude That Multiplies · 30 days",
+    ready: false,
+    gradient: "linear-gradient(160deg,#0a2414,#15803d)",
+    navy: "#13331f",
+    bright: "#22a85a",
+    gold: "#a9772f",
+  },
+  {
+    slug: "december",
+    name: "December",
+    monthNum: 12,
+    year: 2026,
+    days: 31,
+    theme: "Emmanuel to Gratitude and Expectation · 31 days",
+    ready: false,
+    gradient: "linear-gradient(160deg,#060d20,#1e3a8a)",
+    navy: "#0a1633",
+    bright: "#3b5bdb",
+    gold: "#c9a84c",
+  },
+];
+
+export function getDVCMonth(slug: string): DVCMonthConfig | undefined {
+  return DVC_MONTHS.find((m) => m.slug === slug.toLowerCase());
+}
