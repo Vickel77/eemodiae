@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import "../styles/globals.css";
 import "../styles/dvc-viewer.css";
+import "../styles/dvc-experimental.css";
 import Router from "next/router";
 import AOS from "aos";
 import "aos/dist/aos.css";
