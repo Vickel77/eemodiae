@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect } from "react";
 import { GUIDE_FONTS } from "../../../lib/dvc/experimentalHtml";
 
 type Props = {
@@ -9,6 +10,16 @@ type Props = {
 
 /** Standalone guide shell — no site Navbar/Footer */
 export default function DVCGuideShell({ title, description, children }: Props) {
+  // Neutralise site-wide html/body styles that break the guide rendering:
+  // font-size 1.25rem skews every rem unit, and overflow-x hidden on body
+  // stops position:sticky (the share daybar) from working.
+  useEffect(() => {
+    document.documentElement.classList.add("dvc-guide-html");
+    return () => {
+      document.documentElement.classList.remove("dvc-guide-html");
+    };
+  }, []);
+
   return (
     <>
       <Head>

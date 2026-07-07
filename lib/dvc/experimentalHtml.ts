@@ -24,12 +24,14 @@ export function extractStyles(html: string): string {
     .join("\n");
 }
 
-/** Scope standalone guide CSS (body/html/:root) onto our React wrapper */
+/** Scope standalone guide CSS (body/html/:root) onto our React wrapper.
+ * Only element selectors in selector position are rewritten, so guide
+ * classes like `.body` or `.y-body` are left untouched. */
 export function scopeGuideStyles(css: string, scope = ".dvc-guide-root"): string {
   return css
     .replace(/:root\b/g, scope)
-    .replace(/\bhtml\b/g, scope)
-    .replace(/\bbody\b/g, scope);
+    .replace(/(^|[\s,{}])html\b/g, `$1${scope}`)
+    .replace(/(^|[\s,{}])body\b/g, `$1${scope}`);
 }
 
 export function rewriteGuideShellLinks(
