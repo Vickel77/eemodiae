@@ -1,33 +1,8 @@
 DAILY VICTORY CONFESSION 2026 - OPTION B (Year > Month > Day)
-=============================================================
-
-STRUCTURE
-  dvc/index.html               Landing page (choose year: 2026)
-  dvc/2026.html                Choose a month (July - December)
-  dvc/2026/<month>/index.html  Day grid for that month
-  dvc/2026/<month>/01.html     Each day is its own page
-  ... 02.html, 03.html, etc.
-
-All six months are live: July, August, September, October,
-November, December (184 days total).
-
-HOW TO USE
-  Open dvc/index.html. Click 2026, then a month, then a day.
-  Each confession is its own page (loads fast, easy to share a
-  single day's link). The top bar (Days / Share / Next) is fixed.
-
-FEATURES
-  - Each day: Theme, Anchor Verse (KJV), Reflection, 5 Decrees,
-    Prophecy, Prayer, and a closing quatrain (A Word in Verse).
-  - Each month has its own colour.
-  - Share button on every day - shares that exact day's link,
-    perfect for posting a single confession to @thehjcw.
-  - @thehjcw and www.eemodiae.org on every day.
-
-DEPLOY TO eemodiae.org
-  Option 1: Drop the dvc/ folder into your site's public/ folder
-            and redeploy.
-  Option 2: Drag the dvc/ folder onto Netlify Drop or Cloudflare
-            Pages, then link to it from your site.
-
+All six months (July-December, 184 days), confessions in the bold declarative
+voice. Footer shows logo, lowercase www.eemodiae.org, small social icons with
+@thehjcw, and the Lead Pastor photo. Open dvc/index.html, click 2026, a month,
+then a day. Each confession is its own page (fast, easy to share a single day's
+link).
+Deploy: drop dvc/ into your site's public/ folder, or drag onto Netlify/Cloudflare.
 House of Joy Church Worldwide - Pastor Emmanuel I. Emodiae

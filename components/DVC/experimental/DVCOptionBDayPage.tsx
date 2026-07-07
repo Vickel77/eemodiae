@@ -24,9 +24,9 @@ export default function DVCOptionBDayPage({ month, day, styles, body }: Props) {
   }, [month.slug, day]);
 
   return (
-    <div className="dvc-exp-content-root">
+    <div className="dvc-guide-root" ref={rootRef}>
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
-      <div ref={rootRef} dangerouslySetInnerHTML={{ __html: body }} />
+      <div dangerouslySetInnerHTML={{ __html: body }} />
     </div>
   );
 }

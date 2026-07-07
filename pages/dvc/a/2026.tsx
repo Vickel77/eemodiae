@@ -1,20 +1,25 @@
-import DVCExperimentalShell from "../../../components/DVC/experimental/DVCExperimentalShell";
-import DVCExperimentalYear from "../../../components/DVC/experimental/DVCExperimentalYear";
-import { EXPERIMENTAL_DVC_MONTHS } from "../../../lib/dvc/experimentalMonths";
+import { GetStaticProps } from "next";
+import DVCGuideShell from "../../../components/DVC/experimental/DVCGuideShell";
+import DVCGuidePage from "../../../components/DVC/experimental/DVCGuidePage";
+import { loadGuideYear } from "../../../lib/dvc/experimentalContent";
 
-export default function DVCOptionAYear() {
+type Props = {
+  styles: string;
+  body: string;
+};
+
+export default function DVCOptionAYear({ styles, body }: Props) {
   return (
-    <DVCExperimentalShell
-      option="A"
-      title="DVC 2026 — Option A"
-      description="July–December 2026 — scrolling month pages."
+    <DVCGuideShell
+      title="Daily Victory Confession 2026 | House of Joy Church Worldwide"
+      description="July–December 2026 — Option A scrolling month pages."
     >
-      <DVCExperimentalYear
-        option="A"
-        months={EXPERIMENTAL_DVC_MONTHS}
-        landingHref="/dvc/a"
-        monthHref={(slug) => `/dvc/a/2026/${slug}`}
-      />
-    </DVCExperimentalShell>
+      <DVCGuidePage styles={styles} body={body} />
+    </DVCGuideShell>
   );
 }
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  const { styles, body } = loadGuideYear("a");
+  return { props: { styles, body } };
+};

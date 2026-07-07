@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import DVCExperimentalShell from "../../../../../components/DVC/experimental/DVCExperimentalShell";
-import DVCOptionBDayGrid from "../../../../../components/DVC/experimental/DVCOptionBDayGrid";
-import { loadOptionBDays } from "../../../../../lib/dvc/experimentalContent";
-import type { DayEntry } from "../../../../../lib/dvc/experimentalContent";
+import DVCGuideShell from "../../../../../components/DVC/experimental/DVCGuideShell";
+import DVCGuidePage from "../../../../../components/DVC/experimental/DVCGuidePage";
+import { loadOptionBMonthIndex } from "../../../../../lib/dvc/experimentalContent";
 import {
   EXPERIMENTAL_DVC_MONTHS,
   getExperimentalMonth,
@@ -11,19 +10,18 @@ import type { DVCMonthConfig } from "../../../../../lib/dvc/months";
 
 type Props = {
   month: DVCMonthConfig;
-  days: DayEntry[];
+  styles: string;
+  body: string;
 };
 
-export default function DVCOptionBMonthIndex({ month, days }: Props) {
+export default function DVCOptionBMonthIndex({ month, styles, body }: Props) {
   return (
-    <DVCExperimentalShell
-      option="B"
-      title={`DVC ${month.name} 2026 — Days`}
+    <DVCGuideShell
+      title={`Daily Victory Confession — ${month.name} 2026`}
       description={month.theme}
-      dark={false}
     >
-      <DVCOptionBDayGrid month={month} days={days} yearHref="/dvc/b/2026" />
-    </DVCExperimentalShell>
+      <DVCGuidePage styles={styles} body={body} />
+    </DVCGuideShell>
   );
 }
 
@@ -39,6 +37,6 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const month = getExperimentalMonth(slug);
   if (!month?.ready) return { notFound: true };
 
-  const days = loadOptionBDays(slug, month.days);
-  return { props: { month, days } };
+  const { styles, body } = loadOptionBMonthIndex(slug);
+  return { props: { month, styles, body } };
 };

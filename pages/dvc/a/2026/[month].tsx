@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from "next";
-import DVCExperimentalShell from "../../../../components/DVC/experimental/DVCExperimentalShell";
+import DVCGuideShell from "../../../../components/DVC/experimental/DVCGuideShell";
 import DVCOptionAScroll from "../../../../components/DVC/experimental/DVCOptionAScroll";
 import { loadOptionAMonth } from "../../../../lib/dvc/experimentalContent";
 import {
@@ -16,14 +16,12 @@ type Props = {
 
 export default function DVCOptionAMonthPage({ month, styles, body }: Props) {
   return (
-    <DVCExperimentalShell
-      option="A"
-      title={`DVC ${month.name} 2026 — Option A`}
+    <DVCGuideShell
+      title={`Daily Victory Confession — ${month.name} 2026`}
       description={month.theme}
-      dark={false}
     >
       <DVCOptionAScroll month={month} styles={styles} body={body} />
-    </DVCExperimentalShell>
+    </DVCGuideShell>
   );
 }
 

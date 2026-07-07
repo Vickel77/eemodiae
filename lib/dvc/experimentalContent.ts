@@ -3,20 +3,51 @@ import {
   optionAMonthFile,
   optionBMonthIndexFile,
   optionBDayFile,
+  optionIndexFile,
+  optionYearFile,
+  type GuideOption,
 } from "./experimentalPaths";
 import {
   extractBodyInner,
   extractStyles,
+  rewriteGuideShellLinks,
   rewriteOptionAContent,
   rewriteOptionBDayContent,
+  scopeGuideStyles,
 } from "./experimentalHtml";
 
 export type DayEntry = { day: number; theme: string; weekday: string };
 
+function loadScopedGuidePage(filePath: string, rewrite: (body: string) => string) {
+  const html = fs.readFileSync(filePath, "utf-8");
+  return {
+    styles: scopeGuideStyles(extractStyles(html)),
+    body: rewrite(extractBodyInner(html)),
+  };
+}
+
+export function loadGuideIndex(option: GuideOption) {
+  return loadScopedGuidePage(optionIndexFile(option), (body) =>
+    rewriteGuideShellLinks(body, option)
+  );
+}
+
+export function loadGuideYear(option: GuideOption) {
+  return loadScopedGuidePage(optionYearFile(option), (body) =>
+    rewriteGuideShellLinks(body, option)
+  );
+}
+
+export function loadOptionBMonthIndex(month: string) {
+  return loadScopedGuidePage(optionBMonthIndexFile(month), (body) =>
+    rewriteGuideShellLinks(body, "b", month)
+  );
+}
+
 export function loadOptionAMonth(slug: string) {
   const html = fs.readFileSync(optionAMonthFile(slug), "utf-8");
   return {
-    styles: extractStyles(html),
+    styles: scopeGuideStyles(extractStyles(html)),
     body: rewriteOptionAContent(extractBodyInner(html)),
   };
 }
@@ -24,8 +55,15 @@ export function loadOptionAMonth(slug: string) {
 export function loadOptionBDay(month: string, day: number) {
   const html = fs.readFileSync(optionBDayFile(month, String(day)), "utf-8");
   const shareMatch = html.match(/var SHARE_TEXT = "([^"]+)"/);
-  const body = rewriteOptionBDayContent(extractBodyInner(html), month, day, shareMatch?.[1]);
-  return { styles: extractStyles(html), body };
+  return {
+    styles: scopeGuideStyles(extractStyles(html)),
+    body: rewriteOptionBDayContent(
+      extractBodyInner(html),
+      month,
+      day,
+      shareMatch?.[1]
+    ),
+  };
 }
 
 export function loadOptionBDays(month: string, fallbackDays: number): DayEntry[] {

@@ -20,12 +20,22 @@ export default function DVCOptionAScroll({ month, styles, body }: Props) {
       const origin = typeof window !== "undefined" ? window.location.origin : "";
       return `${origin}/dvc/a/2026/${month.slug}#day${day}`;
     });
-  }, [month.slug]);
+
+    const hash = window.location.hash;
+    if (hash) {
+      const target = root.querySelector(hash);
+      if (target) {
+        requestAnimationFrame(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+    }
+  }, [month.slug, body]);
 
   return (
-    <div className="dvc-exp-content-root">
+    <div className="dvc-guide-root" ref={rootRef}>
       {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
-      <div ref={rootRef} dangerouslySetInnerHTML={{ __html: body }} />
+      <div dangerouslySetInnerHTML={{ __html: body }} />
     </div>
   );
 }
