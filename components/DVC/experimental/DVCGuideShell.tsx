@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect } from "react";
+import Navbar from "../../Navbar";
 import { GUIDE_FONTS } from "../../../lib/dvc/experimentalHtml";
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-/** Standalone guide shell — no site Navbar/Footer */
+/** Guide shell — site Navbar on top, guide content rendered untouched below */
 export default function DVCGuideShell({ title, description, children }: Props) {
   // Neutralise site-wide html/body styles that break the guide rendering:
   // font-size 1.25rem skews every rem unit, and overflow-x hidden on body
@@ -33,7 +34,8 @@ export default function DVCGuideShell({ title, description, children }: Props) {
         />
         <link href={GUIDE_FONTS} rel="stylesheet" />
       </Head>
-      {children}
+      <Navbar />
+      <div className="pt-[5rem]">{children}</div>
     </>
   );
 }

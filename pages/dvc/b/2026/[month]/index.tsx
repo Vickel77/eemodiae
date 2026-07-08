@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import DVCGuideShell from "../../../../../components/DVC/experimental/DVCGuideShell";
-import DVCGuidePage from "../../../../../components/DVC/experimental/DVCGuidePage";
+import DVCOptionBMonthGrid from "../../../../../components/DVC/experimental/DVCOptionBMonthGrid";
 import { loadOptionBMonthIndex } from "../../../../../lib/dvc/experimentalContent";
 import {
   EXPERIMENTAL_DVC_MONTHS,
@@ -20,7 +20,7 @@ export default function DVCOptionBMonthIndex({ month, styles, body }: Props) {
       title={`Daily Victory Confession — ${month.name} 2026`}
       description={month.theme}
     >
-      <DVCGuidePage styles={styles} body={body} />
+      <DVCOptionBMonthGrid month={month} styles={styles} body={body} />
     </DVCGuideShell>
   );
 }

@@ -1,7 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import DVCGuideShell from "../../../../../components/DVC/experimental/DVCGuideShell";
 import DVCOptionBDayPage from "../../../../../components/DVC/experimental/DVCOptionBDayPage";
-import { loadOptionBDay } from "../../../../../lib/dvc/experimentalContent";
+import {
+  loadOptionBDay,
+  loadOptionBDays,
+} from "../../../../../lib/dvc/experimentalContent";
 import {
   EXPERIMENTAL_DVC_MONTHS,
   getExperimentalMonth,
@@ -13,15 +16,22 @@ type Props = {
   day: number;
   styles: string;
   body: string;
+  themes: Record<number, string>;
 };
 
-export default function DVCOptionBDayRoute({ month, day, styles, body }: Props) {
+export default function DVCOptionBDayRoute({ month, day, styles, body, themes }: Props) {
   return (
     <DVCGuideShell
       title={`Daily Victory Confession — ${month.name} 2026, Day ${day}`}
       description={month.theme}
     >
-      <DVCOptionBDayPage month={month} day={day} styles={styles} body={body} />
+      <DVCOptionBDayPage
+        month={month}
+        day={day}
+        styles={styles}
+        body={body}
+        themes={themes}
+      />
     </DVCGuideShell>
   );
 }
@@ -45,5 +55,9 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   }
 
   const { styles, body } = loadOptionBDay(slug, day);
-  return { props: { month, day, styles, body } };
+  const themes: Record<number, string> = {};
+  for (const entry of loadOptionBDays(slug, month.days)) {
+    themes[entry.day] = entry.theme;
+  }
+  return { props: { month, day, styles, body, themes } };
 };

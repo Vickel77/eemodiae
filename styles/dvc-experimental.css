@@ -13,6 +13,180 @@ html.dvc-guide-html {
   scroll-behavior: smooth;
 }
 
+/* Fixed site navbar (5rem) sits above guide pages: keep the sticky share
+   daybar pinned just below it, and offset in-page anchor jumps. */
+.dvc-guide-root .daybar {
+  top: 5rem;
+}
+
+.dvc-guide-root section.day,
+.dvc-guide-root [id^="day"] {
+  scroll-margin-top: 5rem;
+}
+
+/* Option A paged mode — everything is hidden from the first (server) paint,
+   so there is no flash of the full month list; the viewer then reveals only
+   the active day. */
+.dvc-a-paged .cover,
+.dvc-a-paged .toc,
+.dvc-a-paged .totop,
+.dvc-a-paged section.day {
+  display: none;
+}
+
+.dvc-a-paged section.day.dvc-day-active {
+  display: block;
+  padding-top: 0;
+}
+
+/* Option B calendar — themed like the guide section (per-month palette via
+   --bcal-* variables), day list scrolls vertically */
+.dvc-bcal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: 6rem;
+  background: rgba(7, 20, 38, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.dvc-bcal-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 440px);
+  max-height: min(85vh, 640px);
+  background: var(--bcal-grad, linear-gradient(160deg, #0c2748, #1b4d86));
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  padding: 22px 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  color: #fff;
+}
+
+.dvc-bcal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dvc-bcal-eyebrow {
+  font-family: "Cinzel", serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bcal-gold, #e6cd8f);
+  margin: 0 0 6px;
+}
+
+.dvc-bcal-title {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 0;
+  color: #fff;
+}
+
+.dvc-bcal-sub {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 4px 0 0;
+}
+
+.dvc-bcal-close {
+  font-family: "Cinzel", serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: 0.18s;
+}
+
+.dvc-bcal-close:hover {
+  background: var(--bcal-gold, #c69b3a);
+  border-color: var(--bcal-gold, #c69b3a);
+}
+
+.dvc-bcal-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.dvc-bcal-day {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 12px 16px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.18s;
+  flex: 0 0 auto;
+}
+
+.dvc-bcal-day:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--bcal-gold, #e6cd8f);
+}
+
+.dvc-bcal-day.active {
+  border-color: var(--bcal-gold, #e6cd8f);
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.dvc-bcal-day.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dvc-bcal-num {
+  font-family: "Cinzel", serif;
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--bcal-gold, #e6cd8f);
+  min-width: 2.2rem;
+}
+
+.dvc-bcal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.dvc-bcal-theme {
+  font-family: "Cinzel", serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+
+.dvc-bcal-wd {
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: 0.86rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
 /* Isolate guide HTML from site globals — match standalone dvc/ packages */
 .dvc-guide-root {
   display: block;
