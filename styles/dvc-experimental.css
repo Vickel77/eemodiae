@@ -24,6 +24,36 @@ html.dvc-guide-html {
   scroll-margin-top: 5rem;
 }
 
+/* Day header — keep the date chip on the far left; title sits beside it, not centered */
+.dvc-guide-root .card-head {
+  align-items: flex-start;
+}
+
+.dvc-guide-root .datechip {
+  flex: 0 0 auto;
+}
+
+.dvc-guide-root .head-center {
+  flex: 1;
+  text-align: left;
+}
+
+.dvc-guide-root .head-spacer {
+  display: none !important;
+}
+
+/* Footer prev/next — span the full card width */
+.dvc-guide-root .page-nav {
+  justify-content: space-between;
+  width: 100%;
+  gap: 12px;
+  padding: 14px 20px;
+}
+
+.dvc-guide-root .page-nav .pn-count {
+  margin: 0;
+}
+
 /* Option A paged mode — everything is hidden from the first (server) paint,
    so there is no flash of the full month list; the viewer then reveals only
    the active day. */

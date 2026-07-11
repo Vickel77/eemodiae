@@ -1,0 +1,683 @@
+{
+  "settings": {
+    "defaultCurrency": "USD",
+    "fxRate": 1650,
+    "supportEmail": "books@eemodiae.org",
+    "externalConfigUrl": "store-config.json",
+    "booksPerPage": 12,
+    "coursesPerPage": 6
+  },
+  "payments": {
+    "paystackPublicKey": "",
+    "flutterwavePublicKey": ""
+  },
+  "categories": [
+    "Devotionals",
+    "Theology",
+    "Series",
+    "Life Skills",
+    "Fiction"
+  ],
+  "featuredId": "dvc-2026",
+  "books": [
+    {
+      "id": "dvc-2026",
+      "title": "Daily Victory Confession 2026",
+      "subtitle": "Six Months of Decrees, Prophecy, and A Word in Verse",
+      "kicker": "The Flagship Devotional",
+      "category": "Devotionals",
+      "description": "One hundred and eighty four days of enriched devotion: KJV anchor verses, Greek and Hebrew word studies, five decrees a day, prophecy, prayer, and a closing quatrain. July through December 2026.",
+      "formats": [
+        "PDF",
+        "Kindle",
+        "Paperback"
+      ],
+      "priceUSD": 14.99,
+      "priceNGN": 15000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "benefits-salvation",
+      "title": "The Benefits of Salvation",
+      "subtitle": "Two Volumes · 55 Chapters of Present and Eternal Riches",
+      "kicker": "Doctrine Series",
+      "category": "Theology",
+      "description": "Twenty six present benefits and twenty nine eternal benefits of the salvation of God, traced verse by verse through the whole counsel of Scripture.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 11.99,
+      "priceNGN": 12000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "anatomy-of-love",
+      "title": "Anatomy of Love",
+      "subtitle": "A 26 Module Exposition of 1 Corinthians 13",
+      "kicker": "Dual Volume",
+      "category": "Theology",
+      "description": "Love examined limb by limb: a devotional register for the heart and a scholarly register for the study, with Greek word studies throughout.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 9.99,
+      "priceNGN": 10000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "the-ten",
+      "title": "The Ten",
+      "subtitle": "Three Volumes · Ten Life Skills Across Every Tier",
+      "kicker": "Life Skills Series",
+      "category": "Life Skills",
+      "description": "Ten skills that build a life, taught across three ascending volumes with practical drills and scriptural anchors.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 19.99,
+      "priceNGN": 20000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "chronicles-of-toba",
+      "title": "The Chronicles of Toba",
+      "subtitle": "A Nigerian Christian Thriller",
+      "kicker": "Fiction",
+      "category": "Fiction",
+      "description": "Faith under fire in a story that moves like a chase and lands like a sermon. A novel of courage, conviction, and the God who does not blink.",
+      "formats": [
+        "PDF",
+        "Kindle",
+        "Paperback"
+      ],
+      "priceUSD": 7.99,
+      "priceNGN": 8000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "holy-one-study",
+      "title": "The Holy One",
+      "subtitle": "A Study Across All 66 Books of Scripture",
+      "kicker": "Lexical Study",
+      "category": "Theology",
+      "description": "Qadosh. Chasid. Qaddish. Hagios. Hosios. Every appearance of the title traced with Strong's numbers from Genesis to Revelation.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 8.99,
+      "priceNGN": 9000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "isaiah-gospel-prophet",
+      "title": "Isaiah: The Gospel Prophet",
+      "subtitle": "A Verse by Verse Journey with Hebrew Word Studies",
+      "kicker": "Prophets Series",
+      "category": "Theology",
+      "description": "The evangelist of the Old Testament opened chapter by chapter, with the Hebrew beneath every promise and the Messiah shining through every page.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 10.99,
+      "priceNGN": 11000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "jeremiah-weeping-prophet",
+      "title": "Jeremiah: The Weeping Prophet",
+      "subtitle": "Tears, Fire, and the Faithfulness of God",
+      "kicker": "Prophets Series",
+      "category": "Theology",
+      "description": "The prophet who could not hold his peace, studied with Hebrew word by word care: the call, the cost, and the covenant that outlasted the ruins.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 10.99,
+      "priceNGN": 11000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "ezekiel-visions-glory",
+      "title": "Ezekiel: Visions of Glory",
+      "subtitle": "Wheels, Watchmen, and the River from the Throne",
+      "kicker": "Prophets Series",
+      "category": "Theology",
+      "description": "From the valley of dry bones to the temple of glory, Ezekiel expounded with Hebrew studies and the shepherd heart of a watchman.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 10.99,
+      "priceNGN": 11000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "priesthood-of-christ",
+      "title": "The Priesthood of Christ",
+      "subtitle": "Special Edition with Illustrated Diagrams",
+      "kicker": "Special Edition",
+      "category": "Theology",
+      "description": "After the order of Melchizedek: the offices, the offering, and the intercession of our Great High Priest, illustrated throughout.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 12.99,
+      "priceNGN": 13000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "theology-tabernacle",
+      "title": "Theology of the Tabernacle",
+      "subtitle": "Every Board, Every Veil, Every Shadow of Christ",
+      "kicker": "Special Edition",
+      "category": "Theology",
+      "description": "The tent in the wilderness drawn out in full color diagrams and doctrine, from the brazen altar to the mercy seat.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 12.99,
+      "priceNGN": 13000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "mentored-life-protege",
+      "title": "The Mentored Life, Volume I",
+      "subtitle": "The Protégé: Learning to Be Led",
+      "kicker": "Mentorship Series",
+      "category": "Life Skills",
+      "description": "How to find, follow, and honor the voice God has set over your life. The first half of the mentorship covenant.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 8.99,
+      "priceNGN": 9000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "mentored-life-mentor",
+      "title": "The Mentored Life, Volume II",
+      "subtitle": "The Mentor: Learning to Lead",
+      "kicker": "Mentorship Series",
+      "category": "Life Skills",
+      "description": "How to pour without emptying, correct without crushing, and release without losing. The second half of the covenant.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 8.99,
+      "priceNGN": 9000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "house-in-order-1",
+      "title": "The House in Order, Volume I",
+      "subtitle": "Church Structure, Governance, and Culture",
+      "kicker": "Church Leadership",
+      "category": "Series",
+      "description": "The architecture of a healthy church: offices, departments, accountability, and the culture that holds them together.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 14.99,
+      "priceNGN": 15000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "house-in-order-2",
+      "title": "The House in Order, Volume II",
+      "subtitle": "Assessment, Adaptation, and Growth",
+      "kicker": "Church Leadership",
+      "category": "Series",
+      "description": "The working companion: self assessment modules, cultural adaptation, and the road from structure to strength.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 14.99,
+      "priceNGN": 15000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "church-branding-library",
+      "title": "Mastering Church Branding",
+      "subtitle": "The Complete Fifteen Book Library",
+      "kicker": "Boxed Set",
+      "category": "Series",
+      "description": "Fifteen volumes on carrying the message with excellence: identity, voice, design, platforms, and the stewardship of a name.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 39.99,
+      "priceNGN": 40000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "scriptural-intelligence-set",
+      "title": "Scriptural Intelligence",
+      "subtitle": "The Twelve Book Study Library",
+      "kicker": "Boxed Set",
+      "category": "Series",
+      "description": "Twelve volumes that train the believer to rightly divide the Word: languages, context, structure, and sound interpretation.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 34.99,
+      "priceNGN": 35000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "wealth-code-set",
+      "title": "The Wealth Code",
+      "subtitle": "Nine Volumes of Kingdom Financial Education",
+      "kicker": "Boxed Set",
+      "category": "Devotionals",
+      "description": "Stewardship, multiplication, enterprise, and generational wealth, taught from Scripture across nine progressive volumes.",
+      "formats": [
+        "PDF"
+      ],
+      "priceUSD": 29.99,
+      "priceNGN": 30000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "parables-of-the-king",
+      "title": "The Parables of the King",
+      "subtitle": "Every Parable Expounded, Opening with the Ten Virgins",
+      "kicker": "The Christ Shelf",
+      "category": "Theology",
+      "description": "Every parable of the Lord Jesus opened for doctrine and for the heart, beginning where the lamps burn low. The first volume of the Christ Shelf.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 12.99,
+      "priceNGN": 13000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "comingSoon": true,
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "i-am-declarations",
+      "title": "I AM",
+      "subtitle": "The Seven Declarations in John",
+      "kicker": "The Christ Shelf",
+      "category": "Theology",
+      "description": "Bread, Light, Door, Shepherd, Resurrection, Way, and Vine. Seven doors into the identity of Christ, one volume.",
+      "formats": [
+        "PDF",
+        "Kindle"
+      ],
+      "priceUSD": 10.99,
+      "priceNGN": 11000,
+      "coverImage": "",
+      "downloadUrl": "",
+      "comingSoon": true,
+      "links": {
+        "amazon": "",
+        "kindle": "",
+        "selar": "",
+        "bambooks": "",
+        "okadabooks": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    }
+  ],
+  "courses": [
+    {
+      "id": "course-church-branding",
+      "title": "Mastering Church Branding",
+      "track": "Ministry",
+      "tone": "royal",
+      "description": "The complete fifteen part curriculum on building a church identity that carries the message with excellence, from name to logo to voice to platform.",
+      "modules": 15,
+      "hours": 20,
+      "level": "All levels",
+      "priceUSD": 49.99,
+      "priceNGN": 50000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-personal-branding",
+      "title": "Personal Branding Mastery",
+      "track": "Influence",
+      "tone": "violet",
+      "description": "Fourteen modules on becoming known for what God has placed in you: positioning, presence, platforms, and the discipline of a consistent voice.",
+      "modules": 14,
+      "hours": 18,
+      "level": "Beginner to advanced",
+      "priceUSD": 44.99,
+      "priceNGN": 45000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-wealth-code",
+      "title": "The Wealth Code",
+      "track": "Finance",
+      "tone": "amber",
+      "description": "Nine volumes of kingdom financial education taught as a structured course: stewardship, multiplication, enterprise, and generational wealth.",
+      "modules": 9,
+      "hours": 14,
+      "level": "All levels",
+      "priceUSD": 39.99,
+      "priceNGN": 40000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-scriptural-intelligence",
+      "title": "Scriptural Intelligence",
+      "track": "Bible Study",
+      "tone": "emerald",
+      "description": "Twelve modules that train you to study the Word for yourself: languages, context, structure, and the tools of sound interpretation.",
+      "modules": 12,
+      "hours": 16,
+      "level": "Intermediate",
+      "priceUSD": 44.99,
+      "priceNGN": 45000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-fashion-business",
+      "title": "The Fashion Business Curriculum",
+      "track": "Enterprise",
+      "tone": "wine",
+      "description": "Twenty seven courses and over seven hundred pages of instruction on building a fashion enterprise from gift to garment to global brand.",
+      "modules": 27,
+      "hours": 40,
+      "level": "All levels",
+      "priceUSD": 79.99,
+      "priceNGN": 80000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-tabernacle-masterclass",
+      "title": "The Tabernacle Masterclass",
+      "track": "Bible Study",
+      "tone": "gold",
+      "description": "Walk through the wilderness tent chamber by chamber with full color diagrams, Hebrew word studies, and Christ revealed in every article.",
+      "modules": 10,
+      "hours": 12,
+      "level": "All levels",
+      "priceUSD": 34.99,
+      "priceNGN": 35000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-wordsmith-ministry",
+      "title": "Wordsmith: Writing for Ministry",
+      "track": "Craft",
+      "tone": "violet",
+      "description": "Sermons, devotionals, poetry, and books: the craft of putting eternal truth into words that live. Taught with exercises and live edits.",
+      "modules": 8,
+      "hours": 10,
+      "level": "Beginner to advanced",
+      "priceUSD": 29.99,
+      "priceNGN": 30000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-digital-ministry",
+      "title": "Digital Ministry Production",
+      "track": "Media",
+      "tone": "royal",
+      "description": "From sermon to screen: content systems, publishing rhythm, and the tools that carry one message across every platform with excellence.",
+      "modules": 12,
+      "hours": 15,
+      "level": "Intermediate",
+      "priceUSD": 39.99,
+      "priceNGN": 40000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    },
+    {
+      "id": "course-mentorship-track",
+      "title": "The Mentorship Track",
+      "track": "Leadership",
+      "tone": "emerald",
+      "description": "Both sides of the covenant in one course: how to be led as a protégé and how to lead as a mentor, with covenant templates included.",
+      "modules": 10,
+      "hours": 13,
+      "level": "All levels",
+      "priceUSD": 34.99,
+      "priceNGN": 35000,
+      "accessUrl": "",
+      "links": {
+        "selar": "",
+        "other": ""
+      },
+      "otherLabel": ""
+    }
+  ]
+}

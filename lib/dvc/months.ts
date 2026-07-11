@@ -10,7 +10,7 @@ export type DVCMonthConfig = {
   navy: string;
   bright: string;
   gold: string;
-  /** July 2026 starts on Wednesday (0 = Sun) */
+  /** 0 = Sunday */
   startWeekday?: number;
 };
 
@@ -36,11 +36,12 @@ export const DVC_MONTHS: DVCMonthConfig[] = [
     year: 2026,
     days: 31,
     theme: "The Anointing to New Beginnings · 31 days",
-    ready: false,
+    ready: true,
     gradient: "linear-gradient(160deg,#1a0840,#4c1d95)",
     navy: "#2e1065",
     bright: "#9333ea",
     gold: "#c69b3a",
+    startWeekday: 6,
   },
   {
     slug: "september",
@@ -49,11 +50,12 @@ export const DVC_MONTHS: DVCMonthConfig[] = [
     year: 2026,
     days: 30,
     theme: "Divine Direction to Finishing Well · 30 days",
-    ready: false,
+    ready: true,
     gradient: "linear-gradient(160deg,#062825,#0f766e)",
     navy: "#0c3b3a",
     bright: "#14b8a6",
     gold: "#c0772e",
+    startWeekday: 2,
   },
   {
     slug: "october",
@@ -62,11 +64,12 @@ export const DVC_MONTHS: DVCMonthConfig[] = [
     year: 2026,
     days: 31,
     theme: "Holy Fire to The Finished Work · 31 days",
-    ready: false,
+    ready: true,
     gradient: "linear-gradient(160deg,#3f060a,#9f1239)",
     navy: "#5b0d12",
     bright: "#dc2626",
     gold: "#c69b3a",
+    startWeekday: 4,
   },
   {
     slug: "november",
@@ -75,11 +78,12 @@ export const DVC_MONTHS: DVCMonthConfig[] = [
     year: 2026,
     days: 30,
     theme: "A Grateful Heart to Gratitude That Multiplies · 30 days",
-    ready: false,
+    ready: true,
     gradient: "linear-gradient(160deg,#0a2414,#15803d)",
     navy: "#13331f",
     bright: "#22a85a",
     gold: "#a9772f",
+    startWeekday: 0,
   },
   {
     slug: "december",
@@ -87,12 +91,13 @@ export const DVC_MONTHS: DVCMonthConfig[] = [
     monthNum: 12,
     year: 2026,
     days: 31,
-    theme: "Emmanuel to Gratitude and Expectation · 31 days",
-    ready: false,
+    theme: "The Victory of the Cross to Crossing Over · 31 days",
+    ready: true,
     gradient: "linear-gradient(160deg,#060d20,#1e3a8a)",
     navy: "#0a1633",
     bright: "#3b5bdb",
     gold: "#c9a84c",
+    startWeekday: 2,
   },
 ];
 

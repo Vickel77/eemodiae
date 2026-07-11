@@ -1,3 +1,6 @@
+import type { DVCMonthConfig } from "./months";
+import { isMonthNavigable } from "./monthUtils";
+
 /** Strip scripts and rewrite static file links for in-app routes */
 
 const GUIDE_FONTS =
@@ -76,6 +79,53 @@ export function rewriteOptionAContent(html: string): string {
     /onclick="shareDay\((\d+),'([^']*)','([^']*)'\)"/g,
     'data-share-day="$1" data-share-theme="$2" data-share-anchor="$3"'
   );
+  return out;
+}
+
+/** Canonical /dvc routes (no /a/2026 prefix). */
+export function rewriteCanonicalDvcLinks(html: string): string {
+  let out = stripScripts(html);
+
+  out = out.replace(/href="\.\/index\.html"/g, 'href="/dvc"');
+  out = out.replace(/href="\.\/2026\.html"/g, 'href="/dvc"');
+  out = out.replace(/href="\.\.\/2026\.html"/g, 'href="/dvc"');
+  out = out.replace(/href="\.\.\/\.\.\/2026\.html"/g, 'href="/dvc"');
+  out = out.replace(
+    /href="\.\/2026\/([a-z]+)\.html"/g,
+    (_, m) => `href="/dvc/${m}"`
+  );
+
+  return out;
+}
+
+export function rewriteCanonicalOptionAContent(html: string): string {
+  let out = rewriteCanonicalDvcLinks(html);
+  out = out.replace(
+    /onclick="shareDay\((\d+),'([^']*)','([^']*)'\)"/g,
+    'data-share-day="$1" data-share-theme="$2" data-share-anchor="$3"'
+  );
+  return out;
+}
+
+/** Turn future month cards into non-clickable "Coming soon" tiles. */
+export function gateFutureMonthCards(
+  html: string,
+  months: DVCMonthConfig[]
+): string {
+  let out = html;
+  for (const m of months) {
+    if (isMonthNavigable(m.monthNum, m.year)) continue;
+    const re = new RegExp(
+      `<a class="m-card ready" href="/dvc/${m.slug}"([^>]*)>([\\s\\S]*?)</a>`,
+      "g"
+    );
+    out = out.replace(re, (_match, attrs, inner) => {
+      const body = inner
+        .replace(/class="m-status ready"/g, 'class="m-status soon"')
+        .replace(/>Ready</g, ">Coming soon<");
+      return `<div class="m-card"${attrs}>${body}</div>`;
+    });
+  }
   return out;
 }
 

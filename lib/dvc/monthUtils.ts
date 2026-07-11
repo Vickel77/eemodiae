@@ -15,6 +15,11 @@ export function isFutureMonth(month: number, year: number): boolean {
   return year === now.getFullYear() && month > now.getMonth() + 1;
 }
 
+/** Past and current months only — future months stay on the shelf. */
+export function isMonthNavigable(month: number, year: number): boolean {
+  return !isFutureMonth(month, year);
+}
+
 function todayDay(): number {
   return new Date().getDate();
 }

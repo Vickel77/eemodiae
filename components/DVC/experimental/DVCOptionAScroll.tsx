@@ -8,7 +8,7 @@ import {
   getDefaultDay,
   maxNavigableDay,
 } from "../../../lib/dvc/monthUtils";
-import DVCGuideCalendar from "./DVCGuideCalendar";
+import DVCGuideCalendarB from "./DVCGuideCalendarB";
 
 type Props = {
   month: DVCMonthConfig;
@@ -42,7 +42,7 @@ export default function DVCOptionAScroll({ month, styles, body }: Props) {
 
     attachShareHandlers(root, (day) => {
       const origin = typeof window !== "undefined" ? window.location.origin : "";
-      return `${origin}/dvc/a/2026/${month.slug}#day${day}`;
+      return `${origin}/dvc/${month.slug}#day${day}`;
     });
 
     // Day themes for the calendar cells (from the hidden TOC)
@@ -145,7 +145,7 @@ export default function DVCOptionAScroll({ month, styles, body }: Props) {
       section.classList.toggle("dvc-day-active", dayNum === currentDay);
     });
 
-    window.history.replaceState(null, "", `/dvc/a/2026/${month.slug}#day${currentDay}`);
+    window.history.replaceState(null, "", `/dvc/${month.slug}#day${currentDay}`);
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [currentDay, month.slug]);
 
@@ -155,7 +155,7 @@ export default function DVCOptionAScroll({ month, styles, body }: Props) {
         {styles ? <style dangerouslySetInnerHTML={{ __html: styles }} /> : null}
         <div dangerouslySetInnerHTML={{ __html: body }} />
       </div>
-      <DVCGuideCalendar
+      <DVCGuideCalendarB
         month={month}
         open={calendarOpen}
         currentDay={currentDay}

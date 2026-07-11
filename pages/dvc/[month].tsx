@@ -1,47 +1,41 @@
-import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
-import DVCMonthViewer from "../../components/DVC/DVCMonthViewer";
+import DVCGuideShell from "../../components/DVC/experimental/DVCGuideShell";
+import DVCOptionAScroll from "../../components/DVC/experimental/DVCOptionAScroll";
+import { loadCanonicalOptionAMonth } from "../../lib/dvc/experimentalContent";
 import { DVC_MONTHS, DVCMonthConfig, getDVCMonth } from "../../lib/dvc/months";
+import { isMonthNavigable } from "../../lib/dvc/monthUtils";
 
 type Props = {
   month: DVCMonthConfig;
+  styles: string;
+  body: string;
 };
 
-export default function DVCMonthPage({ month }: Props) {
+export default function DVCMonthPage({ month, styles, body }: Props) {
   return (
-    <>
-      <Head>
-        <title>
-          Daily Victory Confession — {month.name} {month.year} | Eemodiae
-        </title>
-        <meta
-          name="description"
-          content={`${month.theme} — Daily Victory Confession ${month.year}`}
-        />
-      </Head>
-      <Navbar />
-      <main className="pt-[5rem] min-h-screen bg-[#FBFBFF]">
-        <DVCMonthViewer month={month} />
-      </main>
-      <Footer />
-    </>
+    <DVCGuideShell
+      title={`Daily Victory Confession — ${month.name} ${month.year}`}
+      description={month.theme}
+    >
+      <DVCOptionAScroll month={month} styles={styles} body={body} />
+    </DVCGuideShell>
   );
 }
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: DVC_MONTHS.filter((m) => m.ready).map((m) => ({
-    params: { month: m.slug },
-  })),
+  paths: DVC_MONTHS.filter((m) => isMonthNavigable(m.monthNum, m.year)).map(
+    (m) => ({ params: { month: m.slug } })
+  ),
   fallback: false,
 });
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
   const slug = String(params?.month ?? "");
   const month = getDVCMonth(slug);
-  if (!month?.ready) {
+  if (!month || !isMonthNavigable(month.monthNum, month.year)) {
     return { notFound: true };
   }
-  return { props: { month } };
+
+  const { styles, body } = loadCanonicalOptionAMonth(slug);
+  return { props: { month, styles, body } };
 };
