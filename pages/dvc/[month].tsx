@@ -1,8 +1,8 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import DVCGuideShell from "../../components/DVC/experimental/DVCGuideShell";
 import DVCOptionAScroll from "../../components/DVC/experimental/DVCOptionAScroll";
 import { loadCanonicalOptionAMonth } from "../../lib/dvc/experimentalContent";
-import { DVC_MONTHS, DVCMonthConfig, getDVCMonth } from "../../lib/dvc/months";
+import { DVCMonthConfig, getDVCMonth } from "../../lib/dvc/months";
 import { isMonthNavigable } from "../../lib/dvc/monthUtils";
 
 type Props = {
@@ -22,17 +22,11 @@ export default function DVCMonthPage({ month, styles, body }: Props) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: DVC_MONTHS.filter((m) => isMonthNavigable(m.monthNum, m.year)).map(
-    (m) => ({ params: { month: m.slug } })
-  ),
-  fallback: false,
-});
-
-export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+/** Date checks run per request so new months unlock without a rebuild. */
+export const getServerSideProps: GetServerSideProps<Props> = async ({ params }) => {
   const slug = String(params?.month ?? "");
   const month = getDVCMonth(slug);
-  if (!month || !isMonthNavigable(month.monthNum, month.year)) {
+  if (!month?.ready || !isMonthNavigable(month.monthNum, month.year)) {
     return { notFound: true };
   }
 

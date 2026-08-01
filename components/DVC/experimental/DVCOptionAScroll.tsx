@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
 import type { DVCMonthConfig } from "../../../lib/dvc/months";
 import { attachShareHandlers } from "../../../lib/dvc/experimentalHtml";
 import {
   clampDay,
   getDefaultDay,
+  isFutureMonth,
   maxNavigableDay,
 } from "../../../lib/dvc/monthUtils";
 import DVCGuideCalendarB from "./DVCGuideCalendarB";
@@ -20,12 +22,19 @@ type Props = {
  * "← Prev" / "Next →" move between days (day 1 keeps "← Days"). */
 export default function DVCOptionAScroll({ month, styles, body }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const [calendarOpen, setCalendarOpen] = useState(false);
   const [currentDay, setCurrentDay] = useState<number | null>(null);
   const [themes, setThemes] = useState<Record<number, string>>({});
 
   const { monthNum, year, days: totalDays } = month;
   const maxDay = maxNavigableDay(monthNum, year, totalDays);
+
+  useEffect(() => {
+    if (isFutureMonth(monthNum, year)) {
+      router.replace("/dvc");
+    }
+  }, [monthNum, year, router]);
 
   const goToDay = useCallback(
     (day: number) => {
@@ -124,10 +133,10 @@ export default function DVCOptionAScroll({ month, styles, body }: Props) {
 
     // Initial day: hash if present, otherwise today / latest readable day
     const match = window.location.hash.match(/^#day(\d{1,2})$/i);
-    const initial = match
+    const initialRaw = match
       ? clampDay(parseInt(match[1], 10), monthNum, year, totalDays)
       : getDefaultDay(monthNum, year, totalDays);
-    setCurrentDay(initial);
+    setCurrentDay(initialRaw > 0 ? initialRaw : null);
 
     return () => {
       root.removeEventListener("click", onClick);

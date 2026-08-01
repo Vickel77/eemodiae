@@ -10,7 +10,6 @@ import {
 import {
   extractBodyInner,
   extractStyles,
-  gateFutureMonthCards,
   rewriteCanonicalDvcLinks,
   rewriteCanonicalOptionAContent,
   rewriteGuideShellLinks,
@@ -18,7 +17,6 @@ import {
   rewriteOptionBDayContent,
   scopeGuideStyles,
 } from "./experimentalHtml";
-import { DVC_MONTHS } from "./months";
 
 export type DayEntry = { day: number; theme: string; weekday: string };
 
@@ -56,11 +54,10 @@ export function loadOptionAMonth(slug: string) {
   };
 }
 
-/** Production /dvc year landing — Option A year page with future months gated. */
+/** Production /dvc year landing — Option A year page; future months gated in the browser. */
 export function loadCanonicalYear() {
   const html = fs.readFileSync(optionYearFile("a"), "utf-8");
-  let body = rewriteCanonicalDvcLinks(extractBodyInner(html));
-  body = gateFutureMonthCards(body, DVC_MONTHS);
+  const body = rewriteCanonicalDvcLinks(extractBodyInner(html));
   return {
     styles: scopeGuideStyles(extractStyles(html)),
     body,

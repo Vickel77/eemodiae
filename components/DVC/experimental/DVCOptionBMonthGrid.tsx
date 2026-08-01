@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import type { DVCMonthConfig } from "../../../lib/dvc/months";
-import { maxNavigableDay } from "../../../lib/dvc/monthUtils";
+import { isFutureMonth, maxNavigableDay } from "../../../lib/dvc/monthUtils";
 
 type Props = {
   month: DVCMonthConfig;
@@ -14,8 +15,15 @@ type Props = {
  * day cards are disabled (only today and previous dates open). */
 export default function DVCOptionBMonthGrid({ month, styles, body }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { monthNum, year, days: totalDays } = month;
+
+  useEffect(() => {
+    if (isFutureMonth(monthNum, year)) {
+      router.replace("/dvc/b/2026");
+    }
+  }, [monthNum, year, router]);
 
   useEffect(() => {
     const root = rootRef.current;
