@@ -1,0 +1,466 @@
+/* ============================================================
+   EVENTS  |  eemodiae.org
+   Design system: Cinzel / Cormorant Garamond / Crimson Pro
+   Palette inherited from the eemodiae house style so this page
+   sits beside Testimonies as a sibling, not a stranger.
+   ============================================================ */
+
+:root{
+  /* ============================================================
+     EVENING ROOM
+     Every value below is sampled from the hero banner: the
+     aubergine shadow at its edges, the mulberry panelled wall,
+     the dusty rose of the rug and sofa, and the peach-gold pool
+     of afternoon light by the window. The page and the picture
+     are the same room.
+     ============================================================ */
+
+  /* darks - the banner's own shadow, never true black */
+  --ink:#160B14;          /* deepest corner shadow */
+  --charcoal:#1E0F1B;     /* aubergine */
+  --plum:#2A1522;         /* wall in shade */
+  --navy:#3A1D2A;         /* mulberry, the panelled wall */
+  --wine:#5C2F38;         /* sofa and warm shadow */
+
+  /* the accent: peach-gold light, with rose for emphasis.
+     Named --gold* so the whole sheet inherits without rewiring. */
+  --gold:#E0A87C;         /* peach-gold, the light pool */
+  --gold-bright:#F2C79B;  /* the brightest edge of that light */
+  --gold-soft:#C98080;     /* dusty rose, from the rug - for dark grounds */
+  --rose-deep:#9C4F55;     /* the same rose, deepened so it stays legible on cream */
+
+  /* lights - the lit cream wall */
+  --cream:#F7EDE2;
+  --ivory:#FBF3EA;
+  --camel:#D9A98C;
+  --coffee:#5A3038;       /* wine-brown for body text on light */
+  --chocolate:#3A1D2A;    /* mulberry for headings on light */
+
+  /* hairlines, tinted rose rather than brass */
+  --line:rgba(224,168,124,.26);
+  --line-soft:rgba(224,168,124,.14);
+
+  --text-on-dark:#F4E4D6;
+  --muted-on-dark:#C9A99C;
+  --text-on-light:#3A1D2A;
+  --muted-on-light:#7A5158;
+
+  --live:#A6454C;         /* wine-rose, still in family */
+
+  --shadow-lg:0 30px 80px -30px rgba(22,11,20,.62);
+  --shadow-md:0 18px 44px -20px rgba(22,11,20,.52);
+  --shadow-sm:0 8px 22px -12px rgba(22,11,20,.46);
+  --radius:18px;
+  --radius-sm:12px;
+  --maxw:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--ivory);color:var(--text-on-light);
+  font-family:"Crimson Pro","EB Garamond",Georgia,serif;
+  font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px;border-radius:4px}
+
+h1,h2,h3,.el-display{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.02em;line-height:1.15}
+h2{font-size:clamp(1.9rem,4.4vw,3rem);margin:0}
+h3{font-size:clamp(1.2rem,2.4vw,1.5rem);margin:0}
+p{margin:0}
+
+.el-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.el-eyebrow{
+  font-family:"Cinzel",serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--rose-deep);
+}
+
+/* ============================ BUTTONS ============================ */
+.el-btn{
+  display:inline-flex;align-items:center;gap:.55rem;cursor:pointer;
+  font-family:"Cinzel",serif;font-size:.76rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;
+  padding:.9rem 1.7rem;border-radius:999px;border:1px solid transparent;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease),color .3s var(--ease);
+}
+.el-btn svg{width:16px;height:16px;flex:0 0 auto}
+.el-btn--gold{background:linear-gradient(135deg,var(--gold-bright),var(--gold-soft));color:#2A1522;box-shadow:var(--shadow-sm)}
+.el-btn--gold:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.el-btn--ghost{background:transparent;color:var(--gold-bright);border-color:var(--line)}
+.el-btn--ghost:hover{background:rgba(224,168,124,.14);border-color:var(--gold)}
+.el-btn--quiet{background:transparent;color:var(--coffee);border-color:rgba(224,168,124,.45)}
+.el-btn--quiet:hover{background:rgba(224,168,124,.12);border-color:var(--gold)}
+@media (prefers-reduced-motion:reduce){.el-btn:hover{transform:none}}
+
+/* ============================ HERO ============================
+   The banner is a finished 1989x790 artwork carrying its own title
+   and verse, so the frame keeps its exact ratio at every width and
+   the image is contained - never cropped, never covered by text.
+   Everything here is scoped under .events-page — .el-hero/.el-hero__bg
+   are shared bare class names used by every other page's hero too, and
+   this page's "contain, don't crop" treatment must not leak onto them. */
+.events-page .el-hero{position:relative;overflow:hidden;background:var(--charcoal);display:block;min-height:0}
+.events-page .el-hero__frame{
+  position:relative;width:100%;
+  aspect-ratio:var(--hero-ratio,1989/790);
+  overflow:hidden;
+}
+.events-page .el-hero__bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:var(--hero-img,none);
+  background-size:contain;background-position:center;background-repeat:no-repeat;
+  background-color:#2A1522;
+  transform-origin:center;will-change:transform;
+  animation:eventsHeroDrift 30s var(--ease) infinite alternate;
+}
+/* a slow breath in and out - the room feels inhabited, never restless */
+@keyframes eventsHeroDrift{
+  from{transform:scale(1.005) translate3d(0,0,0)}
+  to  {transform:scale(1.04) translate3d(0,-0.5%,0)}
+}
+@media (max-width:900px){
+  .events-page .el-hero__bg{animation-name:eventsHeroDriftSm}
+}
+@keyframes eventsHeroDriftSm{
+  from{transform:scale(1.005)}
+  to  {transform:scale(1.03)}
+}
+/* warm light drifting across the wall, echoing the window in the art */
+.events-page .el-hero__frame::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(102deg,transparent 36%,rgba(255,232,208,.17) 47%,rgba(255,240,222,.27) 50%,rgba(255,232,208,.17) 53%,transparent 64%);
+  transform:translateX(-115%);
+  animation:eventsHeroSheen 11s ease-in-out 1.8s infinite;
+  mix-blend-mode:screen;
+}
+@keyframes eventsHeroSheen{
+  0%{transform:translateX(-115%)}
+  58%,100%{transform:translateX(115%)}
+}
+.events-page .el-hero__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(22,11,20,.22) 0%,rgba(22,11,20,0) 20%,rgba(22,11,20,0) 76%,rgba(22,11,20,.32) 100%);
+}
+.events-page .el-hero__frame{animation:eventsHeroRise 1.3s var(--ease) both}
+@keyframes eventsHeroRise{
+  from{opacity:0;transform:scale(1.02)}
+  to{opacity:1;transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .events-page .el-hero__bg,.events-page .el-hero__frame,.events-page .el-hero__frame::after{animation:none}
+  .events-page .el-hero__bg{transform:none}
+}
+
+/* ============================ COUNTDOWN BAND ============================
+   The next gathering, counted down in real time. This is the page's
+   signature: the whole point of an events page is "how long until
+   we gather", so that question gets its own band directly under the
+   banner rather than being buried inside a card. */
+.el-next{
+  background:linear-gradient(118deg,var(--charcoal),var(--navy) 55%,var(--wine) 130%);
+  color:var(--text-on-dark);border-bottom:1px solid var(--line-soft);
+  padding:clamp(1.5rem,4vw,2.4rem) 0;
+}
+.el-next__inner{
+  max-width:var(--maxw);margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:clamp(1.2rem,4vw,3rem);flex-wrap:wrap;
+}
+.el-next__label{font-family:"Cinzel",serif;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold-soft);display:block;margin-bottom:.5rem}
+.el-next__title{font-family:"Cinzel",serif;font-size:clamp(1.15rem,2.6vw,1.5rem);color:var(--gold-bright);line-height:1.25;margin-bottom:.4rem}
+.el-next__when{color:var(--muted-on-dark);font-size:.98rem}
+.el-clock{display:flex;gap:clamp(.6rem,2vw,1.3rem);flex-wrap:wrap}
+.el-clock__unit{text-align:center;min-width:58px}
+.el-clock__num{
+  display:block;font-family:"Cinzel",serif;font-size:clamp(1.5rem,4vw,2.3rem);
+  color:#F7EDE2;line-height:1;font-variant-numeric:tabular-nums;
+}
+.el-clock__word{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-on-dark);margin-top:.4rem;display:block}
+.el-clock__sep{align-self:center;color:var(--gold-soft);font-size:1.4rem;opacity:.5;margin-top:-.6rem}
+@media (max-width:560px){.el-clock__sep{display:none}}
+
+/* ============================ SECTION SHELL ============================ */
+.el-section{padding:clamp(46px,8vw,80px) 0}
+.el-section--light{background:var(--ivory)}
+.el-section--warm{background:linear-gradient(180deg,var(--ivory),#F3E4D8)}
+.el-section--dark{background:linear-gradient(160deg,var(--charcoal),var(--plum) 70%,var(--navy));color:var(--text-on-dark)}
+.el-head{max-width:640px;margin:0 auto clamp(2rem,5vw,3rem);text-align:center}
+.el-head h2{margin:.7rem 0 0;color:var(--chocolate)}
+.el-section--dark .el-head h2{color:#F7EDE2}
+.el-head p{margin-top:1rem;color:var(--muted-on-light);font-size:1.05rem}
+.el-section--dark .el-head p{color:var(--muted-on-dark)}
+.el-rule{width:74px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.4rem auto 0}
+
+/* ============================ EVENT CARD ============================
+   One card carries the whole decision: when, where, who, and the two
+   actions that matter (register, add to calendar). Status is derived
+   from the date at load, so the ministry never moves an event by hand. */
+.el-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:clamp(1.2rem,3vw,1.8rem)}
+
+.el-card{
+  position:relative;display:flex;flex-direction:column;
+  background:#FFFCF8;border:1px solid var(--line-soft);border-radius:var(--radius);
+  overflow:hidden;box-shadow:0 12px 30px -22px rgba(0,0,0,.4);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease);
+}
+.el-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line)}
+@media (prefers-reduced-motion:reduce){.el-card:hover{transform:none}}
+
+/* cover image, with a date medallion anchored to it */
+.el-card__media{position:relative;aspect-ratio:16/9;overflow:hidden;background:linear-gradient(135deg,var(--navy),var(--charcoal))}
+.el-card__media img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.el-card:hover .el-card__media img{transform:scale(1.05)}
+.el-card__media--empty{display:grid;place-items:center}
+.el-card__media--empty span{
+  font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(242,199,155,.5);border:1px dashed rgba(242,199,155,.32);padding:.4rem .9rem;border-radius:999px;
+}
+/* the date reads as a stamp on the cover - the single most scanned fact */
+.el-date{
+  position:absolute;left:1rem;bottom:1rem;z-index:2;
+  background:rgba(251,243,234,.95);backdrop-filter:blur(4px);
+  border-radius:var(--radius-sm);padding:.5rem .85rem;text-align:center;
+  box-shadow:var(--shadow-sm);min-width:62px;
+}
+.el-date__day{display:block;font-family:"Cinzel",serif;font-size:1.5rem;line-height:1;color:var(--chocolate)}
+.el-date__mon{display:block;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--rose-deep);margin-top:.25rem}
+.el-date__yr{display:block;font-size:.58rem;letter-spacing:.14em;color:var(--muted-on-light);margin-top:.1rem}
+
+/* status: upcoming / live / past, computed not typed */
+.el-status{
+  position:absolute;top:1rem;right:1rem;z-index:2;
+  font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.32rem .7rem;border-radius:999px;display:inline-flex;align-items:center;gap:.4rem;
+}
+.el-status--soon{background:rgba(240,199,155,.94);color:#2A1522}
+.el-status--past{background:rgba(58,29,42,.86);color:var(--cream)}
+.el-status--live{background:var(--live);color:#fff}
+.el-status--live::before{
+  content:"";width:7px;height:7px;border-radius:50%;background:#fff;
+  animation:pulse 1.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+@media (prefers-reduced-motion:reduce){.el-status--live::before{animation:none}}
+
+.el-card__body{padding:1.4rem 1.5rem 1.5rem;display:flex;flex-direction:column;flex:1}
+.el-card__type{font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose-deep);margin-bottom:.6rem}
+/* inside the dark spotlight the lighter rose is correct */
+.el-spot .el-card__type{color:var(--gold-soft)}
+.el-card__title{font-family:"Cinzel",serif;font-size:1.12rem;color:var(--chocolate);line-height:1.3;margin-bottom:.7rem}
+.el-card__blurb{color:var(--muted-on-light);font-size:1rem;line-height:1.6;margin-bottom:1.1rem;flex:1}
+
+/* the facts: time, venue, speaker - iconed so they scan without reading */
+.el-facts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem}
+.el-fact{display:flex;align-items:flex-start;gap:.6rem;font-size:.95rem;color:var(--coffee);min-width:0}
+.el-fact svg{width:15px;height:15px;flex:0 0 auto;margin-top:.28rem;color:var(--rose-deep)}
+.el-fact span{min-width:0;overflow-wrap:anywhere}
+.el-fact a{color:var(--coffee);border-bottom:1px solid var(--line);transition:color .3s var(--ease)}
+.el-fact a:hover{color:var(--gold-soft)}
+
+/* seats remaining - momentum without pressure */
+.el-seats{margin-bottom:1.1rem}
+.el-seats__bar{height:5px;border-radius:999px;background:rgba(224,168,124,.18);overflow:hidden}
+.el-seats__fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold-soft),var(--gold-bright));transition:width 1.1s var(--ease)}
+.el-seats__text{font-size:.85rem;color:var(--muted-on-light);margin-top:.45rem;display:flex;justify-content:space-between;gap:.6rem;flex-wrap:wrap}
+.el-seats__text b{color:var(--coffee);font-weight:600}
+.el-seats--full .el-seats__fill{background:linear-gradient(90deg,#8C3A44,#B0555C)}
+
+.el-card__actions{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:auto}
+.el-card__actions .el-btn{font-size:.68rem;padding:.7rem 1.15rem}
+
+/* a quiet row of secondary links under the main actions */
+.el-mini{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--line-soft)}
+.el-mini button,.el-mini a{
+  background:none;border:none;padding:0;cursor:pointer;
+  font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rose-deep);display:inline-flex;align-items:center;gap:.35rem;transition:color .3s var(--ease);
+}
+.el-mini button:hover,.el-mini a:hover{color:var(--wine)}
+/* on the dark spotlight they invert */
+.el-spot .el-mini button,.el-spot .el-mini a{color:var(--gold-soft)}
+.el-spot .el-mini button:hover,.el-spot .el-mini a:hover{color:var(--gold-bright)}
+.el-mini svg{width:13px;height:13px}
+
+/* ============================ FEATURED NEXT EVENT ============================ */
+.el-spot{
+  position:relative;max-width:940px;margin:0 auto clamp(2rem,5vw,3rem);
+  background:linear-gradient(150deg,var(--navy),var(--plum) 58%,var(--charcoal));
+  color:var(--text-on-dark);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-lg);
+  display:grid;grid-template-columns:1.05fr 1fr;
+}
+@media (max-width:820px){.el-spot{grid-template-columns:1fr}}
+.el-spot__media{position:relative;min-height:230px;overflow:hidden;background:rgba(0,0,0,.25)}
+.el-spot__media img{width:100%;height:100%;object-fit:cover}
+.el-spot__media--empty{display:grid;place-items:center}
+.el-spot__media--empty span{
+  font-family:"Cinzel",serif;font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;
+  color:rgba(242,199,155,.45);border:1px dashed rgba(242,199,155,.3);padding:.4rem .9rem;border-radius:999px;
+}
+.el-spot__body{padding:clamp(1.6rem,4vw,2.4rem);display:flex;flex-direction:column}
+.el-spot__tag{
+  display:inline-flex;align-items:center;gap:.45rem;align-self:flex-start;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold-soft));color:#2A1522;
+  font-family:"Cinzel",serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  padding:.35rem .8rem;border-radius:999px;margin-bottom:1rem;
+}
+.el-spot__tag svg{width:13px;height:13px}
+.el-spot__title{font-family:"Cinzel",serif;font-size:clamp(1.3rem,3vw,1.8rem);color:var(--gold-bright);line-height:1.25;margin-bottom:.8rem}
+.el-spot__blurb{color:var(--text-on-dark);font-size:1.02rem;line-height:1.65;margin-bottom:1.2rem}
+.el-spot .el-fact{color:var(--text-on-dark)}
+.el-spot .el-fact svg{color:var(--gold-soft)}
+.el-spot .el-fact a{color:var(--text-on-dark);border-bottom-color:var(--line)}
+.el-spot .el-fact a:hover{color:var(--gold-bright)}
+.el-spot .el-seats__text{color:var(--muted-on-dark)}
+.el-spot .el-seats__text b{color:var(--gold-bright)}
+.el-spot .el-mini{border-top-color:var(--line-soft)}
+
+/* ============================ FILTERS ============================ */
+.el-filters{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:clamp(1.6rem,4vw,2.4rem)}
+.el-chip{
+  cursor:pointer;background:transparent;border:1px solid var(--line);
+  border-radius:999px;padding:.5rem 1.1rem;
+  font-family:"Cinzel",serif;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted-on-light);display:inline-flex;align-items:center;gap:.45rem;
+  transition:all .3s var(--ease);
+}
+.el-chip:hover{border-color:var(--gold);color:var(--coffee)}
+.el-chip.is-active{background:var(--chocolate);color:var(--gold-bright);border-color:var(--chocolate)}
+.el-chip__count{font-size:.6rem;opacity:.75}
+
+/* ============================ PAST EVENTS ============================
+   Past gatherings are an archive, not a feed: tighter rows, and the
+   single action that matters is hearing what was preached. */
+.el-past{display:flex;flex-direction:column;gap:.9rem;max-width:900px;margin:0 auto}
+.el-row{
+  display:grid;grid-template-columns:82px 1fr auto;align-items:center;gap:1.2rem;
+  background:rgba(255,255,255,.05);border:1px solid var(--line-soft);
+  border-radius:var(--radius-sm);padding:1rem 1.2rem;
+  transition:border-color .35s var(--ease),background .35s var(--ease),transform .35s var(--ease);
+}
+.el-row:hover{border-color:var(--line);background:rgba(255,255,255,.08);transform:translateX(3px)}
+@media (prefers-reduced-motion:reduce){.el-row:hover{transform:none}}
+@media (max-width:640px){
+  .el-row{grid-template-columns:62px 1fr;gap:.9rem}
+  .el-row__go{grid-column:1 / -1;justify-self:start;margin-top:.3rem}
+}
+.el-row__date{text-align:center}
+.el-row__day{display:block;font-family:"Cinzel",serif;font-size:1.35rem;line-height:1;color:var(--gold-bright)}
+.el-row__mon{display:block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-on-dark);margin-top:.28rem}
+.el-row__yr{display:block;font-size:.56rem;letter-spacing:.12em;color:var(--muted-on-dark);opacity:.7;margin-top:.1rem}
+.el-row__title{font-family:"Cinzel",serif;font-size:1rem;color:#F7EDE2;line-height:1.35;margin-bottom:.25rem}
+.el-row__meta{font-size:.9rem;color:var(--muted-on-dark);display:flex;gap:.9rem;flex-wrap:wrap}
+.el-row__meta span{display:inline-flex;align-items:center;gap:.35rem}
+.el-row__meta svg{width:13px;height:13px;color:var(--gold-soft)}
+.el-row__go{
+  display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap;
+  font-family:"Cinzel",serif;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-bright);border:1px solid var(--line);border-radius:999px;padding:.55rem 1.05rem;
+  transition:all .3s var(--ease);
+}
+.el-row__go:hover{background:var(--gold-bright);color:#2A1522;border-color:var(--gold-bright)}
+.el-row__go svg{width:14px;height:14px}
+.el-row__none{font-size:.85rem;color:var(--muted-on-dark);opacity:.65;font-style:italic}
+
+/* ============================ EMPTY STATE ============================ */
+.el-empty{
+  text-align:center;padding:clamp(2rem,6vw,3.4rem) 1.5rem;
+  border:1px dashed var(--line);border-radius:var(--radius);max-width:520px;margin:0 auto;
+}
+.el-empty h3{color:var(--chocolate);margin-bottom:.7rem}
+.el-section--dark .el-empty h3{color:#F7EDE2}
+.el-empty p{color:var(--muted-on-light);font-size:1rem}
+.el-section--dark .el-empty p{color:var(--muted-on-dark)}
+
+/* ============================ REGISTER ============================ */
+.el-channel{display:flex;gap:1rem;justify-content:center;max-width:640px;margin:0 auto 1.8rem;flex-wrap:wrap}
+.el-channel__btn{
+  flex:1 1 200px;max-width:280px;position:relative;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:"Cinzel",serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-on-dark);background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem 1.2rem;
+  transition:all .3s var(--ease);
+}
+.el-channel__btn svg{width:22px;height:22px;flex:0 0 auto}
+.el-channel__btn:hover{border-color:var(--gold);transform:translateY(-2px)}
+.el-channel__btn.is-active{background:linear-gradient(135deg,rgba(224,168,124,.2),rgba(201,128,128,.07));border-color:var(--gold);color:#F7EDE2}
+.el-channel__pill{
+  position:absolute;top:-.6rem;right:-.4rem;font-style:normal;font-family:"Cinzel",serif;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:#2A1522;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold-soft));
+  padding:.2rem .55rem;border-radius:999px;
+}
+@media (prefers-reduced-motion:reduce){.el-channel__btn:hover{transform:none}}
+
+.el-form{
+  max-width:640px;margin:0 auto;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.6rem,4vw,2.6rem);
+  backdrop-filter:blur(6px);
+}
+.el-field{margin-bottom:1.2rem;min-width:0}
+.el-field label{
+  display:block;font-family:"Cinzel",serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-bright);margin-bottom:.5rem;
+}
+.el-field label .req{color:var(--gold);opacity:.8}
+.el-input,.el-select,.el-textarea{
+  width:100%;box-sizing:border-box;max-width:100%;
+  font-family:"Crimson Pro",serif;font-size:1rem;color:#F7EDE2;
+  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:.85rem 1rem;transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.el-textarea{resize:vertical;min-height:110px;line-height:1.6}
+.el-select{cursor:pointer}
+.el-select option{background:var(--charcoal);color:#F7EDE2}
+.el-input::placeholder,.el-textarea::placeholder{color:rgba(201,169,156,.62)}
+.el-input:focus,.el-select:focus,.el-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,168,124,.2)}
+.el-row2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.el-row2 > .el-field{min-width:0}
+@media (max-width:560px){
+  .el-row2{grid-template-columns:1fr}
+  .el-form{padding:1.3rem 1.1rem}
+  .el-channel{gap:.7rem}
+  .el-channel__btn{flex:1 1 100%;max-width:none;padding:.9rem 1rem}
+  .el-channel__pill{right:.5rem;top:-.5rem}
+  .el-section{padding-top:40px;padding-bottom:40px}
+}
+.el-check{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:1.2rem}
+.el-check input{margin-top:.35rem;width:17px;height:17px;accent-color:var(--gold);flex:0 0 auto}
+.el-check label{font-size:.95rem;color:var(--text-on-dark);line-height:1.5}
+.el-note{
+  display:flex;align-items:flex-start;gap:.6rem;margin:.2rem 0 1.2rem;
+  font-size:.92rem;line-height:1.5;color:var(--muted-on-dark);
+  background:rgba(224,168,124,.07);border:1px solid var(--line-soft);
+  border-radius:var(--radius-sm);padding:.85rem 1rem;min-width:0;max-width:100%;
+}
+.el-note > span{min-width:0;flex:1 1 auto;overflow-wrap:anywhere}
+.el-note svg{width:18px;height:18px;flex:0 0 auto;margin-top:.15rem;color:var(--gold-soft)}
+.el-note--photo{background:rgba(224,168,124,.12);border-color:var(--line)}
+.el-note__mail{color:var(--gold-bright);font-weight:600;overflow-wrap:anywhere;word-break:break-all}
+.el-form__submit{width:100%;justify-content:center;margin-top:.4rem}
+.el-form__msg{margin-top:.9rem;font-size:.95rem;min-height:1.2em}
+.el-form__msg.ok{color:var(--gold-bright)}
+.el-form__msg.err{color:#E9A0A0}
+.el-honey{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+/* ============================ TOAST ============================ */
+.el-toast{
+  position:fixed;left:50%;bottom:26px;transform:translate(-50%,140%);
+  z-index:200;background:var(--chocolate);color:var(--cream);
+  border:1px solid var(--line);border-radius:999px;padding:.8rem 1.5rem;
+  font-family:"Cinzel",serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:var(--shadow-md);transition:transform .45s var(--ease);max-width:90vw;text-align:center;
+}
+.el-toast.is-shown{transform:translate(-50%,0)}
+
+/* ============================ REVEAL ============================ */
+.el-reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.el-reveal.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.el-reveal{opacity:1;transform:none;transition:none}}

@@ -1,0 +1,133 @@
+
+<header class="hero">
+  <img src="/assets/give-hero.jpg" alt="GIVE. Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver. 2 Corinthians 9:7 KJV. A joyful believer giving online from her phone in a warm sunlit home." fetchpriority="high" />
+  <div class="hero-particles" aria-hidden="true" id="hero-particles"></div>
+</header>
+
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Ways To Give</p>
+      <h1 class="section-title" id="ways-title">Choose How You Would Love To Sow</h1>
+      <svg class="stroke-divider" viewBox="0 0 300 22" fill="none" aria-hidden="true"><path d="M6 12 C 80 4, 220 4, 294 10" stroke="#D39B2A" stroke-width="5" stroke-linecap="round" opacity=".8"/></svg>
+      <p class="section-lede">Give securely by card or by direct bank transfer. Every channel below goes straight to the ministry.</p>
+    </div>
+
+    <div class="give-stage">
+      <!-- ============ MINISTRY ACCOUNT ============ -->
+      <article class="desk reveal" id="ministry-desk">
+        <h2 class="desk-banner">Ministry Account</h2>
+        <div class="desk-body">
+          <div class="panel is-open" data-panel="ministry-choice">
+            <div class="choice-row">
+              <button class="chip-btn" type="button" data-open-panel="ministry-paystack">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg>
+                Paystack
+              </button>
+              <button class="chip-btn" type="button" data-open-panel="ministry-transfer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M14 6l6 6-6 6"/></svg>
+                Give With Transfer
+              </button>
+            </div>
+            <p class="desk-note">Card giving is powered by Paystack. Transfers show our verified ministry accounts.</p>
+          </div>
+
+          <div class="panel" data-panel="ministry-paystack" tabindex="-1">
+            <button class="back-btn" type="button" data-open-panel="ministry-choice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+              Back
+            </button>
+
+            <div id="ps-form-wrap">
+              <div class="pay-form">
+                <div class="field">
+                  <label for="ps-email">Email</label>
+                  <input type="email" id="ps-email" name="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+                </div>
+
+                <div class="field freq-field">
+                  <label id="freq-label">Give</label>
+                  <div class="freq-toggle" role="group" aria-labelledby="freq-label">
+                    <button type="button" class="freq-btn" data-freq="once" aria-pressed="true">One-Time</button>
+                    <button type="button" class="freq-btn" data-freq="monthly" aria-pressed="false">Monthly</button>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="ps-currency">Currency</label>
+                  <select id="ps-currency"></select>
+                </div>
+
+                <div class="field">
+                  <label for="ps-amount" id="ps-amount-label">Amount</label>
+                  <input type="number" id="ps-amount" name="amount" placeholder="Enter amount" min="1" inputmode="numeric">
+                </div>
+
+                <div class="field">
+                  <label for="ps-designation">Designation (optional)</label>
+                  <select id="ps-designation">
+                    <option value="">General</option>
+                    <option>Tithe</option>
+                    <option>Offering</option>
+                    <option>Missions</option>
+                    <option>Building Project</option>
+                    <option>Seed</option>
+                  </select>
+                </div>
+
+                <p class="form-msg" id="ps-msg" role="status" aria-live="polite"></p>
+                <p class="secure-note">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="9" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                  Secured by Paystack
+                </p>
+                <button class="btn" type="button" id="ps-pay">Give Now</button>
+              </div>
+            </div>
+
+            <div class="pay-success" id="ps-success" hidden tabindex="-1" role="status" aria-live="polite">
+              <span class="success-check" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+              </span>
+              <h3>Received With Joy</h3>
+              <p id="success-detail"></p>
+              <p class="success-verse">&ldquo;Every man according as he purposeth in his heart, so let him give&hellip; for God loveth a cheerful giver.&rdquo;<cite class="success-cite">2 Corinthians 9:7</cite></p>
+              <button class="btn" type="button" id="give-again">Give Again</button>
+            </div>
+          </div>
+
+          <div class="panel" data-panel="ministry-transfer" tabindex="-1">
+            <button class="back-btn" type="button" data-open-panel="ministry-choice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+              Back
+            </button>
+            <div class="acct-list" id="ministry-accts"></div>
+            <div class="acct-codes" id="ministry-codes"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============ PROPHET OFFERING ============ -->
+      <article class="desk reveal" id="prophet-desk">
+        <h2 class="desk-banner">Prophet Offering</h2>
+        <div class="desk-body">
+          <div class="panel is-open" data-panel="prophet-choice">
+            <div class="choice-row">
+              <button class="chip-btn" type="button" data-open-panel="prophet-transfer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h14M14 6l6 6-6 6"/></svg>
+                Give With Transfer
+              </button>
+            </div>
+            <p class="desk-note">Honour the man of God through a direct bank transfer.</p>
+          </div>
+
+          <div class="panel" data-panel="prophet-transfer" tabindex="-1">
+            <button class="back-btn" type="button" data-open-panel="prophet-choice">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+              Back
+            </button>
+            <div class="acct-list" id="prophet-accts"></div>
+            <div class="acct-codes" id="prophet-codes"></div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>

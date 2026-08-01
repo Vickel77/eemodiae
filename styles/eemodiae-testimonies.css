@@ -1,0 +1,503 @@
+/* ============================================================
+   eemodiae.org  TESTIMONIES
+   Design system: Cinzel / Cormorant Garamond / Crimson Pro / EB Garamond
+   Palette: warm gold, deep charcoal/plum-navy, cream/ivory
+   Prefix: el-  (matches eemodiae landing)
+   Self-contained. No external deps beyond fonts + FormSubmit action.
+   CMS hooks via data-cms attrs. No em-dashes anywhere.
+   ============================================================ */
+:root{
+  --ink:#0E0E0E;
+  --charcoal:#141118;
+  --plum:#1c1622;
+  --navy:#211a33;
+  --gold:#c9a24b;
+  --gold-bright:#e4c169;
+  --gold-soft:#b8923f;
+  --cream:#f5f0e6;
+  --ivory:#faf6ee;
+  --camel:#c9a878;
+  --coffee:#4a3b2a;
+  --chocolate:#2c2013;
+  --line:rgba(201,162,75,.22);
+  --line-soft:rgba(201,162,75,.12);
+  --text-on-dark:#efe7d6;
+  --muted-on-dark:#b8ad97;
+  --text-on-light:#2c2013;
+  --muted-on-light:#6b5a44;
+  --shadow-lg:0 30px 80px -30px rgba(0,0,0,.6);
+  --shadow-md:0 18px 44px -20px rgba(0,0,0,.5);
+  --radius:18px;
+  --radius-sm:12px;
+  --maxw:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  font-family:"Crimson Pro","EB Garamond",Georgia,serif;
+  background:var(--ivory);
+  color:var(--text-on-light);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.el-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+h1,h2,h3,.el-display{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.02em;line-height:1.15}
+.el-serif{font-family:"Cormorant Garamond",serif}
+.el-eyebrow{
+  font-family:"Cinzel",serif;font-size:.72rem;font-weight:600;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--gold-soft);
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* ---------- buttons ---------- */
+.el-btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:"Cinzel",serif;font-weight:600;font-size:.82rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:.95rem 1.8rem;border-radius:999px;cursor:pointer;border:1px solid transparent;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .35s var(--ease),color .35s var(--ease);
+  white-space:nowrap;
+}
+.el-btn:focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}
+.el-btn--gold{
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold) 55%,var(--gold-soft));
+  color:#241a08;box-shadow:0 14px 30px -12px rgba(201,162,75,.7);
+}
+.el-btn--gold:hover{transform:translateY(-3px);box-shadow:0 20px 40px -12px rgba(201,162,75,.85)}
+.el-btn--ghost{background:transparent;border-color:var(--line);color:var(--gold-bright)}
+.el-btn--ghost:hover{background:rgba(201,162,75,.1);transform:translateY(-3px)}
+.el-btn--dark{background:var(--chocolate);color:var(--cream)}
+.el-btn--dark:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+@media (prefers-reduced-motion:reduce){.el-btn:hover{transform:none}}
+
+/* ============================ HERO ============================ */
+/* Reserved image space. Drop a panoramic image into --hero-img later.
+   Until then a rich gold-on-charcoal plate carries the header. */
+.el-hero{
+  position:relative;
+  background:
+    radial-gradient(1200px 500px at 78% -10%, rgba(201,162,75,.18), transparent 60%),
+    linear-gradient(180deg, #12100f 0%, #17130f 55%, #0d0b0a 100%);
+  color:var(--text-on-dark);
+  overflow:hidden;
+  min-height:100vh;
+  width:100%;
+  display:flex;align-items:center;
+}
+/* When Shemi supplies the image, set data-hero-img on the section (JS reads it)
+   or add inline style="--hero-img:url('...')" and this layer paints it. */
+.el-hero__bg{
+  position:absolute;inset:0;z-index:0;
+  background-image:var(--hero-img,none);
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+}
+.el-hero__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(8,6,6,.86) 0%,rgba(8,6,6,.55) 42%,rgba(8,6,6,.12) 72%,rgba(8,6,6,0) 100%),
+             linear-gradient(180deg,rgba(8,6,6,.4) 0%,rgba(8,6,6,0) 30%,rgba(8,6,6,0) 70%,rgba(8,6,6,.55) 100%);
+}
+.el-hero__grain{
+  position:absolute;inset:0;opacity:.05;pointer-events:none;mix-blend-mode:overlay;z-index:2;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* the empty-state marker shows only while no image is set, so the space reads as intentional */
+.el-hero__placeholder{
+  position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+}
+.el-hero__placeholder span{
+  font-family:"Cinzel",serif;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(201,162,75,.32);border:1px dashed rgba(201,162,75,.25);
+  padding:.5rem 1rem;border-radius:999px;
+}
+.el-hero.has-image .el-hero__placeholder{display:none}
+
+/* ---------- banner mode ----------
+   Used when the hero image is a finished artwork that already carries
+   its own title and verse. The overlaid text is hidden, the scrim is
+   lightened so the art reads cleanly, and the image itself animates. */
+.el-hero.is-banner{min-height:0;display:block}
+.el-hero.is-banner .el-hero__inner{display:none}
+.el-hero.is-banner .el-hero__scrim{
+  background:linear-gradient(180deg,rgba(8,6,6,.30) 0%,rgba(8,6,6,0) 22%,rgba(8,6,6,0) 74%,rgba(8,6,6,.34) 100%);
+}
+.el-hero.is-banner .el-hero__grain{opacity:.035}
+/* the frame keeps the banner's own aspect ratio so nothing is cropped away */
+.el-hero__frame{position:relative;width:100%;aspect-ratio:var(--hero-ratio,1536/610);overflow:hidden}
+.el-hero.is-banner .el-hero__bg{
+  transform-origin:center;
+  will-change:transform;
+  animation:heroDrift 26s var(--ease) infinite alternate;
+}
+/* slow cinematic drift - gentle enough that the contained artwork
+   never pushes its title or verse past the frame edge */
+@keyframes heroDrift{
+  from{transform:scale(1.005) translate3d(0,0,0)}
+  to  {transform:scale(1.04) translate3d(0,-0.5%,0)}
+}
+/* light sweep travelling across the artwork, echoing the gold rays */
+.el-hero.is-banner .el-hero__frame::after{
+  content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(105deg,transparent 34%,rgba(255,240,205,.20) 47%,rgba(255,247,225,.30) 50%,rgba(255,240,205,.20) 53%,transparent 66%);
+  transform:translateX(-115%);
+  animation:heroSheen 9s ease-in-out 1.4s infinite;
+  mix-blend-mode:screen;
+}
+@keyframes heroSheen{
+  0%{transform:translateX(-115%)}
+  55%,100%{transform:translateX(115%)}
+}
+/* first paint: the banner settles in rather than snapping on */
+.el-hero.is-banner .el-hero__frame{animation:heroRise 1.25s var(--ease) both}
+@keyframes heroRise{
+  from{opacity:0;transform:scale(1.03)}
+  to{opacity:1;transform:scale(1)}
+}
+@media (prefers-reduced-motion:reduce){
+  .el-hero.is-banner .el-hero__bg,
+  .el-hero.is-banner .el-hero__frame,
+  .el-hero.is-banner .el-hero__frame::after{animation:none}
+  .el-hero.is-banner .el-hero__bg{transform:none}
+}
+/* The banner is a finished 1536x610 artwork with its title and verse
+   built in, so it must never be cropped. The frame keeps the exact
+   2.52:1 ratio at every width and the image is contained, not covered
+   - the whole banner stays readable down to the smallest phone. */
+.el-hero.is-banner .el-hero__bg{
+  background-size:contain;
+  background-position:center;
+  background-color:#0d0b0a;
+}
+@media (max-width:900px){
+  /* drift gently reduced so nothing drifts out of frame when contained */
+  .el-hero.is-banner .el-hero__bg{animation-name:heroDriftSm}
+}
+@keyframes heroDriftSm{
+  from{transform:scale(1.005) translate3d(0,0,0)}
+  to  {transform:scale(1.035) translate3d(0,-0.4%,0)}
+}
+.el-hero__inner{position:relative;z-index:3;width:100%}
+.el-hero__copy{max-width:640px;padding:4.5rem 0}
+.el-hero__eyebrow{color:var(--gold-bright);margin-bottom:1rem}
+.el-hero__title{font-size:clamp(2.4rem,6vw,4rem);color:#fbf4e4}
+.el-hero__lead{
+  font-family:"Cormorant Garamond",serif;font-size:clamp(1.15rem,2.4vw,1.5rem);
+  color:var(--text-on-dark);margin-top:1.1rem;max-width:52ch;font-style:italic;
+}
+.el-hero__verse{margin-top:1.4rem;color:var(--muted-on-dark);font-size:1.02rem}
+.el-hero__verse b{color:var(--gold-bright);font-weight:600;font-style:normal}
+
+/* ============================ SECTION SHELL ============================ */
+.el-section{padding:clamp(3.5rem,7vw,6rem) 0}
+.el-section--cream{background:var(--cream)}
+.el-section--light{background:var(--ivory)}
+.el-head{text-align:center;max-width:640px;margin:0 auto 2.6rem}
+.el-head h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-top:.6rem}
+.el-head p{color:var(--muted-on-light);margin-top:.7rem;font-size:1.08rem}
+.el-rule{width:64px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.3rem auto 0}
+
+/* ============================ FEATURED SPOTLIGHT ============================ */
+.el-spotlight{
+  position:relative;background:linear-gradient(150deg,var(--navy),var(--plum) 60%,var(--charcoal));
+  color:var(--text-on-dark);border:1px solid var(--line);border-radius:var(--radius);
+  padding:clamp(1.4rem,3.2vw,2.4rem);box-shadow:var(--shadow-lg);overflow:hidden;
+  max-width:900px;margin:0 auto 2.2rem;
+}
+.el-spotlight::before{
+  content:"\201C";position:absolute;top:-1.2rem;left:1.2rem;font-family:"Cormorant Garamond",serif;
+  font-size:9rem;color:rgba(201,162,75,.16);line-height:1;
+}
+.el-spotlight__tag{
+  display:inline-flex;align-items:center;gap:.45rem;font-family:"Cinzel",serif;font-size:.68rem;
+  letter-spacing:.24em;text-transform:uppercase;color:#241a08;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold-soft));
+  padding:.35rem .85rem;border-radius:999px;margin-bottom:1.1rem;
+}
+.el-spotlight__quote{
+  font-family:"Cormorant Garamond",serif;font-size:clamp(1.3rem,2.6vw,1.7rem);
+  font-style:italic;color:#fbf4e4;position:relative;z-index:1;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.el-spotlight__who{margin-top:1.4rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.el-spotlight__name{font-family:"Cinzel",serif;color:var(--gold-bright);font-size:1rem}
+.el-spotlight__meta{color:var(--muted-on-dark);font-size:.92rem}
+.el-spotlight__media{
+  width:86px;height:86px;border-radius:50%;overflow:hidden;flex:0 0 auto;
+  border:2px solid var(--gold-bright);box-shadow:var(--shadow-sm);margin-bottom:1.2rem;
+}
+.el-spotlight__media img{width:100%;height:100%;object-fit:cover;display:block}
+.el-spotlight__read{margin-top:1.2rem;color:var(--gold-bright)}
+.el-spotlight__title{font-family:"Cinzel",serif;font-size:clamp(1.15rem,2.6vw,1.5rem);color:var(--gold-bright);margin:.2rem 0 1rem;line-height:1.25}
+.el-spotlight__read:hover{color:#fbf4e4}
+
+/* ============================ CONTROLS: search + filter ============================ */
+.el-controls{max-width:960px;margin:0 auto 2.4rem}
+.el-search{position:relative;max-width:420px;margin:0 auto 1.4rem}
+.el-search input{
+  width:100%;font-family:"Crimson Pro",serif;font-size:1rem;color:var(--text-on-light);
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:.85rem 1.1rem .85rem 2.8rem;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.el-search input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.15)}
+.el-search svg{position:absolute;left:1rem;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--gold-soft)}
+.el-filters{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.el-chip{
+  font-family:"Cinzel",serif;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  padding:.55rem 1rem;border-radius:999px;border:1px solid var(--line);
+  background:#fff;color:var(--coffee);cursor:pointer;
+  transition:all .3s var(--ease);display:inline-flex;align-items:center;gap:.5rem;
+}
+.el-chip:hover{border-color:var(--gold);transform:translateY(-2px)}
+.el-chip.is-active{background:var(--chocolate);color:var(--cream);border-color:var(--chocolate)}
+.el-chip__count{
+  font-size:.66rem;background:rgba(201,162,75,.18);color:var(--gold-soft);
+  padding:.05rem .45rem;border-radius:999px;min-width:1.4rem;text-align:center;
+}
+.el-chip.is-active .el-chip__count{background:rgba(255,255,255,.16);color:var(--cream)}
+
+/* ============================ CATEGORY BLOCKS ============================ */
+.el-cat{margin-bottom:3.2rem;scroll-margin-top:100px}
+.el-cat__head{display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem}
+.el-cat__icon{
+  width:44px;height:44px;flex:0 0 auto;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(135deg,rgba(201,162,75,.16),rgba(201,162,75,.05));
+  border:1px solid var(--line);color:var(--gold-soft);
+}
+.el-cat__icon svg{width:22px;height:22px}
+.el-cat__title{font-size:1.35rem;color:var(--chocolate)}
+.el-cat__count{font-size:.82rem;color:var(--muted-on-light);letter-spacing:.04em}
+.el-cat__line{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+.el-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:1.4rem}
+
+/* ---------- testimony card ---------- */
+.el-card{
+  background:#fff;border:1px solid var(--line-soft);border-radius:var(--radius);
+  padding:1.6rem 1.6rem 1.3rem;position:relative;
+  box-shadow:0 12px 30px -22px rgba(0,0,0,.4);
+  transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s var(--ease);
+  display:flex;flex-direction:column;
+}
+.el-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);border-color:var(--line)}
+.el-card__stars{color:var(--gold);letter-spacing:.15em;font-size:.9rem;margin-bottom:.7rem}
+.el-card__title{font-family:"Cinzel",serif;font-size:1.02rem;font-weight:600;color:var(--chocolate);margin-bottom:.55rem;line-height:1.3}
+.el-card__quote{font-size:1.02rem;color:var(--text-on-light);flex:1}
+.el-card__quote.is-clamped{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.el-card__more{
+  align-self:flex-start;background:none;border:none;cursor:pointer;padding:.3rem 0 0;
+  font-family:"Cinzel",serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);
+}
+.el-card__more:hover{color:var(--gold)}
+.el-card__name{font-family:"Cinzel",serif;font-size:.9rem;color:var(--chocolate);display:flex;align-items:center;gap:.35rem}
+.el-card__loc{font-size:.82rem;color:var(--muted-on-light)}
+.el-card__verified{color:var(--gold);width:14px;height:14px}
+.el-card__cat{
+  position:absolute;top:1.1rem;right:1.1rem;font-family:"Cinzel",serif;font-size:.6rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);
+  background:rgba(201,162,75,.1);padding:.25rem .6rem;border-radius:999px;z-index:2;
+}
+
+/* ---------- card photo (circular avatar, matches About page) ---------- */
+.el-card__media{
+  width:54px;height:54px;border-radius:50%;overflow:hidden;flex:0 0 auto;
+  border:2px solid var(--gold-soft);box-shadow:var(--shadow-sm);
+}
+.el-card__media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s var(--ease)}
+.el-card:hover .el-card__media img{transform:scale(1.06)}
+/* reserved-space marker while a photo has not been supplied */
+.el-card__media--empty{
+  display:grid;place-items:center;border:2px dashed rgba(201,162,75,.35);
+  background:linear-gradient(135deg,rgba(201,162,75,.16),rgba(201,162,75,.05));
+}
+.el-card__media--empty span{
+  font-family:"Cinzel",serif;font-size:.82rem;letter-spacing:.02em;
+  color:var(--gold-soft);
+}
+/* header row holding the avatar next to the name */
+.el-card__top{display:flex;align-items:center;gap:.85rem;margin-bottom:1rem;padding-right:5.5rem;min-height:54px}
+.el-card__top .el-card__name{font-family:"Cinzel",serif;font-size:.9rem;color:var(--coffee);letter-spacing:.03em;display:flex;align-items:center;gap:.35rem}
+.el-card__top .el-card__loc{display:block;font-size:.85rem;color:var(--muted-on-light);margin-top:.15rem}
+
+/* ---------- read full testimony ---------- */
+.el-card__read{
+  align-self:flex-start;margin-top:.4rem;background:none;border:none;cursor:pointer;padding:.3rem 0 0;
+  font-family:"Cinzel",serif;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-soft);
+  display:inline-flex;align-items:center;gap:.4rem;
+}
+.el-card__read:hover{color:var(--gold)}
+.el-card__read svg{width:13px;height:13px}
+
+/* ---------- full testimony modal ---------- */
+.el-modal{
+  position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;
+  padding:18px;background:rgba(20,14,10,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+}
+.el-modal.is-open{display:flex}
+/* ---------- the reading page ----------
+   A warm cream sheet with dark serif text, so a full testimony
+   reads like a printed page rather than a dark UI panel. */
+.el-modal__box{
+  position:relative;max-width:660px;width:100%;max-height:90vh;overflow:auto;
+  background:#fdfaf2;
+  color:var(--coffee);
+  border:1px solid rgba(201,162,75,.28);border-radius:22px;
+  box-shadow:0 40px 90px -30px rgba(20,14,10,.7);
+  -webkit-overflow-scrolling:touch;
+}
+.el-modal__media{
+  width:86px;height:86px;border-radius:50%;overflow:hidden;flex:0 0 auto;
+  border:2.5px solid var(--gold-soft);box-shadow:0 6px 18px -8px rgba(20,14,10,.5);
+}
+.el-modal__media img{width:100%;height:100%;object-fit:cover;display:block}
+.el-modal__head{display:flex;align-items:center;gap:1.1rem;margin-bottom:1.6rem}
+.el-modal__head .el-modal__name{
+  font-family:"Cinzel",serif;font-size:1.15rem;color:var(--coffee);
+  letter-spacing:.06em;display:flex;align-items:center;gap:.4rem;
+}
+.el-modal__body{padding:clamp(1.7rem,5vw,2.8rem)}
+.el-modal__stars{color:var(--gold);letter-spacing:.22em;font-size:1.15rem;margin-bottom:1.1rem}
+.el-modal__title{
+  font-family:"Cinzel",serif;font-size:clamp(1.35rem,3.4vw,1.75rem);
+  color:var(--chocolate);margin-bottom:1.5rem;line-height:1.3;letter-spacing:.01em;
+}
+/* body copy: roomy line height and a paper-like measure */
+.el-modal__quote{
+  font-family:"Cormorant Garamond",serif;
+  font-size:clamp(1.22rem,3vw,1.42rem);
+  color:#3b2f26;line-height:1.85;font-style:normal;
+}
+.el-modal__quote p{margin-bottom:1.35em}
+.el-modal__quote p:last-child{margin-bottom:0}
+/* opening line gets a little more presence */
+.el-modal__quote p:first-child{color:#2f251d}
+.el-modal__name{font-family:"Cinzel",serif;color:var(--coffee);font-size:1rem;display:flex;align-items:center;gap:.35rem}
+.el-modal__meta{color:var(--muted-on-light);font-size:.92rem}
+.el-modal__head .el-card__verified{width:17px;height:17px}
+.el-modal__close{
+  position:absolute;top:1rem;right:1rem;z-index:2;width:44px;height:44px;border-radius:50%;
+  background:#fffdf7;color:var(--coffee);border:1px solid rgba(201,162,75,.35);cursor:pointer;
+  display:grid;place-items:center;transition:all .3s var(--ease);
+  box-shadow:0 4px 14px -6px rgba(20,14,10,.35);
+}
+.el-modal__close:hover{background:var(--gold-bright);color:#fffdf7;border-color:var(--gold-bright)}
+.el-modal__close svg{width:20px;height:20px}
+
+/* ---------- empty category state ---------- */
+.el-empty{
+  border:1px dashed var(--line);border-radius:var(--radius);padding:2rem 1.6rem;text-align:center;
+  background:rgba(201,162,75,.04);
+}
+.el-empty p{color:var(--muted-on-light);font-style:italic;margin-bottom:1rem}
+.el-empty a{
+  font-family:"Cinzel",serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-soft);border-bottom:1px solid var(--line);padding-bottom:2px;
+}
+.el-empty a:hover{color:var(--gold)}
+
+.el-noresults{text-align:center;padding:3rem 1rem;color:var(--muted-on-light);font-style:italic;display:none}
+
+/* ============================ SHARE FORM ============================ */
+.el-form-sec{background:linear-gradient(160deg,var(--charcoal),var(--plum) 70%,var(--navy));color:var(--text-on-dark)}
+.el-form-sec .el-head h2{color:#fbf4e4}
+.el-form-sec .el-head p{color:var(--muted-on-dark)}
+.el-form{
+  max-width:640px;margin:0 auto;background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:var(--radius);padding:clamp(1.6rem,4vw,2.6rem);
+  backdrop-filter:blur(6px);
+}
+.el-field{margin-bottom:1.2rem}
+.el-field label{
+  display:block;font-family:"Cinzel",serif;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold-bright);margin-bottom:.5rem;
+}
+.el-field label .req{color:var(--gold);opacity:.8}
+.el-input,.el-textarea{
+  width:100%;font-family:"Crimson Pro",serif;font-size:1rem;color:#fbf4e4;
+  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:.85rem 1rem;transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.el-input::placeholder,.el-textarea::placeholder{color:rgba(184,173,151,.6)}
+.el-input:focus,.el-textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.18)}
+.el-textarea{resize:vertical;min-height:150px;line-height:1.6}
+.el-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.el-row > .el-field{min-width:0}
+.el-input,.el-textarea,.el-select{box-sizing:border-box;max-width:100%}
+@media (max-width:560px){
+  .el-row{grid-template-columns:1fr}
+  .el-form{padding:1.3rem 1.1rem}
+  .el-note{font-size:.88rem;padding:.8rem .9rem}
+  .el-channel{gap:.7rem}
+  .el-channel__btn{flex:1 1 100%;max-width:none;padding:.9rem 1rem}
+  .el-channel__pill{right:.5rem;top:-.5rem}
+  .el-section{padding-top:40px;padding-bottom:40px}
+  .el-spotlight__media{width:64px;height:64px;margin-bottom:.9rem}
+  .el-spotlight__quote{font-size:1.18rem;-webkit-line-clamp:3}
+  .el-grid{gap:1.1rem}
+  .el-card{padding:1.3rem 1.3rem 1.1rem}
+}
+.el-select{
+  width:100%;font-family:"Crimson Pro",serif;font-size:1rem;color:#fbf4e4;
+  background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:.85rem 1rem;cursor:pointer;
+}
+.el-select option{background:var(--charcoal);color:#fbf4e4}
+.el-count{text-align:right;font-size:.82rem;color:var(--muted-on-dark);margin-top:.4rem}
+.el-count.is-over{color:#e08a6a}
+.el-check{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:1.2rem;font-size:.92rem;color:var(--muted-on-dark)}
+.el-check input{margin-top:.35rem;width:18px;height:18px;accent-color:var(--gold);flex:0 0 auto;cursor:pointer}
+.el-check label{font-family:"Crimson Pro",serif;text-transform:none;letter-spacing:0;color:var(--muted-on-dark);font-size:.92rem;margin:0}
+.el-honey{position:absolute;left:-9999px;opacity:0;height:0;width:0;overflow:hidden}
+.el-form__msg{margin-top:1rem;font-family:"Cormorant Garamond",serif;font-size:1.1rem;font-style:italic;min-height:1.4rem}
+.el-form__msg.ok{color:var(--gold-bright)}
+.el-form__msg.err{color:#e08a6a}
+.el-form__submit{width:100%;justify-content:center;margin-top:.4rem}
+
+/* ---------- share channel picker ---------- */
+.el-channel{display:flex;gap:1rem;justify-content:center;max-width:640px;margin:0 auto 1.8rem;flex-wrap:wrap}
+.el-channel__btn{
+  flex:1 1 200px;max-width:280px;position:relative;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.6rem;
+  font-family:"Cinzel",serif;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-on-dark);background:rgba(255,255,255,.03);
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:1rem 1.2rem;
+  transition:all .3s var(--ease);
+}
+.el-channel__btn svg{width:22px;height:22px;flex:0 0 auto}
+.el-channel__btn:hover{border-color:var(--gold);transform:translateY(-2px)}
+.el-channel__btn.is-active{
+  background:linear-gradient(135deg,rgba(201,162,75,.18),rgba(201,162,75,.05));
+  border-color:var(--gold);color:#fbf4e4;
+}
+.el-channel__pill{
+  position:absolute;top:-.6rem;right:-.4rem;font-style:normal;font-family:"Cinzel",serif;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;color:#241a08;
+  background:linear-gradient(135deg,var(--gold-bright),var(--gold-soft));
+  padding:.2rem .55rem;border-radius:999px;
+}
+/* note lines under each form */
+.el-note{
+  display:flex;align-items:flex-start;gap:.6rem;margin:.2rem 0 1.2rem;
+  font-size:.92rem;line-height:1.5;color:var(--muted-on-dark);
+  background:rgba(201,162,75,.06);border:1px solid var(--line-soft);
+  border-radius:var(--radius-sm);padding:.85rem 1rem;
+  min-width:0;max-width:100%;
+}
+.el-note > span{min-width:0;flex:1 1 auto;overflow-wrap:anywhere;word-break:break-word;hyphens:auto}
+.el-note svg{width:18px;height:18px;flex:0 0 auto;margin-top:.15rem;color:var(--gold-soft)}
+.el-note--photo{background:rgba(201,162,75,.1);border-color:var(--line)}
+.el-note--photo b{color:var(--gold-bright);font-weight:600}
+/* long email must be able to break mid-string on narrow screens */
+.el-note__mail{
+  color:var(--gold-bright);font-weight:600;
+  overflow-wrap:anywhere;word-break:break-all;
+}
+
+/* reveal on scroll */
+.el-reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.el-reveal.is-in{opacity:1;transform:translateY(0)}
+@media (prefers-reduced-motion:reduce){.el-reveal{opacity:1;transform:none}}

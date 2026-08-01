@@ -1,0 +1,151 @@
+
+
+<!-- ============================ FEATURED + LISTING ============================ -->
+<section class="el-section el-section--light">
+  <div class="el-wrap">
+
+    <!-- Featured spotlight: CMS sets one testimony as featured -->
+    <div id="elSpotlight" class="el-reveal"></div>
+
+    <div class="el-head el-reveal">
+      <span class="el-eyebrow">Changed Lives</span>
+      <h2>What God Has Done</h2>
+      <p>Browse by theme, or search for the breakthrough you are believing for.</p>
+      <div class="el-rule"></div>
+    </div>
+
+    <!-- controls -->
+    <div class="el-controls el-reveal">
+      <div class="el-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input type="search" id="elSearch" placeholder="Search testimonies..." aria-label="Search testimonies" />
+      </div>
+      <div class="el-filters" id="elFilters" role="tablist" aria-label="Filter by theme"></div>
+    </div>
+
+    <!-- category blocks render here -->
+    <div id="elCats"></div>
+    <p class="el-noresults" id="elNoResults">No testimonies match that search. Try another word, or share the story God is writing in your life.</p>
+
+  </div>
+</section>
+
+<!-- ============================ SHARE YOUR TESTIMONY ============================ -->
+<section class="el-section el-form-sec" id="share">
+  <div class="el-wrap">
+    <div class="el-head el-reveal">
+      <span class="el-eyebrow" style="color:var(--gold-bright)">Give God The Glory</span>
+      <h2>Share Your Testimony</h2>
+      <p>Has the Word borne fruit in your life? Tell us what God has done. Every testimony is reviewed before it is published.</p>
+      <div class="el-rule"></div>
+    </div>
+
+    <!-- channel picker: WhatsApp (default) or Email -->
+    <div class="el-channel el-reveal" role="tablist" aria-label="Choose how to share">
+      <button type="button" class="el-channel__btn is-active" data-channel="whatsapp" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.6-6c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A2.9 2.9 0 0 0 6 8c0 1.7 1.3 3.4 1.4 3.6a11 11 0 0 0 4.6 4 4.6 4.6 0 0 0 2.9.6c.6-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2l-.4-.3z"/></svg>
+        <span>WhatsApp</span>
+        <em class="el-channel__pill">Fastest</em>
+      </button>
+      <button type="button" class="el-channel__btn" data-channel="email" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span>Email</span>
+      </button>
+    </div>
+
+    <!-- WhatsApp form: gathers details, hands off with a prefilled message -->
+    <div class="el-form el-reveal" id="elWaPane">
+      <div class="el-row">
+        <div class="el-field">
+          <label for="waName">Your Name <span class="req">*</span></label>
+          <input class="el-input" type="text" id="waName" placeholder="Full name" autocomplete="name" required />
+        </div>
+        <div class="el-field">
+          <label for="waLoc">Location <span class="req">*</span></label>
+          <input class="el-input" type="text" id="waLoc" placeholder="City, Country" autocomplete="address-level2" required />
+        </div>
+      </div>
+      <div class="el-field">
+        <label for="waCategory">Theme <span class="req">*</span></label>
+        <select class="el-select" id="waCategory" required>
+          <option value="" disabled selected>Choose a theme</option>
+        </select>
+      </div>
+      <div class="el-field">
+        <label for="waTestimony">Your Testimony <span class="req">*</span></label>
+        <textarea class="el-textarea" id="waTestimony" placeholder="Tell us what God did. Keep it to 250 words." required></textarea>
+        <p class="el-count" id="waWordCount" aria-live="polite">0 / 250 words</p>
+      </div>
+      <div class="el-check">
+        <input type="checkbox" id="waConsent" required />
+        <label for="waConsent">I give permission for this testimony to be reviewed and published on eemodiae.org to the glory of God. <span class="req">*</span></label>
+      </div>
+      <p class="el-note">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+        <span>Tap send and WhatsApp opens with your testimony ready. You can attach your photo there before you send it to us.</span>
+      </p>
+      <button type="button" class="el-btn el-btn--gold el-form__submit" id="waSubmit">Send On WhatsApp</button>
+      <p class="el-form__msg" id="waFormMsg" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- Email form: posts to FormSubmit, then reminds sender to email their photo -->
+    <form class="el-form el-reveal" id="elTestiForm" novalidate hidden
+          action="https://formsubmit.co/eemodiaetestimonies@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Testimony Submission (eemodiae.org)" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_source" value="testimonies-page" />
+      <div class="el-honey" aria-hidden="true">
+        <label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label>
+      </div>
+
+      <div class="el-row">
+        <div class="el-field">
+          <label for="elName">Your Name <span class="req">*</span></label>
+          <input class="el-input" type="text" id="elName" name="name" placeholder="Full name" autocomplete="name" required />
+        </div>
+        <div class="el-field">
+          <label for="elLoc">Location <span class="req">*</span></label>
+          <input class="el-input" type="text" id="elLoc" name="location" placeholder="City, Country" autocomplete="address-level2" required />
+        </div>
+      </div>
+
+      <div class="el-row">
+        <div class="el-field">
+          <label for="elEmail">Email <span class="req">*</span></label>
+          <input class="el-input" type="email" id="elEmail" name="email" placeholder="you@email.com" autocomplete="email" required />
+        </div>
+        <div class="el-field">
+          <label for="elCategory">Theme <span class="req">*</span></label>
+          <select class="el-select" id="elCategory" name="category" required>
+            <option value="" disabled selected>Choose a theme</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="el-field">
+        <label for="elTestimony">Your Testimony <span class="req">*</span></label>
+        <textarea class="el-textarea" id="elTestimony" name="testimony" placeholder="Tell us what God did. Keep it to 250 words." required></textarea>
+        <p class="el-count" id="elWordCount" aria-live="polite">0 / 250 words</p>
+      </div>
+
+      <div class="el-check">
+        <input type="checkbox" id="elAnon" name="publish_anonymously" value="Yes" />
+        <label for="elAnon">Publish my testimony anonymously (show only my first name and city).</label>
+      </div>
+      <div class="el-check">
+        <input type="checkbox" id="elConsent" name="consent" value="Yes" required />
+        <label for="elConsent">I give permission for this testimony to be reviewed and published on eemodiae.org to the glory of God. <span class="req">*</span></label>
+      </div>
+
+      <p class="el-note el-note--photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="10" r="1.6"/><path d="m5 19 5-5 4 4 2-2 3 3"/></svg>
+        <span>After you submit, please email your photo directly to <a class="el-note__mail" href="mailto:eemodiaetestimonies@gmail.com?subject=Testimony%20Photo">eemodiaetestimonies@gmail.com</a> with your name in the subject line so we can publish it with your testimony.</span>
+      </p>
+
+      <button type="submit" class="el-btn el-btn--gold el-form__submit">Submit Testimony</button>
+      <p class="el-form__msg" id="elFormMsg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+

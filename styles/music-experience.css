@@ -1,0 +1,489 @@
+/* Scoped under .music-exp-root — from implementation/music-experience.html */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+.music-exp-root {
+  --exp-nav-h: 4.625rem;
+  padding-top: var(--exp-nav-h);
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   EEMODIAE MUSIC EXPERIENCE
+   Palette: warm ivory, rich cream, royal purple, muted plum,
+   deep aubergine, champagne gold. Devotional, not commercial.
+   ============================================================ */
+.music-exp-root {
+  --ivory:#fdfcf8;
+  --cream:#f6f0e2;
+  --cream-deep:#efe6d2;
+  --royal:#553192;
+  --plum:#6e4d9e;
+  --aubergine:#37215c;
+  --gold:#c19a45;
+  --gold-soft:#d8bc7d;
+  --gold-pale:#f0e4c8;
+  --taupe:#8a8074;
+  --stone:#b8ae9e;
+  --ink:#2c2338;
+  --ink-soft:#5a5066;
+  --card:#ffffff;
+  --shadow-soft:0 6px 24px rgba(55,33,92,.08);
+  --shadow-lift:0 14px 40px rgba(55,33,92,.14);
+  --radius:18px;
+  --page-pad:clamp(18px,5vw,64px);
+}
+.music-exp-root *,
+.music-exp-root *::before,
+.music-exp-root *::after { margin:0;padding:0;box-sizing:border-box }
+.music-exp-root {
+  font-family:'EB Garamond',Georgia,serif;
+  background:var(--ivory);
+  color:var(--ink);
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:var(--royal)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+::selection{background:var(--gold-pale)}
+
+/* ---------- Full bleed hero, 768:305, never cropped ---------- */
+.mx-hero{
+  width:100vw;
+  max-width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  margin-top:calc(-1 * var(--exp-nav-h));
+  aspect-ratio:768/305;
+  overflow:hidden;
+  background:var(--cream);
+}
+.mx-hero img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---------- Title block ---------- */
+.mx-head{
+  text-align:center;
+  padding:clamp(34px,6vw,64px) var(--page-pad) clamp(10px,2vw,18px);
+}
+.mx-head h1{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:clamp(2.1rem,6vw,3.4rem);
+  letter-spacing:.28em;
+  text-indent:.28em;
+  color:var(--aubergine);
+}
+.mx-head .mx-rider{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  color:var(--plum);
+  margin-top:8px;
+}
+
+/* ---------- Signature: staff line divider ---------- */
+.mx-staff{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:clamp(18px,3vw,30px) auto;max-width:420px;padding:0 24px;
+}
+.mx-staff::before,.mx-staff::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft));
+}
+.mx-staff::after{background:linear-gradient(90deg,var(--gold-soft),transparent)}
+.mx-staff .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.mx-staff .dot:nth-child(2){width:9px;height:9px;background:var(--royal)}
+
+/* ---------- Search ---------- */
+.mx-search-wrap{max-width:760px;margin:0 auto;padding:0 var(--page-pad)}
+.mx-search{
+  position:relative;width:100%;
+}
+.mx-search svg{
+  position:absolute;left:20px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;stroke:var(--taupe);fill:none;stroke-width:2;
+}
+.mx-search input{
+  width:100%;padding:16px 22px 16px 52px;
+  font-family:'EB Garamond',serif;font-size:1.05rem;color:var(--ink);
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:999px;
+  box-shadow:var(--shadow-soft);
+  transition:border-color .25s,box-shadow .25s;
+}
+.mx-search input::placeholder{color:var(--stone)}
+.mx-search input:focus{outline:none;border-color:var(--gold-soft);box-shadow:0 0 0 4px rgba(193,154,69,.14),var(--shadow-soft)}
+
+/* ---------- Sections ---------- */
+.mx-section{max-width:1180px;margin:0 auto;padding:clamp(30px,5vw,54px) var(--page-pad) 0}
+.mx-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(18px,3vw,28px)}
+.mx-section-head h2{
+  font-family:'Cinzel',serif;font-weight:600;
+  font-size:clamp(1.3rem,3vw,1.7rem);
+  letter-spacing:.14em;color:var(--royal);
+}
+.mx-section-head .mx-count{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--taupe);font-size:1.05rem;white-space:nowrap;
+}
+
+/* ---------- Artist cards ---------- */
+.mx-artists{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:clamp(18px,3vw,30px);
+}
+.mx-artist{
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:var(--radius);
+  padding:26px 18px 22px;
+  text-align:center;
+  box-shadow:var(--shadow-soft);
+  transition:transform .3s,box-shadow .3s;
+}
+.mx-artist:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.mx-avatar{
+  width:112px;height:112px;border-radius:50%;
+  margin:0 auto 16px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 25%,var(--plum),var(--aubergine));
+  box-shadow:inset 0 0 0 3px var(--card),0 0 0 2px var(--gold-soft);
+}
+.mx-avatar img{width:100%;height:100%;object-fit:cover}
+.mx-avatar span{
+  font-family:'Cinzel',serif;font-size:2rem;font-weight:600;
+  color:var(--gold-pale);letter-spacing:.06em;
+}
+.mx-artist h3{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:1.25rem;color:var(--ink);line-height:1.25;
+}
+.mx-artist p{font-size:.95rem;color:var(--taupe);margin-top:4px}
+.mx-artist .mx-artist-open{
+  margin-top:14px;display:inline-block;
+  font-family:'EB Garamond',serif;font-size:.95rem;
+  color:var(--royal);border-bottom:1px solid var(--gold-soft);
+  padding-bottom:2px;transition:color .2s,border-color .2s;
+}
+.mx-artist:hover .mx-artist-open{color:var(--aubergine);border-color:var(--gold)}
+
+/* ---------- Song cards ---------- */
+.mx-songs{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:clamp(18px,3vw,30px);
+}
+.mx-song{
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  transition:transform .3s,box-shadow .3s;
+  display:flex;flex-direction:column;
+}
+.mx-song:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.mx-cover{position:relative;aspect-ratio:1/1;overflow:hidden}
+.mx-cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.mx-song:hover .mx-cover img{transform:scale(1.04)}
+.mx-cover-gen{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  padding:20px;text-align:center;
+}
+.mx-cover-gen .mx-cover-note{font-size:1.9rem;color:var(--gold-pale);line-height:1}
+.mx-cover-gen .mx-cover-title{
+  font-family:'Cinzel',serif;font-weight:600;color:#fff;
+  font-size:1.15rem;letter-spacing:.06em;line-height:1.35;
+}
+.mx-cover-gen .mx-cover-artist{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-pale);font-size:.95rem;letter-spacing:.08em;
+}
+.mx-play{
+  position:absolute;right:14px;bottom:14px;
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(253,252,248,.94);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  transition:transform .25s,background .25s;
+}
+.mx-play:hover{transform:scale(1.08);background:#fff}
+.mx-play svg{width:20px;height:20px;fill:var(--royal)}
+.mx-song-meta{padding:16px 18px 18px}
+.mx-song-meta h3{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:1.2rem;color:var(--royal);line-height:1.3;
+}
+.mx-song-meta p{font-size:.95rem;color:var(--ink-soft);margin-top:3px}
+
+/* ---------- Empty state ---------- */
+.mx-empty{
+  text-align:center;padding:44px 20px;color:var(--taupe);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;
+}
+
+/* ---------- Pagination (reusable) ---------- */
+.mx-pagination{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:clamp(22px,4vw,34px);flex-wrap:wrap;
+}
+.mx-pagination[hidden]{display:none}
+.mx-page-btn{
+  min-width:42px;height:42px;padding:0 12px;border-radius:12px;
+  font-family:'EB Garamond',serif;font-size:1rem;color:var(--ink-soft);
+  background:var(--card);border:1px solid var(--cream-deep);
+  transition:all .2s;
+}
+.mx-page-btn:hover:not(:disabled){border-color:var(--gold-soft);color:var(--royal)}
+.mx-page-btn[aria-current="page"]{
+  background:var(--royal);border-color:var(--royal);color:#fff;
+}
+.mx-page-btn:disabled{opacity:.4;cursor:default}
+.mx-page-ellipsis{color:var(--stone);padding:0 2px}
+
+/* ---------- Artist detail view ---------- */
+.mx-view{display:none}
+.mx-view.active{display:block}
+.mx-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'EB Garamond',serif;font-size:1rem;color:var(--royal);
+  padding:8px 0;border-bottom:1px solid transparent;transition:border-color .2s;
+}
+.mx-back:hover{border-color:var(--gold-soft)}
+.mx-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.mx-artist-hero{
+  display:flex;align-items:center;gap:clamp(18px,4vw,34px);
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border:1px solid var(--cream-deep);border-radius:var(--radius);
+  padding:clamp(22px,4vw,38px);margin-top:18px;
+  flex-wrap:wrap;
+}
+.mx-artist-hero .mx-avatar{width:132px;height:132px;margin:0}
+.mx-artist-hero h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.06em;
+  font-size:clamp(1.4rem,3.5vw,2rem);color:var(--aubergine);
+}
+.mx-artist-hero p{color:var(--ink-soft);max-width:560px;margin-top:6px;font-size:1.05rem}
+.mx-artist-hero .mx-artist-songcount{
+  font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);
+  margin-top:8px;font-size:1rem;
+}
+
+/* ---------- Player bar ---------- */
+.mx-player{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:rgba(43,32,68,.97);
+  backdrop-filter:blur(10px);
+  color:var(--gold-pale);
+  transform:translateY(110%);
+  transition:transform .4s cubic-bezier(.22,.9,.3,1);
+  box-shadow:0 -8px 30px rgba(0,0,0,.25);
+}
+.mx-player.active{transform:translateY(0)}
+.mx-player-inner{
+  max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;
+  padding:12px var(--page-pad);
+}
+.mx-player-titles{min-width:0;flex:1}
+.mx-player-titles .t{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;
+  color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mx-player-titles .a{font-size:.85rem;color:var(--gold-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mx-player-controls{display:flex;align-items:center;gap:10px}
+.mx-pbtn{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);transition:background .2s;
+}
+.mx-pbtn:hover{background:rgba(255,255,255,.18)}
+.mx-pbtn svg{width:18px;height:18px;fill:var(--gold-pale)}
+.mx-pbtn.main{width:52px;height:52px;background:var(--gold)}
+.mx-pbtn.main svg{fill:var(--aubergine)}
+.mx-player-progress{
+  position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.14);
+  cursor:pointer;
+}
+.mx-player-progress .fill{height:100%;width:0;background:var(--gold);transition:width .2s linear}
+.mx-player-time{font-size:.8rem;color:var(--gold-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mx-player-close{margin-left:4px}
+.music-exp-root.player-open{padding-bottom:88px}
+
+/* ---------- Toast ---------- */
+.mx-toast{
+  position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);
+  background:var(--aubergine);color:var(--gold-pale);
+  font-family:'EB Garamond',serif;font-size:.98rem;
+  padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-lift);
+  opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:70;
+  max-width:88vw;text-align:center;
+}
+.mx-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- Footer note ---------- */
+.mx-foot{
+  text-align:center;
+  padding:clamp(40px,7vw,70px) var(--page-pad) clamp(46px,7vw,80px);
+}
+.mx-foot p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--taupe);font-size:1.15rem;max-width:520px;margin:0 auto;
+}
+
+/* ---------- Card secondary actions (share/download) ---------- */
+.mx-song-actions{display:flex;gap:6px;margin-top:12px}
+.mx-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'EB Garamond',serif;font-size:.85rem;color:var(--ink-soft);
+  padding:6px 12px;border-radius:999px;
+  background:var(--cream);border:1px solid var(--cream-deep);
+  transition:all .2s;
+}
+.mx-chip:hover{border-color:var(--gold-soft);color:var(--royal);background:var(--gold-pale)}
+.mx-chip svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.mx-song-meta .mx-duration{
+  font-variant-numeric:tabular-nums;color:var(--taupe);font-size:.85rem;
+  float:right;margin-top:2px;
+}
+
+/* ---------- Song detail ---------- */
+.mx-sd-top{
+  display:flex;gap:clamp(20px,4vw,40px);flex-wrap:wrap;align-items:flex-start;
+  margin-top:18px;
+}
+.mx-sd-cover{
+  width:clamp(200px,40vw,300px);aspect-ratio:1/1;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-lift);flex-shrink:0;
+}
+.mx-sd-cover img{width:100%;height:100%;object-fit:cover}
+.mx-sd-info{flex:1;min-width:240px}
+.mx-sd-eyebrow{
+  font-family:'EB Garamond',serif;font-size:.85rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);
+}
+.mx-sd-info h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;
+  font-size:clamp(1.7rem,4.5vw,2.6rem);color:var(--aubergine);margin:8px 0 4px;line-height:1.15;
+}
+.mx-sd-artist{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--plum)}
+.mx-sd-artist a{color:inherit;border-bottom:1px solid var(--gold-soft)}
+.mx-sd-meta-row{
+  display:flex;gap:16px;flex-wrap:wrap;color:var(--taupe);font-size:.95rem;
+  margin-top:10px;font-variant-numeric:tabular-nums;
+}
+.mx-sd-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.mx-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'EB Garamond',serif;font-size:1rem;
+  padding:12px 24px;border-radius:999px;transition:all .25s;
+}
+.mx-btn svg{width:18px;height:18px}
+.mx-btn-primary{background:var(--royal);color:#fff;box-shadow:var(--shadow-soft)}
+.mx-btn-primary:hover{background:var(--aubergine);transform:translateY(-2px)}
+.mx-btn-primary svg{fill:#fff;stroke:none}
+.mx-btn-ghost{background:var(--card);color:var(--royal);border:1px solid var(--cream-deep)}
+.mx-btn-ghost:hover{border-color:var(--gold-soft);background:var(--gold-pale)}
+.mx-btn-ghost svg{stroke:currentColor;fill:none;stroke-width:2}
+
+.mx-scripture{
+  margin:clamp(28px,5vw,44px) 0;
+  padding:clamp(22px,4vw,34px);
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;
+}
+.mx-scripture p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.2rem,2.6vw,1.5rem);color:var(--ink);line-height:1.5;
+}
+.mx-scripture cite{
+  display:block;font-style:normal;font-family:'Cinzel',serif;
+  font-size:.9rem;letter-spacing:.14em;color:var(--gold);margin-top:12px;
+}
+.mx-reflection{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--plum);font-size:1.2rem;text-align:center;
+  max-width:560px;margin:0 auto clamp(30px,5vw,44px);
+}
+.mx-lyrics-h{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.14em;
+  color:var(--royal);font-size:1.2rem;margin-bottom:20px;
+  display:flex;align-items:center;gap:14px;
+}
+.mx-lyrics-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-soft),transparent)}
+.mx-lyrics{max-width:640px}
+.mx-verse{margin-bottom:26px}
+.mx-verse p{
+  font-family:'EB Garamond',serif;font-size:1.15rem;line-height:1.9;color:var(--ink);
+}
+.mx-verse.chorus p{color:var(--royal);font-style:italic}
+
+/* ---------- Album detail ---------- */
+.mx-album-hero{
+  display:flex;gap:clamp(20px,4vw,40px);flex-wrap:wrap;align-items:center;
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border:1px solid var(--cream-deep);border-radius:var(--radius);
+  padding:clamp(22px,4vw,38px);margin-top:18px;
+}
+.mx-album-hero .mx-sd-cover{width:clamp(140px,26vw,190px)}
+.mx-album-hero .mx-sd-eyebrow{color:var(--gold)}
+.mx-album-hero h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;
+  font-size:clamp(1.5rem,4vw,2.2rem);color:var(--aubergine);margin:8px 0 4px;
+}
+.mx-album-hero .mx-sd-artist{margin-bottom:6px}
+.mx-tracklist{list-style:none;counter-reset:trk}
+.mx-track{
+  display:flex;align-items:center;gap:16px;
+  padding:14px 16px;border-radius:14px;
+  border:1px solid transparent;transition:background .2s,border-color .2s;
+  cursor:pointer;
+}
+.mx-track:hover{background:var(--cream);border-color:var(--cream-deep)}
+.mx-track-num{
+  counter-increment:trk;
+  font-family:'Cinzel',serif;color:var(--gold);width:28px;text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+.mx-track-num::before{content:counter(trk,decimal-leading-zero)}
+.mx-track:hover .mx-track-num{color:transparent}
+.mx-track:hover .mx-track-num::after{
+  content:"\25B6";color:var(--royal);position:absolute;transform:translateX(-14px);font-size:.8rem;
+}
+.mx-track-body{flex:1;min-width:0}
+.mx-track-body .t{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem;color:var(--ink)}
+.mx-track-body .s{font-size:.9rem;color:var(--taupe)}
+.mx-track-dur{font-variant-numeric:tabular-nums;color:var(--taupe);font-size:.9rem}
+
+/* clickable album card cue */
+.mx-song.is-album .mx-cover::after{
+  content:"Album";position:absolute;top:12px;left:12px;
+  font-family:'EB Garamond',serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#fff;background:rgba(55,33,92,.72);
+  padding:4px 10px;border-radius:999px;backdrop-filter:blur(4px);
+}
+
+/* clickable song card cue */
+.mx-song[data-open]{cursor:pointer}
+
+/* ---------- Reveal on scroll ---------- */
+.mx-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.mx-reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .mx-reveal{opacity:1;transform:none}
+}
+@media (max-width:560px){
+  .mx-artists{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .mx-songs{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .mx-play{width:44px;height:44px}
+  .mx-player-time{display:none}
+}

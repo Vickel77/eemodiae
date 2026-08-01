@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bookstore | eemodiae.org</title>
+<meta name="description" content="Books, devotionals, and study resources by Pastor Emmanuel I. Emodiae. Prophet | Preacher | Poet. Available worldwide in USD and NGN.">
+
+<!-- ============================================================
+     EEMODIAE.ORG BOOKSTORE · Radiant Edition
+     House of Joy Church Worldwide | @thehjcw
+     ------------------------------------------------------------
+     HOW THIS PAGE WORKS (read me, future editor):
+
+     1. THE CATALOG lives in one place: the STORE_CONFIG object
+        near the top of the main script block at the bottom of
+        this file. Every book is one entry in the "books" array.
+
+     2. OPTION A (preloaded): edit STORE_CONFIG directly and
+        redeploy. Nothing else to touch.
+
+     3. OPTION B (CMS mode): host a file called store-config.json
+        next to this page. If it exists, it OVERRIDES the inline
+        catalog. Your CMS only ever edits that one JSON file. If
+        it is missing or broken, the page falls back to the
+        inline catalog, so the store never goes blank.
+
+     4. PAYMENTS: set your Paystack and/or Flutterwave PUBLIC
+        keys in STORE_CONFIG.payments. Direct checkout goes live
+        automatically (NGN via Paystack, USD and NGN via
+        Flutterwave). Leave a key empty and that option simply
+        does not appear. Platform links (Amazon, Kindle, Selar,
+        Bambooks, OkadaBooks, anything else) are per book.
+
+     5. INSTANT DELIVERY: give a book a "downloadUrl". After a
+        successful direct payment the reader is shown the
+        download button immediately. See README for the server
+        side verification note.
+
+     6. COLORS: each category carries its own jewel tone. The
+        mapping is CAT_COLORS in the script. Add a category, add
+        a color, and every cover, chip, badge, and shadow follows.
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ============ TOKENS ============ */
+:root{
+  --serif-display:'Cinzel',serif;
+  --serif-head:'Cormorant Garamond',serif;
+  --serif-body:'Crimson Pro',serif;
+  --sans:'Inter',system-ui,-apple-system,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --radius:20px;
+  --parchment:#E8DDC8; /* the 3D book page edges stay paper in both worlds */
+
+  /* ---- DAYLIGHT STUDY (default): cream, ivory, charcoal, antique gold, muted jewels ---- */
+  --bg:#FBF9F3;
+  --bg-deep:#F1EBDD;
+  --surface:#FDFBF6;
+  --surface-hi:#FFFFFF;
+  --glass:rgba(255,255,255,.72);
+  --glass-2:rgba(255,255,255,.66);
+  --text-hi:#23262E;
+  --text:#2B2F39;
+  --text-soft:#5D6472;
+  --text-faint:#8A91A0;
+  --ink:#23262E; --ink-soft:#5D6472; --ink-faint:#8A91A0; /* consumed by engine inline styles */
+  --gold:#9F812E;
+  --gold-hi:#C7A94D;
+  --gold-deep:#7E651F;
+  --btn-gold-ink:#FFFFFF;
+  --sub-accent:#7E651F;
+  --line:rgba(35,38,46,.1);
+  --line-soft:rgba(35,38,46,.06);
+  --edge:rgba(255,255,255,0);
+  --veil:rgba(23,26,34,.44);
+  --glow:rgba(159,129,46,.14);
+  --mixb:#15161A;
+  --cover-filter:saturate(.84) brightness(.97);
+  --band-filter:saturate(.9);
+  --j1:#B96F24;--j2:#9F812E;--j3:#23745C;--j4:#33568F;--j5:#5F4699;--j6:#7E3348;
+  --sh-xs:0 1px 2px rgba(35,38,46,.05);
+  --sh-sm:0 1px 2px rgba(35,38,46,.04), 0 10px 28px -14px rgba(35,38,46,.14);
+  --sh-md:0 2px 4px rgba(35,38,46,.04), 0 22px 48px -22px rgba(35,38,46,.2);
+  --sh-lg:0 3px 8px rgba(35,38,46,.05), 0 36px 80px -30px rgba(35,38,46,.3);
+  --shadow-book:0 34px 64px -26px rgba(35,38,46,.4);
+  --thumb:#D6CBAE;
+  --grain-o:.028; --grain-blend:normal;
+}
+/* ---- MIDNIGHT LIBRARY ---- */
+body.night{
+  --bg:#08111D;
+  --bg-deep:#050608;
+  --surface:#121A26;
+  --surface-hi:#17202D;
+  --glass:rgba(8,17,29,.72);
+  --glass-2:rgba(18,26,38,.7);
+  --text-hi:#F7F4EC;
+  --text:#E8DDC8;
+  --text-soft:#C9BFA8;
+  --text-faint:#9A9078;
+  --ink:#F7F4EC; --ink-soft:#C9BFA8; --ink-faint:#9A9078;
+  --gold:#C8A24D;
+  --gold-hi:#E0C06D;
+  --gold-deep:#A8782B;
+  --btn-gold-ink:#0B1220;
+  --sub-accent:#E0C06D;
+  --line:rgba(168,120,43,.26);
+  --line-soft:rgba(168,120,43,.16);
+  --edge:rgba(247,244,236,.05);
+  --veil:rgba(5,6,8,.62);
+  --glow:rgba(242,196,107,.14);
+  --mixb:#F2EADA;
+  --cover-filter:saturate(.78) brightness(.92);
+  --band-filter:saturate(.82);
+  --j1:#A8782B;--j2:#C8A24D;--j3:#1F5A47;--j4:#284C7A;--j5:#6E2832;--j6:#E0C06D;
+  --sh-xs:0 1px 2px rgba(0,0,0,.3);
+  --sh-sm:0 1px 2px rgba(0,0,0,.28), 0 12px 30px -14px rgba(0,0,0,.5);
+  --sh-md:0 2px 4px rgba(0,0,0,.3), 0 24px 52px -22px rgba(0,0,0,.6);
+  --sh-lg:0 3px 8px rgba(0,0,0,.32), 0 40px 88px -30px rgba(0,0,0,.72);
+  --shadow-book:0 36px 68px -26px rgba(0,0,0,.75);
+  --thumb:#2A3648;
+  --grain-o:.05; --grain-blend:soft-light;
+}
+
+/* ============ BASE ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif-body);
+  background:var(--bg);
+  color:var(--text);
+  font-size:17.5px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  transition:background-color .55s var(--ease),color .55s var(--ease);
+}
+body.night{
+  background:radial-gradient(140% 90% at 50% -20%, #0E1A2C 0%, var(--bg) 46%), var(--bg);
+}
+body::after{
+  content:'';position:fixed;inset:0;z-index:2;pointer-events:none;
+  opacity:var(--grain-o);mix-blend-mode:var(--grain-blend);
+  background-image:url("DATA_URI_REMOVED'http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none;transition:color .3s var(--ease)}
+a:hover{color:var(--gold-hi)}
+a:focus-visible,button:focus-visible,input:focus-visible{
+  outline:none;border-radius:6px;
+  box-shadow:0 0 0 2px var(--bg), 0 0 0 5px color-mix(in srgb,var(--gold) 65%,transparent);
+}
+button{font-family:inherit;cursor:pointer}
+button:disabled{cursor:default}
+::selection{background:color-mix(in srgb,var(--gold) 30%,transparent);color:var(--text-hi)}
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--thumb);border-radius:99px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+
+/* ============ AMBIENT LIGHT ============ */
+.aurora{position:fixed;inset:-24%;z-index:0;pointer-events:none;filter:blur(100px);opacity:.34;transition:opacity .7s var(--ease)}
+body.night .aurora{opacity:.5}
+.aurora span{position:absolute;border-radius:50%;mix-blend-mode:multiply}
+body.night .aurora span{mix-blend-mode:screen}
+.aurora .a1{width:52vw;height:52vw;left:-12vw;top:-16vh;background:radial-gradient(circle,rgba(199,169,77,.24),transparent 62%);animation:drift1 38s var(--ease) infinite alternate}
+.aurora .a2{width:44vw;height:44vw;right:-8vw;top:0;background:radial-gradient(circle,rgba(51,86,143,.13),transparent 62%);animation:drift2 46s var(--ease) infinite alternate}
+.aurora .a3{width:38vw;height:38vw;left:26vw;top:56vh;background:radial-gradient(circle,rgba(126,51,72,.1),transparent 62%);animation:drift3 52s var(--ease) infinite alternate}
+.aurora .a4{width:36vw;height:36vw;right:16vw;bottom:-10vh;background:radial-gradient(circle,rgba(35,116,92,.1),transparent 62%);animation:drift1 44s var(--ease) infinite alternate-reverse}
+body.night .aurora .a1{background:radial-gradient(circle,rgba(242,196,107,.1),transparent 62%)}
+body.night .aurora .a2{background:radial-gradient(circle,rgba(40,76,122,.16),transparent 62%)}
+body.night .aurora .a3{background:radial-gradient(circle,rgba(110,40,50,.1),transparent 62%)}
+body.night .aurora .a4{background:radial-gradient(circle,rgba(31,90,71,.1),transparent 62%)}
+@keyframes drift1{to{transform:translate(5vw,4vh) scale(1.06)}}
+@keyframes drift2{to{transform:translate(-4vw,5vh) scale(1.09)}}
+@keyframes drift3{to{transform:translate(4vw,-4vh) scale(1.05)}}
+
+main,header,footer,section{position:relative;z-index:1}
+
+/* ============ TOP BAR ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.55rem clamp(1.25rem,5vw,3.75rem);
+  background:var(--glass);
+  backdrop-filter:blur(20px) saturate(150%);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  border-bottom:1px solid var(--line-soft);
+  transition:background .7s var(--ease),border-color .7s var(--ease);
+}
+.theme-toggle,.currency-toggle{
+  display:flex;padding:.14rem;border:1px solid var(--line);border-radius:999px;
+  background:var(--glass-2);box-shadow:var(--sh-xs);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:background .7s var(--ease),border-color .7s var(--ease);
+}
+.theme-toggle button,.currency-toggle button{
+  border:0;background:transparent;color:var(--text-soft);border-radius:999px;
+  font-family:var(--sans);font-weight:600;font-size:.58rem;letter-spacing:.08em;
+  padding:.3rem .7rem;
+  transition:background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.theme-toggle button.active,.currency-toggle button.active{
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold) 62%,var(--gold-hi));
+  color:var(--btn-gold-ink);
+  box-shadow:0 3px 12px color-mix(in srgb,var(--gold) 40%,transparent), inset 0 1px 0 rgba(255,255,255,.32);
+}
+.theme-toggle .t-ico{font-size:.85em;margin-right:.15rem}
+
+/* ============ HERO BANNER ============ */
+.hero{padding:0;background:none}
+.hero-banner{
+  position:relative;width:100%;overflow:hidden;
+  animation:bannerIn 1.4s var(--ease) both;
+}
+@keyframes bannerIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:none}}
+.hero-banner img{
+  width:100%;height:auto;aspect-ratio:1991/790;
+  object-fit:cover;object-position:center;display:block;
+}
+.hero-banner::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,17,29,.1) 0%,transparent 16%,transparent 78%,var(--bg) 100%);
+  transition:background .7s var(--ease);
+}
+
+/* ============ FEATURED ============ */
+.featured{
+  display:grid;grid-template-columns:minmax(260px,400px) 1fr;
+  gap:clamp(2.4rem,6vw,5.5rem);align-items:center;
+  max-width:1100px;margin:clamp(1rem,3vw,2rem) auto 0;
+  padding:clamp(2.4rem,5.5vw,4.2rem) clamp(1.5rem,5vw,3.4rem);
+  background:
+    radial-gradient(120% 140% at 82% -20%, var(--glow), transparent 52%),
+    linear-gradient(165deg,var(--surface-hi),var(--surface) 70%);
+  border:1px solid var(--line-soft);border-radius:30px;
+  box-shadow:var(--sh-md), inset 0 1px 0 var(--edge);
+  transition:background .7s var(--ease),border-color .7s var(--ease);
+}
+.featured-copy .eyebrow{
+  font-family:var(--sans);font-weight:600;font-size:.6rem;letter-spacing:.46em;
+  text-transform:uppercase;color:var(--gold);
+  display:flex;align-items:center;gap:1rem;
+}
+.featured-copy .eyebrow::after{content:'';width:70px;height:1px;background:linear-gradient(90deg,var(--gold-deep),transparent)}
+.featured-copy h2{
+  font-family:var(--serif-head);font-weight:600;color:var(--text-hi);
+  font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.04;letter-spacing:-.012em;
+  margin:.85rem 0 .45rem;
+}
+.featured-copy .sub{font-family:var(--serif-head);font-style:italic;font-size:1.26rem;line-height:1.4;color:var(--sub-accent)!important}
+.featured-copy p.desc{margin:1.3rem 0 1.7rem;max-width:53ch;color:var(--text-soft);font-size:1.02rem}
+.featured-price{
+  font-family:var(--sans);font-weight:600;font-variant-numeric:tabular-nums;
+  font-size:1.35rem;color:var(--text-hi);letter-spacing:.01em;margin-bottom:1.5rem;
+}
+.featured-price .alt{font-size:.78rem;color:var(--text-soft);letter-spacing:.04em;margin-left:.75rem;font-weight:500}
+
+/* ============ THE 3D BOOK ============ */
+.book3d-stage{perspective:1700px;display:flex;justify-content:center}
+.book3d{
+  position:relative;transform-style:preserve-3d;
+  transform:rotateY(-21deg) rotateX(3deg);
+  transition:transform .85s var(--ease);
+  filter:drop-shadow(var(--shadow-book));
+}
+.book3d:hover,.book3d:focus-within{transform:rotateY(-7deg) rotateX(1.5deg) translateY(-9px)}
+.book3d .cover{
+  position:relative;overflow:hidden;border-radius:4px 12px 12px 4px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:9% 9% 8%;
+  filter:var(--cover-filter);
+}
+.book3d .cover::before{
+  content:'';position:absolute;inset:0;
+  background:
+    linear-gradient(105deg,transparent 40%,rgba(255,255,255,.12) 49%,transparent 58%),
+    radial-gradient(130% 90% at 82% -6%, rgba(255,255,255,.2), transparent 55%),
+    linear-gradient(180deg,transparent 78%,rgba(0,0,0,.18));
+  pointer-events:none;
+}
+.book3d .cover.has-img{padding:0;filter:none}
+.book3d .cover.has-img img{width:100%;height:100%;object-fit:cover}
+.book3d .spine{
+  position:absolute;top:0;bottom:0;left:0;transform-origin:left;
+  transform:rotateY(-90deg) translateX(-100%);
+  background:linear-gradient(180deg,var(--gold-deep),var(--gold) 32%,var(--gold-deep) 86%);
+  border-radius:4px 0 0 4px;
+}
+.book3d .pages{
+  position:absolute;top:1.5%;bottom:1.5%;right:0;transform-origin:right;
+  transform:rotateY(90deg) translateX(100%);
+  background:repeating-linear-gradient(180deg,#F7F1E4 0 2px,var(--parchment) 2px 4px);
+}
+.cover-frame{position:absolute;inset:6%;border:1px solid rgba(244,227,172,.55);border-radius:3px;pointer-events:none}
+.cover-frame::after{content:'';position:absolute;inset:5px;border:1px solid rgba(244,227,172,.24);border-radius:2px}
+.cover-top{position:relative;text-align:center}
+.cover-kicker{font-family:var(--serif-display);font-size:.46em;letter-spacing:.4em;text-transform:uppercase;color:#F4E3AC}
+.cover-title{font-family:var(--serif-display);font-weight:600;color:#FBF8F0;font-size:1em;line-height:1.26;letter-spacing:.05em;margin-top:.6em;text-shadow:0 1px 3px rgba(0,0,0,.32)}
+.cover-sub{font-family:var(--serif-head);font-style:italic;color:#EFE3C2;font-size:.6em;margin-top:.55em}
+.cover-bottom{position:relative;text-align:center}
+.cover-orn{color:#F4E3AC;font-size:.54em;letter-spacing:.6em;margin-bottom:.55em}
+.cover-author{font-family:var(--serif-display);font-size:.5em;letter-spacing:.28em;text-transform:uppercase;color:#FBF8F0}
+.cover-brand{font-family:var(--serif-head);font-style:italic;font-size:.46em;color:#F4E3AC;margin-top:.4em}
+
+/* ============ SHELVES ============ */
+.shelf{max-width:1220px;margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,4vw,2rem) 5.5rem}
+.shelf-head{text-align:center;margin-bottom:2.6rem}
+.shelf-head h2{
+  font-family:var(--serif-display);font-weight:400;color:var(--text-hi);
+  font-size:clamp(1.9rem,4.4vw,3rem);letter-spacing:.16em;text-transform:uppercase;
+}
+.shelf-head p{font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:1.2rem;margin-top:.6rem}
+
+.search-wrap{max-width:500px;margin:0 auto 1.9rem;position:relative}
+.search-wrap input{
+  width:100%;border:1px solid var(--line);border-radius:999px;
+  background:var(--glass-2);color:var(--text);
+  font-family:var(--serif-body);font-size:1.03rem;
+  padding:.92rem 1.5rem .92rem 3.2rem;box-shadow:var(--sh-sm), inset 0 1px 0 var(--edge);
+  transition:border-color .35s var(--ease),box-shadow .35s var(--ease),background .7s var(--ease),color .7s var(--ease);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.search-wrap input::placeholder{color:var(--text-faint);font-style:italic;font-family:var(--serif-head)}
+.search-wrap input:focus{
+  border-color:color-mix(in srgb,var(--gold) 58%,transparent);
+  box-shadow:var(--sh-sm), 0 0 0 4px color-mix(in srgb,var(--gold) 13%,transparent);
+}
+.search-wrap .s-icon{position:absolute;left:1.25rem;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1.05rem;pointer-events:none}
+
+.filters{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:3.2rem}
+.filters button{
+  border:1px solid var(--line-soft);background:var(--glass-2);color:var(--text-soft);
+  font-family:var(--sans);font-weight:600;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:.62rem 1.3rem;border-radius:999px;box-shadow:var(--sh-xs);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),color .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease);
+}
+.filters button:hover{
+  transform:translateY(-2px);color:var(--gold-hi);
+  border-color:color-mix(in srgb,var(--gold) 45%,transparent);
+  box-shadow:var(--sh-sm);
+}
+.filters button.active{
+  background:var(--chip,var(--gold));border-color:var(--chip,var(--gold));color:#fff;
+  box-shadow:0 8px 20px -8px color-mix(in srgb,var(--chip,var(--gold)) 55%,transparent), inset 0 1px 0 rgba(255,255,255,.22);
+}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2.5rem 2rem}
+.card{
+  --tone:var(--gold);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:0 1.25rem 1.8rem;border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--surface-hi),var(--surface) 60%);
+  border:1px solid var(--line-soft);
+  box-shadow:var(--sh-sm), inset 0 1px 0 var(--edge);
+  overflow:hidden;
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .55s var(--ease),background .7s var(--ease);
+}
+.card:hover{
+  transform:translateY(-9px);
+  border-color:color-mix(in srgb,var(--tone) 30%,transparent);
+  box-shadow:var(--sh-lg), 0 0 44px -10px var(--glow), inset 0 1px 0 var(--edge);
+}
+.card .ribbon{width:100%;height:2px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--tone) 78%,#fff) 50%,transparent);margin-bottom:1.8rem;opacity:.8}
+.card .book3d-stage{margin-bottom:1.35rem}
+.card .cat-tag{font-family:var(--sans);font-weight:600;font-size:.56rem;letter-spacing:.32em;text-transform:uppercase;color:color-mix(in srgb,var(--tone) 62%,var(--mixb));margin-bottom:.5rem}
+.card h3{font-family:var(--serif-head);font-weight:700;color:var(--text-hi);font-size:1.36rem;line-height:1.14;letter-spacing:-.008em}
+.card .card-sub{font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:.98rem;margin-top:.25rem;line-height:1.45}
+.badges{display:flex;flex-wrap:wrap;gap:.4rem;justify-content:center;margin:.85rem 0 .55rem}
+.badge{
+  font-family:var(--sans);font-weight:600;font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--tone) 60%,var(--mixb));
+  border:1px solid color-mix(in srgb,var(--tone) 30%,transparent);
+  background:color-mix(in srgb,var(--tone) 9%,transparent);
+  border-radius:999px;padding:.26rem .66rem;
+}
+.card .price{
+  font-family:var(--sans);font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--text-hi);font-size:1.06rem;letter-spacing:.01em;margin:.45rem 0 1.15rem;
+}
+.card .price .alt{display:block;font-size:.66rem;color:var(--text-soft);letter-spacing:.06em;margin-top:.22rem;font-weight:500}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  font-family:var(--sans);font-weight:700;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  border-radius:999px;padding:.9rem 2rem;border:1px solid var(--gold);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),filter .35s var(--ease),background .35s var(--ease),color .35s var(--ease),opacity .35s var(--ease),border-color .35s var(--ease);
+}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:disabled{opacity:.38;transform:none;box-shadow:none}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold) 55%,var(--gold-hi));
+  color:var(--btn-gold-ink);border-color:transparent;
+  box-shadow:0 14px 30px -12px color-mix(in srgb,var(--gold) 55%,transparent), inset 0 1px 0 rgba(255,255,255,.38);
+}
+.btn-gold:hover{
+  filter:brightness(1.08);transform:translateY(-2px);
+  box-shadow:0 20px 40px -14px color-mix(in srgb,var(--gold-hi) 60%,transparent), inset 0 1px 0 rgba(255,255,255,.38);
+}
+.btn-tone{
+  background:transparent;
+  border-color:color-mix(in srgb,var(--tone) 52%,transparent);
+  color:color-mix(in srgb,var(--tone) 62%,var(--mixb));
+}
+.btn-tone:hover{
+  background:var(--tone);border-color:var(--tone);color:#fff;transform:translateY(-2px);
+  box-shadow:0 14px 30px -14px color-mix(in srgb,var(--tone) 62%,transparent);
+}
+.btn-ghost{background:transparent;color:var(--gold)}
+.btn-ghost:hover{background:color-mix(in srgb,var(--gold) 10%,transparent);transform:translateY(-2px)}
+
+/* ============ PAGINATION ============ */
+.pagination{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;align-items:center;margin-top:3.2rem}
+.pagination button{
+  min-width:2.75rem;height:2.75rem;padding:0 .8rem;border-radius:999px;
+  border:1px solid var(--line-soft);background:var(--glass-2);color:var(--text);
+  font-family:var(--sans);font-weight:600;font-size:.8rem;font-variant-numeric:tabular-nums;
+  box-shadow:var(--sh-xs);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease),opacity .35s var(--ease),background .7s var(--ease),color .7s var(--ease);
+}
+.pagination button:hover:not(:disabled):not(.current){transform:translateY(-2px);border-color:color-mix(in srgb,var(--gold) 48%,transparent);box-shadow:var(--sh-sm)}
+.pagination button.current{
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold) 60%,var(--gold-hi));
+  color:var(--btn-gold-ink);border-color:transparent;
+  box-shadow:0 8px 20px -8px color-mix(in srgb,var(--gold) 50%,transparent), inset 0 1px 0 rgba(255,255,255,.32);
+}
+.pagination button:disabled{opacity:.3}
+.pagination .p-ellipsis{font-family:var(--sans);color:var(--gold-deep);letter-spacing:.18em;padding:0 .2rem;font-weight:600}
+.page-note{text-align:center;font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:.98rem;margin-top:1.1rem}
+
+/* ============ THE ACADEMY ============ */
+.academy{max-width:1120px;margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,4vw,2rem) 6.5rem}
+.academy-head{text-align:center;margin-bottom:1.1rem}
+.academy-head .a-eyebrow{font-family:var(--sans);font-weight:600;font-size:.6rem;letter-spacing:.52em;text-transform:uppercase;color:var(--gold)}
+.academy-head h2{
+  font-family:var(--serif-display);font-weight:400;color:var(--text-hi);
+  font-size:clamp(1.9rem,4.4vw,3rem);letter-spacing:.16em;text-transform:uppercase;margin-top:.6rem;
+}
+.academy-head p{font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:1.2rem;margin-top:.6rem}
+.lifetime-banner{
+  display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap;
+  max-width:680px;margin:1.8rem auto 3.2rem;padding:1rem 1.7rem;
+  background:var(--glass-2);
+  border:1px solid color-mix(in srgb,var(--gold) 34%,transparent);border-radius:999px;
+  box-shadow:var(--sh-sm);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-family:var(--serif-head);font-style:italic;color:var(--text);font-size:1.08rem;text-align:center;
+  transition:background .7s var(--ease),color .7s var(--ease);
+}
+.lifetime-banner .lb-mark{font-style:normal;color:var(--gold);font-size:1rem}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:2rem}
+.course-card{
+  --tone:#23745C;
+  position:relative;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,var(--surface-hi),var(--surface) 60%);
+  border:1px solid var(--line-soft);border-radius:var(--radius);
+  box-shadow:var(--sh-sm), inset 0 1px 0 var(--edge);
+  overflow:hidden;
+  transition:transform .55s var(--ease),box-shadow .55s var(--ease),border-color .55s var(--ease),background .7s var(--ease);
+}
+.course-card:hover{
+  transform:translateY(-9px);
+  border-color:color-mix(in srgb,var(--gold) 40%,transparent);
+  box-shadow:var(--sh-lg), 0 0 44px -10px var(--glow), inset 0 1px 0 var(--edge);
+}
+.course-card .c-band{
+  padding:1.7rem 1.6rem 1.45rem;color:#FBF8F0;position:relative;
+  background:linear-gradient(150deg,var(--tone),var(--tone-deep,#174C3B) 84%);
+  filter:var(--band-filter);
+}
+.course-card .c-band::after{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(120% 100% at 85% -10%, rgba(255,255,255,.16), transparent 55%),
+    linear-gradient(180deg,transparent 72%,rgba(5,6,8,.2));
+  pointer-events:none;
+}
+.course-card .c-track{font-family:var(--sans);font-weight:600;font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(251,248,240,.82);position:relative}
+.course-card .c-band h3{font-family:var(--serif-head);font-weight:700;font-size:1.54rem;line-height:1.1;margin-top:.45rem;position:relative;letter-spacing:-.008em}
+.course-card .c-body{display:flex;flex-direction:column;flex:1;padding:1.35rem 1.6rem 1.6rem;text-align:left}
+.course-card .c-desc{color:var(--text-soft);font-size:.99rem;line-height:1.62}
+.course-meta{display:flex;flex-wrap:wrap;gap:.42rem;margin:1.05rem 0 .2rem}
+.course-meta span{
+  font-family:var(--sans);font-weight:600;font-size:.54rem;letter-spacing:.12em;text-transform:uppercase;
+  color:color-mix(in srgb,var(--tone) 60%,var(--mixb));
+  border:1px solid color-mix(in srgb,var(--tone) 30%,transparent);
+  background:color-mix(in srgb,var(--tone) 9%,transparent);
+  border-radius:999px;padding:.28rem .64rem;
+}
+.lifetime-seal{
+  position:absolute;top:1.05rem;right:1.05rem;z-index:1;
+  font-family:var(--sans);font-weight:700;font-size:.5rem;letter-spacing:.2em;text-transform:uppercase;
+  color:#FBF8F0;background:rgba(5,6,8,.26);
+  border:1px solid rgba(244,227,172,.5);border-radius:999px;padding:.4rem .8rem;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.course-card .c-footer{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:auto;padding-top:1.2rem}
+.course-card .price{font-family:var(--sans);font-weight:600;font-variant-numeric:tabular-nums;color:var(--text-hi);font-size:1.05rem}
+.course-card .price .alt{display:block;font-size:.64rem;color:var(--text-soft);letter-spacing:.06em;margin-top:.2rem;font-weight:500}
+.modal-lifetime{
+  display:flex;align-items:center;gap:.6rem;margin:-.3rem 0 1.25rem;
+  font-family:var(--serif-head);font-style:italic;color:color-mix(in srgb,#23745C 55%,var(--mixb));font-size:1.04rem;
+}
+.modal-lifetime .lb-mark{font-style:normal;color:var(--gold)}
+
+/* ============ MODAL ============ */
+.modal-veil{
+  position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;
+  background:var(--veil);
+  backdrop-filter:blur(13px) saturate(120%);-webkit-backdrop-filter:blur(13px) saturate(120%);
+  padding:1rem;
+}
+.modal-veil.open{display:flex}
+.modal-veil.open .modal{animation:rise .65s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.modal{
+  width:min(600px,100%);max-height:90vh;overflow-y:auto;position:relative;
+  background:linear-gradient(180deg,var(--surface-hi),var(--surface) 58%);
+  border:1px solid color-mix(in srgb,var(--gold) 28%,transparent);
+  border-radius:30px;
+  box-shadow:var(--sh-lg), 0 60px 130px -34px var(--veil);
+  padding:0 clamp(1.5rem,4.5vw,2.6rem) 2.1rem;
+}
+.modal .modal-ribbon{height:2px;margin:0 calc(-1 * clamp(1.5rem,4.5vw,2.6rem)) 2.1rem;background:linear-gradient(90deg,transparent,var(--gold-deep) 18%,var(--gold-hi) 50%,var(--gold-deep) 82%,transparent)}
+.modal-close{
+  position:absolute;top:1.15rem;right:1.15rem;
+  background:var(--glass-2);border:1px solid var(--line);border-radius:50%;
+  width:2.4rem;height:2.4rem;color:var(--text-soft);font-size:1.3rem;line-height:1;
+  box-shadow:var(--sh-xs);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:color .3s var(--ease),transform .35s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease);
+}
+.modal-close:hover{color:var(--gold-hi);border-color:color-mix(in srgb,var(--gold) 50%,transparent);transform:rotate(90deg);box-shadow:var(--sh-sm)}
+.modal h3{font-family:var(--serif-head);font-weight:700;color:var(--text-hi);font-size:1.95rem;line-height:1.06;padding-right:2.3rem;letter-spacing:-.014em}
+.modal .modal-sub{font-family:var(--serif-head);font-style:italic;color:var(--text-soft);margin:.2rem 0 1.05rem;font-size:1.08rem}
+.modal .modal-price{
+  font-family:var(--sans);font-weight:600;font-variant-numeric:tabular-nums;
+  color:var(--text-hi);font-size:1.22rem;margin-bottom:1.4rem;
+}
+.modal #modalBody p[style]{color:var(--text)!important}
+.modal-section-label{
+  font-family:var(--sans);font-weight:600;font-size:.58rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);margin:1.6rem 0 .9rem;display:flex;align-items:center;gap:1rem;
+}
+.modal-section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold-deep) 60%,transparent),transparent)}
+.platform-list{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.platform-list a,.platform-list button{
+  display:flex;align-items:center;gap:.75rem;width:100%;
+  border:1px solid var(--line-soft);border-radius:16px;
+  background:var(--glass-2);
+  color:var(--text);font-family:var(--serif-body);font-size:.97rem;
+  padding:.84rem 1.05rem;text-align:left;box-shadow:var(--sh-xs), inset 0 1px 0 var(--edge);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease);
+}
+.platform-list a:hover,.platform-list button:hover{
+  transform:translateY(-2px);
+  border-color:color-mix(in srgb,var(--pm,var(--gold)) 52%,transparent);
+  box-shadow:var(--sh-sm), 0 0 24px -8px color-mix(in srgb,var(--pm,var(--gold)) 26%,transparent);
+}
+.platform-list .p-mark{
+  font-family:var(--sans);font-weight:700;font-size:.6rem;letter-spacing:.02em;
+  color:#FBF8F0;
+  background:linear-gradient(140deg,var(--pm,var(--gold)),color-mix(in srgb,var(--pm,var(--gold)) 62%,#000));
+  border-radius:11px;min-width:2.25rem;height:2.25rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2);
+}
+.platform-list small{display:block;color:var(--text-soft);font-size:.76rem;font-family:var(--sans);font-weight:400;letter-spacing:.005em}
+.delivery-box{
+  margin-top:1.45rem;border:1px dashed color-mix(in srgb,#23745C 55%,transparent);
+  background:color-mix(in srgb,#23745C 7%,var(--surface));border-radius:18px;
+  padding:1.3rem 1rem;text-align:center;display:none;
+}
+.delivery-box.show{display:block;animation:rise .55s var(--ease) both}
+.delivery-box p{font-family:var(--serif-head);font-style:italic;color:color-mix(in srgb,#23745C 55%,var(--mixb));margin-bottom:1rem;font-size:1.04rem}
+
+/* ============ FOOTER ============ */
+footer{
+  border-top:1px solid var(--line-soft);
+  background:
+    radial-gradient(90% 130% at 50% 140%, var(--glow), transparent 58%),
+    linear-gradient(180deg,var(--bg),var(--bg-deep));
+  text-align:center;padding:3.6rem 1.5rem 3rem;
+  transition:background .7s var(--ease);
+}
+.glass-rule{
+  width:min(280px,54%);height:3px;margin:0 auto 2.1rem;
+  display:flex;border-radius:99px;overflow:hidden;
+  box-shadow:0 0 20px var(--glow);
+}
+.glass-rule i{flex:1}
+.glass-rule i:nth-child(1){background:var(--j1)}
+.glass-rule i:nth-child(2){background:var(--j2)}
+.glass-rule i:nth-child(3){background:var(--j3)}
+.glass-rule i:nth-child(4){background:var(--j4)}
+.glass-rule i:nth-child(5){background:var(--j5)}
+.glass-rule i:nth-child(6){background:var(--j6)}
+footer .f-brand{font-family:var(--serif-display);letter-spacing:.32em;text-transform:uppercase;color:var(--text-hi);font-size:.88rem;font-weight:600}
+footer .f-sub{font-family:var(--serif-head);font-style:italic;color:var(--gold);margin:.45rem 0 1rem;font-size:1.05rem}
+footer .f-links{font-size:.95rem;color:var(--text-soft)}
+footer .f-links a{color:var(--gold);border-bottom:1px solid color-mix(in srgb,var(--gold) 32%,transparent);transition:border-color .3s var(--ease),color .3s var(--ease)}
+footer .f-links a:hover{border-color:var(--gold-hi);color:var(--gold-hi)}
+footer .f-note{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text-faint);margin-top:1.3rem;letter-spacing:.12em;text-transform:uppercase}
+
+/* ============ REVEAL ============ */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+@media (max-width:760px){
+  body{font-size:16.5px}
+  .topbar{padding:.5rem .85rem;gap:.5rem}
+  .theme-toggle button,.currency-toggle button{padding:.46rem .8rem}
+  .featured{grid-template-columns:1fr;text-align:center;padding:2.2rem 1.4rem 2.6rem;border-radius:24px}
+  .featured-copy .eyebrow{justify-content:center}
+  .featured-copy p.desc{margin-left:auto;margin-right:auto}
+  .platform-list{grid-template-columns:1fr}
+  .hero-banner img{aspect-ratio:1991/790;object-position:center}
+  .modal{border-radius:22px}
+  .btn{padding:.95rem 1.9rem}
+  .pagination button{min-width:2.9rem;height:2.9rem}
+  .filters button{padding:.7rem 1.25rem}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}
+  .hero-banner{animation:none;opacity:1;transform:none}
+  .aurora{display:none}
+}
+
+/* ============ QUICKNAV ============ */
+.quicknav{
+  position:sticky;top:4.35rem;z-index:40;
+  display:flex;gap:.5rem;justify-content:center;align-items:center;
+  width:fit-content;margin:1.4rem auto 0;padding:.3rem;
+  background:var(--glass);border:1px solid var(--line-soft);border-radius:999px;
+  box-shadow:var(--sh-sm);
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  transition:background .7s var(--ease),border-color .7s var(--ease);
+}
+.qn-tab{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--sans);font-weight:600;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--text-soft);border:0;background:transparent;border-radius:999px;
+  padding:.6rem 1.25rem;cursor:pointer;
+  transition:background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.qn-tab:hover{color:var(--gold-hi)}
+.qn-tab.active{
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold) 62%,var(--gold-hi));
+  color:var(--btn-gold-ink);
+  box-shadow:0 3px 12px color-mix(in srgb,var(--gold) 38%,transparent), inset 0 1px 0 rgba(255,255,255,.3);
+}
+.qn-ico{font-size:.9em}
+#shelves,#academy{scroll-margin-top:8.5rem}
+
+/* ============ LIBRARY INDEX ============ */
+.index-veil{
+  position:fixed;inset:0;z-index:90;opacity:0;pointer-events:none;
+  background:var(--veil);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:opacity .45s var(--ease);
+}
+body.ix-open .index-veil{opacity:1;pointer-events:auto}
+.index-drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:95;
+  width:min(400px,94vw);overflow-y:auto;
+  background:linear-gradient(180deg,var(--surface-hi),var(--surface) 40%);
+  border-left:1px solid color-mix(in srgb,var(--gold) 30%,transparent);
+  box-shadow:-30px 0 80px -30px var(--veil);
+  transform:translateX(102%);
+  transition:transform .55s var(--ease),background .7s var(--ease);
+}
+body.ix-open .index-drawer{transform:none}
+.ix-head{
+  position:sticky;top:0;z-index:2;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  padding:1.4rem 1.4rem 1rem;
+  background:linear-gradient(180deg,var(--surface-hi) 70%,transparent);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.ix-title{font-family:var(--serif-display);font-weight:500;font-size:1rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-hi)}
+.ix-sub{font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:.92rem;margin-top:.2rem}
+.ix-close{
+  background:var(--glass-2);border:1px solid var(--line);border-radius:50%;
+  width:2.2rem;height:2.2rem;color:var(--text-soft);font-size:1.2rem;line-height:1;flex-shrink:0;
+  transition:color .3s var(--ease),transform .35s var(--ease),border-color .3s var(--ease);
+}
+.ix-close:hover{color:var(--gold-hi);border-color:color-mix(in srgb,var(--gold) 50%,transparent);transform:rotate(90deg)}
+.ix-list{padding:0 1rem 2rem}
+.ix-group{margin-top:1.1rem}
+.ix-cat{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:var(--sans);font-weight:600;font-size:.58rem;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--gold);padding:.4rem .5rem;
+}
+.ix-cat::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--gold-deep) 55%,transparent),transparent)}
+.ix-cat span{font-variant-numeric:tabular-nums;color:var(--text-faint);letter-spacing:.05em}
+.ix-row{
+  display:flex;align-items:center;gap:.7rem;width:100%;text-align:left;
+  background:transparent;border:0;border-radius:12px;
+  padding:.62rem .55rem;cursor:pointer;
+  transition:background .3s var(--ease),transform .3s var(--ease);
+}
+.ix-row:hover{background:color-mix(in srgb,var(--gold) 7%,transparent);transform:translateX(3px)}
+.ix-dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--tone,var(--gold));flex-shrink:0;box-shadow:0 0 8px color-mix(in srgb,var(--tone,var(--gold)) 45%,transparent)}
+.ix-row.soon .ix-dot{background:transparent;border:2px solid var(--tone,var(--gold));box-shadow:none}
+.ix-t{font-family:var(--serif-head);font-weight:600;font-size:1.04rem;color:var(--text-hi);line-height:1.25;flex:1}
+.ix-row.soon .ix-t{color:var(--text-soft)}
+.ix-meta{font-family:var(--sans);font-weight:600;font-size:.62rem;letter-spacing:.06em;color:var(--text-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ix-row.soon .ix-meta{color:var(--gold);letter-spacing:.1em;text-transform:uppercase;font-size:.54rem}
+
+/* ============ COMING SOON ============ */
+.card{position:relative}
+.soon-seal{
+  position:absolute;top:1.05rem;right:1.05rem;z-index:2;
+  font-family:var(--sans);font-weight:700;font-size:.52rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--btn-gold-ink);
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold) 60%,var(--gold-hi));
+  border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:.4rem .8rem;
+  box-shadow:0 6px 16px -6px color-mix(in srgb,var(--gold) 55%,transparent);
+}
+.soon-note{
+  margin-top:.4rem;padding:1.2rem 1.2rem 1.3rem;text-align:center;
+  border:1px dashed color-mix(in srgb,var(--gold) 50%,transparent);
+  background:color-mix(in srgb,var(--gold) 6%,var(--surface));border-radius:18px;
+}
+.soon-note .sn-line{font-family:var(--serif-head);font-style:italic;color:var(--text);font-size:1.04rem;margin-bottom:1rem}
+.soon-note .lb-mark{font-style:normal;color:var(--gold)}
+
+/* ============ THE ONE PAGE PEEK ============ */
+.peek-btn{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;
+  margin-top:1.35rem;padding:.85rem 1rem;border-radius:14px;
+  border:1px solid color-mix(in srgb,var(--gold) 36%,transparent);
+  background:transparent;color:var(--gold);
+  font-family:var(--sans);font-weight:600;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease);
+}
+.peek-btn:hover{background:color-mix(in srgb,var(--gold) 8%,transparent);color:var(--gold-hi)}
+.peek-panel{
+  display:none;margin-top:.8rem;padding:1.5rem 1.5rem 1.3rem;border-radius:16px;
+  background:color-mix(in srgb,var(--gold) 5%,var(--surface));
+  border:1px solid var(--line-soft);
+  font-family:var(--serif-body);color:var(--text);font-size:1rem;line-height:1.75;
+}
+.peek-panel.open{display:block;animation:rise .5s var(--ease) both}
+.peek-panel p{margin-bottom:.85rem}
+.peek-panel p:last-child{margin-bottom:0}
+.peek-kicker{
+  font-family:var(--sans);font-weight:600;font-size:.56rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold);text-align:center;margin-bottom:1rem!important;
+}
+.peek-panel .peek-open::first-letter{
+  font-family:var(--serif-display);font-size:2.9em;line-height:.85;
+  float:left;padding:.08em .12em 0 0;color:var(--gold-deep);
+}
+.peek-close{font-family:var(--serif-head);font-style:italic;text-align:center;color:var(--gold-deep);letter-spacing:.04em}
+
+@media (max-width:760px){
+  .quicknav{top:3.6rem;width:calc(100% - 1.6rem);max-width:480px;justify-content:space-between;gap:.2rem}
+  .qn-tab{padding:.6rem .8rem;font-size:.6rem;letter-spacing:.1em}
+  #shelves,#academy{scroll-margin-top:7.5rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .index-drawer,.index-veil{transition:none}
+}
+
+/* card actions: buy + peek together */
+.card-actions{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap}
+.peek-mini{
+  font-family:var(--sans);font-weight:600;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);background:transparent;border:1px solid color-mix(in srgb,var(--gold) 34%,transparent);
+  border-radius:999px;padding:.72rem 1.05rem;
+  transition:background .35s var(--ease),color .35s var(--ease),border-color .35s var(--ease),transform .35s var(--ease);
+}
+.peek-mini:hover{background:color-mix(in srgb,var(--gold) 9%,transparent);color:var(--gold-hi);transform:translateY(-2px)}
+
+.peek-meta{
+  font-family:var(--sans);font-weight:600;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold-deep);text-align:center;margin:-.4rem 0 1rem!important;
+}
+.course-card .c-footer{flex-wrap:wrap}
+
+/* hide the animated aurora + freeze paint during the swap so blend-mode/gradient changes do not flash */
+html.theming .aurora{opacity:0!important;transition:opacity .18s linear!important}
+html.theming .aurora span{animation-play-state:paused!important}
+/* smooth, flicker-free day/night swap */
+html.theming, html.theming body,
+html.theming .topbar, html.theming .quicknav, html.theming .qn-tab,
+html.theming .book-card, html.theming .featured, html.theming .modal,
+html.theming .modal-panel, html.theming .filters button, html.theming .pagination button,
+html.theming .search-wrap input, html.theming .lifetime-banner, html.theming .peek-btn,
+html.theming .platform-list a, html.theming .platform-list button,
+html.theming .theme-toggle, html.theming .currency-toggle, html.theming .index-drawer{
+  transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease) !important;
+}
+</style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true"><span class="a1"></span><span class="a2"></span><span class="a3"></span><span class="a4"></span></div>
+
+
+<section class="hero">
+  <div class="hero-banner">
+    <img src="DATA_URI_REMOVED" alt="The Bookstore. Books, devotionals, and study volumes by Emmanuel I. Emodiae. Prophet, Preacher, Poet.">
+  </div>
+</section>
+
+<header class="topbar">
+  <div class="theme-toggle" role="group" aria-label="Appearance">
+    <button type="button" id="thDay" class="active" onclick="setTheme('day')"><span class="t-ico">✷</span> Day</button>
+    <button type="button" id="thNight" onclick="setTheme('night')"><span class="t-ico">☾</span> Night</button>
+  </div>
+  <div class="currency-toggle" role="group" aria-label="Currency">
+    <button type="button" id="curUSD" class="active" onclick="setCurrency('USD')">$ USD</button>
+    <button type="button" id="curNGN" onclick="setCurrency('NGN')">₦ NGN</button>
+  </div>
+</header>
+
+
+
+<nav class="quicknav" aria-label="Store sections">
+  <a href="#shelves" class="qn-tab active" id="qnBooks"><span class="qn-ico">❦</span> The Shelves</a>
+  <a href="#academy" class="qn-tab" id="qnAcademy"><span class="qn-ico">✦</span> The Academy</a>
+  <button type="button" class="qn-tab qn-index" onclick="toggleIndex(true)"><span class="qn-ico">☰</span> Library Index</button>
+</nav>
+
+<section class="featured reveal" id="featured">
+  <!-- rendered by JS -->
+</section>
+
+<section class="shelf" id="shelves">
+  <div class="shelf-head reveal">
+    <h2>The Shelves</h2>
+    <p>Every volume, in dollars or naira, delivered to your hands or your device</p>
+  </div>
+  <div class="search-wrap reveal">
+    <span class="s-icon" aria-hidden="true">⌕</span>
+    <input type="search" id="searchBox" placeholder="Search the library by title, theme, or word" aria-label="Search the library" oninput="setSearch(this.value)">
+  </div>
+  <div class="filters reveal" id="filters"></div>
+  <div class="grid" id="grid"></div>
+  <nav class="pagination" id="bookPagination" aria-label="Library pages"></nav>
+  <p class="page-note" id="bookPageNote"></p>
+</section>
+
+<section class="academy" id="academy">
+  <div class="academy-head reveal">
+    <p class="a-eyebrow">The Academy</p>
+    <h2>Online Courses</h2>
+    <p>Learn at your own pace, taught in the voice you trust</p>
+  </div>
+  <div class="lifetime-banner reveal">
+    <span class="lb-mark">✦</span>
+    <span>One payment. <strong>Lifetime access.</strong> Every lesson, every update, yours forever.</span>
+    <span class="lb-mark">✦</span>
+  </div>
+  <div class="course-grid" id="courseGrid"></div>
+  <nav class="pagination" id="coursePagination" aria-label="Course pages"></nav>
+  <p class="page-note" id="coursePageNote"></p>
+</section>
+
+<footer>
+  <div class="glass-rule" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <p class="f-brand">Eemodiae.org</p>
+  <p class="f-sub">Prophet | Preacher | Poet</p>
+  <p class="f-links"><a href="https://eemodiae.org" rel="noopener">eemodiae.org</a> · @thehjcw on all platforms</p>
+  <p class="f-note">© House of Joy Church Worldwide. All titles by Pastor Emmanuel I. Emodiae.</p>
+</footer>
+
+
+<!-- library index -->
+<div class="index-veil" id="indexVeil" onclick="toggleIndex(false)"></div>
+<aside class="index-drawer" id="indexDrawer" role="dialog" aria-modal="true" aria-label="Library index">
+  <div class="ix-head">
+    <div>
+      <p class="ix-title">Library Index</p>
+      <p class="ix-sub" id="ixCount"></p>
+    </div>
+    <button class="ix-close" aria-label="Close index" onclick="toggleIndex(false)">×</button>
+  </div>
+  <div class="ix-list" id="indexList"></div>
+</aside>
+
+<!-- purchase modal -->
+<div class="modal-veil" id="modalVeil" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-ribbon" aria-hidden="true"></div>
+    <button class="modal-close" aria-label="Close" onclick="closeModal()">×</button>
+    <h3 id="modalTitle"></h3>
+    <p class="modal-sub" id="modalSub"></p>
+    <p class="modal-price" id="modalPrice"></p>
+    <div id="modalBody"></div>
+    <div class="delivery-box" id="deliveryBox">
+      <p>Payment received. Your book is ready.</p>
+      <a class="btn btn-gold" id="deliveryLink" href="#" download>Download your copy</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://js.paystack.co/v2/inline.js" defer></script>
+<script src="https://checkout.flutterwave.com/v3.js" defer></script>
+
+<script>
+/* ==========================================================================
+   STORE_CONFIG : THE ENTIRE CATALOG AND SETTINGS LIVE HERE
+   --------------------------------------------------------------------------
+   To add a book: copy any entry in "books", change its fields, save, deploy.
+   Leave any link blank ("") and that platform button simply will not render.
+   To manage via CMS instead: host store-config.json beside this page with
+   this exact same shape. It will override everything below.
+   ========================================================================== */
+const STORE_CONFIG = {
+  settings: {
+    defaultCurrency: "USD",
+    fxRate: 1650,            /* used ONLY if a book has no priceNGN set */
+    supportEmail: "books@eemodiae.org",
+    externalConfigUrl: "store-config.json",
+    booksPerPage: 12,        /* pagination size for the library shelves */
+    coursesPerPage: 6        /* pagination size for the Academy */
+  },
+  payments: {
+    /* PUBLIC keys only. Never place secret keys in this file. */
+    paystackPublicKey: "",   /* e.g. "pk_live_xxxx"  enables NGN direct checkout */
+    flutterwavePublicKey: "" /* e.g. "FLWPUBK-xxxx"  enables USD + NGN direct checkout */
+  },
+  categories: ["Devotionals", "Theology", "Series", "Life Skills", "Fiction"],
+  featuredId: "dvc-2026",
+  books: [
+    {
+      id: "dvc-2026",
+      title: "Daily Victory Confession 2026",
+      subtitle: "Six Months of Decrees, Prophecy, and A Word in Verse",
+      kicker: "The Flagship Devotional",
+      category: "Devotionals",
+      description: "One hundred and eighty four days of enriched devotion: KJV anchor verses, Greek and Hebrew word studies, five decrees a day, prophecy, prayer, and a closing quatrain. July through December 2026.",
+      formats: ["PDF", "Kindle", "Paperback"],
+      priceUSD: 14.99,
+      priceNGN: 15000,
+      coverImage: "",          /* optional: "covers/dvc-2026.jpg" overrides the 3D cover */
+      downloadUrl: "",         /* optional: direct file for instant delivery after payment */
+      links: {
+        amazon: "",
+        kindle: "",
+        selar: "",
+        bambooks: "",
+        okadabooks: "",
+        other: ""              /* any additional platform; label set below */
+      },
+      otherLabel: ""
+    },
+    {
+      id: "benefits-salvation",
+      title: "The Benefits of Salvation",
+      subtitle: "Two Volumes · 55 Chapters of Present and Eternal Riches",
+      kicker: "Doctrine Series",
+      category: "Theology",
+      description: "Twenty six present benefits and twenty nine eternal benefits of the salvation of God, traced verse by verse through the whole counsel of Scripture.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 11.99,
+      priceNGN: 12000,
+      coverImage: "",
+      downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" },
+      otherLabel: ""
+    },
+    {
+      id: "anatomy-of-love",
+      title: "Anatomy of Love",
+      subtitle: "A 26 Module Exposition of 1 Corinthians 13",
+      kicker: "Dual Volume",
+      category: "Theology",
+      description: "Love examined limb by limb: a devotional register for the heart and a scholarly register for the study, with Greek word studies throughout.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 9.99,
+      priceNGN: 10000,
+      coverImage: "",
+      downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" },
+      otherLabel: ""
+    },
+    {
+      id: "the-ten",
+      title: "The Ten",
+      subtitle: "Three Volumes · Ten Life Skills Across Every Tier",
+      kicker: "Life Skills Series",
+      category: "Life Skills",
+      description: "Ten skills that build a life, taught across three ascending volumes with practical drills and scriptural anchors.",
+      formats: ["PDF"],
+      priceUSD: 19.99,
+      priceNGN: 20000,
+      coverImage: "",
+      downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" },
+      otherLabel: ""
+    },
+    {
+      id: "chronicles-of-toba",
+      title: "The Chronicles of Toba",
+      subtitle: "A Nigerian Christian Thriller",
+      kicker: "Fiction",
+      category: "Fiction",
+      description: "Faith under fire in a story that moves like a chase and lands like a sermon. A novel of courage, conviction, and the God who does not blink.",
+      formats: ["PDF", "Kindle", "Paperback"],
+      priceUSD: 7.99,
+      priceNGN: 8000,
+      coverImage: "",
+      downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" },
+      otherLabel: ""
+    },
+    {
+      id: "holy-one-study",
+      title: "The Holy One",
+      subtitle: "A Study Across All 66 Books of Scripture",
+      kicker: "Lexical Study",
+      category: "Theology",
+      description: "Qadosh. Chasid. Qaddish. Hagios. Hosios. Every appearance of the title traced with Strong's numbers from Genesis to Revelation.",
+      formats: ["PDF"],
+      priceUSD: 8.99,
+      priceNGN: 9000,
+      coverImage: "",
+      downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" },
+      otherLabel: ""
+    },
+    {
+      id: "isaiah-gospel-prophet",
+      title: "Isaiah: The Gospel Prophet",
+      subtitle: "A Verse by Verse Journey with Hebrew Word Studies",
+      kicker: "Prophets Series",
+      category: "Theology",
+      description: "The evangelist of the Old Testament opened chapter by chapter, with the Hebrew beneath every promise and the Messiah shining through every page.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 10.99, priceNGN: 11000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "jeremiah-weeping-prophet",
+      title: "Jeremiah: The Weeping Prophet",
+      subtitle: "Tears, Fire, and the Faithfulness of God",
+      kicker: "Prophets Series",
+      category: "Theology",
+      description: "The prophet who could not hold his peace, studied with Hebrew word by word care: the call, the cost, and the covenant that outlasted the ruins.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 10.99, priceNGN: 11000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "ezekiel-visions-glory",
+      title: "Ezekiel: Visions of Glory",
+      subtitle: "Wheels, Watchmen, and the River from the Throne",
+      kicker: "Prophets Series",
+      category: "Theology",
+      description: "From the valley of dry bones to the temple of glory, Ezekiel expounded with Hebrew studies and the shepherd heart of a watchman.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 10.99, priceNGN: 11000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "priesthood-of-christ",
+      title: "The Priesthood of Christ",
+      subtitle: "Special Edition with Illustrated Diagrams",
+      kicker: "Special Edition",
+      category: "Theology",
+      description: "After the order of Melchizedek: the offices, the offering, and the intercession of our Great High Priest, illustrated throughout.",
+      formats: ["PDF"],
+      priceUSD: 12.99, priceNGN: 13000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "theology-tabernacle",
+      title: "Theology of the Tabernacle",
+      subtitle: "Every Board, Every Veil, Every Shadow of Christ",
+      kicker: "Special Edition",
+      category: "Theology",
+      description: "The tent in the wilderness drawn out in full color diagrams and doctrine, from the brazen altar to the mercy seat.",
+      formats: ["PDF"],
+      priceUSD: 12.99, priceNGN: 13000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "mentored-life-protege",
+      title: "The Mentored Life, Volume I",
+      subtitle: "The Protégé: Learning to Be Led",
+      kicker: "Mentorship Series",
+      category: "Life Skills",
+      description: "How to find, follow, and honor the voice God has set over your life. The first half of the mentorship covenant.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 8.99, priceNGN: 9000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "mentored-life-mentor",
+      title: "The Mentored Life, Volume II",
+      subtitle: "The Mentor: Learning to Lead",
+      kicker: "Mentorship Series",
+      category: "Life Skills",
+      description: "How to pour without emptying, correct without crushing, and release without losing. The second half of the covenant.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 8.99, priceNGN: 9000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "house-in-order-1",
+      title: "The House in Order, Volume I",
+      subtitle: "Church Structure, Governance, and Culture",
+      kicker: "Church Leadership",
+      category: "Series",
+      description: "The architecture of a healthy church: offices, departments, accountability, and the culture that holds them together.",
+      formats: ["PDF"],
+      priceUSD: 14.99, priceNGN: 15000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "house-in-order-2",
+      title: "The House in Order, Volume II",
+      subtitle: "Assessment, Adaptation, and Growth",
+      kicker: "Church Leadership",
+      category: "Series",
+      description: "The working companion: self assessment modules, cultural adaptation, and the road from structure to strength.",
+      formats: ["PDF"],
+      priceUSD: 14.99, priceNGN: 15000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "church-branding-library",
+      title: "Mastering Church Branding",
+      subtitle: "The Complete Fifteen Book Library",
+      kicker: "Boxed Set",
+      category: "Series",
+      description: "Fifteen volumes on carrying the message with excellence: identity, voice, design, platforms, and the stewardship of a name.",
+      formats: ["PDF"],
+      priceUSD: 39.99, priceNGN: 40000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "scriptural-intelligence-set",
+      title: "Scriptural Intelligence",
+      subtitle: "The Twelve Book Study Library",
+      kicker: "Boxed Set",
+      category: "Series",
+      description: "Twelve volumes that train the believer to rightly divide the Word: languages, context, structure, and sound interpretation.",
+      formats: ["PDF"],
+      priceUSD: 34.99, priceNGN: 35000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "wealth-code-set",
+      title: "The Wealth Code",
+      subtitle: "Nine Volumes of Kingdom Financial Education",
+      kicker: "Boxed Set",
+      category: "Devotionals",
+      description: "Stewardship, multiplication, enterprise, and generational wealth, taught from Scripture across nine progressive volumes.",
+      formats: ["PDF"],
+      priceUSD: 29.99, priceNGN: 30000,
+      coverImage: "", downloadUrl: "",
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    }
+,
+    {
+      id: "parables-of-the-king",
+      title: "The Parables of the King",
+      subtitle: "Every Parable Expounded, Opening with the Ten Virgins",
+      kicker: "The Christ Shelf",
+      category: "Theology",
+      description: "Every parable of the Lord Jesus opened for doctrine and for the heart, beginning where the lamps burn low. The first volume of the Christ Shelf.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 12.99, priceNGN: 13000,
+      coverImage: "", downloadUrl: "",
+      comingSoon: true,
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "i-am-declarations",
+      title: "I AM",
+      subtitle: "The Seven Declarations in John",
+      kicker: "The Christ Shelf",
+      category: "Theology",
+      description: "Bread, Light, Door, Shepherd, Resurrection, Way, and Vine. Seven doors into the identity of Christ, one volume.",
+      formats: ["PDF", "Kindle"],
+      priceUSD: 10.99, priceNGN: 11000,
+      coverImage: "", downloadUrl: "",
+      comingSoon: true,
+      links: { amazon: "", kindle: "", selar: "", bambooks: "", okadabooks: "", other: "" }, otherLabel: ""
+    }
+  ],
+
+  /* -------- THE ACADEMY: online courses, all with lifetime access --------
+     Same shape as books, plus: track, modules, hours, level, accessUrl.
+     accessUrl = the course portal or enrollment page delivered after payment. */
+  courses: [
+    {
+      id: "course-church-branding",
+      title: "Mastering Church Branding",
+      track: "Ministry",
+      tone: "royal",
+      description: "The complete fifteen part curriculum on building a church identity that carries the message with excellence, from name to logo to voice to platform.",
+      modules: 15, hours: 20, level: "All levels",
+      priceUSD: 49.99, priceNGN: 50000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-personal-branding",
+      title: "Personal Branding Mastery",
+      track: "Influence",
+      tone: "violet",
+      description: "Fourteen modules on becoming known for what God has placed in you: positioning, presence, platforms, and the discipline of a consistent voice.",
+      modules: 14, hours: 18, level: "Beginner to advanced",
+      priceUSD: 44.99, priceNGN: 45000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-wealth-code",
+      title: "The Wealth Code",
+      track: "Finance",
+      tone: "amber",
+      description: "Nine volumes of kingdom financial education taught as a structured course: stewardship, multiplication, enterprise, and generational wealth.",
+      modules: 9, hours: 14, level: "All levels",
+      priceUSD: 39.99, priceNGN: 40000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-scriptural-intelligence",
+      title: "Scriptural Intelligence",
+      track: "Bible Study",
+      tone: "emerald",
+      description: "Twelve modules that train you to study the Word for yourself: languages, context, structure, and the tools of sound interpretation.",
+      modules: 12, hours: 16, level: "Intermediate",
+      priceUSD: 44.99, priceNGN: 45000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-fashion-business",
+      title: "The Fashion Business Curriculum",
+      track: "Enterprise",
+      tone: "wine",
+      description: "Twenty seven courses and over seven hundred pages of instruction on building a fashion enterprise from gift to garment to global brand.",
+      modules: 27, hours: 40, level: "All levels",
+      priceUSD: 79.99, priceNGN: 80000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-tabernacle-masterclass",
+      title: "The Tabernacle Masterclass",
+      track: "Bible Study",
+      tone: "gold",
+      description: "Walk through the wilderness tent chamber by chamber with full color diagrams, Hebrew word studies, and Christ revealed in every article.",
+      modules: 10, hours: 12, level: "All levels",
+      priceUSD: 34.99, priceNGN: 35000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-wordsmith-ministry",
+      title: "Wordsmith: Writing for Ministry",
+      track: "Craft",
+      tone: "violet",
+      description: "Sermons, devotionals, poetry, and books: the craft of putting eternal truth into words that live. Taught with exercises and live edits.",
+      modules: 8, hours: 10, level: "Beginner to advanced",
+      priceUSD: 29.99, priceNGN: 30000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-digital-ministry",
+      title: "Digital Ministry Production",
+      track: "Media",
+      tone: "royal",
+      description: "From sermon to screen: content systems, publishing rhythm, and the tools that carry one message across every platform with excellence.",
+      modules: 12, hours: 15, level: "Intermediate",
+      priceUSD: 39.99, priceNGN: 40000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    },
+    {
+      id: "course-mentorship-track",
+      title: "The Mentorship Track",
+      track: "Leadership",
+      tone: "emerald",
+      description: "Both sides of the covenant in one course: how to be led as a protégé and how to lead as a mentor, with covenant templates included.",
+      modules: 10, hours: 13, level: "All levels",
+      priceUSD: 34.99, priceNGN: 35000,
+      accessUrl: "",
+      links: { selar: "", other: "" }, otherLabel: ""
+    }
+  ]
+};
+
+/* ========================= ENGINE (no need to edit) ========================= */
+let STORE = STORE_CONFIG;
+let currency = STORE_CONFIG.settings.defaultCurrency || "USD";
+let activeFilter = "All";
+let currentBook = null;   /* the item open in the modal; may be a book or a course */
+let bookPage = 1;
+let coursePage = 1;
+let searchTerm = "";
+
+const TONES = {
+  amber:{tone:"#D98324",deep:"#A35D12"}, royal:{tone:"#2E5EAA",deep:"#1F3F7A"},
+  emerald:{tone:"#1E7F63",deep:"#14563F"}, wine:{tone:"#8E3B55",deep:"#6B2440"},
+  violet:{tone:"#6C4AB0",deep:"#4A3080"}, gold:{tone:"#C9A227",deep:"#9A7A1C"}
+};
+function toneOf(item){
+  if(item.tone && TONES[item.tone]) return TONES[item.tone];
+  return catColor(item.category);
+}
+function findItem(id){
+  return (STORE.books||[]).find(b => b.id === id) || (STORE.courses||[]).find(c => c.id === id);
+}
+function isCourse(item){ return item && (STORE.courses||[]).some(c => c.id === item.id); }
+
+/* the stained glass: one jewel tone per category, everything follows it */
+const CAT_COLORS = {
+  "Devotionals": { tone:"#D98324", deep:"#A35D12" },
+  "Theology":    { tone:"#2E5EAA", deep:"#1F3F7A" },
+  "Series":      { tone:"#6C4AB0", deep:"#4A3080" },
+  "Life Skills": { tone:"#1E7F63", deep:"#14563F" },
+  "Fiction":     { tone:"#8E3B55", deep:"#6B2440" },
+  "_default":    { tone:"#C9A227", deep:"#9A7A1C" }
+};
+function catColor(cat){ return CAT_COLORS[cat] || CAT_COLORS._default; }
+
+const PLATFORM_META = {
+  amazon:     { mark: "AZ", name: "Amazon",      note: "Paperback and hardcover", color:"#D98324" },
+  kindle:     { mark: "K",  name: "Kindle",      note: "Read on any device",      color:"#2E5EAA" },
+  selar:      { mark: "SL", name: "Selar",       note: "Pay in naira, instant delivery", color:"#1E7F63" },
+  bambooks:   { mark: "BB", name: "Bambooks",    note: "Nigerian ebook library",  color:"#6C4AB0" },
+  okadabooks: { mark: "OK", name: "OkadaBooks",  note: "Nigerian ebook store",    color:"#8E3B55" },
+  other:      { mark: "✦",  name: "More",        note: "Additional platform",     color:"#C9A227" }
+};
+
+function esc(s){ const d=document.createElement('div'); d.textContent=s==null?'':String(s); return d.innerHTML; }
+
+function fmt(book){
+  const usd = "$" + Number(book.priceUSD).toFixed(2);
+  const ngn = "₦" + Number(book.priceNGN || Math.round(book.priceUSD * STORE.settings.fxRate)).toLocaleString();
+  return currency === "USD" ? { main: usd, alt: ngn } : { main: ngn, alt: usd };
+}
+
+function coverHTML(book, size){
+  const w = size === 'lg' ? 300 : 190;
+  const h = Math.round(w * 1.5);
+  const d = Math.round(w * 0.12);
+  const fs = size === 'lg' ? 22 : 14;
+  const c = catColor(book.category);
+  const inner = book.coverImage
+    ? `<div class="cover has-img" style="width:${w}px;height:${h}px"><img src="${esc(book.coverImage)}" alt="${esc(book.title)} cover"></div>`
+    : `<div class="cover" style="width:${w}px;height:${h}px;font-size:${fs}px;background:linear-gradient(160deg,${c.tone},${c.deep} 72%)">
+         <div class="cover-frame"></div>
+         <div class="cover-top">
+           <div class="cover-kicker">${esc(book.kicker || book.category)}</div>
+           <div class="cover-title">${esc(book.title)}</div>
+           <div class="cover-sub">${esc(book.subtitle || '')}</div>
+         </div>
+         <div class="cover-bottom">
+           <div class="cover-orn">✦ ✦ ✦</div>
+           <div class="cover-author">Emmanuel I. Emodiae</div>
+           <div class="cover-brand">eemodiae.org · @thehjcw</div>
+         </div>
+       </div>`;
+  return `<div class="book3d-stage">
+    <div class="book3d">
+      ${inner}
+      <div class="spine" style="width:${d}px" aria-hidden="true"></div>
+      <div class="pages" style="width:${d - 2}px" aria-hidden="true"></div>
+    </div>
+  </div>`;
+}
+
+function renderFeatured(){
+  const book = STORE.books.find(b => b.id === STORE.featuredId) || STORE.books[0];
+  if(!book) return;
+  const p = fmt(book);
+  const c = catColor(book.category);
+  document.getElementById('featured').innerHTML = `
+    ${coverHTML(book,'lg')}
+    <div class="featured-copy">
+      <p class="eyebrow">Featured Volume</p>
+      <h2>${esc(book.title)}</h2>
+      <p class="sub" style="color:${c.deep}">${esc(book.subtitle || '')}</p>
+      <p class="desc">${esc(book.description || '')}</p>
+      <p class="featured-price">${p.main}<span class="alt">${p.alt}</span></p>
+      <button class="btn btn-gold" onclick="openModal('${esc(book.id)}')">Get this book</button>
+    </div>`;
+}
+
+function renderFilters(){
+  const cats = ["All", ...STORE.categories.filter(c => STORE.books.some(b => b.category === c))];
+  document.getElementById('filters').innerHTML = cats.map(cat => {
+    const c = cat === "All" ? CAT_COLORS._default : catColor(cat);
+    return `<button type="button" class="${cat===activeFilter?'active':''}" style="--chip:${c.tone}" onclick="setFilter('${esc(cat)}')">${esc(cat)}</button>`;
+  }).join('');
+}
+
+function matchesSearch(item){
+  if(!searchTerm) return true;
+  const hay = [item.title, item.subtitle, item.description, item.category, item.kicker, item.track]
+    .filter(Boolean).join(' ').toLowerCase();
+  return hay.includes(searchTerm);
+}
+
+function paginationHTML(totalItems, perPage, page, goFn){
+  const pages = Math.max(1, Math.ceil(totalItems / perPage));
+  if(pages <= 1) return { nav: "", note: "", pages };
+  const btn = (n, label, cls, dis) =>
+    `<button type="button" class="${cls||''}" ${dis?'disabled':''} onclick="${goFn}(${n})" ${cls==='current'?'aria-current="page"':''}>${label}</button>`;
+  let nums = [];
+  const win = 2;
+  let last = 0;
+  for(let n = 1; n <= pages; n++){
+    if(n === 1 || n === pages || Math.abs(n - page) <= win){
+      if(last && n - last > 1) nums.push(`<span class="p-ellipsis">···</span>`);
+      nums.push(btn(n, n, n === page ? 'current' : ''));
+      last = n;
+    }
+  }
+  const nav = btn(page-1,'‹','',page<=1) + nums.join('') + btn(page+1,'›','',page>=pages);
+  const start = (page-1)*perPage + 1;
+  const end = Math.min(page*perPage, totalItems);
+  const note = `Showing ${start} to ${end} of ${totalItems}`;
+  return { nav, note, pages };
+}
+
+function renderGrid(){
+  const perPage = STORE.settings.booksPerPage || 12;
+  const books = (STORE.books||[]).filter(b => (activeFilter === "All" || b.category === activeFilter) && matchesSearch(b));
+  const pg = paginationHTML(books.length, perPage, bookPage, 'goBookPage');
+  if(bookPage > pg.pages){ bookPage = pg.pages; return renderGrid(); }
+  const slice = books.slice((bookPage-1)*perPage, bookPage*perPage);
+
+  document.getElementById('grid').innerHTML = slice.length ? slice.map(b => {
+    const p = fmt(b);
+    const c = toneOf(b);
+    return `<article class="card reveal in" style="--tone:${c.tone}">
+      <div class="ribbon" aria-hidden="true"></div>
+      ${b.comingSoon ? '<span class="soon-seal">Coming Soon</span>' : ''}
+      ${coverHTML(b,'sm')}
+      <p class="cat-tag">${esc(b.category)}</p>
+      <h3>${esc(b.title)}</h3>
+      <p class="card-sub">${esc(b.subtitle || '')}</p>
+      <div class="badges">${(b.formats||[]).map(f=>`<span class="badge">${esc(f)}</span>`).join('')}</div>
+      <p class="price">${p.main}<span class="alt">also ${p.alt}</span></p>
+      <div class="card-actions">
+        <button class="btn btn-tone" onclick="openModal('${esc(b.id)}')">${b.comingSoon ? 'Reserve a copy' : 'Get this book'}</button>
+        <button class="peek-mini" onclick="openPeek('${esc(b.id)}')" aria-label="Read the one page peek for ${esc(b.title)}">❧ Peek</button>
+      </div>
+    </article>`;
+  }).join('') : `<p style="grid-column:1/-1;text-align:center;font-family:var(--serif-head);font-style:italic;color:var(--ink-soft);font-size:1.15rem;padding:2rem 0">No volumes match your search yet. Try another word, or clear the search to see the whole library.</p>`;
+
+  document.getElementById('bookPagination').innerHTML = pg.nav;
+  document.getElementById('bookPageNote').textContent = pg.note ? pg.note + " volumes" : "";
+}
+
+function goBookPage(n){
+  bookPage = Math.max(1, n);
+  renderGrid();
+  document.querySelector('.shelf').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function goCoursePage(n){
+  coursePage = Math.max(1, n);
+  renderCourses();
+  document.getElementById('academy').scrollIntoView({behavior:'smooth', block:'start'});
+}
+function setSearch(v){
+  searchTerm = (v||'').trim().toLowerCase();
+  bookPage = 1;
+  renderGrid();
+}
+function setFilter(c){ activeFilter = c; bookPage = 1; renderFilters(); renderGrid(); }
+
+/* ---------- the academy ---------- */
+function renderCourses(){
+  const section = document.getElementById('academy');
+  const courses = STORE.courses || [];
+  if(!courses.length){ section.style.display = 'none'; return; }
+  section.style.display = '';
+
+  const perPage = STORE.settings.coursesPerPage || 6;
+  const pg = paginationHTML(courses.length, perPage, coursePage, 'goCoursePage');
+  if(coursePage > pg.pages){ coursePage = pg.pages; return renderCourses(); }
+  const slice = courses.slice((coursePage-1)*perPage, coursePage*perPage);
+
+  document.getElementById('courseGrid').innerHTML = slice.map(c => {
+    const p = fmt(c);
+    const t = toneOf(c);
+    const meta = [
+      c.modules ? esc(c.modules) + " modules" : "",
+      c.hours ? esc(c.hours) + "+ hours" : "",
+      c.level ? esc(c.level) : ""
+    ].filter(Boolean).map(m => `<span>${m}</span>`).join('');
+    return `<article class="course-card reveal in" style="--tone:${t.tone};--tone-deep:${t.deep}">
+      <span class="lifetime-seal">✦ Lifetime Access</span>
+      <div class="c-band">
+        <p class="c-track">${esc(c.track || 'Course')}</p>
+        <h3>${esc(c.title)}</h3>
+      </div>
+      <div class="c-body">
+        <p class="c-desc">${esc(c.description || '')}</p>
+        <div class="course-meta">${meta}</div>
+        <div class="c-footer">
+          <p class="price">${p.main}<span class="alt">also ${p.alt}</span></p>
+          <div class="card-actions">
+            <button class="btn btn-tone" onclick="openModal('${esc(c.id)}')">Enroll now</button>
+            <button class="peek-mini" onclick="openPeek('${esc(c.id)}')" aria-label="Read the one page peek for ${esc(c.title)}">❧ Peek</button>
+          </div>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+
+  document.getElementById('coursePagination').innerHTML = pg.nav;
+  document.getElementById('coursePageNote').textContent = pg.note ? pg.note + " courses" : "";
+}
+function setCurrency(c){
+  currency = c;
+  document.getElementById('curUSD').classList.toggle('active', c==='USD');
+  document.getElementById('curNGN').classList.toggle('active', c==='NGN');
+  renderFeatured(); renderGrid(); renderIndex();
+  if(currentBook) fillModal(currentBook);
+}
+
+/* ---------- purchase modal ---------- */
+function openModal(id){
+  currentBook = findItem(id);
+  if(!currentBook) return;
+  fillModal(currentBook);
+  document.getElementById('deliveryBox').classList.remove('show');
+  document.getElementById('modalVeil').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(){
+  document.getElementById('modalVeil').classList.remove('open');
+  document.body.style.overflow = '';
+  currentBook = null;
+}
+document.getElementById('modalVeil').addEventListener('click', e => { if(e.target.id==='modalVeil') closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape'){ closeModal(); toggleIndex(false); } });
+
+function fillModal(book){
+  const p = fmt(book);
+  const c = toneOf(book);
+  const course = isCourse(book);
+  document.getElementById('modalTitle').textContent = book.title;
+  document.getElementById('modalSub').textContent = book.subtitle || (course ? [book.modules ? book.modules + " modules" : "", book.hours ? book.hours + "+ hours of teaching" : ""].filter(Boolean).join(" · ") : '');
+  document.getElementById('modalPrice').innerHTML = `${p.main}  <span style="color:var(--ink-soft);font-size:.8em">· ${p.alt}</span>`;
+
+  let html = '';
+  if(course){
+    html += `<p class="modal-lifetime"><span class="lb-mark">✦</span> One payment. Lifetime access. Every lesson and every future update, yours forever.</p>`;
+  }
+
+  if(book.comingSoon){
+    html += `<div class="soon-note">
+      <p class="sn-line"><span class="lb-mark">✦</span> This volume is on the press. It will appear on these shelves the moment it is released.</p>
+      <a class="btn btn-gold" href="mailto:${esc(STORE.settings.supportEmail)}?subject=${encodeURIComponent('Reserve: ' + book.title)}">Reserve your copy</a>
+    </div>`;
+  }
+
+  /* direct checkout (instant delivery) */
+  const pk = STORE.payments.paystackPublicKey;
+  const fw = STORE.payments.flutterwavePublicKey;
+  if(!book.comingSoon && (pk || fw)){
+    html += `<p class="modal-section-label">Buy direct, instant delivery</p><div class="platform-list">`;
+    if(pk) html += `<button type="button" style="--pm:#1E7F63" onclick="payPaystack()"><span class="p-mark">₦</span><span>Pay in Naira<small>Paystack secure checkout</small></span></button>`;
+    if(fw) html += `<button type="button" style="--pm:#D98324" onclick="payFlutterwave('USD')"><span class="p-mark">$</span><span>Pay in Dollars<small>Flutterwave secure checkout</small></span></button>`;
+    if(fw) html += `<button type="button" style="--pm:#2E5EAA" onclick="payFlutterwave('NGN')"><span class="p-mark">₦</span><span>Pay in Naira<small>Flutterwave secure checkout</small></span></button>`;
+    html += `</div>`;
+  }
+
+  /* platform links */
+  const links = Object.entries(book.links || {}).filter(([,url]) => url);
+  if(!book.comingSoon && links.length){
+    html += `<p class="modal-section-label">Also available on</p><div class="platform-list">`;
+    for(const [key, url] of links){
+      const m = PLATFORM_META[key] || PLATFORM_META.other;
+      const name = key === 'other' && book.otherLabel ? book.otherLabel : m.name;
+      html += `<a href="${esc(url)}" target="_blank" rel="noopener" style="--pm:${m.color}"><span class="p-mark">${m.mark}</span><span>${esc(name)}<small>${esc(m.note)}</small></span></a>`;
+    }
+    html += `</div>`;
+  }
+
+  if(!html){
+    html = `<p style="font-family:var(--serif-head);font-style:italic;color:${c.deep};text-align:center;padding:1rem 0">
+      This title is being prepared for release. Write to
+      <a href="mailto:${esc(STORE.settings.supportEmail)}">${esc(STORE.settings.supportEmail)}</a> to reserve a copy.</p>`;
+  }
+
+  /* the one page peek */
+  html += `<button type="button" class="peek-btn" onclick="togglePeek()"><span>❧</span> The One Page Peek</button>
+    <div class="peek-panel" id="peekPanel">${book.peek ? book.peek : (isCourse(book) ? coursePeekFor(book) : peekFor(book))}</div>`;
+
+  document.getElementById('modalBody').innerHTML = html;
+}
+
+/* ---------- payments ---------- */
+function askEmail(){
+  const e = prompt("Enter your email for your receipt and download:");
+  return e && e.includes('@') ? e.trim() : null;
+}
+function onPaid(ref){
+  const box = document.getElementById('deliveryBox');
+  const link = document.getElementById('deliveryLink');
+  const course = isCourse(currentBook);
+  const fulfilUrl = currentBook && (course ? currentBook.accessUrl : currentBook.downloadUrl);
+  if(fulfilUrl){
+    link.href = fulfilUrl;
+    if(course){
+      link.removeAttribute('download');
+      link.textContent = "Enter your course";
+      box.querySelector('p').textContent = "Payment received. Your lifetime access begins now.";
+    } else {
+      link.textContent = "Download your copy";
+      box.querySelector('p').textContent = "Payment received. Your book is ready.";
+    }
+  } else {
+    link.removeAttribute('download');
+    link.href = "mailto:" + STORE.settings.supportEmail + "?subject=Book delivery: " + encodeURIComponent(currentBook ? currentBook.title : '') + " (ref " + encodeURIComponent(ref||'') + ")";
+    link.textContent = "Email us your reference";
+    box.querySelector('p').textContent = "Payment received. Reference: " + (ref||'') + ". Your book will be sent to your email.";
+  }
+  box.classList.add('show');
+}
+
+function payPaystack(){
+  if(!currentBook) return;
+  const email = askEmail(); if(!email) return;
+  const amountNGN = Number(currentBook.priceNGN || Math.round(currentBook.priceUSD * STORE.settings.fxRate));
+  const handler = PaystackPop.setup({
+    key: STORE.payments.paystackPublicKey,
+    email: email,
+    amount: amountNGN * 100,
+    currency: "NGN",
+    metaDATA_URI_REMOVED"Book", variable_name: "book_id", value: currentBook.id }] },
+    callback: function(res){ onPaid(res.reference); },
+    onClose: function(){}
+  });
+  handler.openIframe();
+}
+
+function payFlutterwave(cur){
+  if(!currentBook) return;
+  const email = askEmail(); if(!email) return;
+  const amount = cur === "USD"
+    ? Number(currentBook.priceUSD)
+    : Number(currentBook.priceNGN || Math.round(currentBook.priceUSD * STORE.settings.fxRate));
+  FlutterwaveCheckout({
+    public_key: STORE.payments.flutterwavePublicKey,
+    tx_ref: "eemodiae-" + currentBook.id + "-" + Date.now(),
+    amount: amount,
+    currency: cur,
+    payment_options: "card,banktransfer,ussd,mobilemoney",
+    customer: { email: email },
+    meta: { book_id: currentBook.id },
+    customizations: {
+      title: "eemodiae.org Bookstore",
+      description: currentBook.title
+    },
+    callback: function(res){ if(res.status === "successful" || res.status === "completed"){ onPaid(res.tx_ref); } },
+    onclose: function(){}
+  });
+}
+
+/* ---------- CMS mode: external JSON override ---------- */
+async function loadExternalConfig(){
+  const url = STORE_CONFIG.settings.externalConfigUrl;
+  if(!url) return;
+  try{
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) return;
+    const ext = await res.json();
+    if(ext && Array.isArray(ext.books) && ext.books.length){
+      STORE = {
+        settings: { ...STORE_CONFIG.settings, ...(ext.settings||{}) },
+        payments: { ...STORE_CONFIG.payments, ...(ext.payments||{}) },
+        categories: ext.categories || STORE_CONFIG.categories,
+        featuredId: ext.featuredId || STORE_CONFIG.featuredId,
+        books: ext.books,
+        courses: Array.isArray(ext.courses) ? ext.courses : STORE_CONFIG.courses
+      };
+      bookPage = 1; coursePage = 1;
+      renderAll();
+    }
+  }catch(e){ /* fall back silently to the inline catalog */ }
+}
+
+/* ---------- scroll reveal ---------- */
+function initReveal(){
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+}
+
+function renderAll(){ renderFeatured(); renderFilters(); renderGrid(); renderCourses(); renderIndex(); initReveal(); }
+renderAll();
+loadExternalConfig();
+
+
+/* ---------- the library index (auto-updates from the catalog) ---------- */
+function renderIndex(){
+  const wrap = document.getElementById('indexList'); if(!wrap) return;
+  const books = STORE.books || [], courses = STORE.courses || [];
+  const cats = (STORE.categories||[]).filter(c => books.some(b => b.category === c));
+  let out = cats.map(cat => {
+    const inCat = books.filter(b => b.category === cat);
+    const rows = inCat.map(b => {
+      const t = toneOf(b), p = fmt(b);
+      return `<button type="button" class="ix-row${b.comingSoon ? ' soon' : ''}" style="--tone:${t.tone}" onclick="openFromIndex('${esc(b.id)}')">
+        <span class="ix-dot" aria-hidden="true"></span>
+        <span class="ix-t">${esc(b.title)}</span>
+        <span class="ix-meta">${b.comingSoon ? 'Coming Soon' : p.main}</span>
+      </button>`;
+    }).join('');
+    return `<div class="ix-group"><p class="ix-cat">${esc(cat)}<span>${inCat.length}</span></p>${rows}</div>`;
+  }).join('');
+  if(courses.length){
+    out += `<div class="ix-group"><p class="ix-cat">The Academy<span>${courses.length}</span></p>` + courses.map(c => {
+      const t = toneOf(c), p = fmt(c);
+      return `<button type="button" class="ix-row" style="--tone:${t.tone}" onclick="openFromIndex('${esc(c.id)}')">
+        <span class="ix-dot" aria-hidden="true"></span>
+        <span class="ix-t">${esc(c.title)}</span>
+        <span class="ix-meta">${p.main}</span>
+      </button>`;
+    }).join('') + `</div>`;
+  }
+  wrap.innerHTML = out;
+  const soonN = books.filter(b => b.comingSoon).length;
+  const cnt = document.getElementById('ixCount');
+  if(cnt) cnt.textContent = `${books.length} books · ${courses.length} courses` + (soonN ? ` · ${soonN} coming soon` : '');
+}
+function toggleIndex(open){
+  document.body.classList.toggle('ix-open', !!open);
+  const d = document.getElementById('indexDrawer');
+  if(d && open) d.scrollTop = 0;
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function openFromIndex(id){ toggleIndex(false); openModal(id); }
+
+/* ---------- the one page peek (auto-written from the catalog entry) ---------- */
+function peekFor(b){
+  const cat = (b.category || '').toLowerCase();
+  const openers = {
+    'devotionals': 'Some books are read; this one is prayed.',
+    'theology': 'This is a study that takes the Scriptures at full weight.',
+    'series': 'This is not one book; it is a shelf, complete.',
+    'life skills': 'This is a manual for the building of a life.',
+    'fiction': 'This is a story that preaches without raising its voice.'
+  };
+  const within = {
+    'devotionals': 'Within its pages the reader finds a daily rhythm: Scripture set first, confession placed on the tongue, and prayer that walks out of the book into the day. Read a page in the morning and the page keeps reading you until evening.',
+    'theology': 'Within its pages doctrine is built the way a house is built: foundation first, verse upon verse, each claim shown its Scripture before it is allowed to stand. The language stays plain; the depth does not.',
+    'series': 'Within its volumes the subject is settled end to end. Each book stands on its own, yet together they walk the reader from first principles to full command of the matter, with nothing important left unsaid.',
+    'life skills': 'Within its pages every principle is put to work: the teaching first, then the practice, then the Scripture that anchors it, so the lesson leaves the page and enters the week.',
+    'fiction': 'Within its chapters the stakes are real, the faith is tested honestly, and grace arrives the way it does in life: unannounced, and exactly on time.'
+  };
+  const readers = {
+    'devotionals': 'It belongs to anyone who wants Scripture to set the tone of the day before the day sets it for them.',
+    'theology': 'It belongs to the serious student, the teacher preparing to teach, and the believer who wants roots as deep as their branches.',
+    'series': 'It belongs to the reader who wants a subject settled, not sampled.',
+    'life skills': 'It belongs to anyone building a life on purpose rather than by accident.',
+    'fiction': 'It belongs to readers who let a story do what a sermon sometimes cannot.'
+  };
+  const opener = openers[cat] || 'This is a volume shaped by the house marks of this library: KJV Scripture, plain speech, and a shepherd\'s intent.';
+  const middle = within[cat] || 'Within its pages the matter is opened carefully and closed completely, with the Scriptures given the final word throughout.';
+  const reader = readers[cat] || 'It belongs to every serious reader of this library.';
+  const sub = b.subtitle ? ', ' + esc(b.subtitle) + ',' : '';
+  return `
+    <p class="peek-kicker">The One Page Peek</p>
+    <p class="peek-open">${esc(opener)} <strong>${esc(b.title)}</strong>${sub} opens a door and expects the reader to walk through it.</p>
+    <p>${esc(b.description || '')}</p>
+    <p>${esc(middle)}</p>
+    <p>${esc(reader)}</p>
+    <p class="peek-close">Taste and see.</p>`;
+}
+function coursePeekFor(c){
+  const track = (c.track || '').toLowerCase();
+  const openers = {
+    'ministry': 'Some lessons are taught; this one is imparted.',
+    'influence': 'This is a course about being known for the right thing.',
+    'finance': 'This is a classroom where Scripture does the accounting.',
+    'bible study': 'This is a course that hands you the tools, not only the conclusions.',
+    'enterprise': 'This is a business school with an altar in it.',
+    'craft': 'This is an apprenticeship in words that outlive their writer.',
+    'media': 'This is a course for carrying one message across many screens.',
+    'leadership': 'This is a course about carrying people, not titles.'
+  };
+  const readers = {
+    'ministry': 'The seat belongs to pastors, workers, and every hand that serves the house.',
+    'influence': 'The seat belongs to anyone whose calling requires being seen without being spoiled.',
+    'finance': 'The seat belongs to stewards who intend to multiply what they were handed.',
+    'bible study': 'The seat belongs to believers who want to feed themselves, and then feed others.',
+    'enterprise': 'The seat belongs to builders who want their work to preach as loudly as their testimony.',
+    'craft': 'The seat belongs to writers, poets, and every minister of the pen.',
+    'media': 'The seat belongs to the hands behind the voice, the ones who make the message travel.',
+    'leadership': 'The seat belongs to those preparing to carry more than themselves.'
+  };
+  const opener = openers[track] || 'This is a course built with the patience of a good teacher and the urgency of a true message.';
+  const reader = readers[track] || 'The seat belongs to every serious student of this Academy.';
+  const meta = [
+    c.modules ? c.modules + ' modules' : '',
+    c.hours ? c.hours + '+ hours of teaching' : '',
+    c.level || '',
+    'Lifetime access'
+  ].filter(Boolean).join(' · ');
+  return `
+    <p class="peek-kicker">The One Page Peek</p>
+    <p class="peek-meta">${esc(meta)}</p>
+    <p class="peek-open">${esc(opener)} <strong>${esc(c.title)}</strong> opens its doors and expects the student to bring a notebook.</p>
+    <p>${esc(c.description || '')}</p>
+    <p>The teaching moves the way good discipleship moves: precept upon precept, each module building on the last, with room to pause, practice, and return. Enroll once and the classroom never closes; every lesson, and every lesson yet to be added, remains yours.</p>
+    <p>${esc(reader)}</p>
+    <p class="peek-close">Take your seat.</p>`;
+}
+function togglePeek(force){
+  const p = document.getElementById('peekPanel');
+  if(!p) return;
+  if(typeof force === 'boolean') p.classList.toggle('open', force);
+  else p.classList.toggle('open');
+}
+function openPeek(id){
+  openModal(id);
+  togglePeek(true);
+  const p = document.getElementById('peekPanel');
+  if(p) p.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+/* ---------- quicknav scrollspy ---------- */
+function initSpy(){
+  const map = [['shelves','qnBooks'],['academy','qnAcademy']];
+  const spy = new IntersectionObserver(es => {
+    es.forEach(e => {
+      if(!e.isIntersecting) return;
+      map.forEach(([sec, tab]) => {
+        const el = document.getElementById(tab);
+        if(el) el.classList.toggle('active', sec === e.target.id);
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  map.forEach(([sec]) => { const s = document.getElementById(sec); if(s) spy.observe(s); });
+}
+initSpy();
+
+/* ---------- appearance: Daylight Study / Midnight Library ---------- */
+function setTheme(t){
+  const night = t === 'night';
+  var de=document.documentElement; de.classList.add('theming');
+  window.clearTimeout(setTheme._tt); setTheme._tt=window.setTimeout(function(){de.classList.remove('theming');},650);
+  document.body.classList.toggle('night', night);
+  const d = document.getElementById('thDay'), n = document.getElementById('thNight');
+  if(d) d.classList.toggle('active', !night);
+  if(n) n.classList.toggle('active', night);
+  try{ localStorage.setItem('eemodiae-theme', night ? 'night' : 'day'); }catch(e){}
+}
+(function(){
+  let t = 'day';
+  try{
+    t = localStorage.getItem('eemodiae-theme')
+      || (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+  }catch(e){}
+  setTheme(t);
+})();
+</script>
+</body>
+</html>

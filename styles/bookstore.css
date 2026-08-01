@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* Site navbar offset + layout tokens */
+/* From implementation/store.html */
 .bookstore-root {
-  --store-nav-h: 5rem;
+  --store-nav-h: 75px; /* real height of the shared sticky SiteNav (74px + 1px border) */
   --store-topbar-h: 3.25rem;
   --store-quicknav-gap: 0.15rem;
   --store-content-max: 1440px;
-  padding-top: var(--store-nav-h);
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 /* ============ TOKENS ============ */
-.bookstore-root{
+.bookstore-root {
   --serif-display:'Cinzel',serif;
   --serif-head:'Cormorant Garamond',serif;
-  --serif-body:'Crimson Pro',serif;
+  --serif-.bookstore-root:'Crimson Pro',serif;
   --sans:'Inter',system-ui,-apple-system,sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
   --radius:20px;
@@ -90,15 +90,15 @@
 }
 
 /* ============ BASE ============ */
-.bookstore-root, .bookstore-root *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+.bookstore-root *{margin:0;padding:0;box-sizing:border-box}
+.bookstore-root{scroll-behavior:smooth}
 .bookstore-root{
-  font-family:var(--serif-body);
+  font-family:var(--serif-.bookstore-root);
   background:var(--bg);
   color:var(--text);
   font-size:17.5px;line-height:1.72;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overflow-x:clip;
+  overflow-x:hidden;
   transition:background .7s var(--ease),color .7s var(--ease);
 }
 .bookstore-root.night{
@@ -109,20 +109,28 @@ html{scroll-behavior:smooth}
   opacity:var(--grain-o);mix-blend-mode:var(--grain-blend);
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.bookstore-root img{max-width:100%;display:block}
-.bookstore-root a{color:var(--gold);text-decoration:none;transition:color .3s var(--ease)}
-.bookstore-root a:hover{color:var(--gold-hi)}
-.bookstore-root a:focus-visible,.bookstore-root button:focus-visible,.bookstore-root input:focus-visible{
+img{max-width:100%;display:block}
+a{color:var(--gold);text-decoration:none;transition:color .3s var(--ease)}
+a:hover{color:var(--gold-hi)}
+a:focus-visible,button:focus-visible,input:focus-visible{
   outline:none;border-radius:6px;
   box-shadow:0 0 0 2px var(--bg), 0 0 0 5px color-mix(in srgb,var(--gold) 65%,transparent);
 }
-.bookstore-root button{font-family:inherit;cursor:pointer}
-.bookstore-root button:disabled{cursor:default}
-.bookstore-root ::selection{background:color-mix(in srgb,var(--gold) 30%,transparent);color:var(--text-hi)}
-.bookstore-root::-webkit-scrollbar{width:11px}
-.bookstore-root::-webkit-scrollbar-track{background:var(--bg)}
-.bookstore-root::-webkit-scrollbar-thumb{background:var(--thumb);border-radius:99px;border:3px solid var(--bg)}
-.bookstore-root::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+button{font-family:inherit;cursor:pointer}
+button:disabled{cursor:default}
+::selection{background:color-mix(in srgb,var(--gold) 30%,transparent);color:var(--text-hi)}
+::-webkit-scrollbar{width:11px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--thumb);border-radius:99px;border:3px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-deep)}
+
+/* smooth, flicker-free day/night swap: force a transition on every themed
+   element for the ~650ms the swap is in flight, instead of colors snapping */
+.bookstore-root.theming, .bookstore-root.theming *{
+  transition:background-color .5s var(--ease),color .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease) !important;
+}
+.bookstore-root.theming .aurora{opacity:0!important;transition:opacity .18s linear!important}
+.bookstore-root.theming .aurora span{animation-play-state:paused!important}
 
 /* ============ AMBIENT LIGHT ============ */
 .aurora{position:fixed;inset:-24%;z-index:0;pointer-events:none;filter:blur(100px);opacity:.34;transition:opacity .7s var(--ease)}
@@ -141,38 +149,37 @@ html{scroll-behavior:smooth}
 @keyframes drift2{to{transform:translate(-4vw,5vh) scale(1.09)}}
 @keyframes drift3{to{transform:translate(4vw,-4vh) scale(1.05)}}
 
-.bookstore-root main,.bookstore-root header,.bookstore-root footer,.bookstore-root section{position:relative;z-index:1}
+main,header,footer,section{position:relative;z-index:1}
 
 /* ============ TOP BAR ============ */
-.bookstore-root .topbar{
+.topbar{
   position:sticky;top:var(--store-nav-h);z-index:50;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
-  width:100%;
-  padding:1rem clamp(1.25rem,3vw,3.5rem);
+  padding:.55rem clamp(1.25rem,5vw,3.75rem);
   background:var(--glass);
   backdrop-filter:blur(20px) saturate(150%);
   -webkit-backdrop-filter:blur(20px) saturate(150%);
   border-bottom:1px solid var(--line-soft);
   transition:background .7s var(--ease),border-color .7s var(--ease);
 }
-.bookstore-root .theme-toggle,.bookstore-root .currency-toggle{
-  display:flex;padding:.22rem;border:1px solid var(--line);border-radius:999px;
+.theme-toggle,.currency-toggle{
+  display:flex;padding:.14rem;border:1px solid var(--line);border-radius:999px;
   background:var(--glass-2);box-shadow:var(--sh-xs);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   transition:background .7s var(--ease),border-color .7s var(--ease);
 }
-.bookstore-root .theme-toggle button,.bookstore-root .currency-toggle button{
+.theme-toggle button,.currency-toggle button{
   border:0;background:transparent;color:var(--text-soft);border-radius:999px;
-  font-family:var(--sans);font-weight:600;font-size:.68rem;letter-spacing:.1em;
-  padding:.46rem 1.05rem;
+  font-family:var(--sans);font-weight:600;font-size:.58rem;letter-spacing:.08em;
+  padding:.3rem .7rem;
   transition:background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
 }
-.bookstore-root .theme-toggle button.active,.bookstore-root .currency-toggle button.active{
+.theme-toggle button.active,.currency-toggle button.active{
   background:linear-gradient(135deg,var(--gold-deep),var(--gold) 62%,var(--gold-hi));
   color:var(--btn-gold-ink);
   box-shadow:0 3px 12px color-mix(in srgb,var(--gold) 40%,transparent), inset 0 1px 0 rgba(255,255,255,.32);
 }
-.bookstore-root .theme-toggle .t-ico{font-size:.85em;margin-right:.15rem}
+.theme-toggle .t-ico{font-size:.85em;margin-right:.15rem}
 
 /* ============ HERO BANNER ============ */
 .hero{padding:0;background:none}
@@ -182,8 +189,8 @@ html{scroll-behavior:smooth}
 }
 @keyframes bannerIn{from{opacity:0;transform:scale(1.025)}to{opacity:1;transform:none}}
 .hero-banner img{
-  width:100%;height:clamp(300px,52.5vw,760px);
-  object-fit:cover;object-position:left center;display:block;
+  width:100%;height:auto;aspect-ratio:1991/790;
+  object-fit:cover;object-position:center;display:block;
 }
 .hero-banner::after{
   content:'';position:absolute;inset:0;pointer-events:none;
@@ -193,10 +200,10 @@ html{scroll-behavior:smooth}
 
 /* ============ FEATURED ============ */
 .featured{
-  display:grid;grid-template-columns:minmax(280px,420px) 1fr;
+  display:grid;grid-template-columns:minmax(260px,400px) 1fr;
   gap:clamp(2.4rem,6vw,5.5rem);align-items:center;
-  max-width:var(--store-content-max);margin:clamp(1rem,3vw,2rem) auto 0;
-  padding:clamp(2.4rem,5.5vw,4.2rem) clamp(1.5rem,3vw,3.5rem);
+  max-width:1100px;margin:clamp(1rem,3vw,2rem) auto 0;
+  padding:clamp(2.4rem,5.5vw,4.2rem) clamp(1.5rem,5vw,3.4rem);
   background:
     radial-gradient(120% 140% at 82% -20%, var(--glow), transparent 52%),
     linear-gradient(165deg,var(--surface-hi),var(--surface) 70%);
@@ -271,7 +278,7 @@ html{scroll-behavior:smooth}
 .cover-brand{font-family:var(--serif-head);font-style:italic;font-size:.46em;color:#F4E3AC;margin-top:.4em}
 
 /* ============ SHELVES ============ */
-.shelf{max-width:var(--store-content-max);margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,3vw,3.5rem) 5.5rem}
+.shelf{max-width:1220px;margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,4vw,2rem) 5.5rem}
 .shelf-head{text-align:center;margin-bottom:2.6rem}
 .shelf-head h2{
   font-family:var(--serif-display);font-weight:400;color:var(--text-hi);
@@ -283,7 +290,7 @@ html{scroll-behavior:smooth}
 .search-wrap input{
   width:100%;border:1px solid var(--line);border-radius:999px;
   background:var(--glass-2);color:var(--text);
-  font-family:var(--serif-body);font-size:1.03rem;
+  font-family:var(--serif-.bookstore-root);font-size:1.03rem;
   padding:.92rem 1.5rem .92rem 3.2rem;box-shadow:var(--sh-sm), inset 0 1px 0 var(--edge);
   transition:border-color .35s var(--ease),box-shadow .35s var(--ease),background .7s var(--ease),color .7s var(--ease);
   backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
@@ -313,7 +320,7 @@ html{scroll-behavior:smooth}
   box-shadow:0 8px 20px -8px color-mix(in srgb,var(--chip,var(--gold)) 55%,transparent), inset 0 1px 0 rgba(255,255,255,.22);
 }
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2.75rem 2.25rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2.5rem 2rem}
 .card{
   --tone:var(--gold);
   display:flex;flex-direction:column;align-items:center;text-align:center;
@@ -398,7 +405,7 @@ html{scroll-behavior:smooth}
 .page-note{text-align:center;font-family:var(--serif-head);font-style:italic;color:var(--text-soft);font-size:.98rem;margin-top:1.1rem}
 
 /* ============ THE ACADEMY ============ */
-.academy{max-width:var(--store-content-max);margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,3vw,3.5rem) 6.5rem}
+.academy{max-width:1120px;margin:0 auto;padding:clamp(5rem,10vw,7.5rem) clamp(1.25rem,4vw,2rem) 6.5rem}
 .academy-head{text-align:center;margin-bottom:1.1rem}
 .academy-head .a-eyebrow{font-family:var(--sans);font-weight:600;font-size:.6rem;letter-spacing:.52em;text-transform:uppercase;color:var(--gold)}
 .academy-head h2{
@@ -417,7 +424,7 @@ html{scroll-behavior:smooth}
   transition:background .7s var(--ease),color .7s var(--ease);
 }
 .lifetime-banner .lb-mark{font-style:normal;color:var(--gold);font-size:1rem}
-.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2.25rem}
+.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:2rem}
 .course-card{
   --tone:#23745C;
   position:relative;display:flex;flex-direction:column;
@@ -446,7 +453,7 @@ html{scroll-behavior:smooth}
 }
 .course-card .c-track{font-family:var(--sans);font-weight:600;font-size:.54rem;letter-spacing:.4em;text-transform:uppercase;color:rgba(251,248,240,.82);position:relative}
 .course-card .c-band h3{font-family:var(--serif-head);font-weight:700;font-size:1.54rem;line-height:1.1;margin-top:.45rem;position:relative;letter-spacing:-.008em}
-.course-card .c-body{display:flex;flex-direction:column;flex:1;padding:1.35rem 1.6rem 1.6rem;text-align:left}
+.course-card .c-.bookstore-root{display:flex;flex-direction:column;flex:1;padding:1.35rem 1.6rem 1.6rem;text-align:left}
 .course-card .c-desc{color:var(--text-soft);font-size:.99rem;line-height:1.62}
 .course-meta{display:flex;flex-wrap:wrap;gap:.42rem;margin:1.05rem 0 .2rem}
 .course-meta span{
@@ -518,7 +525,7 @@ html{scroll-behavior:smooth}
   display:flex;align-items:center;gap:.75rem;width:100%;
   border:1px solid var(--line-soft);border-radius:16px;
   background:var(--glass-2);
-  color:var(--text);font-family:var(--serif-body);font-size:.97rem;
+  color:var(--text);font-family:var(--serif-.bookstore-root);font-size:.97rem;
   padding:.84rem 1.05rem;text-align:left;box-shadow:var(--sh-xs), inset 0 1px 0 var(--edge);
   transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease);
 }
@@ -545,7 +552,7 @@ html{scroll-behavior:smooth}
 .delivery-box p{font-family:var(--serif-head);font-style:italic;color:color-mix(in srgb,#23745C 55%,var(--mixb));margin-bottom:1rem;font-size:1.04rem}
 
 /* ============ FOOTER ============ */
-.bookstore-root footer{
+footer{
   border-top:1px solid var(--line-soft);
   background:
     radial-gradient(90% 130% at 50% 140%, var(--glow), transparent 58%),
@@ -553,7 +560,7 @@ html{scroll-behavior:smooth}
   text-align:center;padding:3.6rem 1.5rem 3rem;
   transition:background .7s var(--ease);
 }
-.bookstore-root .glass-rule{
+.glass-rule{
   width:min(280px,54%);height:3px;margin:0 auto 2.1rem;
   display:flex;border-radius:99px;overflow:hidden;
   box-shadow:0 0 20px var(--glow);
@@ -565,12 +572,12 @@ html{scroll-behavior:smooth}
 .glass-rule i:nth-child(4){background:var(--j4)}
 .glass-rule i:nth-child(5){background:var(--j5)}
 .glass-rule i:nth-child(6){background:var(--j6)}
-.bookstore-root footer .f-brand{font-family:var(--serif-display);letter-spacing:.32em;text-transform:uppercase;color:var(--text-hi);font-size:.88rem;font-weight:600}
-.bookstore-root footer .f-sub{font-family:var(--serif-head);font-style:italic;color:var(--gold);margin:.45rem 0 1rem;font-size:1.05rem}
-.bookstore-root footer .f-links{font-size:.95rem;color:var(--text-soft)}
-.bookstore-root footer .f-links a{color:var(--gold);border-bottom:1px solid color-mix(in srgb,var(--gold) 32%,transparent);transition:border-color .3s var(--ease),color .3s var(--ease)}
-.bookstore-root footer .f-links a:hover{border-color:var(--gold-hi);color:var(--gold-hi)}
-.bookstore-root footer .f-note{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text-faint);margin-top:1.3rem;letter-spacing:.12em;text-transform:uppercase}
+footer .f-brand{font-family:var(--serif-display);letter-spacing:.32em;text-transform:uppercase;color:var(--text-hi);font-size:.88rem;font-weight:600}
+footer .f-sub{font-family:var(--serif-head);font-style:italic;color:var(--gold);margin:.45rem 0 1rem;font-size:1.05rem}
+footer .f-links{font-size:.95rem;color:var(--text-soft)}
+footer .f-links a{color:var(--gold);border-bottom:1px solid color-mix(in srgb,var(--gold) 32%,transparent);transition:border-color .3s var(--ease),color .3s var(--ease)}
+footer .f-links a:hover{border-color:var(--gold-hi);color:var(--gold-hi)}
+footer .f-note{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text-faint);margin-top:1.3rem;letter-spacing:.12em;text-transform:uppercase}
 
 /* ============ REVEAL ============ */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .95s var(--ease),transform .95s var(--ease)}
@@ -578,13 +585,13 @@ html{scroll-behavior:smooth}
 
 @media (max-width:760px){
   .bookstore-root{font-size:16.5px}
-  .bookstore-root .topbar{padding:.85rem 1rem;gap:.6rem}
-  .bookstore-root .theme-toggle button,.bookstore-root .currency-toggle button{padding:.46rem .8rem}
+  .topbar{padding:.5rem .85rem;gap:.5rem}
+  .theme-toggle button,.currency-toggle button{padding:.46rem .8rem}
   .featured{grid-template-columns:1fr;text-align:center;padding:2.2rem 1.4rem 2.6rem;border-radius:24px}
   .featured-copy .eyebrow{justify-content:center}
   .featured-copy p.desc{margin-left:auto;margin-right:auto}
   .platform-list{grid-template-columns:1fr}
-  .hero-banner img{height:clamp(230px,60vw,420px);object-position:14% center}
+  .hero-banner img{aspect-ratio:1991/790;object-position:center}
   .modal{border-radius:22px}
   .btn{padding:.95rem 1.9rem}
   .pagination button{min-width:2.9rem;height:2.9rem}
@@ -598,50 +605,30 @@ html{scroll-behavior:smooth}
 }
 
 /* ============ QUICKNAV ============ */
-.bookstore-root .quicknav-wrap{
-  position:relative;
-  padding-top:.5rem;
-}
-.bookstore-root .quicknav-sentinel{
-  position:absolute;top:0;left:0;
-  width:1px;height:1px;
-  pointer-events:none;visibility:hidden;
-}
-.bookstore-root .quicknav-spacer{
-  width:100%;pointer-events:none;
-}
-.bookstore-root .quicknav{
-  position:relative;z-index:40;
+.quicknav{
+  position:sticky;top:calc(var(--store-nav-h) + var(--store-topbar-h) + var(--store-quicknav-gap));z-index:40;
   display:flex;gap:.5rem;justify-content:center;align-items:center;
-  width:fit-content;margin:0 auto;padding:.3rem;
+  width:fit-content;margin:1.4rem auto 0;padding:.3rem;
   background:var(--glass);border:1px solid var(--line-soft);border-radius:999px;
   box-shadow:var(--sh-sm);
   backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
-  transition:background .7s var(--ease),border-color .7s var(--ease),box-shadow .35s var(--ease);
+  transition:background .7s var(--ease),border-color .7s var(--ease);
 }
-.bookstore-root .quicknav.is-pinned{
-  position:fixed;
-  top:calc(var(--store-nav-h) + var(--store-topbar-h) + var(--store-quicknav-gap));
-  left:50%;
-  transform:translateX(-50%);
-  margin:0;
-  box-shadow:var(--sh-md);
-}
-.bookstore-root .qn-tab{
+.qn-tab{
   display:inline-flex;align-items:center;gap:.5rem;
   font-family:var(--sans);font-weight:600;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
   color:var(--text-soft);border:0;background:transparent;border-radius:999px;
   padding:.6rem 1.25rem;cursor:pointer;
   transition:background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
 }
-.bookstore-root .qn-tab:hover{color:var(--gold-hi)}
-.bookstore-root .qn-tab.active{
+.qn-tab:hover{color:var(--gold-hi)}
+.qn-tab.active{
   background:linear-gradient(135deg,var(--gold-deep),var(--gold) 62%,var(--gold-hi));
   color:var(--btn-gold-ink);
   box-shadow:0 3px 12px color-mix(in srgb,var(--gold) 38%,transparent), inset 0 1px 0 rgba(255,255,255,.3);
 }
-.bookstore-root .qn-ico{font-size:.9em}
-.bookstore-root #shelves,.bookstore-root #academy{scroll-margin-top:calc(var(--store-nav-h) + var(--store-topbar-h) + var(--store-quicknav-gap) + 2.75rem)}
+.qn-ico{font-size:.9em}
+#shelves,#academy{scroll-margin-top:calc(var(--store-nav-h) + 8.5rem)}
 
 /* ============ LIBRARY INDEX ============ */
 .index-veil{
@@ -731,7 +718,7 @@ html{scroll-behavior:smooth}
   display:none;margin-top:.8rem;padding:1.5rem 1.5rem 1.3rem;border-radius:16px;
   background:color-mix(in srgb,var(--gold) 5%,var(--surface));
   border:1px solid var(--line-soft);
-  font-family:var(--serif-body);color:var(--text);font-size:1rem;line-height:1.75;
+  font-family:var(--serif-.bookstore-root);color:var(--text);font-size:1rem;line-height:1.75;
 }
 .peek-panel.open{display:block;animation:rise .5s var(--ease) both}
 .peek-panel p{margin-bottom:.85rem}
@@ -747,17 +734,9 @@ html{scroll-behavior:smooth}
 .peek-close{font-family:var(--serif-head);font-style:italic;text-align:center;color:var(--gold-deep);letter-spacing:.04em}
 
 @media (max-width:760px){
-  .bookstore-root{
-    --store-quicknav-gap:0.1rem;
-  }
-  .bookstore-root .quicknav{
-    width:calc(100% - 1.6rem);max-width:480px;justify-content:space-between;gap:.2rem;
-  }
-  .bookstore-root .quicknav.is-pinned{
-    width:calc(100% - 1.6rem);max-width:480px;
-  }
-  .bookstore-root .qn-tab{padding:.6rem .8rem;font-size:.6rem;letter-spacing:.1em}
-  .bookstore-root #shelves,.bookstore-root #academy{scroll-margin-top:calc(var(--store-nav-h) + var(--store-topbar-h) + var(--store-quicknav-gap) + 2.25rem)}
+  .quicknav{width:calc(100% - 1.6rem);max-width:480px;justify-content:space-between;gap:.2rem}
+  .qn-tab{padding:.6rem .8rem;font-size:.6rem;letter-spacing:.1em}
+  #shelves,#academy{scroll-margin-top:calc(var(--store-nav-h) + 7.5rem)}
 }
 @media (prefers-reduced-motion:reduce){
   .index-drawer,.index-veil{transition:none}

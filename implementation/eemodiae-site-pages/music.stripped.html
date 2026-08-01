@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music | EEMODIAE</title>
+<meta name="description" content="Experience soul lifting music from the EEMODIAE music ministry.">
+<meta property="og:type" content="music.playlist">
+<meta property="og:title" content="Music | EEMODIAE">
+<meta property="og:description" content="Experience soul lifting music from the EEMODIAE music ministry.">
+<meta property="og:site_name" content="EEMODIAE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Music | EEMODIAE">
+<meta name="twitter:description" content="Experience soul lifting music from the EEMODIAE music ministry.">
+<meta name="theme-color" content="#37215c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EEMODIAE MUSIC EXPERIENCE
+   Palette: warm ivory, rich cream, royal purple, muted plum,
+   deep aubergine, champagne gold. Devotional, not commercial.
+   ============================================================ */
+:root{
+  --ivory:#fdfcf8;
+  --cream:#f6f0e2;
+  --cream-deep:#efe6d2;
+  --royal:#553192;
+  --plum:#6e4d9e;
+  --aubergine:#37215c;
+  --gold:#c19a45;
+  --gold-soft:#d8bc7d;
+  --gold-pale:#f0e4c8;
+  --taupe:#8a8074;
+  --stone:#b8ae9e;
+  --ink:#2c2338;
+  --ink-soft:#5a5066;
+  --card:#ffffff;
+  --shadow-soft:0 6px 24px rgba(55,33,92,.08);
+  --shadow-lift:0 14px 40px rgba(55,33,92,.14);
+  --radius:18px;
+  --page-pad:clamp(18px,5vw,64px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'EB Garamond',Georgia,serif;
+  background:var(--ivory);
+  color:var(--ink);
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:var(--royal)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:4px}
+::selection{background:var(--gold-pale)}
+
+/* ---------- Full bleed hero, 768:305, never cropped ---------- */
+.mx-hero{
+  width:100%;
+  aspect-ratio:768/305;
+  overflow:hidden;
+  background:var(--cream);
+}
+.mx-hero img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Title block ---------- */
+.mx-head{
+  text-align:center;
+  padding:clamp(34px,6vw,64px) var(--page-pad) clamp(10px,2vw,18px);
+}
+.mx-head h1{
+  font-family:'Cinzel',serif;
+  font-weight:600;
+  font-size:clamp(2.1rem,6vw,3.4rem);
+  letter-spacing:.28em;
+  text-indent:.28em;
+  color:var(--aubergine);
+}
+.mx-head .mx-rider{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  color:var(--plum);
+  margin-top:8px;
+}
+
+/* ---------- Signature: staff line divider ---------- */
+.mx-staff{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:clamp(18px,3vw,30px) auto;max-width:420px;padding:0 24px;
+}
+.mx-staff::before,.mx-staff::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold-soft));
+}
+.mx-staff::after{background:linear-gradient(90deg,var(--gold-soft),transparent)}
+.mx-staff .dot{width:6px;height:6px;border-radius:50%;background:var(--gold)}
+.mx-staff .dot:nth-child(2){width:9px;height:9px;background:var(--royal)}
+
+/* ---------- Search ---------- */
+.mx-search-wrap{max-width:760px;margin:0 auto;padding:0 var(--page-pad)}
+.mx-search{
+  position:relative;width:100%;
+}
+.mx-search svg{
+  position:absolute;left:20px;top:50%;transform:translateY(-50%);
+  width:19px;height:19px;stroke:var(--taupe);fill:none;stroke-width:2;
+}
+.mx-search input{
+  width:100%;padding:16px 22px 16px 52px;
+  font-family:'EB Garamond',serif;font-size:1.05rem;color:var(--ink);
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:999px;
+  box-shadow:var(--shadow-soft);
+  transition:border-color .25s,box-shadow .25s;
+}
+.mx-search input::placeholder{color:var(--stone)}
+.mx-search input:focus{outline:none;border-color:var(--gold-soft);box-shadow:0 0 0 4px rgba(193,154,69,.14),var(--shadow-soft)}
+
+/* ---------- Sections ---------- */
+.mx-section{max-width:1180px;margin:0 auto;padding:clamp(30px,5vw,54px) var(--page-pad) 0}
+.mx-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:clamp(18px,3vw,28px)}
+.mx-section-head h2{
+  font-family:'Cinzel',serif;font-weight:600;
+  font-size:clamp(1.3rem,3vw,1.7rem);
+  letter-spacing:.14em;color:var(--royal);
+}
+.mx-section-head .mx-count{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--taupe);font-size:1.05rem;white-space:nowrap;
+}
+
+/* ---------- Artist cards ---------- */
+.mx-artists{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:clamp(18px,3vw,30px);
+}
+.mx-artist{
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:var(--radius);
+  padding:26px 18px 22px;
+  text-align:center;
+  box-shadow:var(--shadow-soft);
+  transition:transform .3s,box-shadow .3s;
+}
+.mx-artist:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.mx-avatar{
+  width:112px;height:112px;border-radius:50%;
+  margin:0 auto 16px;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 30% 25%,var(--plum),var(--aubergine));
+  box-shadow:inset 0 0 0 3px var(--card),0 0 0 2px var(--gold-soft);
+}
+.mx-avatar img{width:100%;height:100%;object-fit:cover}
+.mx-avatar span{
+  font-family:'Cinzel',serif;font-size:2rem;font-weight:600;
+  color:var(--gold-pale);letter-spacing:.06em;
+}
+.mx-artist h3{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:1.25rem;color:var(--ink);line-height:1.25;
+}
+.mx-artist p{font-size:.95rem;color:var(--taupe);margin-top:4px}
+.mx-artist .mx-artist-open{
+  margin-top:14px;display:inline-block;
+  font-family:'EB Garamond',serif;font-size:.95rem;
+  color:var(--royal);border-bottom:1px solid var(--gold-soft);
+  padding-bottom:2px;transition:color .2s,border-color .2s;
+}
+.mx-artist:hover .mx-artist-open{color:var(--aubergine);border-color:var(--gold)}
+
+/* ---------- Song cards ---------- */
+.mx-songs{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:clamp(18px,3vw,30px);
+}
+.mx-song{
+  background:var(--card);
+  border:1px solid var(--cream-deep);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow-soft);
+  transition:transform .3s,box-shadow .3s;
+  display:flex;flex-direction:column;
+}
+.mx-song:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.mx-cover{position:relative;aspect-ratio:1/1;overflow:hidden}
+.mx-cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.mx-song:hover .mx-cover img{transform:scale(1.04)}
+.mx-cover-gen{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  padding:20px;text-align:center;
+}
+.mx-cover-gen .mx-cover-note{font-size:1.9rem;color:var(--gold-pale);line-height:1}
+.mx-cover-gen .mx-cover-title{
+  font-family:'Cinzel',serif;font-weight:600;color:#fff;
+  font-size:1.15rem;letter-spacing:.06em;line-height:1.35;
+}
+.mx-cover-gen .mx-cover-artist{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--gold-pale);font-size:.95rem;letter-spacing:.08em;
+}
+.mx-play{
+  position:absolute;right:14px;bottom:14px;
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(253,252,248,.94);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  transition:transform .25s,background .25s;
+}
+.mx-play:hover{transform:scale(1.08);background:#fff}
+.mx-play svg{width:20px;height:20px;fill:var(--royal)}
+.mx-song-meta{padding:16px 18px 18px}
+.mx-song-meta h3{
+  font-family:'Cormorant Garamond',serif;font-weight:600;
+  font-size:1.2rem;color:var(--royal);line-height:1.3;
+}
+.mx-song-meta p{font-size:.95rem;color:var(--ink-soft);margin-top:3px}
+
+/* ---------- Empty state ---------- */
+.mx-empty{
+  text-align:center;padding:44px 20px;color:var(--taupe);
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.2rem;
+}
+
+/* ---------- Pagination (reusable) ---------- */
+.mx-pagination{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:clamp(22px,4vw,34px);flex-wrap:wrap;
+}
+.mx-pagination[hidden]{display:none}
+.mx-page-btn{
+  min-width:42px;height:42px;padding:0 12px;border-radius:12px;
+  font-family:'EB Garamond',serif;font-size:1rem;color:var(--ink-soft);
+  background:var(--card);border:1px solid var(--cream-deep);
+  transition:all .2s;
+}
+.mx-page-btn:hover:not(:disabled){border-color:var(--gold-soft);color:var(--royal)}
+.mx-page-btn[aria-current="page"]{
+  background:var(--royal);border-color:var(--royal);color:#fff;
+}
+.mx-page-btn:disabled{opacity:.4;cursor:default}
+.mx-page-ellipsis{color:var(--stone);padding:0 2px}
+
+/* ---------- Artist detail view ---------- */
+.mx-view{display:none}
+.mx-view.active{display:block}
+.mx-back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'EB Garamond',serif;font-size:1rem;color:var(--royal);
+  padding:8px 0;border-bottom:1px solid transparent;transition:border-color .2s;
+}
+.mx-back:hover{border-color:var(--gold-soft)}
+.mx-back svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2}
+.mx-artist-hero{
+  display:flex;align-items:center;gap:clamp(18px,4vw,34px);
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border:1px solid var(--cream-deep);border-radius:var(--radius);
+  padding:clamp(22px,4vw,38px);margin-top:18px;
+  flex-wrap:wrap;
+}
+.mx-artist-hero .mx-avatar{width:132px;height:132px;margin:0}
+.mx-artist-hero h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.06em;
+  font-size:clamp(1.4rem,3.5vw,2rem);color:var(--aubergine);
+}
+.mx-artist-hero p{color:var(--ink-soft);max-width:560px;margin-top:6px;font-size:1.05rem}
+.mx-artist-hero .mx-artist-songcount{
+  font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold);
+  margin-top:8px;font-size:1rem;
+}
+
+/* ---------- Player bar ---------- */
+.mx-player{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:rgba(43,32,68,.97);
+  backdrop-filter:blur(10px);
+  color:var(--gold-pale);
+  transform:translateY(110%);
+  transition:transform .4s cubic-bezier(.22,.9,.3,1);
+  box-shadow:0 -8px 30px rgba(0,0,0,.25);
+}
+.mx-player.active{transform:translateY(0)}
+.mx-player-inner{
+  max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;gap:16px;
+  padding:12px var(--page-pad);
+}
+.mx-player-titles{min-width:0;flex:1}
+.mx-player-titles .t{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.1rem;
+  color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.mx-player-titles .a{font-size:.85rem;color:var(--gold-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mx-player-controls{display:flex;align-items:center;gap:10px}
+.mx-pbtn{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);transition:background .2s;
+}
+.mx-pbtn:hover{background:rgba(255,255,255,.18)}
+.mx-pbtn svg{width:18px;height:18px;fill:var(--gold-pale)}
+.mx-pbtn.main{width:52px;height:52px;background:var(--gold)}
+.mx-pbtn.main svg{fill:var(--aubergine)}
+.mx-player-progress{
+  position:absolute;top:0;left:0;right:0;height:3px;background:rgba(255,255,255,.14);
+  cursor:pointer;
+}
+.mx-player-progress .fill{height:100%;width:0;background:var(--gold);transition:width .2s linear}
+.mx-player-time{font-size:.8rem;color:var(--gold-soft);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mx-player-close{margin-left:4px}
+body.player-open{padding-bottom:88px}
+
+/* ---------- Toast ---------- */
+.mx-toast{
+  position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);
+  background:var(--aubergine);color:var(--gold-pale);
+  font-family:'EB Garamond',serif;font-size:.98rem;
+  padding:12px 22px;border-radius:999px;box-shadow:var(--shadow-lift);
+  opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;z-index:70;
+  max-width:88vw;text-align:center;
+}
+.mx-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- Footer note ---------- */
+.mx-foot{
+  text-align:center;
+  padding:clamp(40px,7vw,70px) var(--page-pad) clamp(46px,7vw,80px);
+}
+.mx-foot p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--taupe);font-size:1.15rem;max-width:520px;margin:0 auto;
+}
+
+/* ---------- Card secondary actions (share/download) ---------- */
+.mx-song-actions{display:flex;gap:6px;margin-top:12px}
+.mx-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'EB Garamond',serif;font-size:.85rem;color:var(--ink-soft);
+  padding:6px 12px;border-radius:999px;
+  background:var(--cream);border:1px solid var(--cream-deep);
+  transition:all .2s;
+}
+.mx-chip:hover{border-color:var(--gold-soft);color:var(--royal);background:var(--gold-pale)}
+.mx-chip svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.mx-song-meta .mx-duration{
+  font-variant-numeric:tabular-nums;color:var(--taupe);font-size:.85rem;
+  float:right;margin-top:2px;
+}
+
+/* ---------- Song detail ---------- */
+.mx-sd-top{
+  display:flex;gap:clamp(20px,4vw,40px);flex-wrap:wrap;align-items:flex-start;
+  margin-top:18px;
+}
+.mx-sd-cover{
+  width:clamp(200px,40vw,300px);aspect-ratio:1/1;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow-lift);flex-shrink:0;
+}
+.mx-sd-cover img{width:100%;height:100%;object-fit:cover}
+.mx-sd-info{flex:1;min-width:240px}
+.mx-sd-eyebrow{
+  font-family:'EB Garamond',serif;font-size:.85rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gold);
+}
+.mx-sd-info h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;
+  font-size:clamp(1.7rem,4.5vw,2.6rem);color:var(--aubergine);margin:8px 0 4px;line-height:1.15;
+}
+.mx-sd-artist{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--plum)}
+.mx-sd-artist a{color:inherit;border-bottom:1px solid var(--gold-soft)}
+.mx-sd-meta-row{
+  display:flex;gap:16px;flex-wrap:wrap;color:var(--taupe);font-size:.95rem;
+  margin-top:10px;font-variant-numeric:tabular-nums;
+}
+.mx-sd-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.mx-btn{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:'EB Garamond',serif;font-size:1rem;
+  padding:12px 24px;border-radius:999px;transition:all .25s;
+}
+.mx-btn svg{width:18px;height:18px}
+.mx-btn-primary{background:var(--royal);color:#fff;box-shadow:var(--shadow-soft)}
+.mx-btn-primary:hover{background:var(--aubergine);transform:translateY(-2px)}
+.mx-btn-primary svg{fill:#fff;stroke:none}
+.mx-btn-ghost{background:var(--card);color:var(--royal);border:1px solid var(--cream-deep)}
+.mx-btn-ghost:hover{border-color:var(--gold-soft);background:var(--gold-pale)}
+.mx-btn-ghost svg{stroke:currentColor;fill:none;stroke-width:2}
+
+.mx-scripture{
+  margin:clamp(28px,5vw,44px) 0;
+  padding:clamp(22px,4vw,34px);
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border-left:3px solid var(--gold);border-radius:0 var(--radius) var(--radius) 0;
+}
+.mx-scripture p{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.2rem,2.6vw,1.5rem);color:var(--ink);line-height:1.5;
+}
+.mx-scripture cite{
+  display:block;font-style:normal;font-family:'Cinzel',serif;
+  font-size:.9rem;letter-spacing:.14em;color:var(--gold);margin-top:12px;
+}
+.mx-reflection{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  color:var(--plum);font-size:1.2rem;text-align:center;
+  max-width:560px;margin:0 auto clamp(30px,5vw,44px);
+}
+.mx-lyrics-h{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.14em;
+  color:var(--royal);font-size:1.2rem;margin-bottom:20px;
+  display:flex;align-items:center;gap:14px;
+}
+.mx-lyrics-h::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--gold-soft),transparent)}
+.mx-lyrics{max-width:640px}
+.mx-verse{margin-bottom:26px}
+.mx-verse p{
+  font-family:'EB Garamond',serif;font-size:1.15rem;line-height:1.9;color:var(--ink);
+}
+.mx-verse.chorus p{color:var(--royal);font-style:italic}
+
+/* ---------- Album detail ---------- */
+.mx-album-hero{
+  display:flex;gap:clamp(20px,4vw,40px);flex-wrap:wrap;align-items:center;
+  background:linear-gradient(120deg,var(--cream),var(--ivory));
+  border:1px solid var(--cream-deep);border-radius:var(--radius);
+  padding:clamp(22px,4vw,38px);margin-top:18px;
+}
+.mx-album-hero .mx-sd-cover{width:clamp(140px,26vw,190px)}
+.mx-album-hero .mx-sd-eyebrow{color:var(--gold)}
+.mx-album-hero h2{
+  font-family:'Cinzel',serif;font-weight:600;letter-spacing:.04em;
+  font-size:clamp(1.5rem,4vw,2.2rem);color:var(--aubergine);margin:8px 0 4px;
+}
+.mx-album-hero .mx-sd-artist{margin-bottom:6px}
+.mx-tracklist{list-style:none;counter-reset:trk}
+.mx-track{
+  display:flex;align-items:center;gap:16px;
+  padding:14px 16px;border-radius:14px;
+  border:1px solid transparent;transition:background .2s,border-color .2s;
+  cursor:pointer;
+}
+.mx-track:hover{background:var(--cream);border-color:var(--cream-deep)}
+.mx-track-num{
+  counter-increment:trk;
+  font-family:'Cinzel',serif;color:var(--gold);width:28px;text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+.mx-track-num::before{content:counter(trk,decimal-leading-zero)}
+.mx-track:hover .mx-track-num{color:transparent}
+.mx-track:hover .mx-track-num::after{
+  content:"\25B6";color:var(--royal);position:absolute;transform:translateX(-14px);font-size:.8rem;
+}
+.mx-track-body{flex:1;min-width:0}
+.mx-track-body .t{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.2rem;color:var(--ink)}
+.mx-track-body .s{font-size:.9rem;color:var(--taupe)}
+.mx-track-dur{font-variant-numeric:tabular-nums;color:var(--taupe);font-size:.9rem}
+
+/* clickable album card cue */
+.mx-song.is-album .mx-cover::after{
+  content:"Album";position:absolute;top:12px;left:12px;
+  font-family:'EB Garamond',serif;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:#fff;background:rgba(55,33,92,.72);
+  padding:4px 10px;border-radius:999px;backdrop-filter:blur(4px);
+}
+
+/* clickable song card cue */
+.mx-song[data-open]{cursor:pointer}
+
+/* ---------- Reveal on scroll ---------- */
+.mx-reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.mx-reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .mx-reveal{opacity:1;transform:none}
+}
+@media (max-width:560px){
+  .mx-artists{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .mx-songs{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+  .mx-play{width:44px;height:44px}
+  .mx-player-time{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= GALLERY VIEW ================= -->
+<div id="view-gallery" class="mx-view active">
+
+  <header class="mx-hero" role="img" aria-label="Music. Experience soul lifting music. A talking drum resting on woven cloth in warm golden light.">
+    <img src="DATA_URI_REMOVED" alt="" width="1536" height="610" fetchpriority="high">
+  </header>
+
+  <section class="mx-head">
+    <h1>MUSIC</h1>
+    <p class="mx-rider">Experience Soul Lifting Music</p>
+    <div class="mx-staff" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  </section>
+
+  <div class="mx-search-wrap">
+    <div class="mx-search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input id="mx-search-input" type="search" placeholder="Search music..." aria-label="Search songs and artistes">
+    </div>
+  </div>
+
+  <section class="mx-section" aria-labelledby="mx-artistes-h">
+    <div class="mx-section-head">
+      <h2 id="mx-artistes-h">Artistes</h2>
+      <span class="mx-count" id="mx-artistes-count"></span>
+    </div>
+    <div class="mx-artists" id="mx-artists-grid"></div>
+    <nav class="mx-pagination" id="mx-artists-pagination" aria-label="Artistes pages" hidden></nav>
+  </section>
+
+  <section class="mx-section" id="mx-albums-section" aria-labelledby="mx-albums-h">
+    <div class="mx-section-head">
+      <h2 id="mx-albums-h">Albums</h2>
+      <span class="mx-count" id="mx-albums-count"></span>
+    </div>
+    <div class="mx-songs" id="mx-albums-grid"></div>
+    <nav class="mx-pagination" id="mx-albums-pagination" aria-label="Albums pages" hidden></nav>
+  </section>
+
+  <section class="mx-section" aria-labelledby="mx-recent-h">
+    <div class="mx-section-head">
+      <h2 id="mx-recent-h">Recently Added</h2>
+      <span class="mx-count" id="mx-songs-count"></span>
+    </div>
+    <div class="mx-songs" id="mx-songs-grid"></div>
+    <nav class="mx-pagination" id="mx-songs-pagination" aria-label="Songs pages" hidden></nav>
+  </section>
+
+  <footer class="mx-foot">
+    <div class="mx-staff" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <p>Sing unto the LORD a new song, and his praise in the congregation of saints. Psalm 149:1</p>
+  </footer>
+</div>
+
+<!-- ================= ARTIST DETAIL VIEW ================= -->
+<div id="view-artist" class="mx-view">
+  <div class="mx-section" style="padding-top:clamp(22px,4vw,40px)">
+    <button class="mx-back" data-back>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="14 6 8 12 14 18"/></svg>
+      Back to Music
+    </button>
+    <div class="mx-artist-hero" id="mx-artist-hero"></div>
+  </div>
+  <section class="mx-section" aria-labelledby="mx-artist-songs-h">
+    <div class="mx-section-head">
+      <h2 id="mx-artist-songs-h">Songs</h2>
+      <span class="mx-count" id="mx-artist-songs-count"></span>
+    </div>
+    <div class="mx-songs" id="mx-artist-songs-grid"></div>
+    <nav class="mx-pagination" id="mx-artist-songs-pagination" aria-label="Artist songs pages" hidden></nav>
+  </section>
+  <div class="mx-section" style="padding-bottom:clamp(40px,7vw,70px)">
+    <button class="mx-back" data-back>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="14 6 8 12 14 18"/></svg>
+      Back to Music
+    </button>
+  </div>
+</div>
+
+<!-- ================= SONG DETAIL VIEW ================= -->
+<div id="view-song" class="mx-view">
+  <div class="mx-section" style="padding-top:clamp(22px,4vw,40px);padding-bottom:clamp(40px,7vw,70px)">
+    <button class="mx-back" data-back>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="14 6 8 12 14 18"/></svg>
+      Back
+    </button>
+    <div id="mx-song-detail"></div>
+  </div>
+</div>
+
+<!-- ================= ALBUM DETAIL VIEW ================= -->
+<div id="view-album" class="mx-view">
+  <div class="mx-section" style="padding-top:clamp(22px,4vw,40px)">
+    <button class="mx-back" data-back>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="14 6 8 12 14 18"/></svg>
+      Back to Music
+    </button>
+    <div class="mx-album-hero" id="mx-album-hero"></div>
+  </div>
+  <section class="mx-section" style="padding-bottom:clamp(40px,7vw,70px)" aria-labelledby="mx-album-tracks-h">
+    <div class="mx-section-head">
+      <h2 id="mx-album-tracks-h">Tracklist</h2>
+      <span class="mx-count" id="mx-album-tracks-count"></span>
+    </div>
+    <ol class="mx-tracklist" id="mx-album-tracks"></ol>
+  </section>
+</div>
+
+<!-- ================= PLAYER BAR ================= -->
+<div class="mx-player" id="mx-player" aria-label="Now playing">
+  <div class="mx-player-progress" id="mx-progress" role="slider" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0">
+    <div class="fill" id="mx-progress-fill"></div>
+  </div>
+  <div class="mx-player-inner">
+    <div class="mx-player-titles">
+      <div class="t" id="mx-now-title"></div>
+      <div class="a" id="mx-now-artist"></div>
+    </div>
+    <span class="mx-player-time" id="mx-time">0:00 / 0:00</span>
+    <div class="mx-player-controls">
+      <button class="mx-pbtn" id="mx-prev" aria-label="Previous song"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM20 5v14L9.5 12z"/></svg></button>
+      <button class="mx-pbtn main" id="mx-toggle" aria-label="Play or pause"><svg id="mx-toggle-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+      <button class="mx-pbtn" id="mx-next" aria-label="Next song"><svg viewBox="0 0 24 24"><path d="M16 5h2v14h-2zM4 5v14l10.5-7z"/></svg></button>
+      <button class="mx-pbtn mx-player-close" id="mx-close" aria-label="Close player"><svg viewBox="0 0 24 24"><path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6z"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="mx-toast" id="mx-toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============================================================
+   DATA - edit here to add artistes, songs, albums, playlists.
+   cover: image URL (leave "" for an elegant generated cover)
+   audio: MP3/stream URL (leave "" until the file is uploaded)
+   ============================================================ */
+const ARTISTS = [
+  {
+    id:"ubong-nta",
+    name:"Prophet Ubong Nta",
+    role:"Minister",
+    photo:"",
+    bio:"A minister of the gospel whose songs carry the comfort and presence of the Holy Spirit."
+  },
+  {
+    id:"samuel-emodiae",
+    name:"Samuel Emodiae",
+    role:"Minister",
+    photo:"",
+    bio:"A worship minister whose sound is born in the secret place and offered to the Lord."
+  }
+];
+
+/* SONG fields:
+   cover/audio "" until you upload them.
+   lyrics: array of verse blocks; each block is an array of lines.
+   scripture: {ref, text} anchoring the song in the Word.
+   reflection: one devotional line inviting meditation.
+   duration: seconds (shows on the card and player); 0 if unknown.
+   albumId: links to ALBUMS below; "" for a single.
+   release: ISO date used to sort Recently Added. */
+const SONGS = [
+  {
+    id:"allos-parakletos", title:"Allos Parakletos", artistId:"ubong-nta",
+    cover:"", audio:"", palette:["#1c1428","#553192"],
+    albumId:"another-comforter", duration:0, release:"2026-01-10",
+    scripture:{ ref:"John 14:16", text:"And I will pray the Father, and he shall give you another Comforter, that he may abide with you for ever." },
+    reflection:"A song for the moment you realise you were never left alone.",
+    lyrics:[
+      ["Add the first verse here.","Each line sits on its own row.","The Comforter has come to stay."],
+      ["Add the chorus here.","Allos Parakletos, another Comforter,","Spirit of the living God."]
+    ]
+  },
+  {
+    id:"secret-tears", title:"Secret Tears", artistId:"samuel-emodiae",
+    cover:"", audio:"", palette:["#37215c","#6e4d9e"],
+    albumId:"secret-place", duration:0, release:"2026-01-08",
+    scripture:{ ref:"Psalm 56:8", text:"Thou tellest my wanderings: put thou my tears into thy bottle: are they not in thy book?" },
+    reflection:"The tears no one saw were counted in heaven.",
+    lyrics:[
+      ["Add the first verse here.","Every tear a prayer He heard.","Nothing wasted, nothing lost."]
+    ]
+  },
+  {
+    id:"nothing-without-you", title:"Nothing Without You", artistId:"samuel-emodiae",
+    cover:"", audio:"", palette:["#4a2d20","#c19a45"],
+    albumId:"secret-place", duration:0, release:"2026-01-06",
+    scripture:{ ref:"John 15:5", text:"I am the vine, ye are the branches: for without me ye can do nothing." },
+    reflection:"A confession of dependence, sung as surrender.",
+    lyrics:[
+      ["Add the first verse here.","Apart from You I am undone.","Everything I am is Yours."]
+    ]
+  },
+  {
+    id:"godiya", title:"Godiya", artistId:"samuel-emodiae",
+    cover:"", audio:"", palette:["#2b2044","#8a5fc4"],
+    albumId:"secret-place", duration:0, release:"2026-01-04",
+    scripture:{ ref:"1 Thessalonians 5:18", text:"In every thing give thanks: for this is the will of God in Christ Jesus concerning you." },
+    reflection:"Godiya means thanksgiving, an offering of gratitude in every season.",
+    lyrics:[
+      ["Add the first verse here.","Godiya, thanksgiving to the King.","For all You are, I give You praise."]
+    ]
+  }
+];
+
+/* ALBUMS group songs into collections. Track order follows SONGS. */
+const ALBUMS = [
+  { id:"another-comforter", title:"Another Comforter", artistId:"ubong-nta",     cover:"", palette:["#1c1428","#553192"], year:2026 },
+  { id:"secret-place",      title:"The Secret Place",  artistId:"samuel-emodiae", cover:"", palette:["#37215c","#8a5fc4"], year:2026 }
+];
+
+const PER_PAGE = { artists: 8, songs: 8, artistSongs: 8, albums: 8 };
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const artistById = id => ARTISTS.find(a => a.id === id);
+const albumById = id => ALBUMS.find(a => a.id === id);
+const songById = id => SONGS.find(s => s.id === id);
+const songsInAlbum = id => SONGS.filter(s => s.albumId === id);
+const esc = s => s.replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials = name => name.split(/\s+/).filter(Boolean).slice(-2).map(w => w[0]).join("").toUpperCase();
+const dur = s => s ? Math.floor(s/60)+":"+String(Math.floor(s%60)).padStart(2,"0") : "";
+
+/* Share via Web Share API where available, else copy a deep link. */
+function shareSong(id){
+  const song = songById(id); if(!song) return;
+  const artist = artistById(song.artistId);
+  const url = location.origin + location.pathname + "#song-" + id;
+  const data = { title: song.title, text: `${song.title} by ${artist ? artist.name : "EEMODIAE"}`, url };
+  if(navigator.share){ navigator.share(data).catch(()=>{}); return; }
+  navigator.clipboard && navigator.clipboard.writeText(url)
+    .then(() => toast("Link copied to clipboard."))
+    .catch(() => toast("Copy this link: " + url));
+}
+function downloadSong(id){
+  const song = songById(id); if(!song) return;
+  if(!song.audio){ toast("Download will be available once the track is uploaded."); return; }
+  const a = document.createElement("a");
+  a.href = song.audio; a.download = song.title + ".mp3";
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+function toast(msg){
+  const t = $("#mx-toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* Reusable pagination: works for songs, albums, artists,
+   playlists and any future collection. */
+function paginate({ items, page, perPage, gridEl, navEl, renderItem, onPage }){
+  const total = Math.max(1, Math.ceil(items.length / perPage));
+  page = Math.min(Math.max(1, page), total);
+  const slice = items.slice((page - 1) * perPage, page * perPage);
+
+  gridEl.innerHTML = slice.length
+    ? slice.map(renderItem).join("")
+    : "";
+  if(!slice.length){
+    gridEl.insertAdjacentHTML("beforeend",
+      '<div class="mx-empty" style="grid-column:1/-1">Nothing here yet. New releases are on the way.</div>');
+  }
+
+  if(total <= 1){ navEl.hidden = true; navEl.innerHTML = ""; return page; }
+  navEl.hidden = false;
+
+  const btn = (label, p, opts = {}) =>
+    `<button class="mx-page-btn" data-page="${p}" ${opts.current ? 'aria-current="page"' : ""} ${opts.disabled ? "disabled" : ""} aria-label="${opts.aria || `Page ${p}`}">${label}</button>`;
+
+  let pages = [];
+  for(let i = 1; i <= total; i++){
+    if(i === 1 || i === total || Math.abs(i - page) <= 1) pages.push(i);
+  }
+  let html = btn("&lsaquo;", page - 1, { disabled: page === 1, aria: "Previous page" });
+  let prev = 0;
+  for(const p of pages){
+    if(p - prev > 1) html += '<span class="mx-page-ellipsis">&middot;&middot;&middot;</span>';
+    html += btn(p, p, { current: p === page });
+    prev = p;
+  }
+  html += btn("&rsaquo;", page + 1, { disabled: page === total, aria: "Next page" });
+  navEl.innerHTML = html;
+
+  navEl.onclick = e => {
+    const b = e.target.closest("[data-page]");
+    if(!b || b.disabled) return;
+    onPage(parseInt(b.dataset.page, 10));
+  };
+  return page;
+}
+
+/* ============================================================
+   RENDERERS
+   ============================================================ */
+/* Shared generated cover for songs and albums. */
+function coverMarkup(item){
+  const artist = artistById(item.artistId);
+  if(item.cover){
+    return `<img src="${esc(item.cover)}" alt="${esc(item.title)} cover art" loading="lazy">`;
+  }
+  const [c1, c2] = item.palette || ["#37215c", "#553192"];
+  return `<div class="mx-cover-gen" style="background:radial-gradient(circle at 28% 22%,${c2},${c1})">
+    <span class="mx-cover-note" aria-hidden="true">&#9835;</span>
+    <span class="mx-cover-title">${esc(item.title)}</span>
+    <span class="mx-cover-artist">${esc(artist ? artist.name : "")}</span>
+  </div>`;
+}
+
+function songCard(song){
+  const artist = artistById(song.artistId);
+  const d = dur(song.duration);
+  return `<article class="mx-song mx-reveal" data-open="${song.id}" role="button" tabindex="0" aria-label="Open ${esc(song.title)}">
+    <div class="mx-cover">
+      ${coverMarkup(song)}
+      <button class="mx-play" data-play="${song.id}" aria-label="Play ${esc(song.title)}">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+    <div class="mx-song-meta">
+      ${d ? `<span class="mx-duration">${d}</span>` : ""}
+      <h3>${esc(song.title)}</h3>
+      <p>${esc(artist ? artist.name : "")}</p>
+      <div class="mx-song-actions">
+        <button class="mx-chip" data-share="${song.id}" aria-label="Share ${esc(song.title)}">
+          <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.5" y1="13.5" x2="15.5" y2="17.5"/><line x1="15.5" y1="6.5" x2="8.5" y2="10.5"/></svg>Share
+        </button>
+        <button class="mx-chip" data-download="${song.id}" aria-label="Download ${esc(song.title)}">
+          <svg viewBox="0 0 24 24"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>Save
+        </button>
+      </div>
+    </div>
+  </article>`;
+}
+
+function albumCard(album){
+  const artist = artistById(album.artistId);
+  const n = songsInAlbum(album.id).length;
+  return `<article class="mx-song is-album mx-reveal" data-album="${album.id}" role="button" tabindex="0" aria-label="Open album ${esc(album.title)}">
+    <div class="mx-cover">
+      ${coverMarkup(album)}
+      <button class="mx-play" data-album-play="${album.id}" aria-label="Play album ${esc(album.title)}">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
+    <div class="mx-song-meta">
+      <h3>${esc(album.title)}</h3>
+      <p>${esc(artist ? artist.name : "")} &middot; ${n === 1 ? "1 song" : n + " songs"}</p>
+    </div>
+  </article>`;
+}
+
+function artistCard(artist){
+  const avatar = artist.photo
+    ? `<img src="${esc(artist.photo)}" alt="Portrait of ${esc(artist.name)}" loading="lazy">`
+    : `<span aria-hidden="true">${initials(artist.name)}</span>`;
+  return `<article class="mx-artist mx-reveal" data-artist="${artist.id}" role="button" tabindex="0" aria-label="View ${esc(artist.name)}">
+    <div class="mx-avatar">${avatar}</div>
+    <h3>${esc(artist.name)}</h3>
+    <p>${esc(artist.role)}</p>
+    <span class="mx-artist-open">View songs</span>
+  </article>`;
+}
+
+/* ============================================================
+   STATE + VIEWS (hardware back button supported)
+   ============================================================ */
+const state = {
+  query: "",
+  artistPage: 1,
+  albumPage: 1,
+  songPage: 1,
+  artistSongsPage: 1,
+  currentArtist: null,
+  currentAlbum: null,
+  currentSong: null
+};
+
+/* Recently Added, newest first by release date. */
+const recentSongs = list => [...list].sort((a, b) => (b.release || "").localeCompare(a.release || ""));
+
+function filteredArtists(){
+  if(!state.query) return ARTISTS;
+  const q = state.query.toLowerCase();
+  return ARTISTS.filter(a => a.name.toLowerCase().includes(q));
+}
+function filteredSongs(){
+  if(!state.query) return SONGS;
+  const q = state.query.toLowerCase();
+  return SONGS.filter(s => {
+    const a = artistById(s.artistId);
+    return s.title.toLowerCase().includes(q) || (a && a.name.toLowerCase().includes(q));
+  });
+}
+
+function filteredAlbums(){
+  if(!state.query) return ALBUMS;
+  const q = state.query.toLowerCase();
+  return ALBUMS.filter(al => {
+    const a = artistById(al.artistId);
+    return al.title.toLowerCase().includes(q) || (a && a.name.toLowerCase().includes(q));
+  });
+}
+
+function renderGallery(){
+  const artists = filteredArtists();
+  const albums = filteredAlbums();
+  const songs = recentSongs(filteredSongs());
+  $("#mx-artistes-count").textContent = artists.length === 1 ? "1 artiste" : artists.length + " artistes";
+  $("#mx-albums-count").textContent = albums.length === 1 ? "1 album" : albums.length + " albums";
+  $("#mx-songs-count").textContent = songs.length === 1 ? "1 song" : songs.length + " songs";
+
+  state.artistPage = paginate({
+    items: artists, page: state.artistPage, perPage: PER_PAGE.artists,
+    gridEl: $("#mx-artists-grid"), navEl: $("#mx-artists-pagination"),
+    renderItem: artistCard,
+    onPage: p => { state.artistPage = p; renderGallery(); }
+  });
+
+  // Albums section hides itself when a search excludes every album.
+  $("#mx-albums-section").style.display = albums.length ? "" : "none";
+  state.albumPage = paginate({
+    items: albums, page: state.albumPage, perPage: PER_PAGE.albums,
+    gridEl: $("#mx-albums-grid"), navEl: $("#mx-albums-pagination"),
+    renderItem: albumCard,
+    onPage: p => { state.albumPage = p; renderGallery(); }
+  });
+
+  state.songPage = paginate({
+    items: songs, page: state.songPage, perPage: PER_PAGE.songs,
+    gridEl: $("#mx-songs-grid"), navEl: $("#mx-songs-pagination"),
+    renderItem: songCard,
+    onPage: p => { state.songPage = p; renderGallery(); }
+  });
+  observeReveals();
+}
+
+function renderArtist(id){
+  const artist = artistById(id);
+  if(!artist) return;
+  const songs = SONGS.filter(s => s.artistId === id);
+  const avatar = artist.photo
+    ? `<img src="${esc(artist.photo)}" alt="Portrait of ${esc(artist.name)}" loading="lazy">`
+    : `<span aria-hidden="true">${initials(artist.name)}</span>`;
+  $("#mx-artist-hero").innerHTML = `
+    <div class="mx-avatar">${avatar}</div>
+    <div>
+      <h2>${esc(artist.name)}</h2>
+      <p>${esc(artist.bio)}</p>
+      <div class="mx-artist-songcount">${songs.length === 1 ? "1 song" : songs.length + " songs"}</div>
+    </div>`;
+  $("#mx-artist-songs-count").textContent = songs.length === 1 ? "1 song" : songs.length + " songs";
+  state.artistSongsPage = paginate({
+    items: songs, page: state.artistSongsPage, perPage: PER_PAGE.artistSongs,
+    gridEl: $("#mx-artist-songs-grid"), navEl: $("#mx-artist-songs-pagination"),
+    renderItem: songCard,
+    onPage: p => { state.artistSongsPage = p; renderArtist(id); }
+  });
+  observeReveals();
+}
+
+function bigCover(item){
+  return `<div class="mx-sd-cover">${coverMarkup(item)}</div>`;
+}
+
+function renderSong(id){
+  const song = songById(id);
+  if(!song) return;
+  const artist = artistById(song.artistId);
+  const album = albumById(song.albumId);
+  const d = dur(song.duration);
+  const metaBits = [
+    artist ? esc(artist.name) : "",
+    album ? esc(album.title) : "",
+    d ? d : "",
+    song.release ? new Date(song.release).getFullYear() : ""
+  ].filter(Boolean).join(" &middot; ");
+
+  const lyricsHTML = (song.lyrics && song.lyrics.length)
+    ? song.lyrics.map((block, i) =>
+        `<div class="mx-verse${i === 1 ? " chorus" : ""}">${block.map(l => `<p>${esc(l)}</p>`).join("")}</div>`
+      ).join("")
+    : `<p class="mx-empty">Lyrics will be added soon.</p>`;
+
+  $("#mx-song-detail").innerHTML = `
+    <div class="mx-sd-top">
+      ${bigCover(song)}
+      <div class="mx-sd-info">
+        <div class="mx-sd-eyebrow">Now Presenting</div>
+        <h2>${esc(song.title)}</h2>
+        <div class="mx-sd-artist">by <a data-artist="${song.artistId}" role="button" tabindex="0">${esc(artist ? artist.name : "")}</a></div>
+        <div class="mx-sd-meta-row">${metaBits}</div>
+        <div class="mx-sd-actions">
+          <button class="mx-btn mx-btn-primary" data-play="${song.id}">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play
+          </button>
+          <button class="mx-btn mx-btn-ghost" data-share="${song.id}">
+            <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.5" y1="13.5" x2="15.5" y2="17.5"/><line x1="15.5" y1="6.5" x2="8.5" y2="10.5"/></svg>Share
+          </button>
+          <button class="mx-btn mx-btn-ghost" data-download="${song.id}">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12"/><polyline points="7 11 12 16 17 11"/><line x1="5" y1="20" x2="19" y2="20"/></svg>Save
+          </button>
+        </div>
+      </div>
+    </div>
+
+    ${song.scripture ? `<blockquote class="mx-scripture">
+      <p>${esc(song.scripture.text)}</p>
+      <cite>${esc(song.scripture.ref)}</cite>
+    </blockquote>` : ""}
+
+    ${song.reflection ? `<p class="mx-reflection">${esc(song.reflection)}</p>` : ""}
+
+    <h3 class="mx-lyrics-h">Lyrics</h3>
+    <div class="mx-lyrics">${lyricsHTML}</div>
+  `;
+}
+
+function renderAlbum(id){
+  const album = albumById(id);
+  if(!album) return;
+  const artist = artistById(album.artistId);
+  const tracks = songsInAlbum(id);
+  $("#mx-album-hero").innerHTML = `
+    ${bigCover(album)}
+    <div class="mx-sd-info">
+      <div class="mx-sd-eyebrow">Album</div>
+      <h2>${esc(album.title)}</h2>
+      <div class="mx-sd-artist"><a data-artist="${album.artistId}" role="button" tabindex="0">${esc(artist ? artist.name : "")}</a></div>
+      <div class="mx-sd-meta-row">${album.year || ""} &middot; ${tracks.length === 1 ? "1 song" : tracks.length + " songs"}</div>
+      <div class="mx-sd-actions">
+        <button class="mx-btn mx-btn-primary" data-album-play="${album.id}">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Play album
+        </button>
+      </div>
+    </div>`;
+  $("#mx-album-tracks-count").textContent = tracks.length === 1 ? "1 song" : tracks.length + " songs";
+  $("#mx-album-tracks").innerHTML = tracks.length
+    ? tracks.map(s => `<li class="mx-track" data-open="${s.id}" role="button" tabindex="0" aria-label="Open ${esc(s.title)}">
+        <span class="mx-track-num" aria-hidden="true"></span>
+        <div class="mx-track-body">
+          <div class="t">${esc(s.title)}</div>
+          <div class="s">${esc(artist ? artist.name : "")}</div>
+        </div>
+        <span class="mx-track-dur">${dur(s.duration)}</span>
+      </li>`).join("")
+    : `<li class="mx-empty">Songs are on the way.</li>`;
+}
+
+function showView(name){
+  document.querySelectorAll(".mx-view").forEach(v => v.classList.remove("active"));
+  $("#view-" + name).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+/* History API is blocked in some sandboxed previews.
+   Try it for hardware back support; fall back gracefully. */
+let historyOK = true;
+function safeHistory(fn){
+  if(!historyOK) return false;
+  try{ fn(); return true; }
+  catch(e){ historyOK = false; return false; }
+}
+
+/* Render whatever a state object describes, without pushing history. */
+function applyState(s){
+  if(s && s.view === "artist" && artistById(s.id)){ renderArtist(s.id); showView("artist"); }
+  else if(s && s.view === "album" && albumById(s.id)){ renderAlbum(s.id); showView("album"); }
+  else if(s && s.view === "song" && songById(s.id)){ renderSong(s.id); showView("song"); }
+  else { showView("gallery"); }
+}
+
+/* Navigate to a detail view and record it in history. */
+function navigate(view, id){
+  if(view === "artist") state.artistSongsPage = 1;
+  const s = { view, id };
+  safeHistory(() => history.pushState(s, ""));
+  if(!historyOK) navStack.push(s);
+  applyState(s);
+}
+const openArtist = id => navigate("artist", id);
+const openAlbum  = id => navigate("album", id);
+const openSong   = id => navigate("song", id);
+
+/* Fallback back-stack for sandboxes where History is blocked. */
+const navStack = [{ view: "gallery" }];
+function goBack(){
+  if(historyOK){ history.back(); return; }
+  navStack.pop();
+  applyState(navStack[navStack.length - 1] || { view: "gallery" });
+}
+
+window.addEventListener("popstate", e => applyState(e.state));
+
+/* ============================================================
+   AUDIO ENGINE with Media Session lock screen controls
+   ============================================================ */
+const Player = {
+  audio: new Audio(),
+  queue: [],
+  index: -1,
+
+  playable(){ return SONGS.filter(s => s.audio); },
+
+  play(songId){
+    const song = SONGS.find(s => s.id === songId);
+    if(!song) return;
+    if(!song.audio){
+      toast("This song will be available to stream very soon.");
+      return;
+    }
+    this.queue = this.playable();
+    this.index = this.queue.findIndex(s => s.id === songId);
+    this.load(this.queue[this.index]);
+  },
+
+  playAlbum(albumId){
+    const tracks = songsInAlbum(albumId).filter(s => s.audio);
+    if(!tracks.length){
+      toast("This album will be available to stream very soon.");
+      return;
+    }
+    this.queue = tracks;
+    this.index = 0;
+    this.load(this.queue[0]);
+  },
+
+  load(song){
+    const artist = artistById(song.artistId);
+    this.audio.src = song.audio;
+    this.audio.play().catch(() => {});
+    $("#mx-now-title").textContent = song.title;
+    $("#mx-now-artist").textContent = artist ? artist.name : "";
+    $("#mx-player").classList.add("active");
+    document.body.classList.add("player-open");
+    if("mediaSession" in navigator){
+      const album = albumById(song.albumId);
+      const artwork = [];
+      const art = song.cover || (album && album.cover);
+      if(art) artwork.push({ src: art, sizes: "512x512" });
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: song.title,
+        artist: artist ? artist.name : "EEMODIAE",
+        album: album ? album.title : "EEMODIAE Music",
+        artwork
+      });
+      navigator.mediaSession.setActionHandler("play", () => this.audio.play());
+      navigator.mediaSession.setActionHandler("pause", () => this.audio.pause());
+      navigator.mediaSession.setActionHandler("previoustrack", () => this.step(-1));
+      navigator.mediaSession.setActionHandler("nexttrack", () => this.step(1));
+    }
+  },
+
+  step(dir){
+    if(!this.queue.length) return;
+    this.index = (this.index + dir + this.queue.length) % this.queue.length;
+    this.load(this.queue[this.index]);
+  },
+
+  toggle(){
+    if(!this.audio.src) return;
+    this.audio.paused ? this.audio.play() : this.audio.pause();
+  },
+
+  close(){
+    this.audio.pause();
+    this.audio.removeAttribute("src");
+    $("#mx-player").classList.remove("active");
+    document.body.classList.remove("player-open");
+  }
+};
+
+const fmt = s => {
+  if(!isFinite(s)) return "0:00";
+  const m = Math.floor(s / 60), r = Math.floor(s % 60);
+  return m + ":" + String(r).padStart(2, "0");
+};
+
+Player.audio.addEventListener("timeupdate", () => {
+  const { currentTime, duration } = Player.audio;
+  const pct = duration ? (currentTime / duration) * 100 : 0;
+  $("#mx-progress-fill").style.width = pct + "%";
+  $("#mx-progress").setAttribute("aria-valuenow", Math.round(pct));
+  $("#mx-time").textContent = fmt(currentTime) + " / " + fmt(duration);
+});
+Player.audio.addEventListener("ended", () => Player.step(1));
+Player.audio.addEventListener("play", () => $("#mx-toggle-icon").innerHTML = '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>');
+Player.audio.addEventListener("pause", () => $("#mx-toggle-icon").innerHTML = '<path d="M8 5v14l11-7z"/>');
+
+$("#mx-toggle").addEventListener("click", () => Player.toggle());
+$("#mx-prev").addEventListener("click", () => Player.step(-1));
+$("#mx-next").addEventListener("click", () => Player.step(1));
+$("#mx-close").addEventListener("click", () => Player.close());
+$("#mx-progress").addEventListener("click", e => {
+  if(!Player.audio.duration) return;
+  const r = e.currentTarget.getBoundingClientRect();
+  Player.audio.currentTime = ((e.clientX - r.left) / r.width) * Player.audio.duration;
+});
+
+/* ============================================================
+   EVENTS
+   ============================================================ */
+/* Order matters: specific actions (play/share/download/open the
+   inner control) are checked before the card's own open target,
+   so a button inside a clickable card wins. */
+function routeAction(el){
+  if(el.matches("[data-back]")){ goBack(); return true; }
+  if(el.hasAttribute("data-play")){ Player.play(el.dataset.play); return true; }
+  if(el.hasAttribute("data-album-play")){ Player.playAlbum(el.dataset.albumPlay); return true; }
+  if(el.hasAttribute("data-share")){ shareSong(el.dataset.share); return true; }
+  if(el.hasAttribute("data-download")){ downloadSong(el.dataset.download); return true; }
+  if(el.hasAttribute("data-artist")){ openArtist(el.dataset.artist); return true; }
+  if(el.hasAttribute("data-album")){ openAlbum(el.dataset.album); return true; }
+  if(el.hasAttribute("data-open")){ openSong(el.dataset.open); return true; }
+  return false;
+}
+const ACTION_SELECTOR = "[data-back],[data-play],[data-album-play],[data-share],[data-download],[data-artist],[data-album],[data-open]";
+
+document.addEventListener("click", e => {
+  const el = e.target.closest(ACTION_SELECTOR);
+  if(el) routeAction(el);
+});
+document.addEventListener("keydown", e => {
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const el = e.target.closest && e.target.closest(ACTION_SELECTOR);
+  if(el && (el.getAttribute("role") === "button" || el.tagName === "BUTTON" || el.tagName === "A")){
+    e.preventDefault();
+    routeAction(el);
+  }
+});
+
+/* Keyboard: space toggles play/pause when not typing in the search box. */
+document.addEventListener("keydown", e => {
+  if(e.code !== "Space") return;
+  const tag = (e.target.tagName || "").toLowerCase();
+  if(tag === "input" || tag === "textarea" || e.target.isContentEditable) return;
+  if(e.target.closest(ACTION_SELECTOR)) return; // let card activation handle it
+  if(Player.audio.src){ e.preventDefault(); Player.toggle(); }
+});
+
+let searchTimer;
+$("#mx-search-input").addEventListener("input", e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => {
+    state.query = e.target.value.trim();
+    state.artistPage = 1;
+    state.albumPage = 1;
+    state.songPage = 1;
+    renderGallery();
+  }, 160);
+});
+
+/* Reveal on scroll, lazy and light */
+let revealObserver;
+function observeReveals(){
+  if(!("IntersectionObserver" in window)){
+    document.querySelectorAll(".mx-reveal").forEach(el => el.classList.add("in"));
+    return;
+  }
+  revealObserver = revealObserver || new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if(en.isIntersecting){ en.target.classList.add("in"); revealObserver.unobserve(en.target); }
+    });
+  }, { rootMargin: "40px" });
+  document.querySelectorAll(".mx-reveal:not(.in)").forEach(el => revealObserver.observe(el));
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+safeHistory(() => history.replaceState({ view: "gallery" }, ""));
+renderGallery();
+
+/* Deep link: opening #song-id or #album-id lands on that view. */
+(function openFromHash(){
+  const h = location.hash;
+  const song = h.match(/^#song-(.+)$/);
+  const album = h.match(/^#album-(.+)$/);
+  if(song && songById(song[1])) openSong(song[1]);
+  else if(album && albumById(album[1])) openAlbum(album[1]);
+})();
+</script>
+</body>
+</html>
