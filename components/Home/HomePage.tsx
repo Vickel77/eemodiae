@@ -33,16 +33,19 @@ const testimonials = [
     quote:
       "My family and I have witnessed prophetic words from God's servant come to fruition, including the miraculous conception of our child exactly as he declared.",
     name: "Jasmine O.",
+    image: "/assets/testimonials/jasmine.jpg",
   },
   {
     quote:
       "I am deeply grateful to God that I encountered Pastor Emmanuel Emodiae early in life. His life, teachings, and ministry have been a tremendous blessing to me.",
     name: "Mercy A. E.",
+    image: "/assets/testimonials/mercy.jpg",
   },
   {
     quote:
       "When hope seemed lost, God's Word through Pastor Emmanuel Emodiae became the turning point that ushered me into restoration, healing, and enduring testimonies of His faithfulness.",
     name: "Victor M.",
+    image: "/assets/testimonials/victor.jpg",
   },
 ];
 
@@ -289,7 +292,9 @@ export default function HomePage() {
                 <div className="el-testi__stars" aria-label="Five stars">★★★★★</div>
                 <p className="el-testi__quote">{item.quote}</p>
                 <div className="el-testi__who">
-                  <div className="el-testi__avatar">{item.name.charAt(0)}</div>
+                  <div className="el-testi__avatar">
+                    <img src={item.image} alt={item.name} loading="lazy" />
+                  </div>
                   <div>
                     <div className="el-testi__name">{item.name}</div>
                   </div>

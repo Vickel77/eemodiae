@@ -20,6 +20,7 @@ export default function AboutPage({ html }: Props) {
       </Head>
       <SiteHtmlPage
         html={html}
+        initScript="/site/about-init.js"
         hero={{
           eyebrow: "About Emmanuel I. Emodiae",
           title: (

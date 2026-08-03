@@ -618,7 +618,7 @@ h1,h2,h3,.el-display{font-family:"Cinzel",serif;font-weight:600;letter-spacing:.
   .tsti-arrow{display:none}
 }
 /* ===== TESTIMONY MODAL ===== */
-.tsti-modal{position:absolute;left:0;right:0;z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:24px;box-sizing:border-box}
+.tsti-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
 .tsti-modal[hidden]{display:none}
 .tsti-modal__veil{position:absolute;inset:0;background:rgba(28,22,18,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:tstiFade .35s ease}
 .tsti-modal__panel{position:relative;z-index:1;width:min(720px,100%);max-height:88vh;display:flex;flex-direction:column;
