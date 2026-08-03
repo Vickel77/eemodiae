@@ -1,13 +1,25 @@
 "use client";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import { light, dark } from "../lib/theme";
 import { useEffect, useState } from "react";
 import NProgress from "nprogress";
 import "../styles/globals.css";
+import "../styles/eemodiae-site.css";
+import "../styles/eemodiae-about.css";
+import "../styles/eemodiae-bookings.css";
+import "../styles/eemodiae-give.css";
+import "../styles/eemodiae-testimonies.css";
+import "../styles/eemodiae-events.css";
 import "../styles/dvc-viewer.css";
 import "../styles/dvc-experimental.css";
+import "../styles/dvc-landing.css";
 import "../styles/bookstore.css";
+import "../styles/articles-experience.css";
+import "../styles/poems-experience.css";
+import "../styles/messages-experience.css";
+import "../styles/music-experience.css";
 import Router from "next/router";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -43,6 +55,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={isLightMode ? light : dark}>
       <AuthContextProvider>
+        <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
         <Script src="https://upload-widget.cloudinary.com/global/all.js" />
         <Script
           async

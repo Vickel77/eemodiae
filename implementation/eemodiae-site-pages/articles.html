@@ -1,0 +1,108 @@
+
+    <div class="pr-readerbar">
+      <button type="button" class="pr-back" id="prBack">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Back to Articles
+      </button>
+      <div class="pr-readtools">
+        <button type="button" class="pr-rt pr-tip" id="prListen" aria-label="Listen to this article" data-tip="Hear this article read aloud">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg>
+          <span id="prListenLabel">Listen</span>
+        </button>
+        <div class="pr-rt-font" role="group" aria-label="Text size">
+          <span class="pr-rt-fontlabel">Text size</span>
+          <button type="button" class="pr-rt pr-tip" id="prFontDown" aria-label="Smaller text" data-tip="Smaller text">A<span class="pr-rt-minus">-</span></button>
+          <button type="button" class="pr-rt pr-tip" id="prFontUp" aria-label="Larger text" data-tip="Larger text">A<span class="pr-rt-plus">+</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resume banner (session) -->
+    <div class="pr-resume" id="prResume" hidden>
+      <span>You were reading this article.</span>
+      <button type="button" id="prResumeBtn">Resume where you left off</button>
+      <button type="button" class="pr-resume__x" id="prResumeDismiss" aria-label="Dismiss">&times;</button>
+    </div>
+
+    <article class="pr-paper" aria-live="polite">
+      <header class="pr-hero">
+        <div class="pr-hero__crest" id="prCrest">EIE</div>
+        <img class="pr-hero__img" id="prHeroImg" alt="" hidden>
+        <div class="pr-hero__veil"></div>
+      </header>
+
+      <div class="pr-articlehead">
+        <h1 class="pr-title" id="prTitle"></h1>
+        <div class="pr-readmeta" id="prReadMeta"></div>
+      </div>
+
+      <div class="pr-bodywrap">
+        <div class="pr-ornament" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.5 2.3 7.3-6.3-4.6-6.3 4.6L8 13.7 2 9.2h7.6z"/></svg>
+        </div>
+
+        <div class="pr-poem" id="prPoem"></div>
+        <div class="pr-scripture" id="prScripture" hidden></div>
+
+        <div class="pr-author">
+          <div class="pr-author__photo" id="prAuthorPhoto">E</div>
+          <div>
+            <div class="pr-author__label">Published by:</div>
+            <div class="pr-author__name">Emmanuel I. Emodiae</div>
+            <div class="pr-author__byline">Prophet | Preacher | Poet</div>
+            <div class="pr-author__handle">@eemodiae</div>
+          </div>
+        </div>
+
+        <div class="pr-share">
+          <button type="button" id="prShareBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            Share with friends
+          </button>
+        </div>
+
+        <!-- Engagement : share your thoughts -->
+        <div class="pr-thoughts">
+          <div class="pr-thoughts__head">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.6 8.6 0 0 1-3.9-.95L3 20l1-4.5A8.4 8.4 0 0 1 3.5 11.5 8.38 8.38 0 0 1 12 3a8.38 8.38 0 0 1 9 8.5z"/></svg>
+            Share your thoughts on this article
+          </div>
+          <p class="pr-thoughts__sub">Your reflections are a blessing to this house.</p>
+          <div class="pr-thoughts__fields">
+            <input type="text" id="prThoughtsName" placeholder="Your name (optional)" aria-label="Your name">
+            <input type="email" id="prThoughtsEmail" placeholder="Your email (required)" aria-label="Your email" required>
+          </div>
+          <!-- honeypot : hidden from people, tempting to bots; filled = discard -->
+          <input type="text" id="prHoneypot" class="pr-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <textarea id="prThoughtsBox" maxlength="1000" placeholder="Write your thoughts here..." aria-label="Share your thoughts on this article"></textarea>
+          <div class="pr-thoughts__meta">
+            <span class="pr-thoughts__privacy">Your email is never published; it is used only to receive your reflections.</span>
+            <span class="pr-thoughts__count" id="prThoughtsCount">0 / 1000</span>
+          </div>
+          <button type="button" class="pr-thoughts__send" id="prThoughtsSend">
+            <span id="prThoughtsSendLabel">Send</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+          </button>
+          <!-- confirmation : always present, faded, then blooms on success -->
+          <div class="pr-thoughts__done" id="prThoughtsDone">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+            Thank you for sharing your thoughts. Your voice adds meaning to this article.
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <nav class="pr-nav" aria-label="Poem navigation">
+      <button type="button" id="prPrev">
+        <span class="pr-nav__dir">Previous Article</span>
+        <span class="pr-nav__title" id="prPrevTitle"></span>
+      </button>
+      <button type="button" id="prNext" class="pr-nav--next">
+        <span class="pr-nav__dir">Next Article</span>
+        <span class="pr-nav__title" id="prNextTitle"></span>
+      </button>
+    </nav>
+
+    <!-- Related by category -->
+    <section class="pr-related" id="prRelated" aria-label="Related articles"></section>
+  

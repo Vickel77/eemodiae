@@ -3,7 +3,7 @@
 import Head from "next/head";
 import Script from "next/script";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Navbar from "../Navbar";
+import SiteLayout from "../Site/SiteLayout";
 import BookCover from "./BookCover";
 import { DEFAULT_STORE_CONFIG } from "../../lib/store/config";
 import {
@@ -19,6 +19,7 @@ import {
   toneOf,
 } from "../../lib/store/helpers";
 import type { StoreBook, StoreConfig, StoreCourse, StoreItem } from "../../lib/store/types";
+import bookstoreBanner from "../../assets/bookstore.png";
 
 declare global {
   interface Window {
@@ -153,6 +154,19 @@ export default function BookstorePage({ initialOpenId }: Props) {
     } catch {
       /* ignore */
     }
+  }, [theme]);
+
+  // Smooth day/night crossfade: briefly force a transition on every themed
+  // element instead of letting colors snap instantly.
+  const [theming, setTheming] = useState(false);
+  const themingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    setTheming(true);
+    if (themingTimer.current) clearTimeout(themingTimer.current);
+    themingTimer.current = setTimeout(() => setTheming(false), 650);
+    return () => {
+      if (themingTimer.current) clearTimeout(themingTimer.current);
+    };
   }, [theme]);
 
   useEffect(() => {
@@ -441,7 +455,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
     <div
       className={`bookstore-root${theme === "night" ? " night" : ""}${
         indexOpen ? " ix-open" : ""
-      }`}
+      }${theming ? " theming" : ""}`}
     >
       <Head>
         <title>The Bookstore | eemodiae.org</title>
@@ -459,8 +473,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
       <Script src="https://js.paystack.co/v2/inline.js" strategy="lazyOnload" />
       <Script src="https://checkout.flutterwave.com/v3.js" strategy="lazyOnload" />
 
-      <Navbar />
-
+      <SiteLayout>
       <div className="aurora" aria-hidden="true">
         <span className="a1" />
         <span className="a2" />
@@ -509,7 +522,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
 
       <section className="hero">
         <div className="hero-banner">
-          <img src="/images/store-hero.jpg" alt="The Eemodiae Bookstore" />
+          <img src={bookstoreBanner.src} alt="The Eemodiae Bookstore" />
         </div>
       </section>
 
@@ -1062,6 +1075,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
           </div>
         ) : null}
       </div>
+      </SiteLayout>
     </div>
   );
 }

@@ -1,0 +1,3053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Messages | eemodiae.org</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   MESSAGES  |  eemodiae.org
+   Palette VERSION 3 — blend of brief and existing systems.
+   Warm editorial theological library. Three sections:
+   Series, Messages, Podcasts. Reusable pagination throughout.
+   ============================================================ */
+:root{
+  /* ---- Blend (V3): brief royal purple + warm articles gold ---- */
+  --ms-ivory:#f8f2e6; --ms-champagne:#f1e3cf; --ms-linen:#f6f1e4; --ms-milk:#fffdf7;
+  --ms-royal:#553192; --ms-lavender:#8258bf; --ms-gold:#c19a45; --ms-gold-rich:#d8b25a;
+  --ms-gold-soft:#e6ce8e; --ms-cocoa:#7a5a46; --ms-espresso:#3d2e40; --ms-ink:#372c3a;
+  --ms-ink-soft:#63566a; --ms-vellum:#e8ddc7; --ms-royal-deep:#3a2064;
+  --ms-shadow:0 20px 50px -22px rgba(58,32,100,.30); --ms-shadow-sm:0 10px 26px -14px rgba(58,32,100,.24);
+  --ms-glow-gold:0 0 30px -6px rgba(193,154,69,.34); --ms-ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; overflow-x:hidden}
+body{
+  margin:0; color:var(--ms-ink);
+  font-family:'Cormorant Garamond',serif;
+  background:
+    radial-gradient(1100px 520px at 50% -5%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1200px 560px at 88% -4%, rgba(200,154,67,.12), transparent 60%),
+    radial-gradient(1100px 640px at -12% 96%, rgba(91,53,122,.06), transparent 58%),
+    linear-gradient(180deg, var(--ms-ivory) 0%, var(--ms-champagne) 100%);
+  min-height:100vh;
+}
+img{max-width:100%; display:block}
+button{font-family:inherit}
+
+.ms-wrap{max-width:1240px; margin:0 auto; padding:0 clamp(18px,4vw,40px)}
+
+/* ============ HERO ============ */
+.ms-hero{position:relative; text-align:center; padding:clamp(48px,8vw,92px) 0 clamp(30px,4vw,44px)}
+.ms-hero--banner{padding:0; margin-top:0}
+.ms-hero--banner::before{display:none}
+.ms-hero__bannerimg{
+  width:100vw; max-width:none; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+  height:auto; display:block; border-radius:0; box-shadow:none;
+}
+.ms-hero::before{
+  content:""; position:absolute; left:50%; top:26px; transform:translateX(-50%);
+  width:min(560px,80%); height:1px;
+  background:linear-gradient(90deg,transparent,var(--ms-gold-soft),transparent);
+}
+.ms-hero__eyebrow{
+  font-family:'Crimson Pro',serif; font-size:.78rem; letter-spacing:.34em;
+  text-transform:uppercase; color:var(--ms-gold); margin-bottom:18px;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+}
+.ms-hero__eyebrow::before,.ms-hero__eyebrow::after{
+  content:""; width:30px; height:1px; background:var(--ms-gold-soft);
+}
+.ms-hero h1{
+  font-family:'Cinzel',serif; font-weight:700; margin:0;
+  font-size:clamp(2.6rem,7vw,5rem); letter-spacing:.04em; line-height:1;
+  color:var(--ms-royal);
+  text-shadow:0 2px 30px rgba(91,53,122,.12);
+}
+.ms-hero__rider{
+  font-family:'Cormorant Garamond',serif; font-style:italic;
+  font-size:clamp(1.1rem,2.4vw,1.5rem); color:var(--ms-ink-soft);
+  margin:16px auto 0; max-width:34em;
+}
+.ms-hero__flourish{ margin:22px auto 0; color:var(--ms-gold); font-size:1.3rem }
+
+/* ============ SEARCH ============ */
+.ms-search{position:relative; max-width:760px; margin:8px auto 0}
+.ms-search input{
+  width:100%; font-family:'Cormorant Garamond',serif; font-size:1.18rem;
+  color:var(--ms-ink); background:var(--ms-milk);
+  border:1px solid var(--ms-vellum); border-radius:16px;
+  padding:16px 20px 16px 52px; outline:none;
+  box-shadow:var(--ms-shadow-sm); transition:border-color .3s, box-shadow .3s;
+}
+.ms-search input::placeholder{color:#a9977f; font-style:italic}
+.ms-search input:focus{border-color:var(--ms-royal); box-shadow:var(--ms-shadow-sm), var(--ms-glow-gold)}
+.ms-search svg{position:absolute; left:20px; top:50%; transform:translateY(-50%); width:20px; height:20px; color:var(--ms-gold)}
+
+/* ============ TAB SWITCHER ============ */
+.ms-tabs{
+  display:flex; justify-content:center; gap:6px; margin:26px auto 0;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:8px; max-width:560px;
+  box-shadow:var(--ms-shadow-sm);
+}
+.ms-tab{
+  flex:1; border:none; background:none; cursor:pointer;
+  font-family:'Crimson Pro',serif; font-size:.9rem; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ms-ink-soft);
+  padding:12px 10px; border-radius:999px; transition:all .3s var(--ms-ease);
+}
+.ms-tab:hover{color:var(--ms-royal)}
+.ms-tab--on{
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
+  color:#fdf8ef; box-shadow:var(--ms-shadow-sm), inset 0 1px 0 rgba(228,201,138,.25);
+}
+
+/* ============ GATEWAY CARDS (Choose Your Journey) ============ */
+.ms-gateways{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:22px; margin:40px auto 0;
+}
+@media (max-width:820px){ .ms-gateways{grid-template-columns:1fr} }
+.ms-gateway{
+  position:relative; text-align:left; cursor:pointer; font-family:inherit;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:18px;
+  padding:30px 28px 26px; box-shadow:var(--ms-shadow-sm); overflow:hidden;
+  transition:transform .4s var(--ms-ease), box-shadow .4s var(--ms-ease), border-color .4s;
+}
+.ms-gateway::before{
+  content:""; position:absolute; inset:0 0 auto 0; height:4px;
+  background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich));
+  opacity:0; transition:opacity .4s;
+}
+.ms-gateway:hover{transform:translateY(-6px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+.ms-gateway:hover::before{opacity:1}
+.ms-gateway__num{
+  font-family:'Cinzel',serif; font-size:.8rem; letter-spacing:.2em;
+  color:var(--ms-gold); margin-bottom:16px;
+}
+.ms-gateway__icon{
+  width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep));
+  color:var(--ms-gold-soft); margin-bottom:18px; box-shadow:var(--ms-shadow-sm);
+}
+.ms-gateway__icon svg{width:26px; height:26px}
+.ms-gateway h3{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.3rem;
+  color:var(--ms-royal-deep); margin:0 0 10px;
+}
+.ms-gateway p{font-size:1.06rem; line-height:1.55; color:var(--ms-ink-soft); margin:0}
+.ms-gateway__go{
+  display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+  font-family:'Crimson Pro',serif; font-size:.74rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--ms-royal); transition:gap .3s var(--ms-ease);
+}
+.ms-gateway:hover .ms-gateway__go{gap:12px}
+.ms-gateway__go svg{width:13px; height:13px}
+
+/* ============ SECTION HEADINGS ============ */
+.ms-sec{padding:clamp(30px,5vw,50px) 0 0}
+.ms-sec__head{
+  display:flex; align-items:center; gap:16px; margin-bottom:26px;
+}
+.ms-sec__head h2{
+  font-family:'Cinzel',serif; font-weight:600; font-size:clamp(1.3rem,3vw,1.8rem);
+  color:var(--ms-royal-deep); margin:0; white-space:nowrap;
+}
+.ms-sec__head::after{content:""; flex:1; height:1px; background:var(--ms-vellum)}
+
+/* ============ SERIES GRID ============ */
+.ms-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:24px}
+@media (max-width:640px){ .ms-grid{grid-template-columns:1fr} }
+.ms-grid--3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:900px){ .ms-grid--3{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:560px){ .ms-grid--3{grid-template-columns:1fr} }
+
+.ms-series-card{
+  position:relative; cursor:pointer; text-align:left; font-family:inherit; padding:0;
+  border-radius:18px; overflow:hidden; border:1px solid var(--ms-vellum);
+  aspect-ratio:16/10; box-shadow:var(--ms-shadow-sm);
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+  transition:transform .4s var(--ms-ease), box-shadow .4s var(--ms-ease), border-color .4s;
+}
+.ms-series-card:hover{transform:translateY(-6px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+.ms-series-card img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.ms-series-card__veil{
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(43,26,52,.9) 0%, rgba(43,26,52,.35) 50%, rgba(43,26,52,.08) 100%);
+}
+.ms-series-card__badge{
+  position:absolute; top:16px; right:16px; z-index:2;
+  font-family:'Crimson Pro',serif; font-size:.64rem; font-weight:600; letter-spacing:.2em;
+  text-transform:uppercase; color:#fdf8ef;
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
+  border:1px solid rgba(228,201,138,.4); border-radius:999px; padding:6px 14px;
+}
+.ms-series-card__body{position:absolute; left:0; right:0; bottom:0; z-index:2; padding:22px 24px; color:#fdf8ef}
+.ms-series-card__title{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.16rem; line-height:1.25;
+  text-shadow:0 2px 14px rgba(0,0,0,.4);
+}
+.ms-series-card__meta{
+  display:flex; align-items:center; gap:14px; margin-top:10px;
+  font-family:'Crimson Pro',serif; font-size:.74rem; letter-spacing:.08em; color:#e7dcc7;
+}
+.ms-series-card__meta span{display:inline-flex; align-items:center; gap:6px}
+.ms-series-card__meta svg{width:13px; height:13px; opacity:.85}
+.ms-series-card__go{
+  position:absolute; bottom:20px; right:22px; z-index:3;
+  width:36px; height:36px; border-radius:50%;
+  background:linear-gradient(135deg,var(--ms-gold-rich),var(--ms-gold));
+  display:flex; align-items:center; justify-content:center; color:var(--ms-royal-deep);
+  box-shadow:0 4px 14px -6px rgba(200,154,67,.7);
+}
+.ms-series-card__go svg{width:15px; height:15px}
+
+/* ============ MESSAGE CARDS (editorial) ============ */
+.ms-msg-card{
+  position:relative; display:flex; flex-direction:column; cursor:pointer; text-align:left;
+  font-family:inherit; padding:0; border-radius:18px; overflow:hidden;
+  border:1px solid var(--ms-vellum); background:var(--ms-milk); box-shadow:var(--ms-shadow-sm);
+  transition:transform .4s var(--ms-ease), box-shadow .4s var(--ms-ease), border-color .4s;
+}
+.ms-msg-card:hover{transform:translateY(-6px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+.ms-msg-card__art{
+  position:relative; aspect-ratio:1/1; overflow:hidden;
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+}
+.ms-msg-card__art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .8s var(--ms-ease)}
+.ms-msg-card:hover .ms-msg-card__art img{transform:scale(1.05)}
+.ms-msg-card__crest{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; font-size:2.4rem; color:rgba(228,201,138,.2)}
+.ms-msg-card__actions{position:absolute; top:12px; right:12px; z-index:3; display:flex; gap:8px}
+.ms-icon-btn{
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--ms-vellum);
+  background:rgba(255,253,248,.9); display:flex; align-items:center; justify-content:center;
+  cursor:pointer; color:var(--ms-royal); box-shadow:var(--ms-shadow-sm);
+  transition:background .25s, transform .25s var(--ms-ease), border-color .25s;
+}
+.ms-icon-btn:hover{transform:scale(1.08); border-color:var(--ms-gold-soft); background:#fff}
+.ms-icon-btn svg{width:15px; height:15px}
+.ms-msg-card__body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
+.ms-msg-card__title{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.05rem; line-height:1.3;
+  color:var(--ms-royal-deep);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.ms-msg-card__author{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem;
+  color:var(--ms-ink-soft); margin-top:8px;
+}
+.ms-msg-card__foot{
+  display:flex; align-items:center; justify-content:space-between; margin-top:14px;
+  font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.08em; color:var(--ms-cocoa);
+}
+.ms-msg-card__foot .ms-dur{display:inline-flex; align-items:center; gap:6px}
+.ms-msg-card__foot svg{width:13px; height:13px; color:var(--ms-gold)}
+
+/* ============ PODCAST HERO + SUBTABS ============ */
+.ms-pod-hero{
+  position:relative; border-radius:20px; overflow:hidden; min-height:230px;
+  display:flex; align-items:flex-end; box-shadow:var(--ms-shadow);
+  border:1px solid var(--ms-vellum);
+  background:linear-gradient(140deg,#1f3a52,#2a5a73 60%,var(--ms-royal));
+}
+.ms-pod-hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.ms-pod-hero__veil{position:absolute; inset:0; background:linear-gradient(to top, rgba(25,20,45,.86), rgba(25,20,45,.2))}
+.ms-pod-hero__body{position:relative; z-index:2; padding:28px 30px; color:#fdf8ef}
+.ms-pod-hero__body h2{font-family:'Cinzel',serif; font-weight:700; font-size:clamp(1.6rem,4vw,2.3rem); margin:0}
+.ms-pod-hero__body p{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; margin:6px 0 0; color:#e7dcc7}
+/* Fresh from the Spirit banner hero — responsive, shows the full banner cleanly */
+.ms-pod-hero--banner{min-height:0; display:block; background:transparent; border:none; box-shadow:none; border-radius:18px; overflow:hidden; line-height:0}
+.ms-pod-hero--banner .ms-pod-hero__img{position:static; width:100%; height:auto; display:block; border-radius:18px; object-fit:unset; inset:auto}
+.ms-pod-sub{text-align:center; margin:18px auto 0; max-width:44rem}
+.ms-pod-sub__tag{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.16rem; color:var(--ms-ink-soft); margin:0}
+/* visible follow-the-show buttons */
+.ms-pod-follow{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:16px}
+.ms-follow-btn{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Crimson Pro',serif; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ms-royal); background:var(--ms-milk);
+  border:1px solid var(--ms-gold-soft); border-radius:999px;
+  padding:10px 18px; text-decoration:none;
+  box-shadow:var(--ms-shadow-sm); transition:all .3s var(--ms-ease);
+}
+.ms-follow-btn svg{width:14px; height:14px; color:var(--ms-gold)}
+.ms-follow-btn:hover{border-color:var(--ms-royal); color:var(--ms-royal-deep); transform:translateY(-1px)}
+.ms-subscribe--light{justify-content:center}
+.ms-sub-btn--dark{color:var(--ms-royal); background:var(--ms-milk); border:1px solid var(--ms-vellum)}
+.ms-sub-btn--dark:hover{border-color:var(--ms-gold-soft); background:#fff; transform:translateY(-1px)}
+.ms-subtabs{display:flex; gap:28px; border-bottom:1px solid var(--ms-vellum); margin:24px 0 0}
+.ms-subtab{
+  border:none; background:none; cursor:pointer; padding:0 2px 14px;
+  font-family:'Crimson Pro',serif; font-size:.9rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ms-ink-soft); position:relative; transition:color .3s;
+}
+.ms-subtab:hover{color:var(--ms-royal)}
+.ms-subtab--on{color:var(--ms-royal-deep)}
+.ms-subtab--on::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--ms-gold); border-radius:2px}
+
+/* ============ PODCAST EPISODE CARDS ============ */
+.ms-eps{display:flex; flex-direction:column; gap:18px; margin-top:24px}
+.ms-ep{
+  display:grid; grid-template-columns:120px 1fr; gap:22px; align-items:center;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:16px;
+  padding:16px; box-shadow:var(--ms-shadow-sm);
+  transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s;
+}
+.ms-ep:hover{transform:translateY(-3px); box-shadow:var(--ms-shadow-sm), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+@media (max-width:560px){ .ms-ep{grid-template-columns:84px 1fr; gap:16px} }
+.ms-ep__art{width:100%; aspect-ratio:1/1; border-radius:12px; overflow:hidden; background:var(--ms-champagne)}
+.ms-ep__art img{width:100%; height:100%; object-fit:cover}
+.ms-ep__kicker{font-family:'Crimson Pro',serif; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ms-gold)}
+.ms-ep__title{font-family:'Cinzel',serif; font-weight:600; font-size:1.14rem; color:var(--ms-royal-deep); margin:4px 0 12px}
+.ms-player{
+  display:flex; align-items:center; gap:12px; background:var(--ms-linen);
+  border:1px solid var(--ms-vellum); border-radius:999px; padding:8px 16px 8px 8px;
+}
+.ms-player__play{
+  width:38px; height:38px; border-radius:50%; flex:none; border:none; cursor:pointer;
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
+  color:var(--ms-gold-soft); display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--ms-shadow-sm); transition:filter .25s, transform .25s}
+.ms-player__play:hover{filter:brightness(1.1); transform:scale(1.05)}
+.ms-player__play svg{width:15px; height:15px; margin-left:2px}
+.ms-player__track{flex:1; height:5px; border-radius:999px; background:var(--ms-vellum); position:relative; overflow:hidden}
+.ms-player__fill{position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich)); transition:width .2s linear}
+.ms-player__time{font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft); min-width:78px; text-align:right}
+
+/* ============ PAGINATION ============ */
+.ms-pager{display:flex; align-items:center; justify-content:center; gap:8px; margin:36px 0 0; flex-wrap:wrap}
+.ms-pager button{
+  font-family:'Crimson Pro',serif; font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ms-royal); background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:10px 18px; cursor:pointer; transition:all .25s var(--ms-ease);
+}
+.ms-bgtoggle.is-inband{opacity:1; visibility:visible; pointer-events:auto; transform:translateY(0)}
+.ms-pager button:hover:not(:disabled):not(.ms-pager__num--on){border-color:var(--ms-gold-soft); color:var(--ms-royal-deep); box-shadow:var(--ms-shadow-sm)}
+.ms-pager button:disabled{opacity:.4; cursor:default}
+.ms-pager__num{min-width:44px; text-align:center; padding:10px 0}
+.ms-pager__num--on{
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
+  color:var(--ms-gold-soft); border-color:transparent; cursor:default;
+}
+.ms-pager__ellipsis{color:var(--ms-ink-soft); padding:0 4px}
+
+/* ============ DETAIL VIEWS ============ */
+.ms-back{
+  display:inline-flex; align-items:center; gap:9px; margin:0 0 24px;
+  font-family:'Crimson Pro',serif; font-size:.8rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ms-royal); background:none; border:none; cursor:pointer; transition:color .25s;
+}
+.ms-back:hover{color:var(--ms-royal-deep)}
+.ms-back svg{width:14px; height:14px}
+/* top back link now sits UNDER the hero banner on every detail page,
+   with clear breathing room below the header */
+.ms-back--top{margin:30px 0 0}
+
+.ms-detail-hero{
+  position:relative; border-radius:20px; overflow:hidden; min-height:280px;
+  display:flex; align-items:flex-end; box-shadow:var(--ms-shadow); border:1px solid var(--ms-vellum);
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+}
+.ms-detail-hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.ms-detail-hero__veil{position:absolute; inset:0; background:linear-gradient(to top, rgba(43,26,52,.9), rgba(43,26,52,.25))}
+.ms-detail-hero__body{position:relative; z-index:2; padding:30px 34px; color:#fdf8ef}
+.ms-detail-hero__kicker{font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.24em; text-transform:uppercase; color:var(--ms-gold-soft)}
+.ms-detail-hero__title{font-family:'Cinzel',serif; font-weight:700; font-size:clamp(1.7rem,4vw,2.6rem); margin:10px 0 0; text-shadow:0 2px 18px rgba(0,0,0,.4)}
+.ms-detail-hero__meta{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:14px; font-family:'Crimson Pro',serif; font-size:.82rem; color:#e7dcc7}
+.ms-detail-hero__meta span{display:inline-flex; align-items:center; gap:7px}
+.ms-detail-hero__meta svg{width:14px; height:14px; opacity:.85}
+
+.ms-detail-layout{display:grid; grid-template-columns:1fr 340px; gap:38px; margin-top:34px; align-items:start}
+.ms-detailwrap{padding-bottom:8px}
+@media(min-width:861px){.ms-detail-layout{align-items:start}.ms-detail-layout>.ms-detailmain{align-self:start}}
+@media (max-width:980px){ .ms-detail-layout{grid-template-columns:1fr} }
+
+.ms-overview{font-size:1.14rem; line-height:1.75; color:var(--ms-ink)}
+.ms-overview p{margin:0 0 1.1em}
+
+.ms-block{margin-top:36px}
+.ms-block__head{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.15rem; color:var(--ms-royal-deep);
+  display:flex; align-items:center; gap:14px; margin-bottom:18px;
+}
+.ms-block__head::before{content:""; width:24px; height:2px; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-soft))}
+
+/* lesson cards */
+.ms-lessons{display:flex; flex-direction:column; gap:14px}
+.ms-lesson{
+  display:grid; grid-template-columns:52px 1fr auto; gap:18px; align-items:center;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px;
+  padding:16px 20px; cursor:pointer; text-align:left; font-family:inherit; width:100%;
+  transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s;
+}
+.ms-lesson:hover{transform:translateX(4px); box-shadow:var(--ms-shadow-sm); border-color:var(--ms-gold-soft)}
+.ms-lesson--on{border-color:var(--ms-gold); background:linear-gradient(135deg,rgba(200,154,67,.1),rgba(138,99,169,.05) 60%,var(--ms-milk))}
+.ms-lesson__num{
+  width:52px; height:52px; border-radius:12px; flex:none; display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.1rem; color:var(--ms-gold-soft);
+  background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep));
+}
+.ms-lesson__title{font-family:'Cinzel',serif; font-weight:600; font-size:1.02rem; color:var(--ms-royal-deep)}
+.ms-lesson__sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.98rem; color:var(--ms-ink-soft); margin-top:3px}
+.ms-lesson__play{width:34px; height:34px; border-radius:50%; background:var(--ms-linen); border:1px solid var(--ms-vellum); display:flex; align-items:center; justify-content:center; color:var(--ms-royal)}
+.ms-lesson__play svg{width:14px; height:14px; margin-left:1px}
+
+/* audio player bar (message detail) */
+.ms-audiobar{
+  display:flex; align-items:center; gap:16px; background:var(--ms-milk);
+  border:1px solid var(--ms-vellum); border-radius:16px; padding:16px 20px;
+  box-shadow:var(--ms-shadow-sm); margin-top:8px;
+}
+.ms-audiobar__play{
+  width:52px; height:52px; border-radius:50%; flex:none; border:none; cursor:pointer;
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft);
+  display:flex; align-items:center; justify-content:center; box-shadow:var(--ms-shadow-sm);
+  transition:filter .25s, transform .25s;
+}
+.ms-audiobar__play:hover{filter:brightness(1.1); transform:scale(1.05)}
+.ms-audiobar__play svg{width:20px; height:20px; margin-left:2px}
+.ms-audiobar__mid{flex:1}
+.ms-audiobar__track{height:6px; border-radius:999px; background:var(--ms-vellum); position:relative; overflow:hidden; cursor:pointer}
+.ms-audiobar__fill{position:absolute; left:0; top:0; bottom:0; width:0%; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich))}
+.ms-audiobar__time{display:flex; justify-content:space-between; margin-top:8px; font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft)}
+
+/* downloads */
+.ms-downloads{display:flex; flex-wrap:wrap; gap:12px}
+.ms-dl{
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:'Crimson Pro',serif; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ms-royal); background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:11px 20px; cursor:pointer; text-decoration:none;
+  transition:all .25s var(--ms-ease);
+}
+.ms-dl:hover{border-color:var(--ms-gold-soft); color:var(--ms-royal-deep); box-shadow:var(--ms-shadow-sm), var(--ms-glow-gold); transform:translateY(-1px)}
+.ms-dl svg{width:15px; height:15px}
+@media (max-width:640px){
+  .ms-downloads{gap:8px}
+  .ms-dl{padding:8px 13px; font-size:.68rem; gap:6px; letter-spacing:.08em}
+  .ms-dl svg{width:12px; height:12px}
+}
+
+/* transcript */
+.ms-transcript{font-size:1.1rem; line-height:1.8; color:var(--ms-ink)}
+.ms-transcript p{margin:0 0 1em}
+
+/* scripture chips */
+.ms-scriptures{display:flex; flex-wrap:wrap; gap:10px}
+.ms-scripture{
+  font-family:'Crimson Pro',serif; font-size:.82rem; letter-spacing:.04em;
+  color:var(--ms-royal-deep); background:linear-gradient(135deg,rgba(200,154,67,.12),rgba(200,154,67,.04));
+  border:1px solid var(--ms-gold-soft); border-radius:999px; padding:8px 16px;
+}
+
+/* reflection / prayer */
+.ms-reflect{list-style:none; padding:0; margin:0; counter-reset:r}
+.ms-reflect li{
+  position:relative; padding:14px 0 14px 44px; border-bottom:1px solid var(--ms-vellum);
+  font-size:1.08rem; line-height:1.55; color:var(--ms-ink);
+}
+.ms-reflect li:last-child{border-bottom:none}
+.ms-reflect li::before{
+  counter-increment:r; content:counter(r);
+  position:absolute; left:0; top:12px; width:28px; height:28px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-size:.82rem; color:var(--ms-gold-soft);
+  background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep));
+}
+.ms-prayer{
+  padding:22px 26px; border-radius:14px; border-left:3px solid var(--ms-gold);
+  background:linear-gradient(135deg,rgba(138,99,169,.07),rgba(200,154,67,.04));
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.14rem; line-height:1.6; color:var(--ms-ink);
+}
+
+/* sidebar */
+.ms-side{position:sticky; top:24px; display:flex; flex-direction:column; gap:26px; max-height:calc(100vh - 48px); overflow:auto; scrollbar-width:none}
+.ms-side::-webkit-scrollbar{display:none}
+@media (max-width:980px){ .ms-side{position:static} }
+.ms-side__head{
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.05rem; letter-spacing:.06em;
+  color:var(--ms-royal-deep); display:flex; align-items:center; gap:12px; margin-bottom:16px;
+}
+.ms-side__head::after{content:""; flex:1; height:1px; background:var(--ms-vellum)}
+.ms-side-card{
+  display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px;
+  padding:12px; cursor:pointer; text-align:left; font-family:inherit; width:100%; margin-bottom:12px;
+  transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s;
+}
+.ms-side-card:hover{transform:translateX(3px); box-shadow:var(--ms-shadow-sm); border-color:var(--ms-gold-soft)}
+.ms-side-card__art{width:64px; height:64px; border-radius:10px; overflow:hidden; flex:none; background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep))}
+.ms-side-card__art img{width:100%; height:100%; object-fit:cover}
+.ms-side-card__title{font-family:'Cinzel',serif; font-weight:600; font-size:.92rem; color:var(--ms-royal-deep); line-height:1.25}
+.ms-side-card__sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.9rem; color:var(--ms-ink-soft); margin-top:3px}
+
+/* empty state */
+.ms-empty{
+  text-align:center; padding:60px 20px; background:var(--ms-milk);
+  border:1px solid var(--ms-vellum); border-radius:16px;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.2rem; color:var(--ms-ink-soft);
+}
+
+/* view switching */
+.ms-view{display:none}
+.ms-view--on{display:block; animation:msFade .5s var(--ms-ease)}
+@keyframes msFade{from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)}}
+.ms-anim{opacity:0; animation:msFadeUp .55s var(--ms-ease) forwards}
+@keyframes msFadeUp{from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)}}
+
+/* card progress bar */
+.ms-cardprog{margin-top:12px; height:5px; border-radius:999px; background:rgba(255,255,255,.25); overflow:hidden}
+.ms-cardprog__fill{height:100%; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich)); border-radius:999px}
+
+/* series detail progress panel */
+.ms-progpanel{
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:16px;
+  padding:22px 24px; box-shadow:var(--ms-shadow-sm); margin-top:8px;
+}
+.ms-progpanel__top{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap}
+.ms-progpanel__label{font-family:'Cinzel',serif; font-weight:600; font-size:1rem; color:var(--ms-royal-deep)}
+.ms-progpanel__stat{font-family:'Crimson Pro',serif; font-size:.82rem; letter-spacing:.06em; color:var(--ms-ink-soft)}
+.ms-progpanel__track{height:8px; border-radius:999px; background:var(--ms-vellum); overflow:hidden; margin:14px 0}
+.ms-progpanel__fill{height:100%; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich)); border-radius:999px; transition:width .5s var(--ms-ease)}
+.ms-continue{
+  display:inline-flex; align-items:center; gap:10px; margin-top:6px;
+  font-family:'Crimson Pro',serif; font-size:.76rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ms-gold-soft); background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
+  border:1px solid rgba(200,154,67,.4); border-radius:999px; padding:11px 22px; cursor:pointer;
+  transition:filter .25s, transform .2s;
+}
+.ms-continue:hover{filter:brightness(1.08); transform:translateY(-1px)}
+.ms-continue svg{width:14px; height:14px}
+.ms-lesson__check{color:var(--ms-gold)}
+
+/* study companion key ideas / quotes / application */
+.ms-ideas{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:12px}
+.ms-ideas li{
+  position:relative; padding:14px 18px 14px 46px; border-radius:12px;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  font-size:1.06rem; line-height:1.5; color:var(--ms-ink);
+}
+.ms-ideas li::before{
+  content:""; position:absolute; left:18px; top:20px; width:12px; height:12px; border-radius:50%;
+  background:linear-gradient(135deg,var(--ms-gold),var(--ms-gold-rich));
+}
+.ms-quote{
+  margin:0 0 14px; padding:18px 24px; border-left:3px solid var(--ms-gold);
+  background:linear-gradient(135deg,rgba(138,99,169,.06),rgba(200,154,67,.04));
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.16rem; line-height:1.5; color:var(--ms-ink);
+}
+.ms-quote::before{content:"\201C"; color:var(--ms-gold); font-family:'Cinzel',serif; font-size:1.4rem; margin-right:4px}
+.ms-apply{
+  padding:20px 24px; border-radius:14px;
+  background:linear-gradient(135deg,rgba(200,154,67,.1),rgba(200,154,67,.03));
+  border:1px solid var(--ms-gold-soft); font-size:1.08rem; line-height:1.6; color:var(--ms-ink);
+}
+.ms-reading{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px}
+.ms-reading li{display:flex; align-items:center; gap:10px; font-size:1.05rem; color:var(--ms-ink)}
+.ms-reading li svg{width:15px; height:15px; color:var(--ms-gold); flex:none}
+
+/* clickable scripture */
+.ms-scripture{cursor:pointer; transition:background .25s, border-color .25s}
+.ms-scripture:hover{border-color:var(--ms-gold); background:linear-gradient(135deg,rgba(200,154,67,.2),rgba(200,154,67,.08))}
+
+/* Continue Your Journey rail */
+.ms-journey{display:grid; grid-template-columns:repeat(3,1fr); gap:16px}
+@media (max-width:760px){ .ms-journey{grid-template-columns:1fr} }
+.ms-journey-card{
+  display:block; text-align:left; text-decoration:none; cursor:pointer; font-family:inherit;
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px; padding:18px 20px;
+  box-shadow:var(--ms-shadow-sm); transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s;
+}
+.ms-journey-card:hover{transform:translateY(-4px); box-shadow:var(--ms-shadow-sm), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+.ms-journey-card__kind{font-family:'Crimson Pro',serif; font-size:.66rem; letter-spacing:.2em; text-transform:uppercase; color:var(--ms-gold)}
+.ms-journey-card__title{font-family:'Cinzel',serif; font-weight:600; font-size:1rem; color:var(--ms-royal-deep); line-height:1.3; margin-top:8px}
+.ms-journey-card__go{display:inline-flex; align-items:center; gap:7px; margin-top:12px; font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ms-royal)}
+.ms-journey-card__go svg{width:12px; height:12px}
+
+/* bookmark button (message detail) */
+.ms-bookmark-btn.ms-dl.ms-on{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft); border-color:transparent}
+
+/* audio advanced controls */
+.ms-audio-adv{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:14px}
+.ms-chip-btn{
+  font-family:'Crimson Pro',serif; font-size:.74rem; letter-spacing:.08em;
+  color:var(--ms-royal); background:var(--ms-linen); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:8px 14px; cursor:pointer; display:inline-flex; align-items:center; gap:7px;
+  transition:all .25s var(--ms-ease);
+}
+.ms-chip-btn:hover{border-color:var(--ms-gold-soft); color:var(--ms-royal-deep)}
+.ms-chip-btn.ms-on{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft); border-color:transparent}
+.ms-chip-btn svg{width:14px; height:14px}
+
+/* recently viewed sidebar reuse ms-side-card */
+.ms-side-empty{font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--ms-ink-soft); font-size:.98rem; padding:6px 2px}
+
+/* filter + sort + saved controls */
+.ms-controls2{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap; margin-bottom:26px}
+.ms-chips{display:flex; flex-wrap:wrap; gap:8px}
+.ms-chip{
+  font-family:'Crimson Pro',serif; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ms-ink-soft); background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:8px 16px; cursor:pointer; transition:all .25s var(--ms-ease);
+}
+.ms-chip:hover{border-color:var(--ms-gold-soft); color:var(--ms-royal)}
+.ms-chip--on{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:#fdf8ef; border-color:transparent}
+.ms-controls2__right{display:flex; align-items:center; gap:14px}
+.ms-saved-tab{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--ms-royal); background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:9px 16px; cursor:pointer; transition:all .25s var(--ms-ease);
+}
+.ms-saved-tab svg{width:14px; height:14px}
+.ms-saved-tab:hover{border-color:var(--ms-gold-soft)}
+.ms-saved-tab--on{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft); border-color:transparent}
+.ms-sort{display:inline-flex; align-items:center; gap:8px; font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ms-ink-soft)}
+.ms-sort select{
+  font-family:'Cormorant Garamond',serif; font-size:1rem; color:var(--ms-ink);
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:10px;
+  padding:8px 12px; cursor:pointer;
+}
+.ms-icon-btn--on{background:#fff; border-color:var(--ms-gold-soft)}
+.ms-icon-btn--on svg{color:var(--ms-gold); fill:var(--ms-gold)}
+
+/* featured lead card */
+.ms-featured-card{
+  display:grid; grid-template-columns:300px 1fr; gap:0; width:100%; text-align:left;
+  border-radius:20px; overflow:hidden; cursor:pointer; font-family:inherit; padding:0;
+  border:1px solid rgba(200,154,67,.34); background:var(--ms-milk); box-shadow:var(--ms-shadow);
+  margin-bottom:28px; transition:transform .4s var(--ms-ease), box-shadow .4s var(--ms-ease), border-color .4s;
+}
+.ms-featured-card:hover{transform:translateY(-5px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+@media (max-width:720px){ .ms-featured-card{grid-template-columns:1fr} }
+.ms-featured-card__art{
+  position:relative; min-height:220px;
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+  display:flex; align-items:center; justify-content:center;
+}
+.ms-featured-card__crest{font-family:'Cinzel',serif; font-size:3rem; letter-spacing:.2em; color:rgba(228,201,138,.22)}
+.ms-featured-card__badge{
+  position:absolute; top:18px; left:18px;
+  font-family:'Crimson Pro',serif; font-size:.62rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--ms-royal-deep); background:linear-gradient(135deg,var(--ms-gold-rich),var(--ms-gold-soft));
+  border-radius:999px; padding:7px 15px; box-shadow:0 4px 14px -6px rgba(200,154,67,.7);
+}
+.ms-featured-card__body{padding:clamp(24px,3vw,38px); display:flex; flex-direction:column; justify-content:center}
+.ms-featured-card__title{font-family:'Cinzel',serif; font-weight:700; font-size:clamp(1.4rem,2.6vw,2rem); color:var(--ms-royal-deep); line-height:1.2}
+.ms-featured-card__sub{font-family:'Cormorant Garamond',serif; font-size:1.14rem; line-height:1.5; color:var(--ms-ink-soft); margin-top:12px}
+.ms-featured-card__meta{font-family:'Crimson Pro',serif; font-size:.78rem; letter-spacing:.06em; color:var(--ms-cocoa); margin-top:14px}
+.ms-featured-card__go{display:inline-flex; align-items:center; gap:9px; margin-top:20px; font-family:'Crimson Pro',serif; font-size:.74rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--ms-royal); transition:gap .3s var(--ms-ease)}
+.ms-featured-card:hover .ms-featured-card__go{gap:13px}
+.ms-featured-card__go svg{width:13px; height:13px}
+
+/* continue listening rail */
+.ms-continue-rail{margin:0 0 30px; padding:22px 24px; border-radius:18px; background:linear-gradient(135deg,rgba(91,53,122,.07),rgba(200,154,67,.04)); border:1px solid var(--ms-vellum)}
+.ms-continue-rail__head{position:relative; display:flex; align-items:center; gap:10px; font-family:'Cinzel',serif; font-weight:600; font-size:1.05rem; color:var(--ms-royal-deep); margin-bottom:16px}
+.ms-continue-rail__head svg{width:16px; height:16px; color:var(--ms-gold)}
+.ms-continue-rail__close{
+  position:absolute; top:50%; right:0; transform:translateY(-50%);
+  width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center;
+  background:var(--ms-milk); border:1px solid var(--ms-gold-soft); border-radius:50%;
+  color:var(--ms-royal); cursor:pointer; padding:0; transition:all .25s var(--ms-ease);
+}
+.ms-continue-rail__close svg{width:16px !important; height:16px !important; color:var(--ms-royal)}
+.ms-continue-rail__close:hover{border-color:var(--ms-royal); color:var(--ms-royal-deep); background:#fff}
+.ms-continue-rail__row{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px}
+.ms-continue-chip{text-align:left; font-family:inherit; cursor:pointer; background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px; padding:16px 18px; transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s}
+.ms-continue-chip:hover{transform:translateY(-3px); box-shadow:var(--ms-shadow-sm); border-color:var(--ms-gold-soft)}
+.ms-continue-chip__title{font-family:'Cinzel',serif; font-weight:600; font-size:.98rem; color:var(--ms-royal-deep); line-height:1.25}
+.ms-continue-chip__bar{height:5px; border-radius:999px; background:var(--ms-vellum); overflow:hidden; margin:12px 0 8px}
+.ms-continue-chip__bar div{height:100%; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich)); border-radius:999px}
+.ms-continue-chip__meta{font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.06em; color:var(--ms-ink-soft)}
+
+/* reading zones: selection disabled */
+.ms-overview, .ms-transcript, .ms-prayer, .ms-apply, .ms-quote, .ms-ideas, .ms-reflect, .ms-detail-hero__title{
+  -webkit-user-select:none; -moz-user-select:none; user-select:none;
+}
+
+/* watch/listen toggle */
+.ms-mediatoggle{display:inline-flex; gap:6px; background:var(--ms-linen); border:1px solid var(--ms-vellum); border-radius:999px; padding:6px; margin-bottom:16px}
+.ms-mt-btn{border:none; background:none; cursor:pointer; font-family:'Crimson Pro',serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ms-ink-soft); padding:9px 18px; border-radius:999px; display:inline-flex; align-items:center; gap:8px; transition:all .25s var(--ms-ease)}
+.ms-mt-btn svg{width:15px; height:15px}
+.ms-mt-btn--on{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft)}
+.ms-videowrap{border-radius:16px; overflow:hidden; border:1px solid var(--ms-vellum)}
+.ms-video-embed{aspect-ratio:16/9; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal)); color:var(--ms-gold-soft); font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.05rem; text-align:center; padding:20px}
+.ms-video-embed svg{width:40px; height:40px}
+
+/* transcript panel */
+.ms-transcript-toggle{
+  display:inline-flex; align-items:center; gap:10px; font-family:'Crimson Pro',serif; font-size:.78rem;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--ms-royal); background:var(--ms-milk);
+  border:1px solid var(--ms-vellum); border-radius:999px; padding:11px 20px; cursor:pointer; transition:all .25s var(--ms-ease);
+}
+.ms-transcript-toggle:hover{border-color:var(--ms-gold-soft); color:var(--ms-royal-deep)}
+.ms-transcript-toggle svg{width:14px; height:14px}
+.ms-transcript{margin-top:16px; font-size:1.1rem; line-height:1.8; color:var(--ms-ink)}
+.ms-transcript p{margin:0 0 1em}
+.ms-cms-note{font-style:italic; color:var(--ms-ink-soft)}
+
+/* personal notes */
+.ms-notes textarea{
+  width:100%; min-height:120px; resize:vertical; font-family:'Cormorant Garamond',serif; font-size:1.1rem;
+  color:var(--ms-ink); background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px;
+  padding:16px 18px; outline:none; transition:border-color .25s, box-shadow .25s;
+}
+.ms-notes textarea:focus{border-color:var(--ms-royal); box-shadow:var(--ms-glow-gold)}
+.ms-notes__foot{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:12px; flex-wrap:wrap}
+.ms-notes__hint{font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft)}
+
+/* collapsible study blocks (dropdown) — all collapsed by default */
+.ms-collapse{border:1px solid var(--ms-vellum); border-radius:14px; background:var(--ms-milk); overflow:hidden; margin-bottom:14px}
+.ms-collapse__head{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px;
+  background:none; border:none; cursor:pointer; text-align:left; padding:18px 22px;
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.08rem; color:var(--ms-royal-deep);
+  transition:background .25s;
+}
+.ms-collapse__head:hover{background:linear-gradient(135deg,rgba(91,53,122,.04),rgba(200,154,67,.03))}
+.ms-collapse__chev{width:20px; height:20px; flex:none; color:var(--ms-gold); transition:transform .3s var(--ms-ease)}
+.ms-collapse__head[aria-expanded="true"] .ms-collapse__chev{transform:rotate(90deg)}
+.ms-collapse__body{max-height:0; overflow:hidden; transition:max-height .4s var(--ms-ease)}
+.ms-collapse__body--open{max-height:6000px}
+.ms-collapse__inner{padding:0 22px 22px}
+.ms-collapse__inner > :first-child{margin-top:0}
+
+/* response box */
+.ms-respond__sub{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.08rem; color:var(--ms-ink-soft); margin:0 0 16px}
+.ms-respond__fields{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px}
+@media (max-width:560px){ .ms-respond__fields{grid-template-columns:1fr} }
+.ms-respond input, .ms-respond textarea{
+  width:100%; font-family:'Cormorant Garamond',serif; font-size:1.05rem; color:var(--ms-ink);
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:12px; padding:13px 16px; outline:none;
+  transition:border-color .25s, box-shadow .25s;
+}
+.ms-respond textarea{min-height:120px; resize:vertical}
+.ms-respond input:focus, .ms-respond textarea:focus{border-color:var(--ms-royal); box-shadow:var(--ms-glow-gold)}
+.ms-respond__meta{display:flex; align-items:center; justify-content:space-between; gap:14px; margin:10px 0 14px; flex-wrap:wrap}
+.ms-respond__privacy{font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft)}
+.ms-respond__count{font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft)}
+.ms-respond__send{
+  display:inline-flex; align-items:center; gap:10px; font-family:'Crimson Pro',serif; font-size:.8rem;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--ms-gold-soft);
+  background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); border:1px solid rgba(200,154,67,.4);
+  border-radius:999px; padding:13px 26px; cursor:pointer; transition:filter .25s, transform .2s;
+}
+.ms-respond__send svg{width:15px; height:15px}
+.ms-respond__send:hover{filter:brightness(1.08); transform:translateY(-1px)}
+.ms-respond__send:disabled{opacity:.6; cursor:default}
+.ms-respond__done{display:none; align-items:center; gap:10px; margin-top:16px; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; color:var(--ms-royal)}
+.ms-respond__done svg{width:18px; height:18px; color:var(--ms-gold)}
+.ms-respond__done--live{display:flex; animation:msFade .5s var(--ms-ease)}
+
+/* prev/next message nav */
+.ms-nav{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:34px}
+@media (max-width:560px){ .ms-nav{grid-template-columns:1fr} }
+.ms-nav__btn{
+  text-align:left; font-family:inherit; cursor:pointer; background:var(--ms-milk);
+  border:1px solid var(--ms-vellum); border-radius:16px; padding:18px 22px;
+  transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s;
+}
+.ms-nav__btn:hover:not(:disabled){transform:translateY(-3px); box-shadow:var(--ms-shadow-sm); border-color:var(--ms-gold-soft)}
+.ms-nav__btn:disabled{opacity:.5; cursor:default}
+.ms-nav__btn--next{text-align:right}
+.ms-nav__dir{display:flex; align-items:center; gap:8px; font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ms-gold)}
+.ms-nav__btn--next .ms-nav__dir{justify-content:flex-end}
+.ms-nav__dir svg{width:13px; height:13px}
+.ms-nav__title{display:block; font-family:'Cinzel',serif; font-weight:600; font-size:1.02rem; color:var(--ms-royal-deep); margin-top:8px; line-height:1.3}
+
+/* podcast subscribe */
+.ms-subscribe{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+.ms-sub-btn{
+  display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+  font-family:'Crimson Pro',serif; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase;
+  color:#fdf8ef; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.28);
+  border-radius:999px; padding:9px 16px; cursor:pointer; transition:background .25s, transform .2s;
+}
+.ms-sub-btn:hover{background:rgba(255,255,255,.24); transform:translateY(-1px)}
+.ms-sub-btn svg{width:14px; height:14px}
+
+/* podcast filter banner + episode title link */
+.ms-filter-banner{display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin:24px 0 4px; padding:14px 18px; background:linear-gradient(135deg,rgba(91,53,122,.07),rgba(200,154,67,.04)); border:1px solid var(--ms-vellum); border-radius:12px; font-family:'Cormorant Garamond',serif; font-size:1.08rem; color:var(--ms-ink)}
+.ms-ep__title--link{background:none; border:none; padding:0; cursor:pointer; text-align:left; transition:color .25s}
+.ms-ep__title--link:hover{color:var(--ms-royal)}
+
+/* ============================================================
+   MILKY-WHITE DEFAULT + CREAM TOGGLE
+   Default page is rich milky white; body.ms-cream switches to
+   the warm cream palette. Toggle bar persists the choice.
+   ============================================================ */
+body{
+  background:
+    radial-gradient(1200px 620px at 50% -8%, #ffffff, transparent 60%),
+    radial-gradient(1100px 560px at 88% 4%, rgba(200,154,67,.05), transparent 62%),
+    linear-gradient(180deg, #fffdfa 0%, #fbf7f1 60%, #f7f1ea 100%);
+}
+body.ms-cream{
+  background:
+    radial-gradient(1100px 520px at 50% -5%, rgba(255,255,255,.7), transparent 60%),
+    radial-gradient(1200px 560px at 88% -4%, rgba(200,154,67,.12), transparent 60%),
+    radial-gradient(1100px 640px at -12% 96%, rgba(91,53,122,.06), transparent 58%),
+    linear-gradient(180deg, var(--ms-ivory) 0%, var(--ms-champagne) 100%);
+}
+.ms-bgtoggle{
+  position:fixed; right:16px; bottom:16px; z-index:150;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transform:translateY(8px);
+  display:inline-flex; align-items:center; gap:9px;
+  font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ms-royal); background:var(--ms-milk); border:1px solid var(--ms-vellum);
+  border-radius:999px; padding:10px 16px; cursor:pointer; box-shadow:var(--ms-shadow-sm);
+  transition:all .25s var(--ms-ease);
+}
+.ms-bgtoggle:hover{border-color:var(--ms-gold-soft); box-shadow:var(--ms-shadow-sm), var(--ms-glow-gold)}
+.ms-bgtoggle svg{width:15px; height:15px; color:var(--ms-gold)}
+
+/* ============================================================
+   DETAIL: clean hero (no text on art) + head outside + player row
+   ============================================================ */
+.ms-detailwrap{margin-top:0}
+.ms-detailmain{max-width:920px; margin:0 auto}
+.ms-cleanhero{
+  position:relative; width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw);
+  height:auto; aspect-ratio:768/305; min-height:120px; border-radius:0; overflow:hidden;
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+  background-size:cover; background-position:center;
+  box-shadow:none; border:none;
+  display:flex; align-items:center; justify-content:center;
+}
+.ms-cleanhero--img{background-image:var(--x)}
+.ms-cleanhero__crest{font-family:'Cinzel',serif; font-size:3.4rem; letter-spacing:.22em; color:rgba(228,201,138,.22)}
+.ms-detailhead{text-align:center; margin:26px auto 0; max-width:44rem}
+.ms-detailhead__kicker{font-family:'Crimson Pro',serif; font-size:.74rem; letter-spacing:.24em; text-transform:uppercase; color:var(--ms-gold)}
+.ms-detailhead__title{font-family:'Cinzel',serif; font-weight:700; font-size:clamp(1.7rem,4.5vw,2.7rem); color:var(--ms-royal-deep); margin:12px 0 0; line-height:1.15}
+.ms-detailhead__meta{display:flex; flex-wrap:wrap; justify-content:center; gap:10px 22px; margin-top:16px; font-family:'Crimson Pro',serif; font-size:.84rem; color:var(--ms-ink-soft)}
+.ms-detailhead__meta span{display:inline-flex; align-items:center; gap:7px}
+.ms-detailhead__meta svg{width:14px; height:14px; color:var(--ms-gold)}
+
+.ms-playerrow{
+  display:grid; grid-template-columns:1fr 320px; gap:22px; margin-top:28px; align-items:start;
+  grid-template-areas: "player upnext" "downloads upnext";
+}
+.ms-playerrow__player{grid-area:player}
+.ms-playerrow__downloads{grid-area:downloads; margin:0}
+.ms-playerrow__upnext{grid-area:upnext}
+@media (max-width:860px){
+  .ms-playerrow{grid-template-columns:1fr; grid-template-areas:"player" "downloads" "upnext"}
+}
+
+/* clean player */
+.ms-cleanplayer{
+  background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:20px;
+  padding:22px; box-shadow:var(--ms-shadow-sm);
+}
+.ms-cp__art{
+  width:100%; aspect-ratio:1/1; border-radius:16px; margin-bottom:20px;
+  background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
+  background-size:cover; background-position:center;
+  display:flex; align-items:center; justify-content:center;
+}
+.ms-cp__crest{font-family:'Cinzel',serif; font-size:2.6rem; letter-spacing:.2em; color:rgba(228,201,138,.24)}
+.ms-cp__controls{display:flex; align-items:center; justify-content:center; gap:26px; margin-bottom:18px}
+.ms-cp__side{width:44px; height:44px; border-radius:50%; border:1px solid var(--ms-vellum); background:var(--ms-linen); color:var(--ms-royal); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .25s var(--ms-ease)}
+.ms-cp__side:hover{border-color:var(--ms-gold-soft); transform:scale(1.06)}
+.ms-cp__side svg{width:18px; height:18px}
+.ms-cp__play{width:64px; height:64px; border-radius:50%; border:none; cursor:pointer; background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft); display:flex; align-items:center; justify-content:center; box-shadow:var(--ms-shadow-sm); transition:filter .25s, transform .25s}
+.ms-cp__play:hover{filter:brightness(1.1); transform:scale(1.05)}
+.ms-cp__play svg{width:26px; height:26px; margin-left:2px}
+.ms-cp__bar{display:flex; align-items:center; gap:12px}
+.ms-cp__time{font-family:'Crimson Pro',serif; font-size:.74rem; color:var(--ms-ink-soft); min-width:42px}
+.ms-cp__time:last-child{text-align:right}
+.ms-cp__track{position:relative; flex:1; height:6px; border-radius:999px; background:var(--ms-vellum); cursor:pointer}
+.ms-cp__fill{position:absolute; left:0; top:0; bottom:0; width:0%; border-radius:999px; background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-rich))}
+.ms-cp__knob{position:absolute; top:50%; width:14px; height:14px; border-radius:50%; background:#fff; border:2px solid var(--ms-gold); transform:translate(-50%,-50%); box-shadow:0 2px 6px rgba(0,0,0,.2)}
+.ms-cp__adv{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px}
+.ms-cp__adv .ms-chip-btn:disabled{opacity:.4; cursor:default}
+
+/* up next rail */
+.ms-playerrow__upnext{background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:20px; padding:18px; box-shadow:var(--ms-shadow-sm); max-height:520px; overflow-y:auto}
+.ms-upnext__head{font-family:'Cinzel',serif; font-weight:600; font-size:.95rem; letter-spacing:.06em; color:var(--ms-royal-deep); padding:4px 4px 14px; border-bottom:1px solid var(--ms-vellum); margin-bottom:12px; position:sticky; top:0; background:var(--ms-milk)}
+.ms-upnext__list{display:flex; flex-direction:column; gap:8px}
+.ms-upnext__item{display:grid; grid-template-columns:52px 1fr; gap:12px; align-items:center; text-align:left; font-family:inherit; cursor:pointer; background:none; border:1px solid transparent; border-radius:12px; padding:8px; transition:all .25s var(--ms-ease)}
+.ms-upnext__item:hover{background:var(--ms-linen); border-color:var(--ms-vellum)}
+.ms-upnext__art{width:52px; height:52px; border-radius:10px; overflow:hidden; background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep)); display:flex; align-items:center; justify-content:center; flex:none}
+.ms-upnext__art img{width:100%; height:100%; object-fit:cover}
+.ms-upnext__art span{font-family:'Cinzel',serif; font-size:.7rem; color:rgba(228,201,138,.5)}
+.ms-upnext__title{font-family:'Cinzel',serif; font-weight:600; font-size:.9rem; color:var(--ms-royal-deep); line-height:1.25; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.ms-upnext__sub{font-family:'Crimson Pro',serif; font-size:.72rem; color:var(--ms-ink-soft); margin-top:3px}
+.ms-upnext__eq{display:none; gap:3px; margin-top:6px}
+.ms-q--playing .ms-upnext__eq{display:flex}
+.ms-q--playing{background:linear-gradient(135deg,rgba(200,154,67,.12),rgba(138,99,169,.05)); border-color:var(--ms-gold-soft) !important}
+.ms-upnext__eq span{width:3px; height:12px; background:var(--ms-gold); border-radius:2px; animation:msEq 1s ease-in-out infinite}
+.ms-upnext__eq span:nth-child(2){animation-delay:.2s} .ms-upnext__eq span:nth-child(3){animation-delay:.4s}
+@keyframes msEq{0%,100%{height:5px}50%{height:14px}}
+
+/* more collection grid */
+.ms-collection{margin-top:34px}
+.ms-coll-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px}
+.ms-coll-card{display:grid; grid-template-columns:60px 1fr; gap:14px; align-items:center; text-align:left; font-family:inherit; cursor:pointer; background:var(--ms-milk); border:1px solid var(--ms-vellum); border-radius:14px; padding:12px; transition:transform .3s var(--ms-ease), box-shadow .3s var(--ms-ease), border-color .3s}
+.ms-coll-card:hover{transform:translateY(-3px); box-shadow:var(--ms-shadow-sm); border-color:var(--ms-gold-soft)}
+.ms-coll-card__art{width:60px; height:60px; border-radius:10px; overflow:hidden; background:linear-gradient(140deg,var(--ms-royal),var(--ms-royal-deep)); display:flex; align-items:center; justify-content:center; flex:none}
+.ms-coll-card__art img{width:100%; height:100%; object-fit:cover}
+.ms-coll-card__art span{font-family:'Cinzel',serif; font-size:.66rem; color:rgba(228,201,138,.5)}
+.ms-coll-card__title{font-family:'Cinzel',serif; font-weight:600; font-size:.92rem; color:var(--ms-royal-deep); line-height:1.25}
+.ms-coll-card__sub{font-family:'Crimson Pro',serif; font-size:.72rem; color:var(--ms-ink-soft); margin-top:3px}
+.ms-downloads--player{justify-content:center; margin-top:22px}
+
+/* encouragement band — graphic image (replaces the earlier plain-text band) */
+.ms-encourage{margin-top:56px; border-radius:20px; overflow:hidden; box-shadow:var(--ms-shadow-sm); line-height:0}
+.ms-encourage__img{width:100%; height:auto; display:block}
+
+/* bottom back-to link, mirrors the top one */
+.ms-back--bottom{margin:44px auto 0; width:fit-content}
+
+/* footer transition */
+.ms-foot{height:56px; margin-top:10px; background:linear-gradient(180deg, rgba(247,241,232,0), rgba(242,228,211,.5) 40%, rgba(91,53,122,.32) 78%, var(--ms-royal-deep) 100%)}
+
+/* toast */
+.ms-toast{
+  position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
+  background:var(--ms-royal-deep); color:var(--ms-gold-soft);
+  font-family:'Crimson Pro',serif; font-size:.86rem; letter-spacing:.04em;
+  padding:13px 24px; border-radius:999px; box-shadow:var(--ms-shadow);
+  border:1px solid rgba(228,201,138,.35); opacity:0; pointer-events:none;
+  transition:opacity .3s, transform .3s var(--ms-ease); z-index:200;
+}
+.ms-toast--show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+.ms-hidden{display:none !important}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important; scroll-behavior:auto !important}
+}
+</style>
+</head>
+<body>
+<div id="msApp"></div>
+<button class="ms-bgtoggle" id="msBgToggle" aria-label="Switch background">☾ Cream mode</button>
+<div class="ms-toast" id="msToast"></div>
+<script>
+
+/* ============================================================
+   DATA  (seeded from the current eemodiae.org/messages)
+   Replace image/audio/download URLs with live CMS values.
+   ============================================================ */
+const AUTHOR = "Pst Emmanuel I. Emodiae";
+const POD_BANNER = "DATA_URI_REMOVED";
+const HERO_LANDING = "DATA_URI_REMOVED";
+const HERO_SERIES = "DATA_URI_REMOVED";
+const HERO_MESSAGE = "DATA_URI_REMOVED";
+const ENCOURAGE_IMG = "DATA_URI_REMOVED";
+const AUTHOR_FULL = "Emmanuel I. Emodiae";
+
+/* Cross-links reference real slugs in the Poems/Articles builds so the
+   "Continue Your Journey" rail can deep-link across the site.
+   Replace image/audio/download/transcript URLs with live CMS values. */
+
+const SERIES = [
+  { slug:"secret-to-answered-prayers", title:"The Secret to Answered Prayers", image:"",
+    summary:"A teaching series on the posture, persistence, and promises that move heaven to answer.",
+    overviewLong:"Prayer is not a technique for bending God's arm; it is the meeting place of a Father and His child. Across these sermons we trace the foundations of praying faith, the authority of praying in the name of Jesus, the patience that holds on when the answer seems to delay, and the confidence of praying God's own promises back to Him. You will leave not merely informed about prayer but stirred to pray.",
+    scripture:"James 5:16", category:"Prayer", year:"2024", sermons:[
+      { title:"The Foundation of Faith", sub:"Sermon 1", dur:"38 min" },
+      { title:"Praying in the Name", sub:"Sermon 2", dur:"42 min" },
+      { title:"When the Answer Delays", sub:"Sermon 3", dur:"35 min" },
+      { title:"Praying the Promises", sub:"Sermon 4", dur:"40 min" },
+    ] },
+  { slug:"power-of-pentecost", title:"The Power of Pentecost", image:"",
+    summary:"Rediscovering the fire, boldness, and witness the early church carried after the upper room.",
+    overviewLong:"What began in an upper room was never meant to end there. This series revisits the promise of the Father, the fire that fell, and the boldness that turned frightened disciples into world-changers, and asks what that same Spirit longs to do in the believer today.",
+    scripture:"Acts 2:1-4", category:"Holy Spirit", year:"2023", sermons:[
+      { title:"The Promise of the Father", sub:"Sermon 1", dur:"44 min" },
+      { title:"Tongues of Fire", sub:"Sermon 2", dur:"39 min" },
+      { title:"Power to Witness", sub:"Sermon 3", dur:"41 min" },
+    ] },
+  { slug:"way-of-holiness", title:"The Way of Holiness", image:"",
+    summary:"Holiness is not old-fashioned. A practical journey into a set-apart life in a chaotic world.",
+    overviewLong:"Holiness has been misunderstood as a list of prohibitions; Scripture presents it as a highway, a set-apart road that leads home. These sermons walk that road honestly: the call to be holy, the narrowness of the way, the daily walk in the Spirit, and the keeping power of God that holds those who could never hold themselves.",
+    scripture:"Isaiah 35:8", category:"Holiness", year:"2024", sermons:[
+      { title:"Called to Be Holy", sub:"Sermon 1", dur:"37 min" },
+      { title:"The Narrow Road", sub:"Sermon 2", dur:"40 min" },
+      { title:"Walking in the Spirit", sub:"Sermon 3", dur:"43 min" },
+      { title:"Kept by His Power", sub:"Sermon 4", dur:"36 min" },
+    ] },
+  { slug:"faith-for-finance", title:"Faith for Finance in Ministry", image:"",
+    summary:"Kingdom principles for provision, stewardship, and financing the work of the ministry by faith.",
+    overviewLong:"Kingdom advance has always required kingdom provision. Without apology or excess, this series lays out the God who provides, the law of sowing and reaping, and the faith that dares to believe God for the resources a vision demands.",
+    scripture:"Philippians 4:19", category:"Faith", year:"2023", sermons:[
+      { title:"The God Who Provides", sub:"Sermon 1", dur:"45 min" },
+      { title:"Sowing and Reaping", sub:"Sermon 2", dur:"38 min" },
+      { title:"Faith for the Vision", sub:"Sermon 3", dur:"42 min" },
+    ] },
+  { slug:"above-only", title:"Above Only", image:"",
+    summary:"A covenant of elevation. Living as the head and not the tail, above only and not beneath.",
+    overviewLong:"The covenant of God lifts a life above the reach of limitation. These sermons open the promise of the head and not the tail, and the faith that breaks every ceiling the enemy would impose.",
+    scripture:"Deuteronomy 28:13", category:"Covenant", year:"2022", sermons:[
+      { title:"The Covenant of the Head", sub:"Sermon 1", dur:"40 min" },
+      { title:"Breaking Limitation", sub:"Sermon 2", dur:"39 min" },
+    ] },
+  { slug:"understanding-the-anointing", title:"Understanding The Anointing", image:"",
+    summary:"What the anointing is, how it flows, and how to steward the presence and power of God upon a life.",
+    overviewLong:"The anointing is the presence and power of God resting upon a life for the sake of others. This series explains what it is, how it flows, how it is stewarded, and how the gifts of the Spirit operate through a yielded believer.",
+    scripture:"Acts 10:38", category:"Holy Spirit", year:"2021", sermons:[
+      { title:"The Yoke-Destroying Power", sub:"Sermon 1", dur:"43 min" },
+      { title:"Stewarding the Presence", sub:"Sermon 2", dur:"41 min" },
+      { title:"Flowing in the Gifts", sub:"Sermon 3", dur:"44 min" },
+    ] },
+  { slug:"believers-authority", title:"The Believer's Authority", image:"",
+    summary:"Standing in the delegated authority of the risen Christ over every power of darkness.",
+    overviewLong:"The believer does not fight for victory but from it. Seated with Christ far above every power, these sermons teach the saint to recognise, receive, and enforce the authority already given in the name of Jesus.",
+    scripture:"Luke 10:19", category:"Authority", year:"2023", sermons:[
+      { title:"Seated in Christ", sub:"Sermon 1", dur:"42 min" },
+      { title:"Enforcing the Victory", sub:"Sermon 2", dur:"38 min" },
+    ] },
+  { slug:"the-blessing", title:"The Blessing", image:"",
+    summary:"Tracing the empowerment to prosper from Abraham to the believer in Christ today.",
+    overviewLong:"The blessing is the empowerment to prosper in every good thing God intends. Tracing the promise from Abraham to the believer in Christ, this series shows how heirs of the promise walk in what has already been secured.",
+    scripture:"Galatians 3:14", category:"Covenant", year:"2022", sermons:[
+      { title:"The Empowerment to Prosper", sub:"Sermon 1", dur:"40 min" },
+      { title:"Heirs of the Promise", sub:"Sermon 2", dur:"37 min" },
+    ] },
+];
+
+const MESSAGES = [
+  { slug:"christ-our-light", title:"Christ Our Light", image:"", dur:"52 min",
+    category:"Christ", year:"2024", audience:"All believers", difficulty:"Accessible",
+    mainScripture:"John 8:12",
+    video:"https://www.youtube.com/embed/",
+    transcript:"<p>We live in a world of deepening shadows, and yet the Scripture opens with a startling claim: that in Him was life, and the life was the light of men.</p><p>When Jesus stands in the temple and says, I am the light of the world, He is not offering one lamp among many. He is declaring Himself the single source by which everything else is seen rightly.</p><p>To walk in His light is not a one-time decision but a daily posture. And the light we receive was never meant to be hidden; it is given to be carried into every dark place we go.</p>",
+    scriptures:["John 8:12","Isaiah 9:2","John 1:4-5"],
+    overview:"In a world of deepening shadows, Christ steps forward as the light of men. This message explores what it means to walk in His light, to be free of the fear that hides in darkness, and to carry that light into every place we go.",
+    keyIdeas:["Christ is not merely a light among many; He is the light of the world.","Walking in the light is a daily posture, not a single decision.","The light we receive is meant to be carried to others in darkness."],
+    quotes:["Where the light of Christ falls, fear loses its hiding place.","You cannot carry a light and stay hidden yourself."],
+    reflections:["Where in your life are you still walking in shadow rather than light?","What would it look like to follow Christ so closely that His light falls on your path?","Who around you needs the light you now carry?"],
+    prayer:"Father, You are the Father of lights. Let the light of Christ flood every dark place in me, and make me a lamp that others may find their way home by. In Jesus' name, amen.",
+    application:"This week, name one area you have kept in shadow and bring it deliberately into the light of honest prayer and trusted counsel.",
+    reading:["The Gospel of John, chapters 1 and 8","Isaiah 9:1-7"],
+    related:{ series:"understanding-the-anointing", poem:"what-a-day-a-fathers-day-poem", article:"what-does-a-better-christian-actually-look-like", podcast:"the-secret-place" } },
+  { slug:"power-positive-mental-state", title:"The Power of a Positive Mental State", image:"", dur:"48 min",
+    category:"Christian Living", year:"2024", audience:"Growing believers", difficulty:"Accessible",
+    mainScripture:"Philippians 4:8",
+    scriptures:["Philippians 4:8","Romans 12:2","Proverbs 23:7"],
+    overview:"The mind is the battleground where victory or defeat is first decided. This teaching unpacks how a renewed, faith-filled mental state aligns a believer with the purposes of God and silences the accusing voices of fear and doubt.",
+    keyIdeas:["As a person thinks in their heart, so are they.","Renewal of the mind is the mechanism of transformation.","Guarding the mind is an act of spiritual warfare."],
+    quotes:["The battle you lose in the mind you will rarely win in the moment.","A renewed mind meets trouble already carrying an answer."],
+    reflections:["What recurring thought most often steals your peace?","Which Scripture can you set as a guard over your mind this week?","How does a renewed mind change the way you meet trouble?"],
+    prayer:"Lord, renew my mind after Yours. Teach me to think on what is true, noble, and lovely, and to cast down every thought that exalts itself against Your knowledge. Amen.",
+    application:"Choose one Scripture on the mind and speak it over yourself each morning this week before you check your phone.",
+    reading:["Romans 12:1-2","Philippians 4:4-9"],
+    related:{ series:"way-of-holiness", poem:"forge-your-own-path", article:"spiritual-maturity-doesnt-come-with-age", podcast:"growing-in-joy" } },
+  { slug:"breakthrough-spirit", title:"The Breakthrough Spirit", image:"", dur:"56 min",
+    category:"Faith", year:"2023", audience:"All believers", difficulty:"Intermediate",
+    mainScripture:"Micah 2:13",
+    scriptures:["Micah 2:13","2 Samuel 5:20","Isaiah 43:19"],
+    overview:"There is a spirit that breaks open every barrier before the people of God. This message calls believers into the company of the breakers, those who press through until the wall gives way and the new thing springs forth.",
+    keyIdeas:["The Breaker goes up before His people to open the way.","Breakthrough often comes after the longest pressing.","A breakthrough is rarely for you alone; it opens the way for many."],
+    quotes:["Heaven waits for the ones who will not stop pressing.","The wall that resisted you the longest breaks the loudest."],
+    reflections:["What wall have you been standing before for too long?","What does pressing through look like in your situation?","Are you carrying a breakthrough meant to open the way for others?"],
+    prayer:"Lord, You are the God who breaks open the way. Go before me, break down every gate of bronze, and lead me through into the wide place You have prepared. Amen.",
+    application:"Identify the one 'wall' you have been passive about and take a single concrete step of faith toward it this week.",
+    reading:["Micah 2:12-13","Isaiah 43:18-19"],
+    related:{ series:"secret-to-answered-prayers", poem:"to-stay-in-nigeria", article:"tired-of-falling-into-the-same-sin", podcast:"faith-episodes" } },
+  { slug:"threefold-cord-of-power", title:"The Threefold Cord of Power", image:"", dur:"50 min",
+    category:"Christian Living", year:"2023", audience:"All believers", difficulty:"Accessible",
+    mainScripture:"Ecclesiastes 4:12",
+    scriptures:["Ecclesiastes 4:12","Matthew 18:20","Deuteronomy 32:30"],
+    overview:"A cord of three strands is not quickly broken. This teaching reveals the strength of divine partnership, agreement, and unity, and how the believer's life is knit with the Father, Son, and Spirit into unbreakable power.",
+    keyIdeas:["Agreement multiplies spiritual force.","Isolation is the enemy's favourite strategy.","The third strand in every godly union is God Himself."],
+    quotes:["One will chase a thousand; two will chase ten thousand. Agreement is multiplication, not addition.","Cut yourself off and you are not stronger, only more exposed."],
+    reflections:["Where do you need the strength of agreement rather than standing alone?","Who are the faithful strands God has woven into your life?","How does unity multiply what one alone could never do?"],
+    prayer:"Father, weave my life together with You and with those You have given me, that we may stand unbroken and prevail. In Jesus' name, amen.",
+    application:"Reach out to one trusted believer this week and enter genuine agreement in prayer over a shared need.",
+    reading:["Ecclesiastes 4:9-12","Matthew 18:19-20"],
+    related:{ series:"believers-authority", poem:"the-first-line", article:"holiness-isnt-old-fashioned", podcast:"walking-in-love" } },
+  { slug:"state-of-the-church", title:"The State of the Church", image:"", dur:"1 hr 4 min",
+    category:"The Church", year:"2022", audience:"Leaders & members", difficulty:"Intermediate",
+    mainScripture:"Ephesians 5:27",
+    scriptures:["Ephesians 5:27","Revelation 2:4","1 Peter 2:9"],
+    overview:"An honest, pastoral assessment of where the body of Christ stands, and a clarion call to return to first love, holiness, and the mission that first set the church ablaze.",
+    keyIdeas:["The church is a bride being prepared, not a building being maintained.","Losing first love is the quiet decline behind busy activity.","Every member carries responsibility for the health of the whole."],
+    quotes:["A busy church can still be a backslidden church.","Return is always the first step forward."],
+    reflections:["Has your first love for Christ cooled, and how might it be rekindled?","What is your part in the health of the church you belong to?","Where is God calling the church to return and rebuild?"],
+    prayer:"Lord of the church, purify Your bride. Restore our first love, renew our holiness, and set us again on fire for Your glory. Amen.",
+    application:"Do one concrete thing this week to strengthen your local church rather than only attending it.",
+    reading:["Revelation 2:1-7","Ephesians 5:25-27"],
+    related:{ series:"way-of-holiness", poem:"the-making-of-a-great-man", article:"destiny-is-not-a-myth", podcast:"the-secret-place" } },
+  { slug:"believers-character", title:"The Believer's Character", image:"", dur:"46 min",
+    category:"Character", year:"2024", audience:"Growing believers", difficulty:"Accessible",
+    mainScripture:"Galatians 5:22-23",
+    scriptures:["Galatians 5:22-23","Matthew 5:16","2 Peter 1:5-7"],
+    overview:"Gifting may open a door, but character keeps a person in the room. This message calls believers to let the fruit of the Spirit shape a life that looks unmistakably like Christ.",
+    keyIdeas:["Gift takes you to the door; character keeps you in the room.","The fruit of the Spirit is grown, not downloaded.","Christlike character is a sermon the world cannot argue with."],
+    quotes:["Talent is rented; character is owned.","People forget your gift long before they forget your fruit."],
+    reflections:["Which fruit of the Spirit is God cultivating in you right now?","Where does your character need to catch up with your calling?","How does Christlike character preach without words?"],
+    prayer:"Holy Spirit, produce Your fruit in me. Shape my character until those who see me see something of Jesus. Amen.",
+    application:"Pick one fruit of the Spirit and ask God, and one honest friend, to help you grow it this month.",
+    reading:["Galatians 5:16-26","2 Peter 1:3-11"],
+    related:{ series:"understanding-the-anointing", poem:"to-live-for-god-or-not", article:"you-were-not-born-by-accident", podcast:"growing-in-joy" } },
+  { slug:"success-covenant", title:"Success Covenant", image:"", dur:"41 min",
+    category:"Christian Living", year:"2024", audience:"All believers", difficulty:"Accessible",
+    mainScripture:"Joshua 1:8",
+    scriptures:["Joshua 1:8","Deuteronomy 8:18","3 John 1:2"],
+    overview:"God has bound Himself in covenant to prosper His people in every good thing. This message opens the terms of that covenant and the believer's part in walking it out, so that success becomes not an accident but an inheritance.",
+    keyIdeas:["Covenant, not coincidence, is the foundation of lasting success.","Meditation on the Word is the covenant pathway to prosperity.","Success is stewardship, given for a purpose beyond ourselves."],
+    quotes:["Covenant turns striving into standing on a promise.","What God has covenanted, He has already committed Himself to perform."],
+    reflections:["Where have you been striving for what God has already promised?","What part of the covenant have you left unattended?","How would you steward success if you truly saw it as an inheritance?"],
+    prayer:"Father, thank You for the covenant of success You have made with Your people. Teach me my part, and let me walk in what You have already promised. Amen.",
+    application:"Choose one covenant promise this week and meditate on it daily until it reshapes how you act.",
+    reading:["Joshua 1:1-9","Deuteronomy 28:1-14"],
+    related:{ series:"faith-for-finance", poem:"", article:"", podcast:"" } },
+  { slug:"speaking-the-word", title:"Speaking the Word", image:"", dur:"44 min",
+    category:"Faith", year:"2024", audience:"Growing believers", difficulty:"Accessible",
+    mainScripture:"Mark 11:23",
+    scriptures:["Mark 11:23","Proverbs 18:21","2 Corinthians 4:13"],
+    overview:"There is creative power in the spoken word of faith. This teaching shows how the believer's confession, aligned with Scripture, becomes an instrument in the hand of God to shape circumstances and silence the voice of doubt.",
+    keyIdeas:["The tongue carries the power of life and death.","Faith is meant to be spoken, not merely felt.","Confession aligned with the Word reshapes what we experience."],
+    quotes:["What you will not say, you will rarely see.","Faith finds its voice or it fades in silence."],
+    reflections:["What have your words been building lately, life or defeat?","Which promise do you need to begin speaking over your situation?","Where has silence let doubt speak louder than faith?"],
+    prayer:"Lord, set a watch over my mouth, and fill it with Your Word. Teach me to speak faith until it becomes sight. Amen.",
+    application:"Write one Scripture-based confession and speak it aloud each morning this week.",
+    reading:["Mark 11:20-24","Proverbs 18:20-21"],
+    related:{ series:"secret-to-answered-prayers", poem:"", article:"", podcast:"" } },
+  { slug:"christ-the-believers-mantle", title:"Christ the Believer's Mantle", image:"", dur:"49 min",
+    category:"Christ", year:"2024", audience:"All believers", difficulty:"Intermediate",
+    mainScripture:"Galatians 3:27",
+    scriptures:["Galatians 3:27","Romans 13:14","Colossians 3:10"],
+    overview:"To have put on Christ is to wear Him as a mantle over the whole of life. This message explores the believer's identity in Christ as a covering, an authority, and an inheritance that changes how we live, pray, and stand.",
+    keyIdeas:["Christ Himself is the believer's covering and clothing.","Identity in Christ is worn daily, like a mantle taken up.","The mantle of Christ carries both authority and responsibility."],
+    quotes:["You do not borrow Christ for a moment; you wear Him for a life.","The mantle you wear decides the authority you carry."],
+    reflections:["What would change if you saw Christ as a mantle you put on each day?","Where do you need His covering most right now?","How does wearing Christ reshape your sense of authority?"],
+    prayer:"Lord Jesus, be my mantle. Cover me, clothe me, and let all I do be done in the authority of Your name. Amen.",
+    application:"Each morning this week, consciously 'put on Christ' before anything else, and note what changes.",
+    reading:["Galatians 3:26-29","Colossians 3:1-14"],
+    related:{ series:"believers-authority", poem:"", article:"", podcast:"" } },
+];
+
+const POD_SERIES = [
+  { slug:"fresh-from-the-spirit", title:"Fresh from the Spirit", image:"",
+    summary:"Weekly conversations and teachings straight from the heart of the ministry.", count:3 },
+  { slug:"faith-foundations", title:"Faith Foundations", image:"",
+    summary:"Grounding new and growing believers in the essentials of the faith.", count:1 },
+];
+
+/* podcast subscribe destinations (replace with live show URLs) */
+const POD_SUBSCRIBE = {
+  apple:"https://podcasts.apple.com/",
+  spotify:"https://open.spotify.com/",
+  rss:"https://eemodiae.org/podcasts/feed.xml",
+};
+
+const POD_EPISODES = [
+  { slug:"growing-in-joy", title:"Growing in Joy", image:"", dur:"32 min", seriesSlug:"fresh-from-the-spirit",
+    kicker:"Episode 1", date:"2026-05-22", theme:"Christian Living",
+    desc:"How the joy of the Lord becomes strength for every season.",
+    notes:"Joy is not the denial of difficulty; it is strength drawn from the presence of God in the middle of it." },
+  { slug:"faith-episodes", title:"Faith That Stands", image:"", dur:"28 min", seriesSlug:"faith-foundations",
+    kicker:"Episode 1", date:"2026-05-29", theme:"Faith",
+    desc:"Building a faith that stands when everything is shaking.",
+    notes:"Faith is not a feeling that rises and falls; it is a decision to rest on what God has said." },
+  { slug:"the-secret-place", title:"The Secret Place", image:"", dur:"35 min", seriesSlug:"fresh-from-the-spirit",
+    kicker:"Episode 2", date:"2026-06-05", theme:"Prayer",
+    desc:"Cultivating intimacy with God in the place of prayer.",
+    notes:"Everything fruitful in public is first grown in the secret place with God." },
+  { slug:"walking-in-love", title:"Walking in Love", image:"", dur:"30 min", seriesSlug:"fresh-from-the-spirit",
+    kicker:"Episode 3", date:"2026-06-19", theme:"Love",
+    desc:"Love as the more excellent way and the mark of a disciple.",
+    notes:"Love is the one evidence of discipleship the world cannot argue with." },
+];
+
+/* Cross-resource links for the Continue Your Journey rail.
+   Titles here are display-only; live URLs come from the CMS. */
+const XLINKS = {
+  poems:{
+    "what-a-day-a-fathers-day-poem":"What a Day - A Father's Day Poem",
+    "forge-your-own-path":"Forge Your Own Path",
+    "the-first-line":"The First Line",
+    "to-stay-in-nigeria":"To Stay in Nigeria Is...",
+    "the-making-of-a-great-man":"The Making of a Great Man",
+    "to-live-for-god-or-not":"To Live for God or Not",
+  },
+  articles:{
+    "what-does-a-better-christian-actually-look-like":"What Does a Better Christian Actually Look Like?",
+    "spiritual-maturity-doesnt-come-with-age":"Spiritual Maturity Doesn't Come With Age",
+    "tired-of-falling-into-the-same-sin":"Tired of Falling Into the Same Sin?",
+    "holiness-isnt-old-fashioned":"Holiness Isn't Old-Fashioned",
+    "destiny-is-not-a-myth":"Destiny Is Not a Myth",
+    "you-were-not-born-by-accident":"You Were Not Born by Accident",
+  },
+};
+function xurl(kind, slug){ return "https://eemodiae.org/"+kind+"/"+slug; }
+
+const PER_PAGE = 6;
+const EP_PER_PAGE = 4;
+
+
+/* ============================================================
+   ICONS
+   ============================================================ */
+const IC = {
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>',
+  chevR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>',
+  chevL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>',
+  play:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  close:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  pause:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+  download:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  layers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg>',
+  book:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg>',
+  mic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4"/></svg>',
+  scroll:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3h11v14a3 3 0 0 1-3 3H7"/><path d="M8 3a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2M8 7h7M8 11h7"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.2H22l-6 4.5 2.3 7.3-6.3-4.6-6.3 4.6L8 13.7 2 9.2h7.6z"/></svg>',
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>',
+  bookmark:'<svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>',
+  speed:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 12l5-3M21 3l-4 4"/></svg>',
+  timer:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="13" r="8"/><path d="M12 9v4M9 1h6"/></svg>',
+  skipf:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 5l10 7-10 7zM18 5h2v14h-2z"/></svg>',
+  skipb:'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 5L10 12l10 7zM4 5h2v14H4z"/></svg>',
+  compass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+  video:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 9l5-3v12l-5-3z"/></svg>',
+  speaker:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>',
+};
+
+const $ = id => document.getElementById(id);
+const app = () => $("msApp");
+let toastT=null;
+function toast(msg){ const t=$("msToast"); t.textContent=msg; t.classList.add("ms-toast--show"); clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove("ms-toast--show"),2400); }
+
+/* ============================================================
+   AUDIO ENGINE  (real <audio>, background playback, Media
+   Session lock-screen controls, queue + auto-advance)
+   ------------------------------------------------------------
+   A single persistent <audio> element plays whichever track is
+   current. Because it is a real media element, it keeps playing
+   when the user switches apps or locks the phone, and the OS
+   shows lock-screen controls via the Media Session API — all of
+   this activates automatically once real audio URLs are present
+   in the data (item.audio). With no URL yet, the engine falls
+   back to a simulated timeline so the UI (progress, auto-advance
+   to the next queued item, speed, sleep, skip) is fully wired
+   and visible; drop in item.audio and it becomes real playback.
+   ============================================================ */
+const Audio_ = (function(){
+  const el = document.createElement("audio");
+  el.preload = "metadata";
+  el.setAttribute("playsinline","");
+  document.body.appendChild(el);
+
+  let queue = [];          // [{slug,title,dur,audio,image,artist,onChange}]
+  let idx = -1;
+  let loopQueue = false;   // when true, advancing past the end wraps to index 0
+  let simTimer = null, simSec = 0, simTotal = 0, simPlaying = false;
+  let speed = 1;
+  let sleepAt = 0, sleepMin = 0;
+  const listeners = new Set();
+  const sub = fn => { listeners.add(fn); return ()=>listeners.delete(fn); };
+  // persist listening position per track (feeds Continue Listening for
+  // messages AND podcast episodes); throttled to one write every few seconds
+  let _lastPosSave = 0;
+  function persistPos(){
+    try{
+      const c=cur(); if(!c || !c.slug) return;
+      const t = hasReal()? el.currentTime : simSec;
+      const total = hasReal()? (el.duration||0) : simTotal;
+      if(!total || t<5) return;
+      state.audioPos[c.slug]={ sec:Math.round(t), total:Math.round(total) };
+      const now=Date.now();
+      if(now-_lastPosSave>4000){ _lastPosSave=now; save("ms_audiopos", state.audioPos); }
+    }catch(e){}
+  }
+  const emit = () => { persistPos(); listeners.forEach(fn=>{ try{ fn(status()); }catch(e){} }); };
+
+  const cur = () => idx>=0 && idx<queue.length ? queue[idx] : null;
+  const hasReal = () => { const c=cur(); return !!(c && c.audio); };
+  const parseDur = txt => { if(typeof txt==="number") return txt; let s=0; const h=/(\d+)\s*hr/.exec(txt||""); const m=/(\d+)\s*min/.exec(txt||""); if(h)s+=parseInt(h[1])*3600; if(m)s+=parseInt(m[1])*60; return s||1800; };
+
+  function status(){
+    const c=cur();
+    const real=hasReal();
+    return {
+      item:c, index:idx, length:queue.length,
+      playing: real ? !el.paused : simPlaying,
+      cur: real ? (el.currentTime||0) : simSec,
+      total: real ? (el.duration||parseDur(c&&c.dur)) : simTotal,
+      speed, sleepMin,
+      hasNext: loopQueue ? queue.length>1 : idx < queue.length-1,
+      hasPrev: loopQueue ? queue.length>1 : idx > 0,
+    };
+  }
+
+  function setMediaSession(){
+    if(!("mediaSession" in navigator)) return;
+    const c=cur(); if(!c) return;
+    try{
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: c.title||"", artist: c.artist||"Emmanuel I. Emodiae",
+        album: "eemodiae.org", artwork: c.image?[{src:c.image, sizes:"512x512", type:"image/jpeg"}]:[]
+      });
+      navigator.mediaSession.setActionHandler("play", play);
+      navigator.mediaSession.setActionHandler("pause", pause);
+      navigator.mediaSession.setActionHandler("previoustrack", prev);
+      navigator.mediaSession.setActionHandler("nexttrack", next);
+      navigator.mediaSession.setActionHandler("seekbackward", ()=>skip(-15));
+      navigator.mediaSession.setActionHandler("seekforward", ()=>skip(15));
+    }catch(e){}
+  }
+
+  function loadCurrent(autoplay){
+    const c=cur(); if(!c) return;
+    stopSim();
+    if(c.audio){ el.src=c.audio; el.playbackRate=speed; if(autoplay) el.play().catch(()=>{}); }
+    else { simTotal=parseDur(c.dur); simSec=(c._resume||0); if(autoplay) startSim(); }
+    setMediaSession();
+    if(c.onChange) c.onChange(idx);
+    emit();
+  }
+  function startSim(){ simPlaying=true; clearInterval(simTimer); simTimer=setInterval(()=>{ simSec+=speed; if(sleepAt&&Date.now()>=sleepAt){ pause(); sleepAt=0; sleepMin=0; toast("Sleep timer ended playback."); emit(); return; } if(simSec>=simTotal){ simSec=simTotal; onEnded(); return; } emit(); },1000); emit(); }
+  function stopSim(){ simPlaying=false; clearInterval(simTimer); }
+
+  function play(){ const c=cur(); if(!c) return; if(c.audio){ el.play().catch(()=>{}); } else { startSim(); } if("mediaSession" in navigator) navigator.mediaSession.playbackState="playing"; emit(); }
+  function pause(){ const c=cur(); if(!c) return; if(c.audio){ el.pause(); } else { stopSim(); } if("mediaSession" in navigator) navigator.mediaSession.playbackState="paused"; emit(); }
+  function toggle(){ status().playing ? pause() : play(); }
+  function skip(delta){ const c=cur(); if(!c) return; if(c.audio){ el.currentTime=Math.max(0,Math.min((el.duration||0), el.currentTime+delta)); } else { simSec=Math.max(0,Math.min(simTotal, simSec+delta)); } emit(); }
+  function seekTo(frac){ const st=status(); const t=Math.max(0,Math.min(st.total, frac*st.total)); const c=cur(); if(c&&c.audio){ el.currentTime=t; } else { simSec=t; } emit(); }
+  function setSpeed(v){ speed=v; if(hasReal()) el.playbackRate=v; emit(); }
+  function setSleep(min){ sleepMin=min; sleepAt = min>0 ? Date.now()+min*60000 : 0; emit(); }
+  function onEnded(){ stopSim(); if(idx < queue.length-1){ idx++; loadCurrent(true); toast("Up next: "+(cur().title||"")); } else if(loopQueue && queue.length){ idx=0; loadCurrent(true); toast("Up next: "+(cur().title||"")); } else { if("mediaSession" in navigator) navigator.mediaSession.playbackState="paused"; emit(); } }
+  function next(){ if(idx<queue.length-1){ idx++; loadCurrent(true); } else if(loopQueue && queue.length){ idx=0; loadCurrent(true); } }
+  function prev(){ if(idx>0){ idx--; loadCurrent(true); } else if(loopQueue && queue.length){ idx=queue.length-1; loadCurrent(true); } }
+  function playIndex(i){ if(i>=0&&i<queue.length){ idx=i; loadCurrent(true); } }
+
+  el.addEventListener("ended", onEnded);
+  el.addEventListener("timeupdate", ()=>{ if(hasReal()) { if(sleepAt&&Date.now()>=sleepAt){ pause(); sleepAt=0; sleepMin=0; toast("Sleep timer ended playback."); } emit(); } });
+  el.addEventListener("play", emit); el.addEventListener("pause", emit); el.addEventListener("loadedmetadata", emit);
+
+  /* set a fresh queue; keepPos lets a re-open resume the same track/time */
+  function setQueue(items, startIndex, opts){
+    opts=opts||{};
+    loopQueue = !!opts.loop;
+    // preserve current playback if same track is still in the new queue and opts.preserve
+    const wasItem = cur();
+    queue = items.slice();
+    idx = Math.max(0, Math.min(startIndex||0, queue.length-1));
+    if(opts.preserve && wasItem){
+      const found = queue.findIndex(x=>x.slug===wasItem.slug);
+      if(found>=0){ idx=found; setMediaSession(); if(cur().onChange) cur().onChange(idx); emit(); return; }
+    }
+    loadCurrent(!!opts.autoplay);
+  }
+
+  return { sub, status, play, pause, toggle, skip, seekTo, setSpeed, setSleep, next, prev, playIndex, setQueue,
+           get index(){return idx;}, get queue(){return queue;} };
+})();
+
+/* Session store. On the live site swap for window.localStorage to persist
+   across visits; artifacts block browser storage so we use memory here. */
+const store = (() => {
+  const m = {};
+  return { getItem:k=>k in m?m[k]:null, setItem:(k,v)=>{m[k]=String(v)}, removeItem:k=>{delete m[k]} };
+})();
+const load = (k, d) => { try{ const v = store.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } };
+const save = (k, v) => { try{ store.setItem(k, JSON.stringify(v)); }catch(e){} };
+
+/* placeholder topics so the "More" block is always visible even before
+   the CMS supplies overflow content. Marked placeholder:true (non-playing). */
+function placeholderTopics(kind){
+  const sets = {
+    message: ["Success Covenant", "Speaking the Word", "Christ the Believer's Mantle"],
+    series:  ["Foundations of Prayer", "The Names of God", "Journey Through Romans", "Spirit and Truth"],
+    episode: ["Stillness Before God", "Faith in the Waiting", "The Grace That Carries", "Rooted and Grounded"],
+  };
+  const subs = { message: AUTHOR, series: "Coming soon", episode: "Coming soon" };
+  return (sets[kind]||sets.message).map((t,i)=>({ slug:"placeholder-"+kind+"-"+i, title:t, sub:subs[kind]||"Coming soon", placeholder:true }));
+}
+/* convert a content record into an AudioEngine track.
+   kind: 'message' | 'sermon' | 'episode'. audio URL comes from
+   the CMS (item.audio); absent now, so the engine simulates. */
+function toTrack(item, kind, extra){
+  extra=extra||{};
+  return {
+    slug: item.slug || extra.slug,
+    title: item.title,
+    dur: item.dur || extra.dur || "30 min",
+    audio: item.audio || "",           // <-- live MP3 URL from CMS goes here
+    image: item.image || "",
+    artist: AUTHOR_FULL || "Emmanuel I. Emodiae",
+    _resume: 0,
+  };
+}
+
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+  tab:"series",           // series | messages | podcasts
+  view:"landing",         // landing | seriesDetail | messageDetail | episodeDetail
+  q:"",
+  pageSeries:1, pageMsg:1, pagePodSeries:1, pagePodEps:1,
+  podTab:"series",        // series | episodes
+  podSeriesFilter:null,   // slug of podcast series to filter episodes by
+  podTheme:"All",         // episode topic chip filter
+  podSort:"newest",       // newest | oldest (by release date)
+  continueDismissed:false,   // user closed the Continue Listening box this session
+  curSeries:null, curLesson:0, curMessage:null, curEpisode:null,
+  sortMsg:"featured", sortSeries:"featured",
+  filterMsg:"All", filterSeries:"All",
+  savedOnly:false,
+  progress: load("ms_progress", {}),   // { seriesSlug: {done:[idx], last:idx} }
+  bookmarks: new Set(load("ms_bookmarks", [])),   // message slugs
+  epBookmarks: new Set(load("ms_ep_bookmarks", [])),   // podcast episode slugs
+  recent: load("ms_recent", []),       // [{kind,slug,title}]
+  audioPos: load("ms_audiopos", {}),   // { messageSlug: {sec,total} } continue-listening
+  notes: load("ms_notes", {}),         // { messageSlug: "personal note text" }
+};
+
+function persistBookmarks(){ save("ms_bookmarks", [...state.bookmarks]); }
+function persistEpBookmarks(){ save("ms_ep_bookmarks", [...state.epBookmarks]); }
+/* release date, elegantly formatted (e.g. June 19, 2026) */
+function fmtDate(iso){
+  if(!iso) return "";
+  const d=new Date(iso+"T00:00:00");
+  if(isNaN(d)) return iso;
+  return d.toLocaleDateString("en-US",{ month:"long", day:"numeric", year:"numeric" });
+}
+function pushRecent(kind, slug, title){
+  state.recent = state.recent.filter(r=>!(r.kind===kind && r.slug===slug));
+  state.recent.unshift({ kind, slug, title });
+  state.recent = state.recent.slice(0, 8);
+  save("ms_recent", state.recent);
+}
+/* messages that are partly played (for Continue Listening) */
+function inProgressMessages(){
+  const seen=new Set();
+  return Object.keys(state.audioPos)
+    .map(slug=>({ slug, ...state.audioPos[slug] }))
+    .filter(x=> x.sec>5 && x.total && x.sec < x.total*0.97)
+    .sort((a,b)=> (b.sec/b.total) - (a.sec/a.total))
+    .map(x=>{
+      const m=MESSAGES.find(mm=>mm.slug===x.slug);
+      if(m) return dedupe("message", m, x);
+      const ep=POD_EPISODES.find(ee=>ee.slug===x.slug);
+      if(ep) return dedupe("episode", ep, x);
+      // series sermon composite key: "<seriesSlug>__<idx>__L<loop>"
+      const cm=/^(.+)__(\d+)__L\d+$/.exec(x.slug);
+      if(cm){
+        const ser=SERIES.find(s=>s.slug===cm[1]);
+        const sm=ser && ser.sermons && ser.sermons[parseInt(cm[2],10)];
+        if(ser && sm) return dedupe("sermon", { title:sm.title, dur:sm.dur, seriesSlug:ser.slug, sermonIdx:parseInt(cm[2],10) }, x);
+      }
+      return null;
+    })
+    .filter(Boolean).slice(0,4);
+  function dedupe(kind, item, x){
+    const key=kind+":"+item.title;
+    if(seen.has(key)) return null; seen.add(key);
+    return { kind, item, pct:Math.round(x.sec/x.total*100) };
+  }
+}
+
+/* Broadened search: title, summary/overview, scripture, category, year, speaker */
+const searchText = item => [
+  item.title, item.summary, item.overview, item.desc,
+  item.scripture, item.mainScripture, (item.scriptures||[]).join(" "),
+  item.category, item.theme, item.kicker, item.year, item.date, AUTHOR
+].filter(Boolean).join(" ").toLowerCase();
+const slugMatch = (item, q) => !q || searchText(item).includes(q.toLowerCase());
+
+/* encouragement band (review's closing call) */
+function encourageBand(){
+  const el=document.createElement("div");
+  el.className="ms-encourage";
+  el.innerHTML=`<img class="ms-encourage__img" src="${ENCOURAGE_IMG}" alt="Continue Listening. Continue Learning. Continue Growing. Every message is a door, keep walking with Christ one teaching at a time.">`;
+  return el;
+}
+
+/* bottom "Back to X" link — mirrors the top back button, placed at
+   the base of the page after the main content, before the footer. */
+function bottomBackButton(label, onClick){
+  const el=document.createElement("button");
+  el.className="ms-back ms-back--bottom";
+  el.innerHTML=`${IC.chevL} ${label}`;
+  el.addEventListener("click", onClick);
+  return el;
+}
+
+/* series progress helpers */
+function seriesProgress(s){
+  const p = state.progress[s.slug] || { done:[], last:0 };
+  const done = new Set(p.done||[]).size;
+  const total = s.sermons.length;
+  return { done, total, last:p.last||0, pct: total?Math.round(done/total*100):0, remaining: total-done };
+}
+function markLessonDone(slug, idx){
+  const p = state.progress[slug] || { done:[], last:0 };
+  const set = new Set(p.done||[]); set.add(idx);
+  state.progress[slug] = { done:[...set], last:idx };
+  save("ms_progress", state.progress);
+}
+
+/* ============================================================
+   REUSABLE PAGINATION
+   renders numbered pager with prev/next; no hard-coded limits
+   ============================================================ */
+function paginate(total, perPage, currentPage, onGo){
+  const pages = Math.max(1, Math.ceil(total/perPage));
+  const cur = Math.min(currentPage, pages);
+  const el = document.createElement("div");
+  el.className = "ms-pager";
+  const mk = (label, page, opts={}) => {
+    const b = document.createElement("button");
+    b.innerHTML = label;
+    if(opts.num) b.classList.add("ms-pager__num");
+    if(opts.on){ b.classList.add("ms-pager__num--on"); b.setAttribute("aria-current","page"); }
+    if(opts.disabled) b.disabled = true;
+    if(!opts.disabled && !opts.on) b.addEventListener("click",()=>{ onGo(page); window.scrollTo({top:0,behavior:"smooth"}); });
+    return b;
+  };
+  el.appendChild(mk("Prev", cur-1, { disabled: cur<=1 }));
+  // windowed page numbers
+  const win = [];
+  const push = p => { if(!win.includes(p) && p>=1 && p<=pages) win.push(p); };
+  push(1); push(2); push(pages); push(pages-1);
+  for(let p=cur-1;p<=cur+1;p++) push(p);
+  win.sort((a,b)=>a-b);
+  let prev=0;
+  win.forEach(p=>{
+    if(p-prev>1){ const s=document.createElement("span"); s.className="ms-pager__ellipsis"; s.textContent="…"; el.appendChild(s); }
+    el.appendChild(mk(String(p), p, { num:true, on:p===cur }));
+    prev=p;
+  });
+  el.appendChild(mk("Next", cur+1, { disabled: cur>=pages }));
+  return el;
+}
+
+/* ============================================================
+   LANDING (hero + search + tabs + active section)
+   ============================================================ */
+function renderLanding(){
+  state.view = "landing";
+  const root = app();
+  root.innerHTML = "";
+
+  const wrap = document.createElement("div");
+  wrap.className = "ms-wrap";
+
+  // hero — the top banner follows the active tab: the Messages banner for
+  // Series/Messages, and ONLY the podcast banner when Podcasts is selected
+  const heroSrc = state.tab==="podcasts" ? POD_BANNER : HERO_LANDING;
+  const isPod = state.tab==="podcasts";
+  const heroAlt = state.tab==="podcasts"
+    ? "Fresh from the Spirit — Podcast. Listen. Grow. Walk in truth."
+    : "Messages — Christ-centered teachings, timeless truth, and messages that transform";
+  wrap.innerHTML = `
+    <div class="ms-hero ms-hero--banner">
+      <img class="ms-hero__bannerimg" src="${heroSrc}" alt="${heroAlt}">
+    </div>
+    ${isPod ? `
+    <button class="ms-back ms-back--top" id="msPodBack">${IC.chevL} Go Back</button>
+    ` : `
+    <div class="ms-search" role="search">
+      ${IC.search}
+      <input type="search" id="msSearch" placeholder="Search messages, series and podcasts..." aria-label="Search messages, series and podcasts" value="${state.q.replace(/"/g,'&quot;')}">
+    </div>
+    <div class="ms-tabs" role="tablist" aria-label="Sections">
+      <button class="ms-tab ${state.tab==='series'?'ms-tab--on':''}" role="tab" aria-selected="${state.tab==='series'}" data-tab="series">Series</button>
+      <button class="ms-tab ${state.tab==='messages'?'ms-tab--on':''}" role="tab" aria-selected="${state.tab==='messages'}" data-tab="messages">Messages</button>
+      <button class="ms-tab ${state.tab==='podcasts'?'ms-tab--on':''}" role="tab" aria-selected="${state.tab==='podcasts'}" data-tab="podcasts">Podcasts</button>
+    </div>
+    `}
+    <div id="msContinueRail"></div>
+    <div id="msSection" role="main" aria-label="Messages content"></div>
+  `;
+  root.appendChild(wrap);
+
+  // Continue Listening rail (in-progress messages)
+  renderContinueRail();
+
+  // wire search + tabs (absent on the podcasts view)
+  const searchEl = $("msSearch");
+  if(searchEl) searchEl.addEventListener("input", e=>{
+    state.q = e.target.value.trim();
+    state.pageSeries=1; state.pageMsg=1; state.pagePodEps=1; state.pagePodSeries=1;
+    renderSection();
+  });
+  wrap.querySelectorAll(".ms-tab").forEach(t=>{
+    t.addEventListener("click",()=>{
+      const prev=state.tab;
+      state.tab=t.dataset.tab;
+      if(state.tab==="podcasts"){ state.q=""; Nav.openPodcasts(prev); }  // no search box on podcasts; back button armed
+      renderLanding();
+    });
+  });
+  // the GO BACK mandate: return to the original page podcasts was selected from
+  const podBack = $("msPodBack");
+  if(podBack) podBack.addEventListener("click",()=>{ Nav.backFromPodcasts(); });
+
+  renderSection();
+  if(isPod) wrap.appendChild(bottomBackButton("Go Back", ()=>{ Nav.backFromPodcasts(); }));
+  root.appendChild(encourageBand());
+  const foot=document.createElement("div"); foot.className="ms-foot"; foot.setAttribute("aria-hidden","true");
+  root.appendChild(foot);
+}
+
+function renderContinueRail(){
+  const host=$("msContinueRail"); if(!host) return;
+  host.innerHTML="";
+  // Continue Listening never shows on the podcast page
+  if(state.tab==="podcasts") return;
+  if(state.continueDismissed) return;
+  const items=inProgressMessages();
+  if(!items.length) return;
+  const sec=document.createElement("div"); sec.className="ms-continue-rail";
+  sec.innerHTML=`<div class="ms-continue-rail__head">${IC.play} Continue Listening
+    <button class="ms-continue-rail__close" id="msContinueClose" aria-label="Close Continue Listening">${IC.close}</button></div>`;
+  const row=document.createElement("div"); row.className="ms-continue-rail__row";
+  items.forEach(({kind,item,pct})=>{
+    const c=document.createElement("button"); c.className="ms-continue-chip";
+    const src = kind==="episode" ? " · Podcast" : (kind==="sermon" ? " · Series" : "");
+    c.innerHTML=`<div class="ms-continue-chip__title">${item.title}</div>
+      <div class="ms-continue-chip__bar"><div style="width:${pct}%"></div></div>
+      <div class="ms-continue-chip__meta">${pct}% · ${item.dur}${src}</div>`;
+    c.addEventListener("click",()=>{
+      if(kind==="episode") openEpisode(item.slug);
+      else if(kind==="sermon") openSeries(item.seriesSlug);
+      else openMessage(item.slug);
+    });
+    row.appendChild(c);
+  });
+  sec.appendChild(row); host.appendChild(sec);
+  const close=$("msContinueClose");
+  if(close) close.addEventListener("click",()=>{ state.continueDismissed=true; host.innerHTML=""; });
+}
+
+function renderSection(){
+  const host = $("msSection");
+  host.innerHTML = "";
+  if(state.tab==="series") renderSeriesSection(host);
+  else if(state.tab==="messages") renderMessagesSection(host);
+  else renderPodcastsSection(host);
+}
+
+/* featured lead card (series or message) */
+function featuredCard({ kind, title, sub, meta, onOpen }){
+  const btn=document.createElement("button");
+  btn.className="ms-featured-card ms-anim";
+  btn.setAttribute("aria-label","Open "+title);
+  btn.innerHTML=`
+    <div class="ms-featured-card__art"><div class="ms-featured-card__crest">EIE</div><span class="ms-featured-card__badge">${kind}</span></div>
+    <div class="ms-featured-card__body">
+      <div class="ms-featured-card__title">${title}</div>
+      <div class="ms-featured-card__sub">${(sub||"").slice(0,180)}${(sub||"").length>180?"...":""}</div>
+      <div class="ms-featured-card__meta">${meta||""}</div>
+      <span class="ms-featured-card__go">Open ${IC.chevR}</span>
+    </div>`;
+  btn.addEventListener("click",onOpen);
+  return btn;
+}
+
+/* ---- shared filter + sort + controls ---- */
+function categoriesOf(list){
+  const set = new Set();
+  list.forEach(x=> (x.category?[x.category]:[]).forEach(c=>set.add(c)));
+  return ["All", ...Array.from(set).sort()];
+}
+function applyFilterSort(list, filter, sort){
+  let out = list.filter(x=> filter==="All" || x.category===filter);
+  if(sort==="az") out=[...out].sort((a,b)=>a.title.localeCompare(b.title));
+  else if(sort==="za") out=[...out].sort((a,b)=>b.title.localeCompare(a.title));
+  else if(sort==="newest") out=[...out].sort((a,b)=>String(b.year||"").localeCompare(String(a.year||"")));
+  return out;
+}
+function buildControls({ cats, activeFilter, onFilter, sortVal, onSort, savedActive, onSaved, savedCount }){
+  const box=document.createElement("div"); box.className="ms-controls2";
+  const chips=document.createElement("div"); chips.className="ms-chips"; chips.setAttribute("role","group"); chips.setAttribute("aria-label","Filter by category");
+  cats.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="ms-chip"+(c===activeFilter?" ms-chip--on":"");
+    b.textContent=c; b.setAttribute("aria-pressed", c===activeFilter);
+    b.addEventListener("click",()=>onFilter(c));
+    chips.appendChild(b);
+  });
+  const right=document.createElement("div"); right.className="ms-controls2__right";
+  if(onSaved){
+    const sv=document.createElement("button");
+    sv.className="ms-saved-tab"+(savedActive?" ms-saved-tab--on":"");
+    sv.setAttribute("aria-pressed", savedActive);
+    sv.innerHTML=`${IC.bookmark}<span>${savedCount?("Saved ("+savedCount+")"):"Saved"}</span>`;
+    sv.addEventListener("click",onSaved);
+    right.appendChild(sv);
+  }
+  const sortWrap=document.createElement("label"); sortWrap.className="ms-sort";
+  sortWrap.innerHTML=`<span>Sort</span>`;
+  const sel=document.createElement("select"); sel.setAttribute("aria-label","Sort");
+  [["featured","Featured"],["newest","Newest"],["az","A to Z"],["za","Z to A"]].forEach(([v,l])=>{
+    const o=document.createElement("option"); o.value=v; o.textContent=l; if(v===sortVal)o.selected=true; sel.appendChild(o);
+  });
+  sel.addEventListener("change",()=>onSort(sel.value));
+  sortWrap.appendChild(sel); right.appendChild(sortWrap);
+  box.appendChild(chips); box.appendChild(right);
+  return box;
+}
+
+/* build a single series card */
+function seriesCard(s, idx){
+  const card=document.createElement("button");
+  card.className="ms-series-card ms-anim"; card.style.animationDelay=(idx*0.05)+"s";
+  card.setAttribute("aria-label","Open series: "+s.title);
+  const time = s.sermons.reduce((a,l)=>a+parseInt(l.dur)||0,0);
+  const prog = seriesProgress(s);
+  card.innerHTML = `
+    ${s.image?`<img src="${s.image}" alt="">`:''}
+    <div class="ms-series-card__veil"></div>
+    <div class="ms-series-card__badge">Series</div>
+    <div class="ms-series-card__body">
+      <div class="ms-series-card__title">${s.title}</div>
+      <div class="ms-series-card__meta">
+        <span>${IC.layers} ${s.sermons.length} sermons</span>
+        <span>${IC.clock} ${time} min</span>
+      </div>
+      ${prog.done>0?`<div class="ms-cardprog" aria-label="${prog.done} of ${s.sermons.length} sermons completed"><div class="ms-cardprog__fill" style="width:${prog.pct}%"></div></div>`:''}
+    </div>
+    <div class="ms-series-card__go">${IC.chevR}</div>`;
+  card.addEventListener("click",()=>openSeries(s.slug));
+  return card;
+}
+
+/* ---- Series tab ---- */
+function renderSeriesSection(host){
+  const sec = document.createElement("div"); sec.className="ms-sec";
+  const cats = categoriesOf(SERIES);
+  sec.appendChild(buildControls({
+    cats, activeFilter:state.filterSeries,
+    onFilter:c=>{ state.filterSeries=c; state.pageSeries=1; renderSection(); },
+    sortVal:state.sortSeries, onSort:v=>{ state.sortSeries=v; state.pageSeries=1; renderSection(); },
+  }));
+
+  let items = applyFilterSort(SERIES.filter(s=>slugMatch(s,state.q)), state.filterSeries, state.sortSeries);
+  if(!items.length){ sec.innerHTML+=`<div class="ms-empty">No series match. Try another word or filter.</div>`; host.appendChild(sec); return; }
+
+  // featured (page 1, no search/filter)
+  const featured = state.pageSeries===1 && state.filterSeries==="All" && !state.q;
+  let working = items;
+  if(featured){
+    const lead=items[0]; working=items.slice(1);
+    sec.appendChild(featuredCard({ kind:"Featured Series", title:lead.title, sub:lead.summary,
+      meta:`${lead.sermons.length} sermons · ${lead.scripture}`, onOpen:()=>openSeries(lead.slug) }));
+  }
+  const start=(state.pageSeries-1)*PER_PAGE;
+  const slice=working.slice(start,start+PER_PAGE);
+  const grid=document.createElement("div"); grid.className="ms-grid";
+  slice.forEach((s,idx)=>grid.appendChild(seriesCard(s,idx)));
+  sec.appendChild(grid);
+  sec.appendChild(paginate(working.length, PER_PAGE, state.pageSeries, p=>{ state.pageSeries=p; renderSection(); }));
+  host.appendChild(sec);
+}
+
+/* build a single message card */
+function messageCard(m, idx){
+  const card=document.createElement("button");
+  card.className="ms-msg-card ms-anim"; card.style.animationDelay=(idx*0.05)+"s";
+  card.setAttribute("aria-label","Open message: "+m.title);
+  const saved=state.bookmarks.has(m.slug);
+  card.innerHTML=`
+    <div class="ms-msg-card__art">
+      ${m.image?`<img src="${m.image}" alt="">`:`<div class="ms-msg-card__crest">EIE</div>`}
+      <div class="ms-msg-card__actions">
+        <span class="ms-icon-btn${saved?' ms-icon-btn--on':''}" role="button" aria-label="${saved?'Saved':'Save'}" data-act="save">${IC.bookmark}</span>
+        <span class="ms-icon-btn" role="button" aria-label="Share" data-act="share">${IC.share}</span>
+        <span class="ms-icon-btn" role="button" aria-label="Download" data-act="download">${IC.download}</span>
+      </div>
+    </div>
+    <div class="ms-msg-card__body">
+      <div class="ms-msg-card__title">${m.title}</div>
+      <div class="ms-msg-card__author">${AUTHOR}</div>
+      <div class="ms-msg-card__foot">
+        <span class="ms-dur">${IC.clock} ${m.dur}</span>
+        <span>${m.category||"Message"}${m.year?" · "+m.year:""}</span>
+      </div>
+    </div>`;
+  card.querySelector('[data-act="save"]').addEventListener("click",e=>{
+    e.stopPropagation();
+    const el=e.currentTarget;
+    if(state.bookmarks.has(m.slug)){ state.bookmarks.delete(m.slug); el.classList.remove("ms-icon-btn--on"); el.setAttribute("aria-label","Save"); toast("Removed from saved."); }
+    else { state.bookmarks.add(m.slug); el.classList.add("ms-icon-btn--on"); el.setAttribute("aria-label","Saved"); toast("Saved for later."); }
+    persistBookmarks();
+    if(state.savedOnly) renderSection();
+  });
+  card.querySelector('[data-act="share"]').addEventListener("click",e=>{ e.stopPropagation(); shareMessage(m); });
+  card.querySelector('[data-act="download"]').addEventListener("click",e=>{ e.stopPropagation(); toast("Preparing download for \u201C"+m.title+"\u201D."); });
+  card.addEventListener("click",e=>{ if(!e.target.closest(".ms-icon-btn")) openMessage(m.slug); });
+  return card;
+}
+
+/* ---- Messages tab ---- */
+function renderMessagesSection(host){
+  const sec=document.createElement("div"); sec.className="ms-sec";
+  const cats = categoriesOf(MESSAGES);
+  sec.appendChild(buildControls({
+    cats, activeFilter:state.filterMsg,
+    onFilter:c=>{ state.filterMsg=c; state.pageMsg=1; renderSection(); },
+    sortVal:state.sortMsg, onSort:v=>{ state.sortMsg=v; state.pageMsg=1; renderSection(); },
+    savedActive:state.savedOnly, savedCount:state.bookmarks.size,
+    onSaved:()=>{ if(!state.savedOnly && state.bookmarks.size===0){ toast("You have not saved any messages yet."); return; } state.savedOnly=!state.savedOnly; state.pageMsg=1; renderSection(); },
+  }));
+
+  let base = MESSAGES.filter(m=>slugMatch(m,state.q));
+  if(state.savedOnly) base = base.filter(m=>state.bookmarks.has(m.slug));
+  let items = applyFilterSort(base, state.filterMsg, state.sortMsg);
+  if(!items.length){ sec.appendChild(emptyEl(state.savedOnly?"No saved messages yet. Tap the ribbon on any message to save it.":"No messages match. Try another word or filter.")); host.appendChild(sec); return; }
+
+  const featured = state.pageMsg===1 && state.filterMsg==="All" && !state.q && !state.savedOnly;
+  let working=items;
+  if(featured){
+    const lead=items[0]; working=items.slice(1);
+    sec.appendChild(featuredCard({ kind:"Featured Message", title:lead.title, sub:lead.overview,
+      meta:`${AUTHOR} · ${lead.dur}${lead.mainScripture?" · "+lead.mainScripture:""}`, onOpen:()=>openMessage(lead.slug) }));
+  }
+  const start=(state.pageMsg-1)*PER_PAGE;
+  const slice=working.slice(start,start+PER_PAGE);
+  const grid=document.createElement("div"); grid.className="ms-grid ms-grid--3";
+  slice.forEach((m,idx)=>grid.appendChild(messageCard(m,idx)));
+  sec.appendChild(grid);
+  sec.appendChild(paginate(working.length, PER_PAGE, state.pageMsg, p=>{ state.pageMsg=p; renderSection(); }));
+  host.appendChild(sec);
+}
+function emptyEl(txt){ const d=document.createElement("div"); d.className="ms-empty"; d.textContent=txt; return d; }
+
+/* ---- Podcasts tab (own hero + Series/Episodes subtabs) ---- */
+function renderPodcastsSection(host){
+  const sec=document.createElement("div"); sec.className="ms-sec";
+  sec.innerHTML=`
+    <div class="ms-pod-sub">
+      <p class="ms-pod-sub__tag">Explore series and latest episodes from the Fresh from the Spirit podcast.</p>
+      <div class="ms-pod-follow">
+        <a class="ms-follow-btn" id="msSubApple" target="_blank" rel="noopener">${IC.mic} Apple Podcasts</a>
+        <a class="ms-follow-btn" id="msSubSpotify" target="_blank" rel="noopener">${IC.play} Spotify</a>
+        <a class="ms-follow-btn" id="msSubRss" target="_blank" rel="noopener">${IC.layers} RSS Feed</a>
+      </div>
+    </div>
+    <div id="msPodLatest"></div>
+    <div class="ms-subtabs" role="tablist">
+      <button class="ms-subtab ${state.podTab==='series'?'ms-subtab--on':''}" role="tab" aria-selected="${state.podTab==='series'}" data-pod="series">Series</button>
+      <button class="ms-subtab ${state.podTab==='episodes'?'ms-subtab--on':''}" role="tab" aria-selected="${state.podTab==='episodes'}" data-pod="episodes">Episodes</button>
+    </div>
+    <div id="msPodBody"></div>`;
+  host.appendChild(sec);
+  sec.querySelector("#msSubApple").href=POD_SUBSCRIBE.apple;
+  sec.querySelector("#msSubSpotify").href=POD_SUBSCRIBE.spotify;
+  sec.querySelector("#msSubRss").href=POD_SUBSCRIBE.rss;
+  // Latest Episode spotlight: the newest release, front and center
+  const latest=[...POD_EPISODES].sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")))[0];
+  if(latest){
+    const series=POD_SERIES.find(s=>s.slug===latest.seriesSlug);
+    sec.querySelector("#msPodLatest").appendChild(featuredCard({
+      kind:"Latest Episode",
+      title:latest.title,
+      sub:latest.desc,
+      meta:[latest.kicker, series&&series.title, fmtDate(latest.date), latest.dur].filter(Boolean).join(" · "),
+      onOpen:()=>openEpisode(latest.slug)
+    }));
+  }
+  sec.querySelectorAll(".ms-subtab").forEach(t=>t.addEventListener("click",()=>{ state.podTab=t.dataset.pod; state.podSeriesFilter=null; state.pagePodEps=1; state.pagePodSeries=1; renderSection(); }));
+  renderPodBody();
+}
+
+function renderPodBody(){
+  const body=$("msPodBody"); if(!body) return;
+  body.innerHTML="";
+  if(state.podTab==="series"){
+    const items=POD_SERIES.filter(s=>slugMatch(s,state.q));
+    if(!items.length){ body.appendChild(emptyEl("No podcast series found.")); return; }
+    const start=(state.pagePodSeries-1)*PER_PAGE;
+    const slice=items.slice(start,start+PER_PAGE);
+    const grid=document.createElement("div"); grid.className="ms-grid"; grid.style.marginTop="24px";
+    slice.forEach((s,idx)=>{
+      const card=document.createElement("button");
+      card.className="ms-series-card ms-anim"; card.style.animationDelay=(idx*0.05)+"s";
+      card.setAttribute("aria-label","Show episodes from "+s.title);
+      const epCount=POD_EPISODES.filter(e=>e.seriesSlug===s.slug).length||s.count;
+      card.innerHTML=`
+        ${s.image?`<img src="${s.image}" alt="">`:''}
+        <div class="ms-series-card__veil"></div>
+        <div class="ms-series-card__badge">Podcast</div>
+        <div class="ms-series-card__body">
+          <div class="ms-series-card__title">${s.title}</div>
+          <div class="ms-series-card__meta"><span>${IC.mic} ${epCount} episodes</span></div>
+        </div>
+        <div class="ms-series-card__go">${IC.chevR}</div>`;
+      card.addEventListener("click",()=>{ openPodSeries(s.slug); });
+      grid.appendChild(card);
+    });
+    body.appendChild(grid);
+    body.appendChild(paginate(items.length, PER_PAGE, state.pagePodSeries, p=>{ state.pagePodSeries=p; renderPodBody(); }));
+  } else {
+    let items=POD_EPISODES.filter(e=>slugMatch(e,state.q));
+    if(state.podSeriesFilter) items=items.filter(e=>e.seriesSlug===state.podSeriesFilter);
+    // topic chips + sort (Newest/Oldest by release date)
+    const themes=["All", ...Array.from(new Set(POD_EPISODES.map(e=>e.theme).filter(Boolean))).sort()];
+    const bar=document.createElement("div"); bar.className="ms-controls2";
+    const chips=document.createElement("div"); chips.className="ms-chips"; chips.setAttribute("role","group"); chips.setAttribute("aria-label","Filter episodes by topic");
+    themes.forEach(c=>{
+      const b=document.createElement("button");
+      b.className="ms-chip"+(c===state.podTheme?" ms-chip--on":"");
+      b.textContent=c; b.setAttribute("aria-pressed", c===state.podTheme);
+      b.addEventListener("click",()=>{ state.podTheme=c; state.pagePodEps=1; renderPodBody(); });
+      chips.appendChild(b);
+    });
+    const right=document.createElement("div"); right.className="ms-controls2__right";
+    const sortWrap=document.createElement("label"); sortWrap.className="ms-sort";
+    sortWrap.innerHTML=`<span>Sort</span>`;
+    const sel=document.createElement("select"); sel.setAttribute("aria-label","Sort episodes");
+    [["newest","Newest"],["oldest","Oldest"]].forEach(([v,l])=>{
+      const o=document.createElement("option"); o.value=v; o.textContent=l; if(v===state.podSort)o.selected=true; sel.appendChild(o);
+    });
+    sel.addEventListener("change",()=>{ state.podSort=sel.value; state.pagePodEps=1; renderPodBody(); });
+    sortWrap.appendChild(sel); right.appendChild(sortWrap);
+    bar.appendChild(chips); bar.appendChild(right);
+    body.appendChild(bar);
+    // apply topic filter + date sort
+    if(state.podTheme!=="All") items=items.filter(e=>e.theme===state.podTheme);
+    items=[...items].sort((a,b)=> state.podSort==="oldest"
+      ? String(a.date||"").localeCompare(String(b.date||""))
+      : String(b.date||"").localeCompare(String(a.date||"")));
+    // filter banner
+    if(state.podSeriesFilter){
+      const sName=(POD_SERIES.find(s=>s.slug===state.podSeriesFilter)||{}).title||"series";
+      const banner=document.createElement("div"); banner.className="ms-filter-banner";
+      banner.innerHTML=`<span>Episodes from <b>${sName}</b></span><button class="ms-chip-btn" id="msClearPod">Show all episodes</button>`;
+      banner.querySelector("#msClearPod").addEventListener("click",()=>{ state.podSeriesFilter=null; state.pagePodEps=1; renderPodBody(); });
+      body.appendChild(banner);
+    }
+    if(!items.length){ body.appendChild(emptyEl("No episodes found.")); return; }
+    const start=(state.pagePodEps-1)*EP_PER_PAGE;
+    const slice=items.slice(start,start+EP_PER_PAGE);
+    const list=document.createElement("div"); list.className="ms-eps";
+    slice.forEach((ep,idx)=>{
+      const row=document.createElement("div"); row.className="ms-ep ms-anim"; row.style.animationDelay=(idx*0.05)+"s";
+      row.innerHTML=`
+        <div class="ms-ep__art">${ep.image?`<img src="${ep.image}" alt="">`:''}</div>
+        <div>
+          <div class="ms-ep__kicker">${ep.kicker}${ep.date?" · "+fmtDate(ep.date):""}</div>
+          <button class="ms-ep__title ms-ep__title--link" aria-label="Open ${ep.title}">${ep.title}</button>
+          <div class="ms-player" data-ep="${ep.slug}">
+            <button class="ms-player__play" aria-label="Play ${ep.title}">${IC.play}</button>
+            <div class="ms-player__track"><div class="ms-player__fill"></div></div>
+            <div class="ms-player__time">${ep.dur}</div>
+          </div>
+        </div>`;
+      row.querySelector(".ms-ep__title--link").addEventListener("click",()=>openEpisode(ep.slug));
+      wirePlayer(row.querySelector(".ms-player"), ep.dur);
+      list.appendChild(row);
+    });
+    body.appendChild(list);
+    body.appendChild(paginate(items.length, EP_PER_PAGE, state.pagePodEps, p=>{ state.pagePodEps=p; renderPodBody(); }));
+  }
+}
+
+/* podcast series detail view — its own page with its own hero,
+   mirroring how series and messages open, with Back to Podcasts
+   under the hero and again at the bottom */
+function openPodSeries(slug){
+  const s=POD_SERIES.find(x=>x.slug===slug); if(!s) return;
+  state.curPodSeries=s; state.view="podSeriesDetail"; Nav.openDetail();
+  pushRecent("podseries", s.slug, s.title);
+  window.scrollTo({top:0,behavior:"auto"});
+  const root=app(); root.innerHTML="";
+  const wrap=document.createElement("div"); wrap.className="ms-wrap"; wrap.style.paddingTop="0";
+
+  const eps = POD_EPISODES.filter(e=>e.seriesSlug===s.slug);
+  const totalMin = eps.reduce((a,e)=>a+(parseInt(e.dur,10)||0),0);
+
+  // queue = this series' episodes, looping endlessly (series behavior)
+  const queueItems = eps.map(e=>{ const t=toTrack(e,"episode"); t.sub=e.kicker+" · "+e.dur; return t; });
+
+  wrap.innerHTML=`
+    <div class="ms-detailwrap">
+      <div class="ms-detailmain">
+        <div class="ms-cleanhero" id="msHero"><div class="ms-cleanhero__crest">EIE</div></div>
+        <button class="ms-back ms-back--top" id="msBack">${IC.chevL} Back to Podcasts</button>
+        <div class="ms-detailhead">
+          <div class="ms-detailhead__kicker">Podcast Series</div>
+          <h1 class="ms-detailhead__title">${s.title}</h1>
+          <div class="ms-detailhead__meta">
+            <span>${IC.mic} ${eps.length||s.count} episodes</span>
+            ${totalMin?`<span>${IC.clock} ${totalMin} min</span>`:""}
+          </div>
+        </div>
+        <div class="ms-playerrow">
+          <div class="ms-playerrow__player" id="msPlayerHost"></div>
+          <div class="ms-playerrow__downloads ms-downloads" id="msDownloads">
+            <button class="ms-dl" id="msPodSeriesShare">${IC.share} Share series</button>
+            <button class="ms-dl" id="msPodEpShare">${IC.share} Share current episode</button>
+            <a class="ms-dl" id="msPodEpDl">${IC.download} Download current episode</a>
+          </div>
+          <aside class="ms-playerrow__upnext" id="msUpNextHost"></aside>
+        </div>
+
+        <div class="ms-block" data-collapse="Overview">
+          <div class="ms-overview"><p>${s.summary||""}</p></div>
+        </div>
+
+        <div class="ms-block">
+          <div class="ms-block__head">Share What This Spoke to You</div>
+          <div class="ms-respond" id="msRespond"></div>
+        </div>
+
+        <div class="ms-block ms-collection">
+          <div class="ms-block__head">Episodes in this Series</div>
+          <div class="ms-coll-grid" id="msEpColl"></div>
+        </div>
+      </div>
+    </div>`;
+  root.appendChild(wrap);
+  wrap.appendChild(bottomBackButton("Back to Podcasts", ()=>{ Nav.toLandingFromButton("podcasts"); }));
+  root.appendChild(encourageBand());
+  const foot=document.createElement("div"); foot.className="ms-foot"; root.appendChild(foot);
+
+  // hero: the series' own art, falling back to the podcast banner
+  const hero=$("msHero");
+  hero.style.backgroundImage=`url(${s.image || POD_BANNER})`; hero.classList.add("ms-cleanhero--img"); hero.innerHTML="";
+
+  $("msBack").addEventListener("click",()=>{ Nav.toLandingFromButton("podcasts"); });
+
+  // player + endlessly looping Up Next within this series
+  if(queueItems.length){
+    Audio_.setQueue(queueItems, 0, { autoplay:false, loop:true });
+    mountPlayer("msPlayerHost");
+    wireLiveQueue({ upNextHostId:"msUpNextHost", headLabel:"Up Next", railCap:5 });
+  }
+
+  const curEp = ()=> (Audio_.status().item || queueItems[0] || { title:s.title, slug:s.slug });
+
+  $("msPodSeriesShare").addEventListener("click",async()=>{
+    const text='"'+s.title+'" podcast series from eemodiae.org.\n'+shareUrl("podcast-series",s.slug);
+    try{ if(navigator.share){ await navigator.share({ title:s.title, text }); return; } throw 0; }
+    catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Series link copied."); }
+  });
+  $("msPodEpShare").addEventListener("click",async()=>{
+    const ep=curEp();
+    const text='"'+ep.title+'" podcast episode from eemodiae.org.\n'+shareUrl("podcast",ep.slug);
+    try{ if(navigator.share){ await navigator.share({ title:ep.title, text }); return; } throw 0; }
+    catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Episode link copied."); }
+  });
+  $("msPodEpDl").addEventListener("click",e=>{ e.preventDefault(); toast("Preparing episode download."); });
+
+  // response box — stamped with the series and whichever episode is playing
+  buildRespondBox($("msRespond"), {
+    uid:"msPSR", kind:"Podcast",
+    seriesTitle:s.title,
+    get title(){ return curEp().title; },
+    get url(){ return shareUrl("podcast",curEp().slug); },
+    placeholder:"Share what this series stirred in you..."
+  });
+
+  // episode list (opens the episode's own page)
+  renderCollection("msEpColl", eps.map(e=>({ slug:e.slug, title:e.title, sub:e.kicker+" · "+e.dur, image:e.image })),
+    i=>{ openEpisode(eps[i].slug); });
+
+  wireCollapsibles(wrap);
+}
+
+/* episode detail view */
+function openEpisode(slug){
+  const ep=POD_EPISODES.find(e=>e.slug===slug); if(!ep) return;
+  state.curEpisode=ep; state.view="episodeDetail"; Nav.openDetail();
+  pushRecent("episode", ep.slug, ep.title);
+  window.scrollTo({top:0,behavior:"auto"});
+  const root=app(); root.innerHTML="";
+  const wrap=document.createElement("div"); wrap.className="ms-wrap"; wrap.style.paddingTop="0";
+  const series=POD_SERIES.find(s=>s.slug===ep.seriesSlug);
+
+  // queue = OPTION 2: this series' episodes first (in order), then every other
+  // episode in the catalogue, looping endlessly so the chain never runs dry
+  const family = POD_EPISODES.filter(e=>e.seriesSlug===ep.seriesSlug);
+  const others = POD_EPISODES.filter(e=>e.seriesSlug!==ep.seriesSlug);
+  const ordered = [...family, ...others];
+  const startIdx = Math.max(0, ordered.findIndex(e=>e.slug===ep.slug));
+  const queueItems = ordered.map(e=>{ const t=toTrack(e,"episode"); t.sub=e.kicker+" · "+e.dur; return t; });
+
+  wrap.innerHTML=`
+    <div class="ms-detailwrap">
+      <div class="ms-detailmain">
+        <div class="ms-cleanhero" id="msHero"><div class="ms-cleanhero__crest">EIE</div></div>
+        <button class="ms-back ms-back--top" id="msBack">${IC.chevL} Back to Podcasts</button>
+        <div class="ms-detailhead">
+          <div class="ms-detailhead__kicker">Podcast${series?" · "+series.title:""}</div>
+          <h1 class="ms-detailhead__title">${ep.title}</h1>
+          <div class="ms-detailhead__meta">
+            <span>${ep.guest ? "Guest: "+ep.guest : AUTHOR}</span>
+            <span>${IC.mic} ${ep.kicker}</span>
+            ${ep.date?`<span>${IC.scroll} ${fmtDate(ep.date)}</span>`:""}
+            <span>${IC.clock} ${ep.dur}</span>
+          </div>
+        </div>
+        <div class="ms-playerrow">
+          <div class="ms-playerrow__player" id="msPlayerHost"></div>
+          <div class="ms-playerrow__downloads ms-downloads" id="msDownloads">
+            <a class="ms-dl" id="msEpDl">${IC.download} Download episode</a>
+            <button class="ms-dl" id="msEpShare">${IC.share} Share episode</button>
+            <button class="ms-dl ms-bookmark-btn${state.epBookmarks.has(ep.slug)?' ms-on':''}" id="msEpSave">${IC.bookmark} <span id="msEpSaveLabel">${state.epBookmarks.has(ep.slug)?'Saved':'Save'}</span></button>
+          </div>
+          <aside class="ms-playerrow__upnext" id="msUpNextHost"></aside>
+        </div>
+
+        <div class="ms-block" data-collapse="Overview">
+          <div class="ms-overview"><p>${ep.desc}</p>${ep.notes?`<p>${ep.notes}</p>`:""}</div>
+        </div>
+
+        <div class="ms-block">
+          <div class="ms-block__head">Share What This Spoke to You</div>
+          <div class="ms-respond" id="msRespond"></div>
+        </div>
+
+        <div class="ms-block ms-collection">
+          <div class="ms-block__head">More Episodes</div>
+          <div class="ms-coll-grid" id="msMoreColl"></div>
+        </div>
+      </div>
+    </div>`;
+  root.appendChild(wrap);
+  wrap.appendChild(bottomBackButton("Back to Podcasts", ()=>{ Nav.toLandingFromButton("podcasts"); }));
+  root.appendChild(encourageBand());
+  const foot=document.createElement("div"); foot.className="ms-foot"; root.appendChild(foot);
+
+  const hero=$("msHero");
+  hero.style.backgroundImage=`url(${ep.image || POD_BANNER})`; hero.classList.add("ms-cleanhero--img"); hero.innerHTML="";
+
+  // whichever episode is CURRENTLY playing (header/share/save/respond follow it)
+  let curEp = ep;
+  function syncEpisodeDisplay(nep){
+    curEp = nep;
+    const nseries=POD_SERIES.find(s=>s.slug===nep.seriesSlug);
+    const titleEl=wrap.querySelector(".ms-detailhead__title"); if(titleEl) titleEl.textContent=nep.title;
+    const kickEl=wrap.querySelector(".ms-detailhead__kicker"); if(kickEl) kickEl.textContent="Podcast"+(nseries?" · "+nseries.title:"");
+    const metaEl=wrap.querySelector(".ms-detailhead__meta");
+    if(metaEl) metaEl.innerHTML=`<span>${nep.guest?"Guest: "+nep.guest:AUTHOR}</span><span>${IC.mic} ${nep.kicker}</span>${nep.date?`<span>${IC.scroll} ${fmtDate(nep.date)}</span>`:""}<span>${IC.clock} ${nep.dur}</span>`;
+    const nheroImg=nep.image||POD_BANNER; hero.style.backgroundImage=`url(${nheroImg})`;
+    syncEpSaveUI();
+  }
+  function syncEpSaveUI(){
+    const btn=$("msEpSave"); if(!btn) return;
+    const on=state.epBookmarks.has(curEp.slug);
+    btn.classList.toggle("ms-on", on);
+    const lbl=$("msEpSaveLabel"); if(lbl) lbl.textContent=on?"Saved":"Save";
+  }
+
+  $("msBack").addEventListener("click",()=>{ Nav.toLandingFromButton("podcasts"); });
+  $("msEpDl").addEventListener("click",e=>{ e.preventDefault(); toast("Preparing download for \u201C"+curEp.title+"\u201D."); });
+  $("msEpSave").addEventListener("click",()=>{
+    if(state.epBookmarks.has(curEp.slug)){ state.epBookmarks.delete(curEp.slug); toast("Removed from saved."); }
+    else { state.epBookmarks.add(curEp.slug); toast("Episode saved for later."); }
+    persistEpBookmarks(); syncEpSaveUI();
+  });
+  $("msEpShare").addEventListener("click",async()=>{
+    const text='"'+curEp.title+'" podcast episode from eemodiae.org.\n'+shareUrl("podcast",curEp.slug);
+    try{ if(navigator.share){ await navigator.share({ title:curEp.title, text }); return; } throw 0; }
+    catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Episode link copied."); }
+  });
+
+  // player + queue (auto-advance through the whole catalogue, series first, looping)
+  Audio_.setQueue(queueItems, startIdx, { autoplay:false, loop:true });
+  mountPlayer("msPlayerHost");
+
+  // Up Next + More Episodes form ONE combined loop: Up Next shows the next few,
+  // More Episodes shows the rest of the chain, and the whole set rotates as one
+  // circle as playback advances. It never runs dry.
+  wireLiveQueue({
+    upNextHostId:"msUpNextHost", moreHostId:"msMoreColl", headLabel:"Up Next", railCap:2, moreCap:12,
+    onIndexChange:(idx,item)=>{
+      if(!item) return;
+      const nep=POD_EPISODES.find(x=>x.slug===item.slug);
+      if(nep && nep.slug!==curEp.slug) syncEpisodeDisplay(nep);
+    },
+  });
+
+  // response box (stamped as whichever episode is CURRENTLY playing)
+  buildRespondBox($("msRespond"), {
+    uid:"msER", kind:"Podcast",
+    get title(){ return curEp.title; },
+    get seriesTitle(){ const s=POD_SERIES.find(x=>x.slug===curEp.seriesSlug); return (s&&s.title)||""; },
+    get url(){ return shareUrl("podcast",curEp.slug); },
+    placeholder:"Share what this episode stirred in you..."
+  });
+
+  wireCollapsibles(wrap);
+}
+
+/* simulated player (no real audio URLs in this build) */
+function wirePlayer(el, durLabel){
+  if(!el) return;
+  const btn=el.querySelector(".ms-player__play, .ms-audiobar__play");
+  const fill=el.querySelector(".ms-player__fill, .ms-audiobar__fill");
+  const timeEl=el.querySelector(".ms-player__time");
+  let playing=false, pct=0, timer=null;
+  btn.addEventListener("click",()=>{
+    playing=!playing;
+    btn.innerHTML = playing ? IC.pause : IC.play;
+    if(playing){
+      timer=setInterval(()=>{
+        pct=Math.min(100,pct+0.6); fill.style.width=pct+"%";
+        if(pct>=100){ playing=false; btn.innerHTML=IC.play; clearInterval(timer); }
+      },200);
+    } else clearInterval(timer);
+  });
+}
+
+/* ============================================================
+   SHARE / DOWNLOAD
+   ============================================================ */
+function shareUrl(kind, slug){ return "https://eemodiae.org/messages/"+kind+"/"+slug; }
+
+/* response box: hybrid delivery (relay + mailto fallback) to the messages inbox */
+const MSG_COMMENTS_EMAIL = "eemodiaemessages@gmail.com";
+const MSG_RELAY = "https://formsubmit.co/ajax/" + MSG_COMMENTS_EMAIL;
+const validEmail = v => /^\S+@\S+\.\S+$/.test(v);
+
+/* Build the response box into a container, wired to a context that
+   stamps identifiers (type, title, series/lesson/episode) into the
+   email so one shared inbox can tell exactly where it came from. */
+/* ============================================================
+   SHARED PLAYER  (clean art, controls outside; queue-aware)
+   Renders into #msPlayerHost and #msUpNextHost. Subscribes to
+   the AudioEngine and reflects live state. Queue items are
+   clickable (play in place); the words "Up Next" are not.
+   ============================================================ */
+let _playerUnsub = null;
+function fmtTime(s){ s=Math.max(0,Math.floor(s||0)); const m=Math.floor(s/60), ss=s%60; return m+":"+(ss<10?"0":"")+ss; }
+
+function mountPlayer(hostId){
+  const host=$(hostId); if(!host) return;
+  host.innerHTML=`
+    <div class="ms-cleanplayer">
+      <div class="ms-cp__art" id="msCpArt"><div class="ms-cp__crest">EIE</div></div>
+      <div class="ms-cp__controls">
+        <button class="ms-cp__side" id="msCpBack" aria-label="Rewind 15 seconds">${IC.skipb}</button>
+        <button class="ms-cp__play" id="msCpPlay" aria-label="Play">${IC.play}</button>
+        <button class="ms-cp__side" id="msCpFwd" aria-label="Forward 15 seconds">${IC.skipf}</button>
+      </div>
+      <div class="ms-cp__bar">
+        <span class="ms-cp__time" id="msCpCur">0:00</span>
+        <div class="ms-cp__track" id="msCpTrack"><div class="ms-cp__fill" id="msCpFill"></div><div class="ms-cp__knob" id="msCpKnob"></div></div>
+        <span class="ms-cp__time" id="msCpTot">0:00</span>
+      </div>
+      <div class="ms-cp__adv">
+        <button class="ms-chip-btn" id="msCpPrev" aria-label="Previous">${IC.skipb} Prev</button>
+        <button class="ms-chip-btn" id="msCpSpeed" aria-label="Playback speed">${IC.speed} <span id="msCpSpeedV">1x</span></button>
+        <button class="ms-chip-btn" id="msCpSleep" aria-label="Sleep timer">${IC.timer} <span id="msCpSleepV">Sleep</span></button>
+        <button class="ms-chip-btn" id="msCpNext" aria-label="Next">Next ${IC.skipf}</button>
+      </div>
+    </div>`;
+  // wire controls
+  $("msCpPlay").addEventListener("click",()=>Audio_.toggle());
+  $("msCpBack").addEventListener("click",()=>Audio_.skip(-15));
+  $("msCpFwd").addEventListener("click",()=>Audio_.skip(15));
+  $("msCpPrev").addEventListener("click",()=>Audio_.prev());
+  $("msCpNext").addEventListener("click",()=>Audio_.next());
+  $("msCpSpeed").addEventListener("click",()=>{ const s=[1,1.25,1.5,2,0.75]; const st=Audio_.status(); const nv=s[(s.indexOf(st.speed)+1)%s.length]; Audio_.setSpeed(nv); });
+  $("msCpSleep").addEventListener("click",()=>{ const s=[0,15,30,45]; const st=Audio_.status(); const nv=s[(s.indexOf(st.sleepMin)+1)%s.length]; Audio_.setSleep(nv); toast(nv>0?("Sleep timer set for "+nv+" minutes."):"Sleep timer off."); });
+  const track=$("msCpTrack");
+  track.addEventListener("click",e=>{ const r=track.getBoundingClientRect(); Audio_.seekTo((e.clientX-r.left)/r.width); });
+
+  if(_playerUnsub) _playerUnsub();
+  _playerUnsub = Audio_.sub(paintPlayer);
+  paintPlayer(Audio_.status());
+}
+
+function paintPlayer(st){
+  if(!$("msCpPlay")) return;
+  $("msCpPlay").innerHTML = st.playing ? IC.pause : IC.play;
+  $("msCpPlay").setAttribute("aria-label", st.playing?"Pause":"Play");
+  const frac = st.total ? Math.min(1, st.cur/st.total) : 0;
+  $("msCpFill").style.width = (frac*100)+"%";
+  $("msCpKnob").style.left = (frac*100)+"%";
+  $("msCpCur").textContent = fmtTime(st.cur);
+  $("msCpTot").textContent = fmtTime(st.total);
+  $("msCpSpeedV").textContent = st.speed+"x";
+  $("msCpSleepV").textContent = st.sleepMin>0 ? (st.sleepMin+" min") : "Sleep";
+  $("msCpPrev").disabled = !st.hasPrev;
+  $("msCpNext").disabled = !st.hasNext;
+  const art=$("msCpArt");
+  if(art){
+    const c=st.item;
+    if(c && c.image){ art.style.backgroundImage=`url(${c.image})`; art.classList.add("ms-cp__art--img"); art.innerHTML=""; }
+    else { art.style.backgroundImage=""; art.classList.remove("ms-cp__art--img"); if(!art.querySelector(".ms-cp__crest")) art.innerHTML='<div class="ms-cp__crest">EIE</div>'; }
+  }
+  // reflect active item in the up-next / collection lists
+  document.querySelectorAll("[data-qslug]").forEach(elm=>{
+    elm.classList.toggle("ms-q--playing", st.item && elm.getAttribute("data-qslug")===st.item.slug);
+  });
+}
+
+/* Up Next rail — clickable items (play in place); label not clickable.
+   items: [{slug,title,sub}], onPick(index) */
+function renderUpNext(hostId, items, onPick, opts){
+  const host=$(hostId); if(!host) return;
+  opts=opts||{};
+  if(!items.length){ host.innerHTML=""; return; }
+  host.innerHTML=`<div class="ms-upnext__head">${opts.head||"Up Next"}</div><div class="ms-upnext__list" id="${hostId}List"></div>`;
+  const list=$(hostId+"List");
+  items.forEach((it,i)=>{
+    const b=document.createElement("button");
+    b.className="ms-upnext__item"; b.setAttribute("data-qslug", it.slug);
+    b.innerHTML=`<div class="ms-upnext__art">${it.image?`<img src="${it.image}" alt="">`:'<span>EIE</span>'}</div>
+      <div class="ms-upnext__meta"><div class="ms-upnext__title">${it.title}</div>${it.sub?`<div class="ms-upnext__sub">${it.sub}</div>`:""}<div class="ms-upnext__eq"><span></span><span></span><span></span></div></div>`;
+    b.addEventListener("click",()=>onPick(i));
+    list.appendChild(b);
+  });
+}
+
+/* "More from this collection" grid — clickable, plays in place or opens */
+function renderCollection(hostId, items, onPick){
+  const host=$(hostId); if(!host) return;
+  if(!items.length){ host.innerHTML=""; return; }
+  host.innerHTML="";
+  items.forEach((it,i)=>{
+    const b=document.createElement("button");
+    b.className="ms-coll-card"; b.setAttribute("data-qslug", it.slug||"");
+    b.innerHTML=`<div class="ms-coll-card__art">${it.image?`<img src="${it.image}" alt="">`:'<span>EIE</span>'}</div>
+      <div class="ms-coll-card__body"><div class="ms-coll-card__title">${it.title}</div>${it.sub?`<div class="ms-coll-card__sub">${it.sub}</div>`:""}</div>`;
+    b.addEventListener("click",()=>onPick(i));
+    host.appendChild(b);
+  });
+}
+
+/* ============================================================
+   LIVE QUEUE  (self-updating Up Next, drives header sync)
+   mode 'drain' — items fall off the top as they play; the
+   library keeps receding into "More X" (message pages: a
+   broad library, so once played a title is behind you).
+   mode 'loop'  — items rotate endlessly through the same closed
+   set (a series is its own bounded playlist, so it never runs
+   out; it just keeps cycling starting from whatever plays next).
+   Re-renders only when the playing track actually changes, not
+   on every progress tick. Returns nothing; call again to rewire
+   for a freshly opened page (it clears its own prior subscription).
+   ============================================================ */
+let _queueUnsub = null;
+function wireLiveQueue(opts){
+  const { railCap, moreCap, upNextHostId, moreHostId, headLabel, onIndexChange, dedupe } = opts;
+
+  if(_queueUnsub){ _queueUnsub(); _queueUnsub=null; }
+
+  function buildChain(idx){
+    // the full upcoming order, wrapping around the looped queue, deduped by title
+    const q = Audio_.queue, n = q.length;
+    const chain = [];
+    const seen = new Set();
+    for(let i=1;i<n;i++){
+      const it = q[(idx+i)%n];
+      const key = dedupe ? it.title : it.slug;
+      if(seen.has(key)) continue;
+      seen.add(key);
+      chain.push({ item:it, qi:(idx+i)%n });
+    }
+    return chain;
+  }
+
+  function render(idx){
+    const chain = buildChain(idx);
+    const cap = railCap || 5;
+    const railPart = chain.slice(0, cap);
+    let morePart = moreHostId ? chain.slice(cap) : [];
+    if(moreCap && morePart.length>moreCap) morePart = morePart.slice(0, moreCap);
+
+    // Up Next = the next few in the chain
+    renderUpNext(upNextHostId, railPart.map(r=>({ slug:r.item.slug, title:r.item.title, sub:r.item.sub||r.item.dur, image:r.item.image })),
+      i=>{ Audio_.playIndex(railPart[i].qi); },
+      { head:headLabel||"Up Next" });
+
+    // More block = the rest of the chain (one continuous loop with Up Next).
+    // As playback advances, an item leaves the top of Up Next, everything shifts
+    // up, the first More tile rises into Up Next, and the just-played item rejoins
+    // at the tail of More — the whole set rotating as a single circle.
+    if(moreHostId){
+      renderCollection(moreHostId, morePart.map(r=>({ slug:r.item.slug, title:r.item.title, sub:r.item.sub||r.item.dur, image:r.item.image })),
+        i=>{ Audio_.playIndex(morePart[i].qi); window.scrollTo({top:0,behavior:"smooth"}); });
+    }
+  }
+
+  let lastIndex=null, first=true;
+  function tick(){
+    const st=Audio_.status();
+    if(st.index===lastIndex) return;
+    lastIndex=st.index;
+    render(st.index);
+    if(onIndexChange && !first) onIndexChange(st.index, st.item);
+    first=false;
+  }
+  tick();
+  _queueUnsub = Audio_.sub(tick);
+}
+
+function buildRespondBox(container, ctx){
+  if(!container) return;
+  const uid = ctx.uid || "R";
+  container.innerHTML = `
+    <p class="ms-respond__sub">Your testimony is a blessing to this house.</p>
+    <div class="ms-respond__fields">
+      <input type="text" id="${uid}Name" placeholder="Your name (optional)" aria-label="Your name">
+      <input type="email" id="${uid}Email" placeholder="Your email (required)" aria-label="Your email">
+    </div>
+    <textarea id="${uid}Msg" maxlength="1000" placeholder="${ctx.placeholder||'Share what this stirred in you...'}" aria-label="Your response"></textarea>
+    <div class="ms-respond__meta">
+      <span class="ms-respond__privacy">Your email is never published; it is used only to receive your message.</span>
+      <span class="ms-respond__count" id="${uid}Count">0 / 1000</span>
+    </div>
+    <button class="ms-respond__send" id="${uid}Send">${IC.share} Send</button>
+    <div class="ms-respond__done" id="${uid}Done">${IC.check} Thank you. Your words have been received with gratitude.</div>`;
+  const msg=$(uid+"Msg"), count=$(uid+"Count");
+  msg.addEventListener("input",()=>{ count.textContent=msg.value.length+" / 1000"; });
+  $(uid+"Send").addEventListener("click",()=>sendResponse(ctx));
+}
+
+/* ctx: { uid, kind:'Message'|'Series'|'Podcast', title, seriesTitle?, lessonTitle?, url } */
+async function sendResponse(ctx){
+  const uid=ctx.uid;
+  const name=$(uid+"Name").value.trim(), email=$(uid+"Email").value.trim(), message=$(uid+"Msg").value.trim();
+  if(!message){ toast("Write a few words first, then send."); return; }
+  if(!email){ toast("Please add your email so we can receive your message."); return; }
+  if(!validEmail(email)){ toast("That email doesn't look right. Please check it."); return; }
+
+  /* build the identifier stamp */
+  let source = ctx.kind + ": " + ctx.title;
+  if(ctx.kind==="Series" && ctx.lessonTitle) source = "Series: " + ctx.title + " — " + ctx.lessonTitle;
+  if(ctx.kind==="Podcast" && ctx.seriesTitle) source = "Podcast: " + ctx.seriesTitle + " — Episode: " + ctx.title;
+  const subject = ctx.kind + " response — " + (ctx.kind==="Series" && ctx.lessonTitle ? ctx.title+" · "+ctx.lessonTitle : (ctx.kind==="Podcast" ? ctx.title : ctx.title));
+
+  const btn=$(uid+"Send"); btn.disabled=true;
+  try{
+    const resp=await fetch(MSG_RELAY,{ method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" },
+      body:JSON.stringify({
+        name:name||"A listener", email, message,
+        source_type:ctx.kind, source_title:ctx.title,
+        series_title:ctx.seriesTitle||"", lesson:ctx.lessonTitle||"",
+        source, link:ctx.url,
+        _subject:subject, _replyto:email, _template:"table"
+      }) });
+    if(!resp.ok) throw new Error("relay");
+    $(uid+"Name").value=""; $(uid+"Email").value=""; $(uid+"Msg").value=""; $(uid+"Count").textContent="0 / 1000";
+    $(uid+"Done").classList.add("ms-respond__done--live");
+  }catch(e){
+    const subj=encodeURIComponent(subject);
+    const body=encodeURIComponent(
+      message+"\n\n"+
+      "— — —\n"+
+      "Source: "+source+"\n"+
+      (name?"From: "+name+"\n":"")+
+      "Email: "+email+"\n"+
+      "Link: "+ctx.url
+    );
+    toast("Opening your email app to send your message.");
+    setTimeout(()=>{ window.location.href="mailto:"+MSG_COMMENTS_EMAIL+"?subject="+subj+"&body="+body; }, 600);
+  }finally{ btn.disabled=false; }
+}
+
+async function shareMessage(m){
+  const text = '"'+m.title+'" by Emmanuel I. Emodiae, Prophet | Preacher | Poet.\n'+shareUrl("message",m.slug);
+  try{ if(navigator.share){ await navigator.share({ title:m.title, text }); return; } throw 0; }
+  catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Message link copied. Share it."); }
+}
+async function shareSeries(s){
+  const text = '"'+s.title+'" teaching series by Emmanuel I. Emodiae.\n'+shareUrl("series",s.slug);
+  try{ if(navigator.share){ await navigator.share({ title:s.title, text }); return; } throw 0; }
+  catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Series link copied. Share it."); }
+}
+async function shareCurrentSermon(s, sermonTitle){
+  const text = '"'+sermonTitle+'" from the series "'+s.title+'" by Emmanuel I. Emodiae.\n'+shareUrl("series",s.slug);
+  try{ if(navigator.share){ await navigator.share({ title:sermonTitle, text }); return; } throw 0; }
+  catch(e){ try{ await navigator.clipboard.writeText(text); }catch(_){}; toast("Sermon link copied. Share it."); }
+}
+
+/* ============================================================
+   SERIES DETAIL
+   ============================================================ */
+function openSeries(slug){
+  const s = SERIES.find(x=>x.slug===slug); if(!s) return;
+  const prog = seriesProgress(s);
+  state.curSeries=s; state.curLesson=prog.last||0; state.view="seriesDetail"; Nav.openDetail();
+  pushRecent("series", s.slug, s.title);
+  window.scrollTo({top:0,behavior:"auto"});
+  const root=app(); root.innerHTML="";
+  const wrap=document.createElement("div"); wrap.className="ms-wrap"; wrap.style.paddingTop="0";
+  const time=s.sermons.reduce((a,l)=>a+parseInt(l.dur)||0,0);
+
+  // Build one long queue: starting from THIS series, each series' sermons play
+  // through TWICE, then it moves on to the next series, and so on through every
+  // series, wrapping back to the first — an endless loop. Each track remembers
+  // its parent series so the header/overview/share can follow across boundaries.
+  const SERIES_LOOPS = 2;
+  const startPos = SERIES.findIndex(x=>x.slug===s.slug);
+  const chainOrder = []; // series in play order starting at the opened one
+  for(let k=0;k<SERIES.length;k++){ chainOrder.push(SERIES[(startPos+k)%SERIES.length]); }
+  const queueItems = [];
+  chainOrder.forEach(ser=>{
+    for(let loop=0; loop<SERIES_LOOPS; loop++){
+      ser.sermons.forEach((sm,i)=>{
+        const t=toTrack({ title:sm.title, dur:sm.dur, image:ser.image, audio:sm.audio }, "sermon", { slug:ser.slug+"__"+i+"__L"+loop });
+        t.sub=sm.sub+" · "+sm.dur;
+        t.seriesSlug=ser.slug; t.sermonIdx=i;
+        queueItems.push(t);
+      });
+    }
+  });
+
+  wrap.innerHTML=`
+    <div class="ms-detailwrap">
+      <div class="ms-detailmain">
+        <div class="ms-cleanhero" id="msHero"><div class="ms-cleanhero__crest">EIE</div></div>
+        <button class="ms-back ms-back--top" id="msBack">${IC.chevL} Back to Series</button>
+        <div class="ms-detailhead">
+          <div class="ms-detailhead__kicker" id="msDetailKicker">Teaching Series${s.category?" · "+s.category:""}${s.year?" · "+s.year:""}</div>
+          <h1 class="ms-detailhead__title" id="msDetailTitle">${s.title}</h1>
+          <div class="ms-detailhead__meta" id="msDetailMeta">
+            <span>${IC.layers} ${s.sermons.length} sermons</span>
+            <span>${IC.clock} ${time} min</span>
+            ${s.scripture?`<span>${IC.book} ${s.scripture}</span>`:""}
+          </div>
+        </div>
+        <div class="ms-playerrow">
+          <div class="ms-playerrow__player" id="msPlayerHost"></div>
+          <div class="ms-playerrow__downloads ms-downloads" id="msDownloads">
+            <button class="ms-dl" id="msSeriesShare">${IC.share} Share series</button>
+            <button class="ms-dl" id="msSermonShare">${IC.share} Share current sermon</button>
+            <a class="ms-dl" id="msSermonDl">${IC.download} Download current sermon</a>
+          </div>
+          <aside class="ms-playerrow__upnext" id="msUpNextHost"></aside>
+        </div>
+
+        <div class="ms-block" data-collapse="Overview">
+          <div class="ms-overview"><p id="msOverviewText">${s.overviewLong||s.summary}</p></div>
+        </div>
+
+        <div class="ms-block">
+          <div class="ms-block__head">Share What This Spoke to You</div>
+          <div class="ms-respond" id="msRespond"></div>
+        </div>
+
+        <div class="ms-block ms-collection" id="msMoreBlock">
+          <div class="ms-block__head" id="msMoreHead">More Series</div>
+          <div class="ms-coll-grid" id="msMoreColl"></div>
+        </div>
+      </div>
+    </div>`;
+  root.appendChild(wrap);
+  wrap.appendChild(bottomBackButton("Back to Series", ()=>{ Nav.toLandingFromButton("series"); }));
+  root.appendChild(encourageBand());
+  const foot=document.createElement("div"); foot.className="ms-foot"; root.appendChild(foot);
+
+  const hero=$("msHero");
+  hero.style.backgroundImage=`url(${s.image || HERO_SERIES})`; hero.classList.add("ms-cleanhero--img"); hero.innerHTML="";
+
+  // curSeries/curSermon follow whatever is playing — including after the queue
+  // crosses from one series into the next. Everything user-facing reads these.
+  let curSeriesObj = s;
+  let curSermonTitle = (s.sermons[0]||{}).title || "";
+
+  function syncSeriesDisplay(item){
+    const ser = SERIES.find(x=>x.slug===item.seriesSlug) || curSeriesObj;
+    curSeriesObj = ser;
+    curSermonTitle = item.title;
+    state.curSeries = ser;
+    if(item.sermonIdx!=null){ state.curLesson=item.sermonIdx; markLessonDone(ser.slug, item.sermonIdx); }
+    const t = ser.sermons.reduce((a,l)=>a+parseInt(l.dur)||0,0);
+    $("msDetailKicker").textContent = "Teaching Series"+(ser.category?" · "+ser.category:"")+(ser.year?" · "+ser.year:"");
+    $("msDetailTitle").textContent = ser.title;
+    $("msDetailMeta").innerHTML = `<span>${IC.layers} ${ser.sermons.length} sermons</span><span>${IC.clock} ${t} min</span>${ser.scripture?`<span>${IC.book} ${ser.scripture}</span>`:""}`;
+    hero.style.backgroundImage=`url(${ser.image || HERO_SERIES})`;
+    const ov=$("msOverviewText"); if(ov) ov.textContent = ser.overviewLong||ser.summary;
+  }
+
+  $("msBack").addEventListener("click",()=>{ Nav.toLandingFromButton("series"); });
+  $("msSeriesShare").addEventListener("click",()=>shareSeries(curSeriesObj));
+  $("msSermonShare").addEventListener("click",()=>{ shareCurrentSermon(curSeriesObj, curSermonTitle); });
+  $("msSermonDl").addEventListener("click",e=>{ e.preventDefault(); toast("Preparing download for \u201C"+curSermonTitle+"\u201D."); });
+
+  // player + queue (chained series, x2 each, looping through the whole library)
+  Audio_.setQueue(queueItems, 0, { autoplay:false, loop:true });
+  mountPlayer("msPlayerHost");
+
+  // Up Next holds the sermons of the CURRENTLY playing series (the closed set that
+  // loops twice). More Series holds whole-series tiles — the series waiting their
+  // turn — capped at nine, showing all available others and refilling from the
+  // library as each series is promoted into Up Next. When the current series ends
+  // its second loop, the chain advances to the next series, its sermons load into
+  // Up Next, its tile leaves More Series, and the header/overview/share follow.
+  function renderSeriesQueue(){
+    const ser = curSeriesObj;
+    const st = Audio_.status();
+    const curIdx = (st.item && st.item.sermonIdx!=null) ? st.item.sermonIdx : state.curLesson;
+    // Up Next = this series' sermons after the current one, wrapping within the series
+    const n = ser.sermons.length;
+    const rail = [];
+    for(let i=1;i<n;i++){
+      const si = (curIdx+i)%n;
+      const sm = ser.sermons[si];
+      // resolve the queue index of this sermon in the current series' first upcoming loop
+      const qi = Audio_.queue.findIndex(x=>x.seriesSlug===ser.slug && x.sermonIdx===si);
+      rail.push({ slug:ser.slug+"__"+si, title:sm.title, sub:sm.sub+" · "+sm.dur, image:ser.image, qi });
+    }
+    renderUpNext("msUpNextHost", rail.map(r=>({ slug:r.slug, title:r.title, sub:r.sub, image:r.image })),
+      i=>{ if(rail[i].qi>=0) Audio_.playIndex(rail[i].qi); }, { head:"Up Next" });
+
+    // More Series = the OTHER series as whole tiles, capped at 9, current one excluded
+    const startPos = SERIES.findIndex(x=>x.slug===ser.slug);
+    const others = [];
+    for(let k=1;k<SERIES.length && others.length<9;k++){
+      others.push(SERIES[(startPos+k)%SERIES.length]);
+    }
+    renderCollection("msMoreColl", others.map(x=>({ slug:x.slug, title:x.title, sub:x.sermons.length+" sermons", image:x.image })),
+      i=>openSeries(others[i].slug));
+  }
+
+  let lastSeriesSlug = curSeriesObj.slug, lastSermonIdx = null, firstQ = true;
+  function seriesTick(){
+    const st = Audio_.status();
+    const it = st.item; if(!it) return;
+    const changedSermon = it.sermonIdx!==lastSermonIdx;
+    const changedSeries = it.seriesSlug!==lastSeriesSlug;
+    if(!changedSermon && !changedSeries) return;
+    lastSermonIdx = it.sermonIdx; lastSeriesSlug = it.seriesSlug;
+    if(!firstQ) syncSeriesDisplay(it);
+    renderSeriesQueue();
+    firstQ = false;
+  }
+  seriesTick();
+  if(_queueUnsub){ _queueUnsub(); }
+  _queueUnsub = Audio_.sub(seriesTick);
+
+  // response box (Series; follows the currently playing series + sermon live)
+  window._msSeriesCtx = {
+    uid:"msSR", kind:"Series",
+    get title(){ return curSeriesObj.title; },
+    get lessonTitle(){ return curSermonTitle; },
+    get url(){ return shareUrl("series",curSeriesObj.slug); },
+    placeholder:"Share what this series stirred in you..."
+  };
+  buildRespondBox($("msRespond"), window._msSeriesCtx);
+
+  wireCollapsibles(wrap);
+}
+
+function renderProgPanel(){
+  const s=state.curSeries; const el=$("msProgPanel"); if(!el) return;
+  const prog=seriesProgress(s);
+  const remainMin = s.sermons.filter((l,i)=>!(state.progress[s.slug]?.done||[]).includes(i)).reduce((a,l)=>a+parseInt(l.dur)||0,0);
+  if(prog.done===0){
+    el.innerHTML=`
+      <div class="ms-progpanel__top">
+        <div class="ms-progpanel__label">Begin this series</div>
+        <div class="ms-progpanel__stat">${s.sermons.length} sermons · about ${remainMin} min</div>
+      </div>
+      <div class="ms-progpanel__track"><div class="ms-progpanel__fill" style="width:0%"></div></div>
+      <button class="ms-continue" id="msContinue">${IC.play} Start Lesson 1</button>`;
+  } else if(prog.done>=prog.total){
+    el.innerHTML=`
+      <div class="ms-progpanel__top">
+        <div class="ms-progpanel__label">Series complete</div>
+        <div class="ms-progpanel__stat">All ${s.sermons.length} sermons finished. Well done.</div>
+      </div>
+      <div class="ms-progpanel__track"><div class="ms-progpanel__fill" style="width:100%"></div></div>
+      <button class="ms-continue" id="msContinue">${IC.play} Revisit Lesson 1</button>`;
+  } else {
+    el.innerHTML=`
+      <div class="ms-progpanel__top">
+        <div class="ms-progpanel__label">Your progress</div>
+        <div class="ms-progpanel__stat">${prog.done} of ${prog.total} done · ${prog.remaining} to go · about ${remainMin} min left</div>
+      </div>
+      <div class="ms-progpanel__track"><div class="ms-progpanel__fill" style="width:${prog.pct}%"></div></div>
+      <button class="ms-continue" id="msContinue">${IC.play} Continue where you stopped</button>`;
+  }
+  $("msContinue").addEventListener("click",()=>{
+    const p=state.progress[s.slug];
+    let idx=0;
+    if(p && prog.done>0 && prog.done<prog.total){
+      idx = s.sermons.findIndex((l,i)=>!(p.done||[]).includes(i)); if(idx<0) idx=p.last||0;
+    }
+    playLesson(idx);
+  });
+}
+
+function playLesson(i){
+  const s=state.curSeries;
+  state.curLesson=i;
+  markLessonDone(s.slug, i);
+  renderLessons(); renderProgPanel();
+  toast("Now playing: "+s.sermons[i].title);
+}
+
+function renderLessons(){
+  const s=state.curSeries; const host=$("msLessons"); host.innerHTML="";
+  const done = new Set(state.progress[s.slug]?.done||[]);
+  s.sermons.forEach((l,i)=>{
+    const b=document.createElement("button");
+    b.className="ms-lesson"+(i===state.curLesson?" ms-lesson--on":"");
+    const isDone=done.has(i);
+    b.innerHTML=`
+      <div class="ms-lesson__num">${isDone?`<span class="ms-lesson__check">${IC.check}</span>`:i+1}</div>
+      <div><div class="ms-lesson__title">${l.title}</div><div class="ms-lesson__sub">${l.sub} · ${l.dur}${isDone?" · completed":""}</div></div>
+      <div class="ms-lesson__play">${IC.play}</div>`;
+    b.addEventListener("click",()=>playLesson(i));
+    host.appendChild(b);
+  });
+}
+
+/* recently viewed sidebar block (shared) */
+function renderRecent(host, excludeSlug){
+  if(!host) return;
+  const items = state.recent.filter(r=>r.slug!==excludeSlug).slice(0,5);
+  if(!items.length) return;
+  const head=document.createElement("div"); head.className="ms-side__head"; head.textContent="Recently Viewed"; head.style.marginTop="26px";
+  host.appendChild(head);
+  items.forEach(r=>{
+    const c=document.createElement("button"); c.className="ms-side-card";
+    c.innerHTML=`<div class="ms-side-card__art"></div><div><div class="ms-side-card__title">${r.title}</div><div class="ms-side-card__sub">${r.kind==='series'?'Series':'Message'}</div></div>`;
+    c.addEventListener("click",()=> r.kind==='series'?openSeries(r.slug):openMessage(r.slug));
+    host.appendChild(c);
+  });
+}
+
+/* ============================================================
+   MESSAGE DETAIL
+   ============================================================ */
+function openMessage(slug){
+  const m=MESSAGES.find(x=>x.slug===slug); if(!m) return;
+  state.curMessage=m; state.view="messageDetail"; Nav.openDetail();
+  pushRecent("message", m.slug, m.title);
+  window.scrollTo({top:0,behavior:"auto"});
+  const root=app(); root.innerHTML="";
+  const wrap=document.createElement("div"); wrap.className="ms-wrap"; wrap.style.paddingTop="0";
+  const isSaved=state.bookmarks.has(m.slug);
+
+  // queue = this message first, then all other messages; loops endlessly.
+  const others = MESSAGES.filter(x=>x.slug!==m.slug);
+  const ordered = [m, ...others];
+  const queueItems = ordered.map(x=>{ const t=toTrack(x,"message"); t.sub=(x.category?x.category+" · ":"")+x.dur; return t; });
+
+  wrap.innerHTML=`
+    <div class="ms-detailwrap">
+      <div class="ms-detailmain">
+        <div class="ms-cleanhero" id="msHero"><div class="ms-cleanhero__crest">EIE</div></div>
+        <button class="ms-back ms-back--top" id="msBack">${IC.chevL} Back to Messages</button>
+        <div class="ms-detailhead">
+          <div class="ms-detailhead__kicker" id="msDetailKicker">Message${m.category?" · "+m.category:""}${m.year?" · "+m.year:""}</div>
+          <h1 class="ms-detailhead__title" id="msDetailTitle">${m.title}</h1>
+          <div class="ms-detailhead__meta" id="msDetailMeta">
+            <span>${AUTHOR}</span>
+            <span>${IC.clock} ${m.dur}</span>
+            ${m.mainScripture?`<span>${IC.book} ${m.mainScripture}</span>`:""}
+            ${m.audience?`<span>${IC.heart} ${m.audience}</span>`:""}
+          </div>
+        </div>
+        <div class="ms-playerrow">
+          <div class="ms-playerrow__player" id="msPlayerHost"></div>
+          <div class="ms-playerrow__downloads ms-downloads" id="msDownloads">
+            <a class="ms-dl" id="msDlAudio">${IC.download} Download audio</a>
+            <button class="ms-dl" id="msMsgShare">${IC.share} Share message</button>
+            <button class="ms-dl ms-bookmark-btn${isSaved?' ms-on':''}" id="msBookmark">${IC.bookmark} <span id="msBmLabel">${isSaved?'Saved':'Save'}</span></button>
+          </div>
+          <aside class="ms-playerrow__upnext" id="msUpNextHost"></aside>
+        </div>
+
+        <div class="ms-block" data-collapse="Overview">
+          <div class="ms-overview"><p id="msOverviewText">${m.overview}</p></div>
+        </div>
+
+        <div class="ms-block">
+          <div class="ms-block__head">Share What This Spoke to You</div>
+          <div class="ms-respond" id="msRespond"></div>
+        </div>
+
+        <div class="ms-block ms-collection" id="msMoreBlock">
+          <div class="ms-block__head">More Messages</div>
+          <div class="ms-coll-grid" id="msMoreColl"></div>
+        </div>
+      </div>
+    </div>`;
+  root.appendChild(wrap);
+  wrap.appendChild(bottomBackButton("Back to Messages", ()=>{ Nav.toLandingFromButton("messages"); }));
+  root.appendChild(encourageBand());
+  const foot=document.createElement("div"); foot.className="ms-foot"; root.appendChild(foot);
+
+  // curPlayingMsg tracks whichever message is CURRENTLY sounding — starts as the
+  // one opened, but Share/Download/Save/Overview/header all follow it live as the
+  // queue advances (via Up Next, Prev/Next, or auto-advance at the end of a track).
+  let curPlayingMsg = m;
+
+  const hero=$("msHero");
+  hero.style.backgroundImage=`url(${m.image || HERO_MESSAGE})`; hero.classList.add("ms-cleanhero--img"); hero.innerHTML="";
+
+  function syncBookmarkUI(){
+    const saved=state.bookmarks.has(curPlayingMsg.slug);
+    const btn=$("msBookmark"); if(!btn) return;
+    btn.classList.toggle("ms-on", saved);
+    $("msBmLabel").textContent = saved?"Saved":"Save";
+  }
+  function syncMessageDisplay(newMsg){
+    curPlayingMsg = newMsg;
+    $("msDetailKicker").textContent = "Message"+(newMsg.category?" · "+newMsg.category:"")+(newMsg.year?" · "+newMsg.year:"");
+    $("msDetailTitle").textContent = newMsg.title;
+    $("msDetailMeta").innerHTML = `<span>${AUTHOR}</span><span>${IC.clock} ${newMsg.dur}</span>${newMsg.mainScripture?`<span>${IC.book} ${newMsg.mainScripture}</span>`:""}${newMsg.audience?`<span>${IC.heart} ${newMsg.audience}</span>`:""}`;
+    hero.style.backgroundImage=`url(${newMsg.image || HERO_MESSAGE})`;
+    const ovEl=$("msOverviewText"); if(ovEl) ovEl.textContent = newMsg.overview;
+    syncBookmarkUI();
+  }
+
+  $("msBack").addEventListener("click",()=>{ Nav.toLandingFromButton("messages"); });
+  $("msMsgShare").addEventListener("click",()=>shareMessage(curPlayingMsg));
+  $("msDlAudio").addEventListener("click",e=>{ e.preventDefault(); toast("Preparing audio download for \u201C"+curPlayingMsg.title+"\u201D."); });
+  $("msBookmark").addEventListener("click",()=>{
+    if(state.bookmarks.has(curPlayingMsg.slug)){ state.bookmarks.delete(curPlayingMsg.slug); toast("Removed from saved."); }
+    else { state.bookmarks.add(curPlayingMsg.slug); toast("Saved for later."); }
+    persistBookmarks();
+    syncBookmarkUI();
+  });
+
+  // player + queue (auto-advance through all messages)
+  Audio_.setQueue(queueItems, 0, { autoplay:false, loop:true });
+  mountPlayer("msPlayerHost");
+
+  // Up Next + More Messages form ONE combined loop: Up Next shows the next few,
+  // More Messages shows the rest of the chain, and the whole set rotates as one
+  // circle as playback advances. It never runs dry.
+  wireLiveQueue({
+    upNextHostId:"msUpNextHost", moreHostId:"msMoreColl", headLabel:"Up Next", railCap:5, moreCap:9,
+    onIndexChange:(idx,item)=>{
+      if(!item) return;
+      const nm=MESSAGES.find(x=>x.slug===item.slug);
+      if(nm && nm.slug!==curPlayingMsg.slug) syncMessageDisplay(nm);
+    },
+  });
+
+  // response box (stamped as whichever message is CURRENTLY playing)
+  buildRespondBox($("msRespond"), {
+    uid:"msR", kind:"Message",
+    get title(){ return curPlayingMsg.title; },
+    get url(){ return shareUrl("message",curPlayingMsg.slug); },
+    placeholder:"Share what this message stirred in you..."
+  });
+
+  wireCollapsibles(document.querySelector(".ms-wrap"));
+}
+
+/* Continue Your Journey: cross-links to series, poem, article, podcast */
+function renderJourney(m){
+  const host=$("msJourney"); if(!host) return;
+  const r=m.related||{};
+  const cards=[];
+  if(r.series){ const s=SERIES.find(x=>x.slug===r.series); if(s) cards.push({ kind:"Series", title:s.title, onClick:()=>openSeries(s.slug) }); }
+  if(r.podcast){ const e=POD_EPISODES.find(x=>x.slug===r.podcast); if(e) cards.push({ kind:"Podcast", title:e.title, onClick:()=>{ state.tab="podcasts"; state.podTab="episodes"; renderLanding(); toast("Opening podcasts."); } }); }
+  if(r.poem && XLINKS.poems[r.poem]){ cards.push({ kind:"Poem", title:XLINKS.poems[r.poem], href:xurl("poems",r.poem) }); }
+  if(r.article && XLINKS.articles[r.article]){ cards.push({ kind:"Article", title:XLINKS.articles[r.article], href:xurl("articles",r.article) }); }
+  if(!cards.length){ $("msJourneyBlock").style.display="none"; return; }
+  cards.slice(0,3).forEach(c=>{
+    const el=document.createElement(c.href?"a":"button");
+    el.className="ms-journey-card";
+    if(c.href){ el.href=c.href; el.target="_blank"; el.rel="noopener"; }
+    el.innerHTML=`<div class="ms-journey-card__kind">${c.kind}</div>
+      <div class="ms-journey-card__title">${c.title}</div>
+      <div class="ms-journey-card__go">${c.href?"Visit":"Open"} ${IC.chevR}</div>`;
+    if(c.onClick) el.addEventListener("click",c.onClick);
+    host.appendChild(el);
+  });
+}
+
+/* advanced audio: simulated, with speed / sleep / skip / remember-position */
+function wireAdvancedPlayer(el, m){
+  if(!el) return;
+  const btn=el.querySelector(".ms-audiobar__play");
+  const fill=el.querySelector(".ms-audiobar__fill");
+  const curEl=$("msCur");
+  const totalSec = parseDur(m.dur);
+  let playing=false, sec=(state.audioPos[m.slug]&&state.audioPos[m.slug].sec)||0, speed=1, timer=null, sleepMin=0, sleepAt=0;
+  const speeds=[1,1.25,1.5,2,0.75];
+  const sleeps=[0,15,30,45];
+  const fmt=s=>{ s=Math.max(0,Math.floor(s)); const m2=Math.floor(s/60), ss=s%60; return m2+":"+(ss<10?"0":"")+ss; };
+  const paint=()=>{ fill.style.width=(totalSec?Math.min(100,sec/totalSec*100):0)+"%"; if(curEl) curEl.textContent=fmt(sec); };
+  paint();
+  const stop=()=>{ playing=false; btn.innerHTML=IC.play; clearInterval(timer); state.audioPos[m.slug]={sec,total:totalSec}; save("ms_audiopos", state.audioPos); };
+  btn.addEventListener("click",()=>{
+    playing=!playing; btn.innerHTML=playing?IC.pause:IC.play;
+    if(playing){
+      if(sec>0 && sec<totalSec) toast("Resuming where you stopped.");
+      timer=setInterval(()=>{
+        sec+=speed; if(sec>=totalSec){ sec=totalSec; paint(); stop(); toast("Message finished."); return; }
+        if(sleepAt && Date.now()>=sleepAt){ stop(); toast("Sleep timer ended playback."); sleepAt=0; $("msSleepV").textContent="Sleep"; $("msSleep").classList.remove("ms-on"); return; }
+        state.audioPos[m.slug]={sec,total:totalSec}; save("ms_audiopos", state.audioPos);
+        paint();
+      },1000);
+    } else stop();
+  });
+  $("msSkipF").addEventListener("click",()=>{ sec=Math.min(totalSec,sec+15); paint(); });
+  $("msSkipB").addEventListener("click",()=>{ sec=Math.max(0,sec-15); paint(); });
+  $("msSpeed").addEventListener("click",()=>{ speed=speeds[(speeds.indexOf(speed)+1)%speeds.length]; $("msSpeedV").textContent=speed+"x"; });
+  $("msSleep").addEventListener("click",()=>{
+    sleepMin=sleeps[(sleeps.indexOf(sleepMin)+1)%sleeps.length];
+    if(sleepMin>0){ sleepAt=Date.now()+sleepMin*60000; $("msSleepV").textContent=sleepMin+" min"; $("msSleep").classList.add("ms-on"); toast("Sleep timer set for "+sleepMin+" minutes."); }
+    else { sleepAt=0; $("msSleepV").textContent="Sleep"; $("msSleep").classList.remove("ms-on"); toast("Sleep timer off."); }
+  });
+}
+function parseDur(txt){
+  let sec=0; const h=/(\d+)\s*hr/.exec(txt); const m=/(\d+)\s*min/.exec(txt);
+  if(h) sec+=parseInt(h[1])*3600; if(m) sec+=parseInt(m[1])*60;
+  return sec||1800;
+}
+
+/* ============================================================
+   COLLAPSIBLE BLOCKS
+   Wraps any <div class="ms-block" data-collapse="Heading">...</div>
+   into a collapsed dropdown. Runs after each detail render.
+   The block's own .ms-block__head (if present) is removed and
+   replaced by the collapse header using data-collapse text.
+   ============================================================ */
+function wireCollapsibles(scope){
+  (scope||document).querySelectorAll('.ms-block[data-collapse]').forEach(block=>{
+    if(block.dataset.collapsed==="done") return;
+    block.dataset.collapsed="done";
+    const heading = block.getAttribute("data-collapse");
+    // remove any existing inline head; its content becomes the body
+    const oldHead = block.querySelector(":scope > .ms-block__head");
+    if(oldHead) oldHead.remove();
+    const bodyNodes = Array.from(block.childNodes);
+    const wrap=document.createElement("div"); wrap.className="ms-collapse";
+    const btn=document.createElement("button");
+    btn.type="button"; btn.className="ms-collapse__head"; btn.setAttribute("aria-expanded","false");
+    btn.innerHTML=`<span>${heading}</span><span class="ms-collapse__chev">${IC.chevR}</span>`;
+    const body=document.createElement("div"); body.className="ms-collapse__body";
+    const inner=document.createElement("div"); inner.className="ms-collapse__inner";
+    bodyNodes.forEach(n=>inner.appendChild(n));
+    body.appendChild(inner);
+    wrap.appendChild(btn); wrap.appendChild(body);
+    block.innerHTML=""; block.appendChild(wrap);
+    btn.addEventListener("click",()=>{
+      const open = body.classList.toggle("ms-collapse__body--open");
+      btn.setAttribute("aria-expanded", open);
+    });
+  });
+}
+
+/* ============================================================
+   CONTENT PROTECTION
+   Blocks copy/cut/right-click/drag/selection in the reading
+   zones and nudges to Share. Screenshots/recording are an OS
+   function no website can block; this deters text/image theft.
+   ============================================================ */
+(function(){
+  const zone = e => e.target.closest(".ms-overview, .ms-transcript, .ms-prayer, .ms-apply, .ms-quote, .ms-ideas, .ms-reflect, .ms-detail-hero__title, img");
+  let last=0;
+  const nudge=()=>{ const n=Date.now(); if(n-last>1500){ last=n; toast("Please use the Share button to spread this."); } };
+  document.addEventListener("copy", e=>{ if(zone(e)){ e.preventDefault(); nudge(); } });
+  document.addEventListener("cut",  e=>{ if(zone(e)){ e.preventDefault(); nudge(); } });
+  document.addEventListener("contextmenu", e=>{ if(zone(e)){ e.preventDefault(); nudge(); } });
+  document.addEventListener("dragstart", e=>{ if(zone(e)) e.preventDefault(); });
+  document.addEventListener("selectstart", e=>{ if(zone(e)) e.preventDefault(); });
+  new MutationObserver(()=>{ document.querySelectorAll("img:not([draggable])").forEach(im=>im.setAttribute("draggable","false")); })
+    .observe(document.body, { childList:true, subtree:true });
+})();
+
+/* ============================================================
+   INIT
+   ============================================================ */
+/* background toggle — milky white is default; toggles to cream */
+(function(){
+  const btn=$("msBgToggle");
+  const saved=load("ms_bg","milk");
+  if(saved==="cream"){ document.body.classList.add("ms-cream"); btn.textContent="☀ Milky mode"; }
+  btn.addEventListener("click",()=>{
+    const cream=document.body.classList.toggle("ms-cream");
+    btn.textContent = cream ? "☀ Milky mode" : "☾ Cream mode";
+    save("ms_bg", cream?"cream":"milk");
+  });
+  function bandUpdate(){
+    var hero=document.querySelector(".ms-hero");
+    var enc=document.querySelector(".ms-encourage");
+    var pager=document.querySelector(".ms-pager");
+    if(!hero) return;
+    var fe; try{ fe=window.frameElement; }catch(e){ fe=null; }
+    var vh; try{ vh=window.parent.innerHeight; }catch(e){ vh=window.innerHeight; }
+    var frameTop = fe ? fe.getBoundingClientRect().top : 0;
+    var heroBottomOnScreen = frameTop + hero.offsetTop + hero.offsetHeight;
+    var show = heroBottomOnScreen <= 88;
+    if(show && enc){
+      var encTopOnScreen = frameTop + enc.offsetTop;
+      if(encTopOnScreen <= vh) show=false;
+    }
+    btn.classList.toggle("is-inband", show);
+    var bottom=16;
+    if(show && pager){
+      var pagerTopOnScreen = frameTop + pager.offsetTop;
+      var pagerBottomOnScreen = pagerTopOnScreen + pager.offsetHeight;
+      if(pagerTopOnScreen < vh && pagerBottomOnScreen > vh-96){
+        bottom = Math.max(16, vh - pagerTopOnScreen + 16);
+      }
+    }
+    btn.style.bottom=bottom+"px";
+  }
+  window.addEventListener("resize", bandUpdate, {passive:true});
+  try{ window.parent.addEventListener("scroll", bandUpdate, {passive:true}); }catch(e){}
+  setInterval(bandUpdate, 200);
+  document.addEventListener("click", function(){ setTimeout(bandUpdate,60); }, true);
+  var _mo=new MutationObserver(function(){ setTimeout(bandUpdate,60); });
+  var _app=document.getElementById("msApp"); if(_app){ _mo.observe(_app,{childList:true,subtree:true}); }
+  bandUpdate();
+})();
+
+/* ------------------------------------------------------------
+   Phone / browser BACK button support.
+   Opening a detail page pushes a history entry; pressing the
+   device back button (or the browser's) pops it and returns to
+   the landing view — same as the on-screen "Back to X" links.
+   ------------------------------------------------------------ */
+const Nav = (function(){
+  let depth = 0;
+  // remember the page podcasts was entered FROM, surviving reloads
+  // (e.g. toggling desktop mode reloads the page)
+  let lastMainTab = "series";
+  try{ lastMainTab = sessionStorage.getItem("ms_lastMainTab") || "series"; }catch(e){}
+  // seed a base entry so the first back press returns to landing rather than
+  // leaving the page entirely
+  try{ history.replaceState({ msDepth:0, msBase:true }, ""); }catch(e){}
+  function openDetail(){ depth++; try{ history.pushState({ msDepth:depth }, ""); }catch(e){} }
+  // entering the podcast section pushes a history entry, so the phone's own
+  // back button performs the GO BACK mandate from inside podcasts
+  function openPodcasts(fromTab){
+    if(fromTab && fromTab!=="podcasts"){
+      lastMainTab=fromTab;
+      try{ sessionStorage.setItem("ms_lastMainTab", fromTab); }catch(e){}
+    }
+    depth++; try{ history.pushState({ msDepth:depth, msPod:true }, ""); }catch(e){}
+  }
+  // On-screen back buttons NEVER touch browser history. Any history.back()
+  // risks the browser reloading the file (e.g. in a phone's desktop mode,
+  // a reload drops the desktop-site setting and flips back to mobile).
+  // Buttons re-render in place; pushed entries are silently absorbed by the
+  // popstate handler later.
+  function backFromPodcasts(){
+    state.view="landing"; state.tab=lastMainTab; renderLanding();
+  }
+  function toLandingFromButton(tab){
+    if(tab) state.tab=tab;
+    state.view="landing"; renderLanding();
+  }
+  window.addEventListener("popstate", ()=>{
+    if(depth>0){ depth--; }
+    if(state.view!=="landing"){ state.view="landing"; renderLanding(); }
+    else if(state.tab==="podcasts"){
+      // hardware/browser back pressed on the podcast page: GO BACK to the
+      // page podcasts was selected from
+      state.tab=lastMainTab; renderLanding();
+    }
+  });
+  return { openDetail, openPodcasts, backFromPodcasts, toLandingFromButton };
+})();
+
+renderLanding();
+
+</script>
+</body>
+</html>

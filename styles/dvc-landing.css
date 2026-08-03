@@ -1,0 +1,79 @@
+/* Scoped under .dvc-landing-root — the /dvc entry point's hero + year/month
+   picker. Ported from eemodiae-site-15.html's "NEW DVC LANDING" design.
+   Custom properties and selectors are scoped to this root so they can't
+   leak into (or collide with) the rest of the site's global CSS. */
+.dvc-landing-root{
+  --gold:#c69b3a;--gold-soft:#e6cd8f;--navy:#0f2d52;--blue:#1f5fae;--ink:#13233b;--cream:#fbf9f4;--mute:#6c7a8d;
+  color:var(--ink);font-family:'Crimson Pro',Georgia,serif;
+  background:radial-gradient(1200px 600px at 50% -300px,#14315a 0%,transparent 70%),linear-gradient(180deg,#0b1e38 0%,#0d2340 100%);
+  -webkit-font-smoothing:antialiased;
+}
+.dvc-landing-root a{color:inherit;}
+
+/* ---- shared hero ---- */
+.dvc-landing-root .hero-actions{max-width:1080px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;justify-content:flex-end;gap:14px;flex-wrap:wrap;}
+.dvc-landing-root .hero-actions.with-back{justify-content:space-between;}
+.dvc-landing-root .go-back{background:rgba(255,255,255,.06);border:1px solid rgba(230,205,143,.35);border-radius:24px;cursor:pointer;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-soft);padding:11px 18px;line-height:1;transition:color .2s,background .2s;}
+.dvc-landing-root .go-back:hover{color:#fff;background:rgba(255,255,255,.12);}
+.dvc-landing-root .today-cta{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,#d9af4e 0%,var(--gold) 55%,#b98a2e 100%);color:#0f2d52;font-family:'Cinzel',serif;font-weight:600;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:13px 22px;border-radius:26px;box-shadow:0 8px 22px rgba(198,155,58,.42);transition:transform .2s,box-shadow .2s;}
+.dvc-landing-root .today-cta:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(198,155,58,.58);}
+.dvc-landing-root .today-cta:active{transform:translateY(0);}
+.dvc-landing-root .hero{position:relative;overflow:hidden;line-height:0;animation:dvcHeroIn 1.2s ease-out both;}
+.dvc-landing-root .hero .hero-img{display:block;width:100%;height:auto;transform-origin:50% 40%;animation:dvcKenburns 22s ease-in-out infinite alternate;}
+.dvc-landing-root .hero::after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:34%;background:linear-gradient(105deg,transparent 0%,rgba(255,248,224,0) 30%,rgba(255,244,208,.38) 50%,rgba(255,248,224,0) 70%,transparent 100%);filter:blur(2px);animation:dvcSweep 7.5s ease-in-out infinite;pointer-events:none;}
+.dvc-landing-root .hero .hero-edge{position:absolute;left:0;right:0;bottom:0;height:7px;background:linear-gradient(90deg,var(--gold) 0%,#2f7bd6 50%,var(--navy) 100%);box-shadow:0 -6px 24px rgba(198,155,58,.35);}
+@keyframes dvcHeroIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+@keyframes dvcKenburns{from{transform:scale(1);}to{transform:scale(1.055);}}
+@keyframes dvcSweep{0%{left:-40%;opacity:0;}12%{opacity:1;}45%{left:110%;opacity:0;}100%{left:110%;opacity:0;}}
+@media (prefers-reduced-motion:reduce){
+  .dvc-landing-root .hero,.dvc-landing-root .hero .hero-img,.dvc-landing-root .hero::after{animation:none;}
+}
+.dvc-landing-root .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
+
+/* ---- view switching ---- */
+.dvc-landing-root .view{display:none;}
+.dvc-landing-root .view.active{display:block;animation:dvcFadeUp .5s ease-out both;}
+@keyframes dvcFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+
+/* ---- years view ---- */
+.dvc-landing-root .years{max-width:960px;margin:0 auto;padding:50px 24px 72px;}
+.dvc-landing-root .years h2{font-family:'Cinzel',serif;text-align:center;color:#fff;letter-spacing:.16em;font-size:1.3rem;margin:0 0 6px;}
+.dvc-landing-root .years .sub{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:1.15rem;margin:0 0 40px;}
+.dvc-landing-root .years .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px;}
+.dvc-landing-root .y-card{position:relative;border-radius:18px;overflow:hidden;min-height:190px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;text-align:left;color:#fff;padding:28px 26px;border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.28);transition:transform .22s,box-shadow .22s;}
+.dvc-landing-root button.y-card{cursor:pointer;font:inherit;width:100%;background:none;}
+.dvc-landing-root .y-card.ready:hover{transform:translateY(-5px);box-shadow:0 22px 54px rgba(0,0,0,.4);}
+.dvc-landing-root .y-card::before{content:"";position:absolute;inset:0;z-index:0;background:var(--yg);}
+.dvc-landing-root .y-card::after{content:"";position:absolute;top:0;left:0;width:100%;height:6px;z-index:2;background:linear-gradient(90deg,var(--gold) 0%,#2f7bd6 50%,var(--navy) 100%);}
+.dvc-landing-root .y-top{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;}
+.dvc-landing-root .y-year{font-family:'Cinzel',serif;font-weight:700;font-size:2.8rem;line-height:1;text-shadow:0 2px 16px rgba(0,0,0,.3);}
+.dvc-landing-root .y-status{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:20px;align-self:flex-start;border:1px solid rgba(255,255,255,.45);}
+.dvc-landing-root .y-status.ready{background:rgba(255,255,255,.16);}
+.dvc-landing-root .y-status.soon{opacity:.7;}
+.dvc-landing-root .y-body{position:relative;z-index:2;margin-top:auto;}
+.dvc-landing-root .y-label{font-family:'Cinzel',serif;font-weight:700;font-size:1.35rem;letter-spacing:.03em;margin:16px 0 4px;}
+.dvc-landing-root .y-desc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:rgba(255,255,255,.9);margin:0;}
+
+/* ---- months view ---- */
+.dvc-landing-root .months{max-width:1080px;margin:0 auto;padding:40px 24px 72px;}
+.dvc-landing-root .months h2{font-family:'Cinzel',serif;text-align:center;color:#fff;letter-spacing:.16em;font-size:1.2rem;margin:0 0 6px;}
+.dvc-landing-root .months .sub{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:1.1rem;margin:0 0 36px;}
+.dvc-landing-root .months .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;}
+.dvc-landing-root .m-card{position:relative;border-radius:18px;overflow:hidden;min-height:210px;display:flex;flex-direction:column;justify-content:flex-end;text-decoration:none;color:#fff;padding:26px 24px;border:1px solid rgba(255,255,255,.08);box-shadow:0 16px 40px rgba(0,0,0,.28);transition:transform .22s,box-shadow .22s;}
+.dvc-landing-root .m-card.ready:hover{transform:translateY(-5px);box-shadow:0 22px 54px rgba(0,0,0,.4);}
+.dvc-landing-root .m-card::before{content:"";position:absolute;inset:0;z-index:0;background:var(--mgrad);}
+.dvc-landing-root .m-card::after{content:"";position:absolute;top:0;left:0;width:100%;height:6px;z-index:2;background:linear-gradient(90deg,var(--gold) 0%,var(--mbright) 50%,var(--navy) 100%);}
+.dvc-landing-root .m-top{position:relative;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+.dvc-landing-root .m-num{font-family:'Cinzel',serif;font-weight:700;font-size:2.6rem;line-height:1;opacity:.9;text-shadow:0 2px 16px rgba(0,0,0,.3);}
+.dvc-landing-root .m-status{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:20px;align-self:flex-start;border:1px solid rgba(255,255,255,.45);}
+.dvc-landing-root .m-status.ready{background:rgba(255,255,255,.16);}
+.dvc-landing-root .m-status.soon{opacity:.7;}
+.dvc-landing-root .m-body{position:relative;z-index:2;margin-top:auto;}
+.dvc-landing-root .m-name{font-family:'Cinzel',serif;font-weight:700;font-size:1.5rem;letter-spacing:.03em;margin:14px 0 4px;}
+.dvc-landing-root .m-theme{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.02rem;color:rgba(255,255,255,.9);margin:0 0 14px;}
+.dvc-landing-root .m-open{position:relative;z-index:2;font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:#fff;border-bottom:1px solid rgba(255,255,255,.5);padding-bottom:3px;}
+.dvc-landing-root .m-soon{position:relative;z-index:2;font-family:'Cormorant Garamond',serif;font-style:italic;color:rgba(255,255,255,.75);font-size:.98rem;}
+
+@media (max-width:640px){
+  .dvc-landing-root .years .grid,.dvc-landing-root .months .grid{grid-template-columns:1fr;}
+}

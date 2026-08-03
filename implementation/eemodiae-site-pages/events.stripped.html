@@ -1,0 +1,158 @@
+
+
+<!-- ============================ UPCOMING ============================ -->
+<section class="el-section el-section--light" id="upcoming">
+  <div class="el-wrap">
+    <div class="el-head el-reveal">
+      <span class="el-eyebrow">Come And See</span>
+      <h2>Upcoming Events</h2>
+      <p>Gatherings, conferences and services ahead. Register to save your place, or add an event to your calendar so it travels with you.</p>
+      <div class="el-rule"></div>
+    </div>
+
+    <div id="elSpot"></div>
+    <div class="el-filters" id="elFilters" role="tablist" aria-label="Filter events by type"></div>
+    <div id="elUpcoming"></div>
+  </div>
+</section>
+
+<!-- ============================ REGISTER ============================ -->
+<section class="el-section el-section--dark" id="register">
+  <div class="el-wrap">
+    <div class="el-head el-reveal">
+      <span class="el-eyebrow" style="color:var(--gold-bright)">Save Your Place</span>
+      <h2>Register To Attend</h2>
+      <p>Tell us which gathering you are coming to and how many seats to hold. We will confirm and send directions.</p>
+      <div class="el-rule"></div>
+    </div>
+
+    <div class="el-channel el-reveal" role="tablist" aria-label="Choose how to register">
+      <button type="button" class="el-channel__btn is-active" data-channel="whatsapp" role="tab" aria-selected="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.6-6c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3A2.9 2.9 0 0 0 6 8c0 1.7 1.3 3.4 1.4 3.6a11 11 0 0 0 4.6 4 4.6 4.6 0 0 0 2.9.6c.6-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2l-.4-.3z"/></svg>
+        <span>WhatsApp</span>
+        <em class="el-channel__pill">Fastest</em>
+      </button>
+      <button type="button" class="el-channel__btn" data-channel="email" role="tab" aria-selected="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span>Email</span>
+      </button>
+    </div>
+
+    <!-- WhatsApp: gathers details, hands off with the message ready -->
+    <div class="el-form el-reveal" id="elWaPane">
+      <div class="el-row2">
+        <div class="el-field">
+          <label for="waName">Your Name <span class="req">*</span></label>
+          <input class="el-input" type="text" id="waName" placeholder="Full name" autocomplete="name" required />
+        </div>
+        <div class="el-field">
+          <label for="waPhone">Phone <span class="req">*</span></label>
+          <input class="el-input" type="tel" id="waPhone" placeholder="Your number" autocomplete="tel" required />
+        </div>
+      </div>
+      <div class="el-row2">
+        <div class="el-field">
+          <label for="waEvent">Which Event <span class="req">*</span></label>
+          <select class="el-select" id="waEvent" required>
+            <option value="" disabled selected>Choose an event</option>
+          </select>
+        </div>
+        <div class="el-field">
+          <label for="waSeats">Seats <span class="req">*</span></label>
+          <select class="el-select" id="waSeats" required>
+            <option value="1" selected>Just me</option>
+            <option value="2">2 seats</option>
+            <option value="3">3 seats</option>
+            <option value="4">4 seats</option>
+            <option value="5">5 seats</option>
+            <option value="6+">6 or more</option>
+          </select>
+        </div>
+      </div>
+      <div class="el-field">
+        <label for="waNote">Anything We Should Know</label>
+        <textarea class="el-textarea" id="waNote" placeholder="Travelling from out of town, bringing children, accessibility needs - anything that helps us prepare for you."></textarea>
+      </div>
+      <p class="el-note">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2z"/></svg>
+        <span>Tap send and WhatsApp opens with your details ready. We reply with confirmation and directions.</span>
+      </p>
+      <button type="button" class="el-btn el-btn--gold el-form__submit" id="waSubmit">Send On WhatsApp</button>
+      <p class="el-form__msg" id="waFormMsg" role="status" aria-live="polite"></p>
+    </div>
+
+    <!-- Email: posts to FormSubmit -->
+    <form class="el-form el-reveal" id="elRegForm" novalidate hidden
+          action="https://formsubmit.co/eemodiaeevents@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Event Registration (eemodiae.org)" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_source" value="events-page" />
+      <div class="el-honey" aria-hidden="true">
+        <label>Leave this empty<input type="text" name="_honey" tabindex="-1" autocomplete="off" /></label>
+      </div>
+
+      <div class="el-row2">
+        <div class="el-field">
+          <label for="rgName">Your Name <span class="req">*</span></label>
+          <input class="el-input" type="text" id="rgName" name="name" placeholder="Full name" autocomplete="name" required />
+        </div>
+        <div class="el-field">
+          <label for="rgPhone">Phone <span class="req">*</span></label>
+          <input class="el-input" type="tel" id="rgPhone" name="phone" placeholder="Your number" autocomplete="tel" required />
+        </div>
+      </div>
+      <div class="el-row2">
+        <div class="el-field">
+          <label for="rgEmail">Email <span class="req">*</span></label>
+          <input class="el-input" type="email" id="rgEmail" name="email" placeholder="you@email.com" autocomplete="email" required />
+        </div>
+        <div class="el-field">
+          <label for="rgSeats">Seats <span class="req">*</span></label>
+          <select class="el-select" id="rgSeats" name="seats" required>
+            <option value="1" selected>Just me</option>
+            <option value="2">2 seats</option>
+            <option value="3">3 seats</option>
+            <option value="4">4 seats</option>
+            <option value="5">5 seats</option>
+            <option value="6+">6 or more</option>
+          </select>
+        </div>
+      </div>
+      <div class="el-field">
+        <label for="rgEvent">Which Event <span class="req">*</span></label>
+        <select class="el-select" id="rgEvent" name="event" required>
+          <option value="" disabled selected>Choose an event</option>
+        </select>
+      </div>
+      <div class="el-field">
+        <label for="rgNote">Anything We Should Know</label>
+        <textarea class="el-textarea" id="rgNote" name="notes" placeholder="Travelling from out of town, bringing children, accessibility needs - anything that helps us prepare for you."></textarea>
+      </div>
+      <div class="el-check">
+        <input type="checkbox" id="rgConsent" name="consent" value="Yes" required />
+        <label for="rgConsent">Please hold my seat and send me confirmation and directions. <span class="req">*</span></label>
+      </div>
+      <p class="el-note el-note--photo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        <span>We reply from <a class="el-note__mail" href="mailto:eemodiaeevents@gmail.com">eemodiaeevents@gmail.com</a>. Add it to your contacts so our confirmation does not land in spam.</span>
+      </p>
+      <button type="submit" class="el-btn el-btn--gold el-form__submit">Register</button>
+      <p class="el-form__msg" id="rgFormMsg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============================ PAST EVENTS ============================ -->
+<section class="el-section el-section--dark" id="past" style="background:linear-gradient(168deg,var(--plum),var(--ink) 78%,#120810)">
+  <div class="el-wrap">
+    <div class="el-head el-reveal">
+      <span class="el-eyebrow" style="color:var(--gold-bright)">The Record</span>
+      <h2>Past Gatherings</h2>
+      <p>What God has already done among us. Open any gathering to hear the message that was preached.</p>
+      <div class="el-rule"></div>
+    </div>
+    <div id="elPast"></div>
+  </div>
+</section>
+
