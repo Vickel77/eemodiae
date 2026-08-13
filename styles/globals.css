@@ -8,18 +8,24 @@
 
 html,
 body {
-  background-color: #f5f5f5;
+  background-color: #faf6ee;
   padding: 0;
   margin: 0;
-  font-family: "Raleway", sans-serif;
+  font-family: "Crimson Pro", "EB Garamond", Georgia, serif;
   font-optical-sizing: auto;
-  font-size: 1.25rem;
-  /* line-height: 1.1; */
-  word-spacing: 1.5px;
-  letter-spacing: 1px;
-  /* width: 100vw;
-  height:100vh; */
+  font-size: 16px;
+  word-spacing: normal;
+  letter-spacing: normal;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Site-wide appearance (synced from AppearanceContext / navbar toggle) */
+html.theme-night body {
+  background-color: var(--ee-bg, #0e0e0e);
+  color: var(--ee-ink, #f7f4ec);
+  color-scheme: dark;
 }
 
 a {

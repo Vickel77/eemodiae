@@ -3,7 +3,9 @@
 import Head from "next/head";
 import Script from "next/script";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import Navbar from "../Navbar";
+import { useAppearance } from "../../context/AppearanceContext";
+import Nav from "../redesign/Nav";
+import Footer from "../redesign/Footer";
 import BookCover from "./BookCover";
 import { DEFAULT_STORE_CONFIG } from "../../lib/store/config";
 import {
@@ -33,25 +35,30 @@ type Props = {
   initialOpenId?: string;
 };
 
-function PeekText({ text }: { text: string }) {
+function PeekText({ text, metaFirst }: { text: string; metaFirst?: boolean }) {
   const parts = text.split("\n\n").filter(Boolean);
   return (
     <>
-      {parts.map((p, i) => (
-        <p key={i} className={i === 0 ? "peek-open" : i === parts.length - 1 ? "peek-close" : undefined}>
-          {p}
-        </p>
-      ))}
+      {parts.map((p, i) => {
+        let cls: string | undefined;
+        if (i === 0) cls = metaFirst ? "peek-meta" : "peek-open";
+        else if (i === parts.length - 1) cls = "peek-close";
+        return (
+          <p key={i} className={cls}>
+            {p}
+          </p>
+        );
+      })}
     </>
   );
 }
 
 export default function BookstorePage({ initialOpenId }: Props) {
+  const { mode } = useAppearance();
   const [store, setStore] = useState<StoreConfig>(DEFAULT_STORE_CONFIG);
   const [currency, setCurrency] = useState<"USD" | "NGN">(
     DEFAULT_STORE_CONFIG.settings.defaultCurrency || "USD"
   );
-  const [theme, setTheme] = useState<"day" | "night">("day");
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [bookPage, setBookPage] = useState(1);
@@ -63,10 +70,8 @@ export default function BookstorePage({ initialOpenId }: Props) {
   const [activeTab, setActiveTab] = useState<"shelves" | "academy">("shelves");
   const [quicknavPinned, setQuicknavPinned] = useState(false);
   const [quicknavSlotHeight, setQuicknavSlotHeight] = useState(0);
-  const [topbarHeight, setTopbarHeight] = useState(0);
   const shelvesRef = useRef<HTMLElement>(null);
   const academyRef = useRef<HTMLElement>(null);
-  const topbarRef = useRef<HTMLElement>(null);
   const quicknavRef = useRef<HTMLElement>(null);
   const quicknavWrapRef = useRef<HTMLDivElement>(null);
   const quicknavSentinelRef = useRef<HTMLDivElement>(null);
@@ -135,26 +140,8 @@ export default function BookstorePage({ initialOpenId }: Props) {
     if (initialOpenId) openModal(initialOpenId);
   }, [initialOpenId, openModal]);
 
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("eemodiae-theme") as "day" | "night" | null;
-      if (saved) setTheme(saved);
-      else if (window.matchMedia?.("(prefers-color-scheme: dark)").matches) {
-        setTheme("night");
-      }
-    } catch {
-      /* ignore */
-    }
-  }, []);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem("eemodiae-theme", theme);
-    } catch {
-      /* ignore */
-    }
-  }, [theme]);
-
+  // Bookstore rem sizing is scoped via .bookstore-root { font-size: 17.5px }
+  // in appearance.css — no documentElement override needed.
   useEffect(() => {
     if (indexOpen || currentItem) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
@@ -162,6 +149,12 @@ export default function BookstorePage({ initialOpenId }: Props) {
       document.body.style.overflow = "";
     };
   }, [indexOpen, currentItem]);
+
+  useEffect(() => {
+    const root = document.querySelector(".bookstore-root") as HTMLElement | null;
+    if (!root) return;
+    root.style.setProperty("--store-topbar-h", "0px");
+  }, []);
 
   useEffect(() => {
     const url = store.settings.externalConfigUrl;
@@ -217,27 +210,6 @@ export default function BookstorePage({ initialOpenId }: Props) {
   }, [store.courses.length]);
 
   useEffect(() => {
-    const topbar = topbarRef.current;
-    const root = topbar?.closest(".bookstore-root") as HTMLElement | null;
-    if (!topbar || !root) return;
-
-    const syncTopbarHeight = () => {
-      const height = topbar.offsetHeight;
-      setTopbarHeight(height);
-      root.style.setProperty("--store-topbar-h", `${height}px`);
-    };
-
-    syncTopbarHeight();
-    const ro = new ResizeObserver(syncTopbarHeight);
-    ro.observe(topbar);
-    window.addEventListener("resize", syncTopbarHeight);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", syncTopbarHeight);
-    };
-  }, []);
-
-  useEffect(() => {
     const sentinel = quicknavSentinelRef.current;
     if (!sentinel) return;
 
@@ -252,9 +224,8 @@ export default function BookstorePage({ initialOpenId }: Props) {
       const root = sentinel.closest(".bookstore-root");
       const styles = root ? getComputedStyle(root) : getComputedStyle(document.documentElement);
       const navPx = readCssPx(styles, "--store-nav-h", 5);
-      const topbarPx = topbarHeight || readCssPx(styles, "--store-topbar-h", 3.25);
       const gapPx = readCssPx(styles, "--store-quicknav-gap", 0.15);
-      return navPx + topbarPx + gapPx;
+      return navPx + gapPx;
     };
 
     const pinObserver = new IntersectionObserver(
@@ -275,7 +246,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
       pinObserver.disconnect();
       window.removeEventListener("resize", onResize);
     };
-  }, [topbarHeight]);
+  }, []);
 
   useEffect(() => {
     const nav = quicknavRef.current;
@@ -437,9 +408,53 @@ export default function BookstorePage({ initialOpenId }: Props) {
     }))
     .filter((g) => g.books.length);
 
+  const storeComingSoon = store.books.length === 0 && store.courses.length === 0;
+
+  if (storeComingSoon) {
+    return (
+      <div className={`bookstore-root${mode === "night" ? " night" : ""}`}>
+        <Head>
+          <title>The Bookstore | Coming Soon | eemodiae.org</title>
+          <meta
+            name="description"
+            content="The Eemodiae Bookstore is under construction. Books and resources are coming soon."
+          />
+        </Head>
+        <Nav />
+        <div className="aurora" aria-hidden="true">
+          <span className="a1" />
+          <span className="a2" />
+          <span className="a3" />
+          <span className="a4" />
+        </div>
+        <section className="hero">
+          <div className="hero-banner">
+            <img src="/images/store-hero.jpg" alt="The Eemodiae Bookstore" />
+          </div>
+        </section>
+        <section className="store-soon" aria-labelledby="store-soon-title">
+          <p className="store-soon__eyebrow">The Bookstore</p>
+          <h1 id="store-soon-title">Coming Soon</h1>
+          <p className="store-soon__lead">
+            This section is under construction. Books, devotionals, and study resources
+            will be available here shortly.
+          </p>
+          <p className="store-soon__note">
+            For enquiries, email{" "}
+            <a href={`mailto:${store.settings.supportEmail || "eemodiaeweb@gmail.com"}`}>
+              {store.settings.supportEmail || "eemodiaeweb@gmail.com"}
+            </a>
+            .
+          </p>
+        </section>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div
-      className={`bookstore-root${theme === "night" ? " night" : ""}${
+      className={`bookstore-root${mode === "night" ? " night" : ""}${
         indexOpen ? " ix-open" : ""
       }`}
     >
@@ -459,7 +474,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
       <Script src="https://js.paystack.co/v2/inline.js" strategy="lazyOnload" />
       <Script src="https://checkout.flutterwave.com/v3.js" strategy="lazyOnload" />
 
-      <Navbar />
+      <Nav />
 
       <div className="aurora" aria-hidden="true">
         <span className="a1" />
@@ -468,25 +483,13 @@ export default function BookstorePage({ initialOpenId }: Props) {
         <span className="a4" />
       </div>
 
-      <header className="topbar" ref={topbarRef}>
-        <div className="theme-toggle" role="group" aria-label="Appearance">
-          <button
-            type="button"
-            id="thDay"
-            className={theme === "day" ? "active" : ""}
-            onClick={() => setTheme("day")}
-          >
-            <span className="t-ico">✷</span> Day
-          </button>
-          <button
-            type="button"
-            id="thNight"
-            className={theme === "night" ? "active" : ""}
-            onClick={() => setTheme("night")}
-          >
-            <span className="t-ico">☾</span> Night
-          </button>
+      <section className="hero">
+        <div className="hero-banner">
+          <img src="/images/store-hero.jpg" alt="The Eemodiae Bookstore" />
         </div>
+      </section>
+
+      <div className="currency-bar">
         <div className="currency-toggle" role="group" aria-label="Currency">
           <button
             type="button"
@@ -505,13 +508,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
             ₦ NGN
           </button>
         </div>
-      </header>
-
-      <section className="hero">
-        <div className="hero-banner">
-          <img src="/images/store-hero.jpg" alt="The Eemodiae Bookstore" />
-        </div>
-      </section>
+      </div>
 
       <div className="quicknav-wrap" ref={quicknavWrapRef}>
         <div ref={quicknavSentinelRef} className="quicknav-sentinel" aria-hidden="true" />
@@ -1030,6 +1027,7 @@ export default function BookstorePage({ initialOpenId }: Props) {
                       ? coursePeekFor(currentItem as StoreCourse)
                       : peekFor(currentItem as StoreBook))
                   }
+                  metaFirst={!!modalCourse && !currentItem.peek}
                 />
               </div>
             </div>
@@ -1062,6 +1060,8 @@ export default function BookstorePage({ initialOpenId }: Props) {
           </div>
         ) : null}
       </div>
+
+      <Footer />
     </div>
   );
 }

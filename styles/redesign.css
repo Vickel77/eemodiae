@@ -1,0 +1,22 @@
+/* ============================================================
+   eemodiae.org redesign — shared font faces
+   Design system: Cinzel / Cormorant Garamond / Crimson Pro / EB Garamond
+   Loaded globally so every redesigned page inherits the serif stack.
+   All page-level styling is scoped inside each page's styled-component,
+   so these imports do not disturb the legacy pages.
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap");
+
+/* Mobile: keep hero + footer edge-to-edge; give other content a little gutter */
+@media (max-width: 768px) {
+  .el-wrap,
+  .ms-wrap,
+  .pr-shell,
+  .mx-section,
+  .bookstore-root .featured,
+  .bookstore-root .shelf,
+  .bookstore-root .academy {
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+  }
+}

@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3100",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3100",
     "lint": "next lint"
   },
   "engines": {
@@ -15,7 +15,6 @@
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.14.0",
     "@contentful/rich-text-html-renderer": "^16.3.5",
-    "@emailjs/browser": "^4.4.1",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-regular-svg-icons": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
@@ -35,6 +34,7 @@
     "google-map-react": "^2.2.0",
     "htmlparser2": "^9.1.0",
     "next": "^13.1.6",
+    "nodemailer": "^9.0.5",
     "nprogress": "^0.2.0",
     "nuka-carousel": "^5.4.1",
     "postcss": "^8.4.32",
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@types/node": "22.0.0",
+    "@types/nodemailer": "^8.0.1",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",
     "eslint": "8.22.0",

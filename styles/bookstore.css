@@ -3,7 +3,7 @@
 /* Site navbar offset + layout tokens */
 .bookstore-root {
   --store-nav-h: 5rem;
-  --store-topbar-h: 3.25rem;
+  --store-topbar-h: 0px;
   --store-quicknav-gap: 0.15rem;
   --store-content-max: 1440px;
   padding-top: var(--store-nav-h);
@@ -143,36 +143,29 @@ html{scroll-behavior:smooth}
 
 .bookstore-root main,.bookstore-root header,.bookstore-root footer,.bookstore-root section{position:relative;z-index:1}
 
-/* ============ TOP BAR ============ */
-.bookstore-root .topbar{
-  position:sticky;top:var(--store-nav-h);z-index:50;
-  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+/* ============ CURRENCY (under hero) ============ */
+.bookstore-root .currency-bar{
+  display:flex;justify-content:center;align-items:center;
   width:100%;
-  padding:1rem clamp(1.25rem,3vw,3.5rem);
-  background:var(--glass);
-  backdrop-filter:blur(20px) saturate(150%);
-  -webkit-backdrop-filter:blur(20px) saturate(150%);
-  border-bottom:1px solid var(--line-soft);
-  transition:background .7s var(--ease),border-color .7s var(--ease);
+  padding:.85rem clamp(1.25rem,3vw,3.5rem) .35rem;
 }
-.bookstore-root .theme-toggle,.bookstore-root .currency-toggle{
+.bookstore-root .currency-toggle{
   display:flex;padding:.22rem;border:1px solid var(--line);border-radius:999px;
   background:var(--glass-2);box-shadow:var(--sh-xs);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   transition:background .7s var(--ease),border-color .7s var(--ease);
 }
-.bookstore-root .theme-toggle button,.bookstore-root .currency-toggle button{
+.bookstore-root .currency-toggle button{
   border:0;background:transparent;color:var(--text-soft);border-radius:999px;
   font-family:var(--sans);font-weight:600;font-size:.68rem;letter-spacing:.1em;
   padding:.46rem 1.05rem;
   transition:background .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
 }
-.bookstore-root .theme-toggle button.active,.bookstore-root .currency-toggle button.active{
+.bookstore-root .currency-toggle button.active{
   background:linear-gradient(135deg,var(--gold-deep),var(--gold) 62%,var(--gold-hi));
   color:var(--btn-gold-ink);
   box-shadow:0 3px 12px color-mix(in srgb,var(--gold) 40%,transparent), inset 0 1px 0 rgba(255,255,255,.32);
 }
-.bookstore-root .theme-toggle .t-ico{font-size:.85em;margin-right:.15rem}
 
 /* ============ HERO BANNER ============ */
 .hero{padding:0;background:none}
@@ -578,8 +571,7 @@ html{scroll-behavior:smooth}
 
 @media (max-width:760px){
   .bookstore-root{font-size:16.5px}
-  .bookstore-root .topbar{padding:.85rem 1rem;gap:.6rem}
-  .bookstore-root .theme-toggle button,.bookstore-root .currency-toggle button{padding:.46rem .8rem}
+  .bookstore-root .currency-toggle button{padding:.46rem .8rem}
   .featured{grid-template-columns:1fr;text-align:center;padding:2.2rem 1.4rem 2.6rem;border-radius:24px}
   .featured-copy .eyebrow{justify-content:center}
   .featured-copy p.desc{margin-left:auto;margin-right:auto}
@@ -778,3 +770,47 @@ html{scroll-behavior:smooth}
   color:var(--gold-deep);text-align:center;margin:-.4rem 0 1rem!important;
 }
 .course-card .c-footer{flex-wrap:wrap}
+
+/* Coming soon / under construction */
+.bookstore-root .store-soon{
+  max-width:40rem;
+  margin:0 auto;
+  padding:clamp(3.5rem,8vw,6.5rem) clamp(1.25rem,4vw,2.5rem) clamp(4.5rem,10vw,7.5rem);
+  text-align:center;
+}
+.bookstore-root .store-soon__eyebrow{
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:.9rem;
+}
+.bookstore-root .store-soon h1{
+  font-family:var(--serif-display);
+  font-weight:600;
+  font-size:clamp(2rem,5vw,3.1rem);
+  letter-spacing:.04em;
+  color:var(--text-hi);
+  margin:0 0 1rem;
+}
+.bookstore-root .store-soon__lead{
+  font-family:var(--serif-body);
+  font-size:1.2rem;
+  line-height:1.65;
+  color:var(--text-soft);
+  margin:0 auto 1.4rem;
+  max-width:32em;
+}
+.bookstore-root .store-soon__note{
+  font-family:var(--serif-body);
+  font-size:1.02rem;
+  color:var(--text-faint);
+  margin:0;
+}
+.bookstore-root .store-soon__note a{
+  color:var(--gold);
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
