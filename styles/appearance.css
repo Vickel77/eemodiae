@@ -1,0 +1,346 @@
+/* ============================================================
+   Site-wide day / night appearance
+   Driven by html.theme-day | html.theme-night (AppearanceContext).
+   Bookstore keeps its own .bookstore-root.night tokens; other
+   redesign pages opt in via .eemodiae-page + CSS variables below.
+   Font bases follow font-investigation.html (16 / 17.5 / 18).
+   ============================================================ */
+
+html {
+  font-size: 16px;
+  --ee-bg: #faf6ee;
+  --ee-bg-deep: #f5f0e6;
+  --ee-surface: #fffdf7;
+  --ee-surface-hi: #ffffff;
+  --ee-ink: #241a08;
+  --ee-ink-soft: #4a3b2a;
+  --ee-muted: #8a7a5f;
+  --ee-gold: #c9a24b;
+  --ee-gold-rich: #a97e2c;
+  --ee-gold-soft: #e4c169;
+  --ee-line: rgba(107, 66, 15, 0.16);
+  --ee-line-soft: rgba(107, 66, 15, 0.09);
+  --ee-royal: #4c2d8f;
+  --ee-royal-deep: #34206a;
+  --ee-shadow: 0 18px 45px -18px rgba(8, 17, 29, 0.18);
+  /* Text / chrome on dark hero & dark sections — always light */
+  --ee-text-on-dark: #efe7d6;
+  --ee-muted-on-dark: #b8ad97;
+  /* Inverse controls (dark buttons on light surfaces) */
+  --ee-inverse: #2c2013;
+  --ee-on-inverse: #f5f0e6;
+  /* Shared nav chrome */
+  --ee-nav-bg: rgba(14, 14, 14, 0.55);
+  --ee-nav-bg-scrolled: rgba(14, 14, 14, 0.88);
+  --ee-nav-border: rgba(201, 162, 75, 0.14);
+  --ee-nav-link: var(--ee-muted-on-dark);
+  --ee-nav-link-hover: var(--ee-gold-soft);
+  --ee-nav-give: #9b6dff;
+}
+
+html.theme-night {
+  color-scheme: dark;
+  --ee-bg: #08111d;
+  --ee-bg-deep: #050608;
+  --ee-surface: #121a26;
+  --ee-surface-hi: #17202d;
+  --ee-ink: #f7f4ec;
+  --ee-ink-soft: #c9bfa8;
+  --ee-muted: #9a9078;
+  --ee-gold: #c8a24d;
+  --ee-gold-rich: #a8782b;
+  --ee-gold-soft: #e0c06d;
+  --ee-line: rgba(168, 120, 43, 0.26);
+  --ee-line-soft: rgba(168, 120, 43, 0.16);
+  --ee-royal: #8a6bc4;
+  --ee-royal-deep: #5a3d9a;
+  --ee-shadow: 0 22px 48px -22px rgba(0, 0, 0, 0.55);
+  --ee-text-on-dark: #f7f4ec;
+  --ee-muted-on-dark: #c9bfa8;
+  --ee-inverse: var(--ee-surface-hi);
+  --ee-on-inverse: var(--ee-ink);
+  --ee-nav-bg: rgba(5, 6, 8, 0.72);
+  --ee-nav-bg-scrolled: rgba(5, 6, 8, 0.92);
+  --ee-nav-border: var(--ee-line);
+  --ee-nav-link: var(--ee-muted);
+  --ee-nav-link-hover: var(--ee-gold-soft);
+  --ee-nav-give: #b49aff;
+}
+
+html.theme-night body {
+  background-color: var(--ee-bg);
+  color: var(--ee-ink);
+}
+
+/* Opt-in page shell */
+.eemodiae-page {
+  background: var(--ee-bg);
+  color: var(--ee-ink);
+  transition: background 0.45s ease, color 0.45s ease;
+  --btn-dark-bg: var(--ee-inverse);
+  --btn-dark-fg: var(--ee-on-inverse);
+  --text-on-dark: var(--ee-text-on-dark);
+  --muted-on-dark: var(--ee-muted-on-dark);
+}
+
+html.theme-night .eemodiae-page {
+  background:
+    radial-gradient(140% 90% at 50% -20%, #0e1a2c 0%, var(--ee-bg) 46%),
+    var(--ee-bg);
+  /*
+    Remap warm redesign aliases → standard --ee-* tokens.
+    Do NOT flip --cream/--chocolate into each other: those names are overloaded
+    (surfaces + text + buttons). Dark-surface text must stay on --text-on-dark /
+    --ee-text-on-dark so hero headers remain visible.
+  */
+  --ivory: var(--ee-bg);
+  --cream: var(--ee-surface);
+  --coffee: var(--ee-ink-soft);
+  --chocolate: var(--ee-ink);
+  --ink: var(--ee-ink);
+  --gold: var(--ee-gold);
+  --gold-bright: var(--ee-gold-soft);
+  --gold-soft: var(--ee-gold);
+  --text-on-light: var(--ee-ink);
+  --muted-on-light: var(--ee-muted);
+  --text-on-dark: var(--ee-text-on-dark);
+  --muted-on-dark: var(--ee-muted-on-dark);
+  --line: var(--ee-line);
+  --line-soft: var(--ee-line-soft);
+  --btn-dark-bg: var(--ee-inverse);
+  --btn-dark-fg: var(--ee-on-inverse);
+  color: var(--ee-ink);
+}
+html.theme-night .el-section--light,
+html.theme-night .el-section--cream {
+  background: var(--ee-surface) !important;
+  color: var(--ee-ink);
+}
+html.theme-night .el-section--dark {
+  background: radial-gradient(ellipse at 50% 0%, #152238 0%, #050608 70%) !important;
+  color: var(--text-on-dark, #efe7d6);
+}
+
+html.theme-night .eemodiae-page .el-head h2,
+html.theme-night .eemodiae-page .el-about__copy h2,
+html.theme-night .eemodiae-page .el-story__body p,
+html.theme-night .eemodiae-page .el-tl__card h3,
+html.theme-night .eemodiae-page .el-tl__card p,
+html.theme-night .eemodiae-page .el-faith__item h3,
+html.theme-night .eemodiae-page .el-faith__item p,
+html.theme-night .eemodiae-page .tsti-card__name,
+html.theme-night .eemodiae-page .tsti-card__intro,
+html.theme-night .eemodiae-page .el-card__quote,
+html.theme-night .eemodiae-page .el-card__name,
+html.theme-night .eemodiae-page .el-card__title,
+html.theme-night .eemodiae-page .el-card h3,
+html.theme-night .eemodiae-page .el-about__copy p,
+html.theme-night .eemodiae-page .el-book__title,
+html.theme-night .eemodiae-page .el-testi__name,
+html.theme-night .eemodiae-page .el-testi__quote {
+  color: var(--ee-ink) !important;
+}
+html.theme-night .eemodiae-page .el-head p,
+html.theme-night .eemodiae-page .el-card__excerpt,
+html.theme-night .eemodiae-page .el-card p,
+html.theme-night .eemodiae-page .el-sermon__copy p {
+  color: var(--ee-ink-soft) !important;
+}
+html.theme-night .eemodiae-page .el-tl__card,
+html.theme-night .eemodiae-page .el-faith__item,
+html.theme-night .eemodiae-page .tsti-card,
+html.theme-night .eemodiae-page .el-card,
+html.theme-night .eemodiae-page .el-testi__card {
+  background: var(--ee-surface) !important;
+  border-color: var(--ee-line-soft) !important;
+  color: var(--ee-ink);
+}
+html.theme-night .eemodiae-page .el-ctacards {
+  background: var(--ee-bg-deep) !important;
+}
+
+/* Testimony / about modals */
+html.theme-night .eemodiae-page .tsti-modal__panel,
+html.theme-night .eemodiae-page .el-modal__panel,
+html.theme-night .eemodiae-page .el-modal__box {
+  background: var(--ee-surface-hi) !important;
+  color: var(--ee-ink) !important;
+  border-color: var(--ee-line) !important;
+}
+html.theme-night .eemodiae-page .el-modal__title,
+html.theme-night .eemodiae-page .el-modal__head .el-modal__name,
+html.theme-night .eemodiae-page .el-modal__name,
+html.theme-night .eemodiae-page .tsti-modal__name,
+html.theme-night .eemodiae-page .tsti-modal__title {
+  color: var(--ee-ink) !important;
+}
+html.theme-night .eemodiae-page .el-modal__quote,
+html.theme-night .eemodiae-page .el-modal__quote p,
+html.theme-night .eemodiae-page .el-modal__quote p:first-child,
+html.theme-night .eemodiae-page .tsti-modal__body p {
+  color: var(--ee-ink-soft) !important;
+}
+html.theme-night .eemodiae-page .el-modal__close,
+html.theme-night .eemodiae-page .tsti-modal__close {
+  background: var(--ee-surface) !important;
+  color: var(--ee-ink) !important;
+  border-color: var(--ee-line) !important;
+}
+html.theme-night .eemodiae-page .el-search input,
+html.theme-night .eemodiae-page .el-filters button,
+html.theme-night .eemodiae-page .el-chip,
+html.theme-night .eemodiae-page input,
+html.theme-night .eemodiae-page textarea,
+html.theme-night .eemodiae-page select {
+  background: var(--ee-surface) !important;
+  color: var(--ee-ink) !important;
+  border-color: var(--ee-line) !important;
+}
+
+html.theme-night .eemodiae-page .el-cta-band h2,
+html.theme-night .eemodiae-page .el-cta-band p,
+html.theme-night .eemodiae-page .el-ctacard h2 {
+  /* Gold band stays warm; ink on gold must remain dark in both themes */
+  color: #241a08;
+}
+
+html.theme-night .eemodiae-page .el-hero__title,
+html.theme-night .eemodiae-page .el-creed__text,
+html.theme-night .eemodiae-page .el-section--dark .el-head h2 {
+  color: var(--ee-text-on-dark) !important;
+}
+
+/* Articles / poems token remap when night */
+html.theme-night .eemodiae-page.pr-page,
+html.theme-night .eemodiae-page.ms-page {
+  --pr-ivory: #08111d;
+  --pr-champagne: #050608;
+  --pr-milk: #121a26;
+  --pr-parchment: #151e2c;
+  --pr-vellum: rgba(168, 120, 43, 0.28);
+  --pr-taupe: #9a9078;
+  --pr-ink: #f7f4ec;
+  --pr-ink-soft: #c9bfa8;
+  --pr-gold: #c8a24d;
+  --pr-gold-soft: #e0c06d;
+  --pr-gold-bright: #f3e2a8;
+  --pr-royal: #8a6bc4;
+  --pr-royal-deep: #5a3d9a;
+  --pr-imperial: #9b7ad4;
+  --pr-plum: #7a55b0;
+  --pr-indigo: var(--pr-royal);
+  --pr-indigo-deep: var(--pr-royal-deep);
+  --pr-shadow: var(--ee-shadow);
+  --pr-shadow-sm: 0 8px 24px -12px rgba(0, 0, 0, 0.45);
+
+  --ms-ivory: #08111d;
+  --ms-champagne: #0c1420;
+  --ms-linen: #121a26;
+  --ms-milk: #151e2c;
+  --ms-vellum: rgba(168, 120, 43, 0.28);
+  --ms-ink: #f7f4ec;
+  --ms-ink-soft: #c9bfa8;
+  --ms-cocoa: #9a9078;
+  --ms-gold: #c8a24d;
+  --ms-gold-soft: #e0c06d;
+  --ms-gold-rich: #a8782b;
+  --ms-royal: #8a6bc4;
+  --ms-royal-deep: #5a3d9a;
+  --ms-lavender: #6b4a9e;
+  --ms-shadow: var(--ee-shadow);
+  --ms-shadow-sm: 0 8px 24px -12px rgba(0, 0, 0, 0.45);
+}
+
+/* Soften day-only white/gold glows on night reader pages */
+html.theme-night .eemodiae-page.pr-page,
+html.theme-night .eemodiae-page.ms-page {
+  background:
+    radial-gradient(1000px 480px at 50% -4%, rgba(23, 32, 45, 0.85), transparent 62%),
+    radial-gradient(1200px 520px at 85% -5%, rgba(168, 120, 43, 0.1), transparent 60%),
+    radial-gradient(1100px 620px at -12% 96%, rgba(90, 61, 154, 0.12), transparent 58%),
+    linear-gradient(180deg, var(--pr-ivory, var(--ms-ivory)) 0%, var(--pr-champagne, var(--ms-champagne)) 100%) !important;
+}
+
+/* Music / bookings / give / events base sizes (font-investigation) */
+.eemodiae-page.ee-base-18 {
+  font-size: 18px;
+}
+.eemodiae-page.ee-base-175,
+#dvc-root {
+  font-size: 17.5px;
+}
+.bookstore-root {
+  font-size: 17.5px;
+}
+
+/* DVC night */
+html.theme-night #dvc-root,
+html.theme-night #dvc-root[data-view="reader"] {
+  --cream: #121a26;
+  --paper: #151e2c;
+  --ink: #f7f4ec;
+  --mute: #9a9078;
+  background:
+    radial-gradient(1200px 500px at 50% -200px, #0e1a2c 0%, transparent 70%),
+    linear-gradient(180deg, #0a1220, #050608) !important;
+  color: var(--ink);
+}
+html.theme-night #dvc-root .card {
+  background: var(--paper);
+  border-color: rgba(168, 120, 43, 0.22);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+html.theme-night #dvc-root .brand-sm,
+html.theme-night #dvc-root .p-name,
+html.theme-night #dvc-root .reflection h3,
+html.theme-night #dvc-root .sect-title,
+html.theme-night #dvc-root .ab-text,
+html.theme-night #dvc-root .poem-line {
+  color: #f7f4ec !important;
+}
+html.theme-night #dvc-root .reflection p,
+html.theme-night #dvc-root .line-text,
+html.theme-night #dvc-root .anchor {
+  color: #e8ddc8 !important;
+}
+html.theme-night #dvc-root .anchor-banner,
+html.theme-night #dvc-root .poem {
+  background: linear-gradient(180deg, #17202d, #121a26) !important;
+  border-color: rgba(168, 120, 43, 0.28) !important;
+}
+html.theme-night #dvc-root .card-foot {
+  background: #0e1622 !important;
+  border-top-color: rgba(168, 120, 43, 0.2) !important;
+}
+html.theme-night #dvc-root .vg h1,
+html.theme-night #dvc-root .lockmsg h2 {
+  color: #f7f4ec !important;
+}
+html.theme-night #dvc-root .vg p,
+html.theme-night #dvc-root .lockmsg p {
+  color: #c9bfa8 !important;
+}
+html.theme-night #dvc-root .dvc-back {
+  color: #e0c06d !important;
+  border-color: rgba(168, 120, 43, 0.4) !important;
+}
+
+/* Article scripture / key-insight night surfaces */
+html.theme-night .pr-poem blockquote,
+html.theme-night .pr-poem blockquote.pr-verse {
+  background: #1a2433;
+  border-color: rgba(168, 120, 43, 0.28);
+  color: var(--pr-ink, #f7f4ec);
+}
+html.theme-night .pr-poem blockquote cite {
+  color: var(--pr-gold-soft, #e0c06d);
+}
+html.theme-night .pr-keyinsight {
+  color: var(--pr-gold-bright, #f3e2a8);
+  border-top-color: var(--pr-gold-soft, #e0c06d);
+  border-bottom-color: var(--pr-gold-soft, #e0c06d);
+}
+html.theme-night .pr-poem h2,
+html.theme-night .pr-poem h3 {
+  color: var(--pr-gold-bright, #f3e2a8);
+}

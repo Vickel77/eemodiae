@@ -7,6 +7,8 @@
 
 # testing
 /coverage
+no-commit/
+no-commit
 
 # next.js
 /.next/

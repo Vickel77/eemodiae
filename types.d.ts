@@ -39,24 +39,28 @@ type Poem = {
   categoryId?: string;
   image_url: any;
 };
+/** Resolved Contentful Asset, or an unresolved Link `{ sys: { type, id, linkType } }`. */
 type AudioFile = {
-  fields: {
-    description: string;
-    title: string;
-    file: {
-      contentType: string;
-      details: string;
-      filename: string;
-      url: string;
+  sys?: { type: string; id: string; linkType?: string };
+  fields?: {
+    description?: string;
+    title?: string;
+    file?: {
+      contentType?: string;
+      details?: unknown;
+      filename?: string;
+      url?: string;
     };
   };
 };
 type Message = {
   audio: any;
   image: string | any;
+  /** For series entries: ordered Asset links — each element is one sermon in the series. */
   audio_file: AudioFile[];
   imageUrl: string | any;
   preacher: string;
+  /** Present on series hub entries; absent on standalone messages. */
   category: string;
   title: string;
 };
