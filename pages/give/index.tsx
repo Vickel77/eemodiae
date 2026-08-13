@@ -54,7 +54,11 @@ const validEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 type PanelName = "choice" | "paystack" | "transfer";
 
 declare global {
-  interface Window { PaystackPop?: any; }
+  interface Window {
+    PaystackPop?: {
+      setup: (opts: Record<string, unknown>) => { openIframe: () => void };
+    };
+  }
 }
 
 const Wrap = styled.div`
@@ -424,7 +428,13 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
         callback: () => { setMsg(""); setSuccess({ symbol: cur.symbol, amount: amt, freq }); announce("Payment received. Thank you for giving."); },
       };
       if (planCode) opts.plan = planCode;
-      const handler = window.PaystackPop.setup(opts);
+      const pop = window.PaystackPop;
+      if (!pop) {
+        setMsgOk(false);
+        setMsg("Unable to reach the payment service. Kindly try again or give by transfer.");
+        return;
+      }
+      const handler = pop.setup(opts);
       handler.openIframe();
     }).catch(() => { setMsgOk(false); setMsg("Unable to reach the payment service. Kindly try again or give by transfer."); });
   };
