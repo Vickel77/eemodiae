@@ -1,8 +1,0 @@
-DAILY VICTORY CONFESSION 2026 - OPTION B (Year > Month > Day)
-All six months (July-December, 184 days), confessions in the bold declarative
-voice. Footer shows logo, lowercase www.eemodiae.org, small social icons with
-@thehjcw, and the Lead Pastor photo. Open dvc/index.html, click 2026, a month,
-then a day. Each confession is its own page (fast, easy to share a single day's
-link).
-Deploy: drop dvc/ into your site's public/ folder, or drag onto Netlify/Cloudflare.
-House of Joy Church Worldwide - Pastor Emmanuel I. Emodiae
