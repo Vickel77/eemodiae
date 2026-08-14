@@ -969,7 +969,7 @@ const TestimoniesPage: NextPage = () => {
               <div className="el-modal__body">
                 <div className="el-modal__head">
                   {modal.image ? <div className="el-modal__media"><img src={modal.image} alt={displayName(modal)} /></div> : <div className="el-modal__media el-card__media--empty"><span>{initialsOf(displayName(modal))}</span></div>}
-                  <div><span className="el-modal__name">{displayName(modal)}{modal.verified && <Verified />}</span>{catById[modal.category] && <span className="el-modal__meta">{catById[modal.category].name}</span>}</div>
+                  <div><span className="el-modal__name">{displayName(modal)}{modal.verified && <Verified />}</span></div>
                 </div>
                 <Stars n={modal.stars} cls="el-modal__stars" />
                 {modal.title && <h3 className="el-modal__title">{modal.title}</h3>}

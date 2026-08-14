@@ -34,7 +34,7 @@
       tm = m;
       td = d;
     }
-    return "./2026/" + MONTHS[tm] + ".html#day-" + td;
+    return "/dvc/" + MONTHS[tm] + "#day" + td;
   }
 
   function setHash(h) {
@@ -100,6 +100,7 @@
     }
 
     function applyHash() {
+      if (/^#day/i.test(location.hash || "")) return;
       if (location.hash === "#2026") show2026();
       else showYears();
     }
