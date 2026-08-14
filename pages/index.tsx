@@ -195,7 +195,7 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
           msg?.description || msg?.subtitle || msg?.excerpt || "",
           "Sit under prophetic teaching that stirs faith and reveals your purpose."
         ),
-        href: msgSlug ? `/messages?play=${encodeURIComponent(msgSlug)}` : "/messages",
+        href: msgSlug ? `/messages?m=${encodeURIComponent(msgSlug)}` : "/messages",
         link: "Listen now \u2192",
         image: imgOf(msg),
       },

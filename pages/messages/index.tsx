@@ -569,12 +569,16 @@ button{font-family:inherit}
   flex:1; border:none; background:none; cursor:pointer;
   font-family:'Crimson Pro',serif; font-size:.9rem; letter-spacing:.12em;
   text-transform:uppercase; color:var(--ms-ink-soft);
-  padding:12px 10px; border-radius:999px; transition:all .3s var(--ms-ease);
+  padding:12px 10px; border-radius:999px; transition:background .3s var(--ms-ease), color .3s var(--ms-ease), box-shadow .3s var(--ms-ease);
 }
 .ms-tab:hover{color:var(--ms-royal)}
-.ms-tab--on{
+.ms-tab.ms-tab--on,
+.ms-tab.ms-tab--on:hover,
+.ms-tab.ms-tab--on:focus{
   background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep));
-  color:#fdf8ef; box-shadow:var(--ms-shadow-sm), inset 0 1px 0 rgba(228,201,138,.25);
+  color:#fdf8ef !important;
+  -webkit-text-fill-color:#fdf8ef;
+  box-shadow:var(--ms-shadow-sm), inset 0 1px 0 rgba(228,201,138,.25);
 }
 
 /* ============ GATEWAY CARDS (Choose Your Journey) ============ */
@@ -631,14 +635,31 @@ button{font-family:inherit}
 
 /* ============ SERIES GRID ============ */
 .ms-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:18px}
-.ms-grid--3,.ms-grid--msgs{
-  grid-template-columns:repeat(auto-fill,minmax(140px,168px));
-  justify-content:start;
-  gap:14px;
+.ms-grid--3{
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;
+}
+/* Messages: roomy editorial cards — 2-up on desktop, 1-up on mobile (never tiny) */
+.ms-grid--msgs{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:24px;
+}
+@media (max-width:900px){
+  .ms-grid--3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .ms-grid--msgs{grid-template-columns:1fr; gap:16px}
+  /* Keep art a touch under the featured lead (~220px) */
+  .ms-grid--msgs .ms-msg-card__art{
+    aspect-ratio:auto;
+    min-height:168px;
+  }
+}
+@media (max-width:560px){
+  .ms-grid--3{grid-template-columns:1fr}
 }
 @media (max-width:480px){
-  .ms-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px}
-  .ms-grid--3,.ms-grid--msgs{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
+  .ms-grid{grid-template-columns:1fr; gap:14px}
 }
 
 .ms-series-card{
@@ -685,58 +706,56 @@ button{font-family:inherit}
 /* ============ MESSAGE CARDS (editorial) ============ */
 .ms-msg-card{
   position:relative; display:flex; flex-direction:column; cursor:pointer; text-align:left;
-  font-family:inherit; padding:0; border-radius:12px; overflow:hidden; width:100%;
+  font-family:inherit; padding:0; border-radius:18px; overflow:hidden; width:100%;
   border:1px solid var(--ms-vellum); background:var(--ms-milk); box-shadow:var(--ms-shadow-sm);
   transition:transform .4s var(--ms-ease), box-shadow .4s var(--ms-ease), border-color .4s;
 }
-.ms-msg-card:hover{transform:translateY(-3px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
+.ms-msg-card:hover{transform:translateY(-6px); box-shadow:var(--ms-shadow), var(--ms-glow-gold); border-color:var(--ms-gold-soft)}
 .ms-msg-card__art{
   position:relative; aspect-ratio:1/1; overflow:hidden;
   background:linear-gradient(150deg,var(--ms-royal-deep),var(--ms-royal) 60%,var(--ms-lavender));
 }
 .ms-msg-card__art img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; transition:transform .8s var(--ms-ease)}
 .ms-msg-card:hover .ms-msg-card__art img{transform:scale(1.05)}
-.ms-msg-card__crest{position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; font-size:1.35rem; color:rgba(228,201,138,.2)}
-.ms-msg-card__actions{position:absolute; top:8px; right:8px; z-index:3; display:flex; gap:5px}
+.ms-msg-card__crest{position:absolute; inset:0; z-index:1; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; font-size:2.4rem; color:rgba(228,201,138,.2)}
+.ms-msg-card__actions{position:absolute; top:12px; right:12px; z-index:3; display:flex; gap:8px}
 .ms-msg-card__listen{
-  position:absolute; left:8px; bottom:8px; z-index:3;
+  position:absolute; left:12px; bottom:12px; z-index:3;
 }
-.ms-msg-card__listen .ms-listen-btn{padding:.35rem .65rem; font-size:.58rem; gap:5px}
-.ms-msg-card__listen .ms-listen-btn svg{width:12px; height:12px}
 .ms-msg-card--playing{border-color:var(--ms-gold-soft); box-shadow:var(--ms-shadow), var(--ms-glow-gold)}
 .ms-listen-btn{
-  display:inline-flex; align-items:center; gap:6px;
-  font-family:'Cinzel',serif; font-size:.65rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'Cinzel',serif; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
   color:#241a08; background:linear-gradient(135deg,var(--ms-gold-soft),var(--ms-gold));
-  border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:.45rem .85rem; cursor:pointer;
+  border:1px solid rgba(255,255,255,.35); border-radius:999px; padding:.55rem 1rem; cursor:pointer;
   box-shadow:0 10px 24px -14px rgba(0,0,0,.45);
   transition:transform .25s var(--ms-ease), filter .25s;
 }
 .ms-listen-btn:hover{transform:translateY(-1px); filter:brightness(1.05)}
 .ms-listen-btn[aria-pressed="true"]{background:linear-gradient(135deg,var(--ms-royal),var(--ms-royal-deep)); color:var(--ms-gold-soft)}
-.ms-listen-btn svg{width:14px; height:14px}
+.ms-listen-btn svg{width:16px; height:16px}
 .ms-detail-listen{margin:14px 0 0}
 .ms-icon-btn{
-  width:26px; height:26px; border-radius:50%; border:1px solid var(--ms-vellum);
+  width:34px; height:34px; border-radius:50%; border:1px solid var(--ms-vellum);
   background:rgba(255,253,248,.9); display:flex; align-items:center; justify-content:center;
   cursor:pointer; color:var(--ms-royal); box-shadow:var(--ms-shadow-sm);
   transition:background .25s, transform .25s var(--ms-ease), border-color .25s;
 }
 .ms-icon-btn:hover{transform:scale(1.08); border-color:var(--ms-gold-soft); background:#fff}
-.ms-icon-btn svg{width:12px; height:12px}
-.ms-msg-card__body{padding:10px 11px 12px; display:flex; flex-direction:column; flex:1}
+.ms-icon-btn svg{width:15px; height:15px}
+.ms-msg-card__body{padding:20px 22px 22px; display:flex; flex-direction:column; flex:1}
 .ms-msg-card__title{
-  font-family:'Cinzel',serif; font-weight:600; font-size:.78rem; line-height:1.25;
+  font-family:'Cinzel',serif; font-weight:600; font-size:1.05rem; line-height:1.3;
   color:var(--ms-royal-deep);
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
 .ms-msg-card__author{
-  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.8rem;
-  color:var(--ms-ink-soft); margin-top:4px;
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem;
+  color:var(--ms-ink-soft); margin-top:8px;
 }
 .ms-msg-card__foot{
-  display:flex; align-items:center; justify-content:space-between; margin-top:8px;
-  font-family:'Crimson Pro',serif; font-size:.62rem; letter-spacing:.06em; color:var(--ms-cocoa);
+  display:flex; align-items:center; justify-content:space-between; margin-top:14px;
+  font-family:'Crimson Pro',serif; font-size:.72rem; letter-spacing:.08em; color:var(--ms-cocoa);
 }
 .ms-msg-card__foot .ms-dur{display:inline-flex; align-items:center; gap:6px}
 .ms-msg-card__foot svg{width:13px; height:13px; color:var(--ms-gold)}
@@ -2291,7 +2310,7 @@ const MessagesPage: NextPage = () => {
         {view === "episodeDetail" && ep && (
           <div className="ms-detailwrap">
             <div className="ms-detailmain">
-              <CleanHero image={ep.image} fallback={POD_BANNER} />
+              <CleanHero image={POD_BANNER} fallback={POD_BANNER} />
               <button className="ms-back ms-back--top" onClick={backToLanding}>
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 18l-6-6 6-6" /></svg> Back to Podcasts
               </button>

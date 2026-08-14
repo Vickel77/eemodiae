@@ -4692,6 +4692,7 @@ function monthView(m, targetDay){
   if(targetDay){ (function(){ var n=0; var tv=setInterval(function(){ n++; if(window.__dvcAlign) window.__dvcAlign(); if(n>=4) clearInterval(tv); },160); })(); }
   var landDay = curDay;   /* frozen target: today at open */
   (function(){var _a=document.getElementById("day"+curDay); if(_a)_a.classList.add("is-active");})(); updateBar(lim);
+  syncDayUrl(m, curDay);
   window.__dvcAlign = function(){
     if(landDay<=1) return;
     var el=document.getElementById("day"+landDay);
@@ -4763,6 +4764,7 @@ function renderCal(viewM){
           el.classList.add("is-active");
           curDay=d;
           if(typeof updateBar==="function") updateBar(lim);
+          syncDayUrl(viewM, d);
           var bar=document.querySelector(".cbar");
           window.scrollTo({top:Math.max(0, el.offsetTop-(bar?bar.offsetHeight:0)-6),behavior:"smooth"});
         }
@@ -4782,7 +4784,7 @@ function wireBar(m,lim,days){
   on("cbPrev",function(){go(-1);});
   on("cbNext",function(){go(1);});
   on("cbShare",function(){shareCur(m);});
-  function go(dir){var t=curDay+dir; if(t<1||t>lim)return;var cur=document.getElementById("day"+curDay); if(cur)cur.classList.remove("is-active");var el=document.getElementById("day"+t); if(el)el.classList.add("is-active");curDay=t; updateBar(lim);}
+  function go(dir){var t=curDay+dir; if(t<1||t>lim)return;var cur=document.getElementById("day"+curDay); if(cur)cur.classList.remove("is-active");var el=document.getElementById("day"+t); if(el)el.classList.add("is-active");curDay=t; updateBar(lim); syncDayUrl(m,t);}
   updateBar(lim);
 }
 function updateBar(lim){
@@ -4799,11 +4801,26 @@ function trackCurrent(days){
   },{rootMargin:"-40% 0px -55% 0px"});
   days.forEach(function(x){var el=document.getElementById("day"+x.d); if(el)io.observe(el);});
 }
+function syncDayUrl(m, d){
+  try{
+    var slug=MNAME[m-1];
+    if(!slug) return;
+    var path="/dvc/"+slug;
+    var hash="#day"+d;
+    if(location.pathname.replace(/\/+$/,"")!==path || location.hash!==hash){
+      history.replaceState(null,"",path+hash);
+    }
+  }catch(e){}
+}
 function shareCur(m){
   var x=MONTHS[String(m)].filter(function(q){return q.d===curDay;})[0]||{};
-  var txt="Daily Victory Confession \u00B7 "+MN[m]+" "+curDay+", "+YEAR+" \u00B7 "+(x.theme||"")+" \u00B7 www.eemodiae.org";
-  if(navigator.share){navigator.share({title:"Daily Victory Confession",text:txt}).catch(function(){});}
-  else if(navigator.clipboard){navigator.clipboard.writeText(txt);alert("Copied to clipboard");}
+  var slug=MNAME[m-1]||"july";
+  var origin=(typeof location!=="undefined" && location.origin) ? location.origin : "https://www.eemodiae.org";
+  var url=origin+"/dvc/"+slug+"#day"+curDay;
+  var txt="Daily Victory Confession \u00B7 "+MN[m]+" "+curDay+", "+YEAR+" \u00B7 "+(x.theme||"")+" \u00B7 "+url;
+  if(navigator.share){navigator.share({title:"Daily Victory Confession",text:txt,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url);alert("Link copied");}
+  else { prompt("Copy this link:", url); }
 }
 function autoStart(){
   var t=todayParts();
@@ -4816,15 +4833,16 @@ function autoStart(){
 var L=document.getElementById("dvcLanding"), R=document.getElementById("app");
 function refreshLR(){ L=document.getElementById("dvcLanding"); R=document.getElementById("app"); app=R||app; return {L:L,R:R}; }
 var MNAME=['january','february','march','april','may','june','july','august','september','october','november','december'];
-function showLanding(){ refreshLR(); if(L)L.style.display=""; if(R)R.style.display="none"; var rootEl=document.getElementById("dvc-root"); if(rootEl) rootEl.setAttribute("data-view","landing"); window.scrollTo(0,0); }
+function showLanding(){ refreshLR(); if(L)L.style.display=""; if(R)R.style.display="none"; var rootEl=document.getElementById("dvc-root"); if(rootEl) rootEl.setAttribute("data-view","landing"); try{ history.replaceState(null,"","/dvc"); }catch(e){} window.scrollTo(0,0); }
 function showReader(){ refreshLR(); if(L)L.style.display="none"; if(R)R.style.display="block"; }
-/* open a landing href like ./2026/august.html#day-9 */
+/* open a landing href like ./2026/august.html#day-9 or /dvc/august#day13 */
 function openFromHref(href, force){
   if(!href) return false;
-  var mm = String(href).match(/\/(\w+)\.html/);
-  var dm = String(href).match(/#day-(\d+)/);
+  var raw=String(href);
+  var mm = raw.match(/\/dvc\/([a-z]+)/i) || raw.match(/\/([a-z]+)\.html/i);
+  var dm = raw.match(/#day-?(\d+)/i);
   if(!mm) return false;
-  var mi = MNAME.indexOf(mm[1]);           /* 0-based */
+  var mi = MNAME.indexOf(mm[1].toLowerCase());           /* 0-based */
   if(mi<6) return false;                    /* only Jul-Dec exist */
   var monthNum = mi+1;                      /* 7..12 */
   var day = dm ? parseInt(dm[1],10) : null;
@@ -4844,7 +4862,24 @@ function openFromHref(href, force){
   }
   showReader();
   monthView(monthNum, day);
+  syncDayUrl(monthNum, day!=null?day:curDay);
   return true;
+}
+function openFromLocation(){
+  try{
+    var path=(location.pathname||"").replace(/\/+$/,"");
+    var parts=path.split("/").filter(Boolean);
+    if(parts.length<2 || parts[0].toLowerCase()!=="dvc") return false;
+    var slug=parts[1].toLowerCase();
+    var mi=MNAME.indexOf(slug);
+    if(mi<6) return false;
+    var dm=(location.hash||"").match(/^#day-?(\d+)$/i);
+    var day=dm?parseInt(dm[1],10):null;
+    showReader();
+    monthView(mi+1, day);
+    syncDayUrl(mi+1, day!=null?day:curDay);
+    return true;
+  }catch(e){ return false; }
 }
 window.__dvcOpenHref = openFromHref;
 /* Ensure today's href exists even if nav.js binds later */
@@ -4855,7 +4890,7 @@ window.__dvcOpenHref = openFromHref;
   if(y<2026 || (y===2026 && m<6)){ tm=6; td=1; }
   else if(y>2026 || (y===2026 && m>11)){ tm=11; td=31; }
   else { tm=m; td=d; }
-  window.__dvcTodayHref = "./2026/"+M[tm]+".html#day-"+td;
+  window.__dvcTodayHref = "/dvc/"+M[tm]+"#day"+td;
 })();
 /* Safe stubs so inline / early clicks never throw before nav binds */
 if(typeof window.show2026 !== "function"){
@@ -4880,25 +4915,28 @@ if(typeof window.showYears !== "function"){
 document.addEventListener("click", function(e){
   var t = e.target;
   if(t && t.nodeType===3) t = t.parentElement;
-  var a = t && t.closest ? t.closest('a.today-cta, a.m-card, a[href*="2026/"]') : null;
+  var a = t && t.closest ? t.closest('a.today-cta, a.m-card, a[href*="2026/"], a[href*="/dvc/"]') : null;
   if(!a) return;
   var href = a.getAttribute("href") || "";
-  if(href==="#" || href==="" || !/2026\//.test(href)) {
+  if(href==="#" || href==="" || (!/2026\//.test(href) && !/\/dvc\//.test(href))) {
     if(a.id==="todayCta" || (a.classList && a.classList.contains("today-cta"))) {
-      href = window.__dvcTodayHref || "./2026/july.html#day-1";
+      href = window.__dvcTodayHref || "/dvc/july#day1";
     }
   }
-  if(!/2026\//.test(href) && a.id!=="todayCta" && !(a.classList && a.classList.contains("today-cta"))) return;
+  if(!/2026\//.test(href) && !/\/dvc\//.test(href) && a.id!=="todayCta" && !(a.classList && a.classList.contains("today-cta"))) return;
   e.preventDefault();
   e.stopPropagation();
-  openFromHref(href || window.__dvcTodayHref || "./2026/july.html#day-1", a.id==="todayCta" || (a.classList && a.classList.contains("today-cta")));
+  openFromHref(href || window.__dvcTodayHref || "/dvc/july#day1", a.id==="todayCta" || (a.classList && a.classList.contains("today-cta")));
 }, true);
 /* a "back to months" affordance from the reader: reuse #backMonths -> landing */
 window.__dvcToLanding = showLanding;
 window.__dvcBoot = function(){
   refreshLR();
   app = getApp();
-  try { autoStart(); } catch(e){ try { showLanding(); } catch(_){} }
+  try {
+    if (openFromLocation()) return;
+    autoStart();
+  } catch(e){ try { showLanding(); } catch(_){} }
 };
 window.__dvcBoot();
 
