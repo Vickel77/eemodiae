@@ -212,9 +212,8 @@ a{color:var(--royal)}
 /* ---------- Artist cards ---------- */
 .mx-artists{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,160px));
-  justify-content:start;
-  gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:16px;
 }
 .mx-artist{
   background:var(--card);
@@ -251,12 +250,12 @@ a{color:var(--royal)}
 }
 .mx-artist:hover .mx-artist-open{color:var(--aubergine);border-color:var(--gold)}
 
-/* ---------- Song cards (capped width — do not stretch with 1fr) ---------- */
+/* ---------- Song / album grids (flexible columns) ---------- */
+.mx-grid,
 .mx-songs{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(140px,168px));
-  justify-content:start;
-  gap:14px;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:18px;
 }
 .mx-song{
   background:var(--card);
@@ -267,7 +266,7 @@ a{color:var(--royal)}
   transition:transform .3s,box-shadow .3s;
   display:flex;flex-direction:column;
   width:100%;
-  max-width:168px;
+  min-width:0;
 }
 .mx-song:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
 .mx-cover{position:relative;aspect-ratio:1/1;overflow:hidden}
@@ -565,9 +564,9 @@ body.player-open{padding-bottom:88px}
   .mx-reveal{opacity:1;transform:none}
 }
 @media (max-width:560px){
-  .mx-artists{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
-  .mx-songs{grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
-  .mx-song{max-width:none}
+  .mx-artists,
+  .mx-grid,
+  .mx-songs{grid-template-columns:1fr; gap:14px}
   .mx-play{width:32px;height:32px}
   .mx-play svg{width:13px;height:13px}
   .mx-player-time{display:none}

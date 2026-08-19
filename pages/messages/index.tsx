@@ -1527,16 +1527,65 @@ const MessagesPage: NextPage = () => {
     setReady(true);
   }, []);
 
-  // deep links from legacy routes: ?tab= / ?m= / ?ep= / ?series=
+  // deep links from home / legacy routes: ?tab= / ?m= / ?ep= / ?series=
   const [deepDone, setDeepDone] = useState(false);
   useEffect(() => {
-    if (deepDone || !router.isReady || MSGS.length === 0) return;
+    if (deepDone || !router.isReady) return;
+    const hasData = MSGS.length > 0 || SERIES.length > 0 || POD.episodes.length > 0;
+    if (!hasData) return;
     const qy = router.query;
     const one = (v: any) => (Array.isArray(v) ? v[0] : v);
-    const t = one(qy.tab); const m = one(qy.m); const epq = one(qy.ep); const ser = one(qy.series);
-    if (m) { const hit = MSGS.find((x) => x.slug === cleanSlug(String(m))); if (hit) { openMessage(hit); setDeepDone(true); return; } }
-    if (epq) { const hit = POD.episodes.find((x) => x.slug === cleanSlug(String(epq))); if (hit) { openEpisode(hit); setDeepDone(true); return; } }
-    if (ser) { const hit = SERIES.find((x) => x.slug === cleanSlug(String(ser))); if (hit) { openSeries(hit); setDeepDone(true); return; } }
+    const t = one(qy.tab);
+    const m = one(qy.m);
+    const epq = one(qy.ep);
+    const ser = one(qy.series);
+    const norm = (s: string) => cleanSlug(String(s || ""));
+
+    if (m) {
+      const slug = norm(String(m));
+      const hit = MSGS.find((x) => x.slug === slug || norm(x.title) === slug);
+      if (hit) {
+        openMessage(hit);
+        setDeepDone(true);
+        return;
+      }
+      // Fallbacks: series title / category, or a sermon inside a series
+      const seriesHit = SERIES.find(
+        (x) => x.slug === slug || norm(x.title) === slug || norm(x.category) === slug
+      );
+      if (seriesHit) {
+        openSeries(seriesHit);
+        setDeepDone(true);
+        return;
+      }
+      for (const s of SERIES) {
+        const idx = s.sermons.findIndex((sm) => sm.slug === slug || norm(sm.title) === slug);
+        if (idx >= 0) {
+          openSeries(s, idx);
+          setDeepDone(true);
+          return;
+        }
+      }
+    }
+    if (epq) {
+      const hit = POD.episodes.find((x) => x.slug === norm(String(epq)));
+      if (hit) {
+        openEpisode(hit);
+        setDeepDone(true);
+        return;
+      }
+    }
+    if (ser) {
+      const slug = norm(String(ser));
+      const hit = SERIES.find(
+        (x) => x.slug === slug || norm(x.title) === slug || norm(x.category) === slug
+      );
+      if (hit) {
+        openSeries(hit);
+        setDeepDone(true);
+        return;
+      }
+    }
     if (t === "series" || t === "messages" || t === "podcasts") setTab(t);
     setDeepDone(true);
     // eslint-disable-next-line

@@ -58,9 +58,10 @@ type LatestCard = {
 
 const cleanSlug = (s: string) =>
   (s || "")
-    .replace(/[^\w\s]/gi, "")
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, "")
     .trim()
-    .replace(/\s+/g, "_");
+    .replace(/\s+/g, "-");
 
 const stripHtml = (html: string) =>
   (html || "")
@@ -171,7 +172,9 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
   }, []);
 
   const latestCards = useMemo<LatestCard[]>(() => {
-    const msg = (messages || [])[0] as any;
+    // Prefer a standalone teaching (no series category) so ?m= opens the play screen
+    const list = (messages || []) as any[];
+    const msg = list.find((a) => a && !a.category) || list[0] || null;
     const art = (articles || [])[0] as any;
     const song = (music || [])[0] as any;
 
@@ -187,15 +190,22 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
       /* ignore */
     }
 
+    const msgIsSeries = Boolean(msg?.category);
+    const msgHref = !msgSlug
+      ? "/messages"
+      : msgIsSeries
+        ? `/messages?series=${encodeURIComponent(cleanSlug(String(msg.category || msg.title)))}`
+        : `/messages?m=${encodeURIComponent(msgSlug)}`;
+
     return [
       {
         meta: "Message",
         title: msg?.title || "Latest Message",
         excerpt: excerptFrom(
-          msg?.description || msg?.subtitle || msg?.excerpt || "",
+          msg?.description || msg?.subtitle || msg?.excerpt || msg?.overview || "",
           "Sit under prophetic teaching that stirs faith and reveals your purpose."
         ),
-        href: msgSlug ? `/messages?m=${encodeURIComponent(msgSlug)}` : "/messages",
+        href: msgHref,
         link: "Listen now \u2192",
         image: imgOf(msg),
       },
@@ -394,7 +404,7 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
             </div>
             <div className="el-latest">
               {latestCards.map((c) => (
-                <article className="el-card el-reveal" key={c.meta}>
+                <Link href={c.href} className="el-card el-reveal" key={c.meta}>
                   <div
                     className={
                       "el-card__media" + (c.image ? "" : " el-card__media--dummy")
@@ -415,11 +425,9 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
                     <span className="el-card__meta">{c.meta}</span>
                     <h3 className="el-card__title">{c.title}</h3>
                     <p className="el-card__excerpt">{c.excerpt}</p>
-                    <Link href={c.href} className="el-card__link">
-                      {c.link}
-                    </Link>
+                    <span className="el-card__link">{c.link}</span>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           </div>
@@ -1082,6 +1090,9 @@ const Home: NextPage = styled(({ className }: { className?: string }) => {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
     transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
       box-shadow 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
       border-color 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
