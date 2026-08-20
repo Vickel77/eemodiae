@@ -448,10 +448,10 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
         {/* CHOICE */}
         <div className={"panel" + (panel === "choice" ? " is-open" : "")} data-panel="choice">
           <div className="choice-row">
-            <button className="chip-btn" type="button" onClick={() => openPanel("paystack")}>
+            {/* <button className="chip-btn" type="button" onClick={() => openPanel("paystack")}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19" /></svg>
               Paystack
-            </button>
+            </button> */}
             <button className="chip-btn" type="button" onClick={() => openPanel("transfer")}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 12h14M14 6l6 6-6 6" /></svg>
               Give With Transfer
