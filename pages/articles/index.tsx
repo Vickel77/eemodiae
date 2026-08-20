@@ -810,17 +810,12 @@ const Wrap = styled.div`
   float:left; color:var(--pr-royal); font-weight:600;
   padding:6px 12px 0 0; margin-top:4px;
 }
-/* section headings — gold dash + uppercase Cinzel */
+/* section headings — uppercase Cinzel */
 .pr-poem h2, .pr-poem h3{
   font-family:'Cinzel',serif; font-weight:600;
   font-size:clamp(1.15rem,2.2vw,1.45rem); line-height:1.3;
   color:var(--pr-royal-deep); margin:2em 0 .85em;
-  display:flex; align-items:center; gap:14px;
   text-transform:uppercase; letter-spacing:.08em;
-}
-.pr-poem h2::before, .pr-poem h3::before{
-  content:""; width:28px; height:2px; flex:none;
-  background:linear-gradient(90deg,var(--pr-gold),var(--pr-gold-soft));
 }
 .pr-poem h3{
   font-size:clamp(1.02rem,1.9vw,1.22rem); letter-spacing:.07em;
