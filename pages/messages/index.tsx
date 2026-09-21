@@ -2245,7 +2245,7 @@ const MessagesPage: NextPage = () => {
                 <div className="ms-playerrow__player"><PlayerBar /></div>
                 <div className="ms-playerrow__downloads ms-downloads">
                   <button className="ms-dl" onClick={() => shareThing(s.title, "https://eemodiae.org/messages?series=" + s.slug)}><IcShare /> Share series</button>
-                  <button className="ms-dl" onClick={() => shareThing(lesson?.title || s.title, "https://eemodiae.org/messages?series=" + s.slug)}><IcShare /> Share current sermon</button>
+                  <button className="ms-dl" onClick={() => shareThing(lesson?.title || s.title, lesson?.slug ? "https://eemodiae.org/messages?m=" + lesson.slug : "https://eemodiae.org/messages?series=" + s.slug)}><IcShare /> Share current sermon</button>
                   <a className="ms-dl" onClick={() => { if (lesson?.audio) { const a = document.createElement("a"); a.href = lesson.audio; a.download = (lesson.title || s.title) + ".mp3"; a.click(); } else showToast("This sermon will be available to download soon."); }}><IcDownload /> Download current sermon</a>
                 </div>
                 <UpNextRail head="Up Next"

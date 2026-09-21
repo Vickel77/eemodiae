@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import Nav from "../../components/redesign/Nav";
@@ -544,13 +545,20 @@ p{margin:0}
 .el-reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
 .el-reveal.is-in{opacity:1;transform:none}
 @media (prefers-reduced-motion:reduce){.el-reveal{opacity:1;transform:none;transition:none}}
+
+/* ============================ SHARED-LINK SPOTLIGHT ============================ */
+.el-card--spotlit{outline:3px solid var(--gold-bright,#d4af37);outline-offset:4px;border-radius:14px;animation:elSpotlitPulse 1.6s ease-in-out 2}
+@keyframes elSpotlitPulse{0%,100%{outline-color:var(--gold-bright,#d4af37)}50%{outline-color:transparent}}
+@media (prefers-reduced-motion:reduce){.el-card--spotlit{animation:none}}
 `;
 
 const EventsPage: NextPage = () => {
+  const router = useRouter();
   const [now, setNow] = useState<Date>(() => new Date());
   const [typeFilter, setTypeFilter] = useState("all");
   const [channel, setChannel] = useState<"whatsapp" | "email">("whatsapp");
   const [toast, setToast] = useState<{ msg: string; on: boolean }>({ msg: "", on: false });
+  const [spotlightId, setSpotlightId] = useState<string | null>(null);
   const toastTimer = useRef<number | undefined>(undefined);
   const registerRef = useRef<HTMLDivElement>(null);
 
@@ -650,7 +658,7 @@ const EventsPage: NextPage = () => {
     showToast("Calendar file downloaded");
   };
   const shareEvent = async (ev: Gathering) => {
-    const url = "https://eemodiae.org/events#" + ev.id;
+    const url = "https://eemodiae.org/events?event=" + ev.id;
     const text = ev.title + (parseDate(ev.start) ? " \u00b7 " + fmtLongDate(parseDate(ev.start)!) : "");
     try {
       if (isBrowser() && (navigator as any).share) { await (navigator as any).share({ title: ev.title, text, url }); return; }
@@ -658,6 +666,29 @@ const EventsPage: NextPage = () => {
     } catch {}
     showToast("Copy this link: " + url);
   };
+
+  // deep link ?event=<id> \u2014 scroll to and highlight the shared event
+  const [deepDone, setDeepDone] = useState(false);
+  useEffect(() => {
+    if (deepDone || !router.isReady) return;
+    const one = (v: any) => (Array.isArray(v) ? v[0] : v);
+    const raw = one(router.query.event);
+    if (raw && EVENTS.some((e) => e.id === String(raw))) {
+      const id = String(raw);
+      setTypeFilter("all");
+      setSpotlightId(id);
+      window.setTimeout(() => {
+        const el = document.getElementById("event-" + id);
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 60);
+      window.setTimeout(() => setSpotlightId(null), 3200);
+    }
+    setDeepDone(true);
+    // eslint-disable-next-line
+  }, [router.isReady, router.query, deepDone]);
 
   const goRegister = (ev?: Gathering) => {
     if (ev) { setWaEvent(ev.title); setRgEvent(ev.title); }
@@ -790,7 +821,7 @@ const EventsPage: NextPage = () => {
   const Card = ({ ev }: { ev: Gathering & { _status?: string } }) => {
     const t = typeById[ev.type];
     return (
-      <article className="el-card el-reveal" data-type={ev.type}>
+      <article id={"event-" + ev.id} className={"el-card el-reveal" + (spotlightId === ev.id ? " el-card--spotlit" : "")} data-type={ev.type}>
         {ev.image ? <div className="el-card__media"><img src={ev.image} alt={ev.title} loading="lazy" /></div> : <div className="el-card__media el-card__media--empty"><span>Cover image space</span></div>}
         <Medallion ev={ev} /><StatusBadge ev={ev} />
         <div className="el-card__body">
@@ -861,7 +892,7 @@ const EventsPage: NextPage = () => {
 
             {/* spotlight */}
             {featured && typeFilter === "all" && (
-              <div className="el-spot el-reveal">
+              <div id={"event-" + featured.id} className={"el-spot el-reveal" + (spotlightId === featured.id ? " el-card--spotlit" : "")}>
                 {featured.image ? <div className="el-spot__media"><img src={featured.image} alt={featured.title} /></div> : <div className="el-spot__media el-card__media--empty"><span>Cover image space</span></div>}
                 <Medallion ev={featured} />
                 <div className="el-spot__body">
@@ -899,7 +930,7 @@ const EventsPage: NextPage = () => {
                 {past.map((ev) => {
                   const s = parseDate(ev.start);
                   return (
-                    <div className="el-row2 el-reveal" key={ev.id}>
+                    <div id={"event-" + ev.id} className={"el-row2 el-reveal" + (spotlightId === ev.id ? " el-card--spotlit" : "")} key={ev.id}>
                       <div className="el-row2__date">{s ? <><b>{s.getDate()}</b><span>{MONTHS[s.getMonth()].slice(0, 3)} {s.getFullYear()}</span></> : null}</div>
                       <div className="el-row2__body">
                         {typeById[ev.type] && <p className="el-card__type">{typeById[ev.type].name}</p>}
