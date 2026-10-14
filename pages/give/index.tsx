@@ -7,14 +7,18 @@ import Footer from "../../components/redesign/Footer";
 
 /* ============================================================
    eemodiae.org — GIVE  (redesign port)
-   Two giving desks (Ministry + Prophet), each offering card
-   giving via Paystack and verified bank-transfer accounts with
-   copy-to-clipboard. Ported 1:1 from the redesign. Self-contained:
-   no CMS. Set PAYSTACK_PUBLIC_KEY and accounts in CONFIG below.
+   Two giving desks (Ministry + Prophet):
+   - Ministry Account  → Paystack
+   - Prophet's Account → Flutterwave
+   Plus verified bank-transfer accounts with copy-to-clipboard.
+   Keys: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY, NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY
    ============================================================ */
 
 /* ---- CONFIG (edit accounts, currencies, and keys here only) ---- */
-const PAYSTACK_PUBLIC_KEY = ""; // paste the ministry's live public key
+const PAYSTACK_PUBLIC_KEY =
+  process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || ""; // ministry desk — paste shortly
+const FLUTTERWAVE_PUBLIC_KEY =
+  process.env.NEXT_PUBLIC_FLUTTERWAVE_PUBLIC_KEY || ""; // prophet desk
 
 type Currency = { code: string; label: string; symbol: string; presets: number[] };
 const CURRENCIES: Currency[] = [
@@ -51,13 +55,15 @@ const isBrowser = () => typeof window !== "undefined";
 const formatNumber = (n: number) => Number(n).toLocaleString("en-US");
 const validEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-type PanelName = "choice" | "paystack" | "transfer";
+type PanelName = "choice" | "card" | "transfer";
+type CardProvider = "paystack" | "flutterwave";
 
 declare global {
   interface Window {
     PaystackPop?: {
       setup: (opts: Record<string, unknown>) => { openIframe: () => void };
     };
+    FlutterwaveCheckout?: (opts: Record<string, unknown>) => void;
   }
 }
 
@@ -360,6 +366,20 @@ function loadPaystack(): Promise<void> {
   return paystackLoading;
 }
 
+let flutterwaveLoading: Promise<void> | null = null;
+function loadFlutterwave(): Promise<void> {
+  if (isBrowser() && window.FlutterwaveCheckout) return Promise.resolve();
+  if (flutterwaveLoading) return flutterwaveLoading;
+  flutterwaveLoading = new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "https://checkout.flutterwave.com/v3.js";
+    s.onload = () => resolve();
+    s.onerror = () => reject(new Error("flutterwave"));
+    document.head.appendChild(s);
+  });
+  return flutterwaveLoading;
+}
+
 const CopyBtn = ({ value, label, onCopied }: { value: string; label: string; onCopied: () => void }) => {
   const [copied, setCopied] = useState(false);
   const t = useRef<number | undefined>(undefined);
@@ -385,7 +405,7 @@ const CopyBtn = ({ value, label, onCopied }: { value: string; label: string; onC
   );
 };
 
-function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; desk: Desk; announce: (t: string) => void }) {
+function GiveDesk({ id, banner, desk, announce, provider }: { id: string; banner: string; desk: Desk; announce: (t: string) => void; provider: CardProvider }) {
   const [panel, setPanel] = useState<PanelName>("choice");
   const [email, setEmail] = useState("");
   const [freq, setFreq] = useState<"once" | "monthly">("once");
@@ -397,13 +417,81 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
   const [msg, setMsg] = useState("");
   const [msgOk, setMsgOk] = useState(false);
   const [success, setSuccess] = useState<{ symbol: string; amount: number; freq: string } | null>(null);
-  const paystackPanelRef = useRef<HTMLDivElement>(null);
+  const cardPanelRef = useRef<HTMLDivElement>(null);
 
   const cur = CURRENCIES.find((c) => c.code === currency) || CURRENCIES[0];
+  const providerLabel = provider === "paystack" ? "Paystack" : "Flutterwave";
+  const publicKey = provider === "paystack" ? PAYSTACK_PUBLIC_KEY : FLUTTERWAVE_PUBLIC_KEY;
 
   const openPanel = (p: PanelName) => {
     setPanel(p);
-    if (p === "paystack") requestAnimationFrame(() => paystackPanelRef.current?.focus({ preventScroll: true }));
+    if (p === "card") requestAnimationFrame(() => cardPanelRef.current?.focus({ preventScroll: true }));
+  };
+
+  const onPaid = (amt: number) => {
+    setMsg("");
+    setSuccess({ symbol: cur.symbol, amount: amt, freq });
+    announce("Payment received. Thank you for giving.");
+  };
+
+  const payWithPaystack = (amt: number) => {
+    const planCode = freq === "monthly" ? (RECURRING_PLANS[currency] || "") : "";
+    return loadPaystack().then(() => {
+      const pop = window.PaystackPop;
+      if (!pop) throw new Error("paystack");
+      const opts: Record<string, unknown> = {
+        key: PAYSTACK_PUBLIC_KEY,
+        email,
+        amount: Math.round(amt * 100),
+        currency,
+        metadata: {
+          custom_fields: [
+            { display_name: "Desk", variable_name: "desk", value: id },
+            { display_name: "Designation", variable_name: "designation", value: designation || "General" },
+            { display_name: "Frequency", variable_name: "frequency", value: freq === "monthly" ? "Monthly" : "One-Time" },
+          ],
+        },
+        onClose: () => { setMsgOk(false); setMsg(""); },
+        callback: () => onPaid(amt),
+      };
+      if (planCode) opts.plan = planCode;
+      pop.setup(opts).openIframe();
+    });
+  };
+
+  const payWithFlutterwave = (amt: number) => {
+    const planId = freq === "monthly" ? (RECURRING_PLANS[currency] || "") : "";
+    return loadFlutterwave().then(() => {
+      if (!window.FlutterwaveCheckout) throw new Error("flutterwave");
+      const opts: Record<string, unknown> = {
+        public_key: FLUTTERWAVE_PUBLIC_KEY,
+        tx_ref: `give-${id}-${Date.now()}`,
+        amount: amt,
+        currency,
+        payment_options: "card,banktransfer,ussd,mobilemoney",
+        customer: { email },
+        meta: {
+          desk: id,
+          designation: designation || "General",
+          frequency: freq === "monthly" ? "Monthly" : "One-Time",
+        },
+        customizations: {
+          title: "eemodiae.org Give",
+          description: designation || banner || "Ministry gift",
+        },
+        callback: (res: { status?: string }) => {
+          const ok = res?.status === "successful" || res?.status === "completed";
+          if (ok) onPaid(amt);
+          else {
+            setMsgOk(false);
+            setMsg("Payment was not completed. Kindly try again or give by transfer.");
+          }
+        },
+        onclose: () => { setMsgOk(false); setMsg(""); },
+      };
+      if (planId) opts.payment_plan = planId;
+      window.FlutterwaveCheckout(opts);
+    });
   };
 
   const pay = () => {
@@ -413,30 +501,14 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
     if (!email || !validEmail(email)) { setEmailErr(true); bad = true; }
     if (!amt || amt <= 0) { setAmountErr(true); bad = true; }
     if (bad) { setMsg("Kindly fill out all fields correctly to proceed"); return; }
-    if (!PAYSTACK_PUBLIC_KEY) { setMsg("Card giving is being set up. Kindly give by bank transfer for now."); return; }
+    if (!publicKey) { setMsg("Card giving is being set up. Kindly give by bank transfer for now."); return; }
 
-    const planCode = freq === "monthly" ? (RECURRING_PLANS[currency] || "") : "";
     setMsg("Opening secure payment..."); setMsgOk(true);
-    loadPaystack().then(() => {
-      const opts: any = {
-        key: PAYSTACK_PUBLIC_KEY, email, amount: Math.round(amt * 100), currency,
-        metadata: { custom_fields: [
-          { display_name: "Designation", variable_name: "designation", value: designation || "General" },
-          { display_name: "Frequency", variable_name: "frequency", value: freq === "monthly" ? "Monthly" : "One-Time" },
-        ] },
-        onClose: () => { setMsgOk(false); setMsg(""); },
-        callback: () => { setMsg(""); setSuccess({ symbol: cur.symbol, amount: amt, freq }); announce("Payment received. Thank you for giving."); },
-      };
-      if (planCode) opts.plan = planCode;
-      const pop = window.PaystackPop;
-      if (!pop) {
-        setMsgOk(false);
-        setMsg("Unable to reach the payment service. Kindly try again or give by transfer.");
-        return;
-      }
-      const handler = pop.setup(opts);
-      handler.openIframe();
-    }).catch(() => { setMsgOk(false); setMsg("Unable to reach the payment service. Kindly try again or give by transfer."); });
+    const run = provider === "paystack" ? payWithPaystack(amt) : payWithFlutterwave(amt);
+    run.catch(() => {
+      setMsgOk(false);
+      setMsg("Unable to reach the payment service. Kindly try again or give by transfer.");
+    });
   };
 
   const giveAgain = () => { setSuccess(null); setEmail(""); setAmount(""); setDesignation(""); setFreq("once"); };
@@ -448,20 +520,20 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
         {/* CHOICE */}
         <div className={"panel" + (panel === "choice" ? " is-open" : "")} data-panel="choice">
           <div className="choice-row">
-            {/* <button className="chip-btn" type="button" onClick={() => openPanel("paystack")}>
+            <button className="chip-btn" type="button" onClick={() => openPanel("card")}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5" /><path d="M2.5 10h19" /></svg>
-              Paystack
-            </button> */}
+              Give by Card
+            </button>
             <button className="chip-btn" type="button" onClick={() => openPanel("transfer")}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 12h14M14 6l6 6-6 6" /></svg>
               Give With Transfer
             </button>
           </div>
-          <p className="desk-note">Card giving is powered by Paystack. Transfers show our verified accounts.</p>
+          <p className="desk-note">Card giving is powered by {providerLabel}. Transfers show our verified accounts.</p>
         </div>
 
-        {/* PAYSTACK */}
-        <div className={"panel" + (panel === "paystack" ? " is-open" : "")} data-panel="paystack" tabIndex={-1} ref={paystackPanelRef}>
+        {/* CARD */}
+        <div className={"panel" + (panel === "card" ? " is-open" : "")} data-panel="card" tabIndex={-1} ref={cardPanelRef}>
           <button className="back-btn" type="button" onClick={() => openPanel("choice")}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg> Back
           </button>
@@ -503,7 +575,7 @@ function GiveDesk({ id, banner, desk, announce }: { id: string; banner: string; 
               <p className={"form-msg" + (msgOk ? " ok" : "")} role="status" aria-live="polite">{msg}</p>
               <p className="secure-note">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="9" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
-                Secured by Paystack
+                Secured by {providerLabel}
               </p>
               <button className="btn" type="button" onClick={pay}>Give Now</button>
             </div>
@@ -560,7 +632,7 @@ const GivePage: NextPage = () => {
     <Wrap className="eemodiae-page ee-base-18">
       <Head>
         <title>Give | eemodiae.org</title>
-        <meta name="description" content="Partner with the ministry of Emmanuel I. Emodiae. Give securely by card through Paystack, or by direct bank transfer, in multiple currencies." />
+        <meta name="description" content="Partner with the ministry of Emmanuel I. Emodiae. Give securely by card through Paystack (ministry) or Flutterwave (personal), or by direct bank transfer." />
       </Head>
       <Nav />
 
@@ -579,8 +651,8 @@ const GivePage: NextPage = () => {
             <p className="section-lede">Give securely by card or by direct bank transfer. Every channel below goes straight to the ministry.</p>
           </div>
           <div className="give-stage">
-            <GiveDesk id="ministry-desk" banner="Ministry Account" desk={MINISTRY_DESK} announce={announce} />
-            <GiveDesk id="prophet-desk" banner="Prophet's Account" desk={PROPHET_DESK} announce={announce} />
+            <GiveDesk id="ministry-desk" banner="Ministry Account" desk={MINISTRY_DESK} announce={announce} provider="paystack" />
+            <GiveDesk id="prophet-desk" banner="Prophet's Account" desk={PROPHET_DESK} announce={announce} provider="flutterwave" />
           </div>
         </div>
       </main>
